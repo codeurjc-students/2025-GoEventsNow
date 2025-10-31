@@ -134,12 +134,26 @@ The application development will follow an iterative and incremental methodology
 
 ### 📊 Charts
 
+Statistical data will be shown using the following visual charts:
+
+1. **Bar Chart:** Show the attendance count (tickets sold) per event.
+2. **Pie Chart:** Show the percentage of tickets depending on the event type (e.g., talk, concert).
 
 ### 🧰 Complementary Technologies
 
+The project will integrate the following external technologies:
 
-### 🧠 Advanced Algorithms
+1. **PDF Generation:** To create and send the tickets bought.
+2.  **Geolocation:** Use of Google Maps / OpenStreetMap to geolocate and display the exact event location.
+3.  **Email Service:** To send emails with information such as the purchase confirmations or reminders.
+4. **Real-Time communication**: To deliver real-time notifications with WebSockets (e.g., ticket updates, event changes).
 
+### 🧠 Advanced Algorithms 
+
+The advanced algorithm implementation is the **Event Recommendation System**. This system will sophisticated data processing and filtering techniques to personalize the user's experience by ordering and prioritizing events on the main interface based on two key metrics:
+
+1.  **Personalized Affinity:** Prioritizing events based on the user's purchase history and identified favorite genres.
+2.  **Market Popularity:** Sorting and ranking results by popularity, defined by the total number of tickets sold and current trending activity.
 
 ---
 

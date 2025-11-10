@@ -98,22 +98,46 @@ The application development will follow an iterative and incremental methodology
 
 ## ⚙️ **Detailed Functionalities**
 
-### 🧍‍♂️ **Basic**
+Functionalities are classified into three levels based on their priority and complexity:
 
+### 🥉 Basic 
 
-#### Anonymous User
+Minimum functionality required for the application to be operational:
 
+- **Anonymous User** 🕵️:
+    * View the main list of events.
+    * View specific event details (description, date, location, participants, image).
+- **Registered User** 👤:
+    * Securely register and log in.
+    * Manage and consult their profile (personal data, image, email, purchase history).
+    * Purchase event tickets.
+- **Administrator User** 👑:
+    * Perform CRUD (Add, delete, and modify) operations on Events.
+    * Perform CRUD (Add, delete, and modify) operations on Participants.
 
-#### Registered User
- 
+### 🥈 Intermediate 
 
-#### Admin User
+Functionality that adds value and improves content interaction:
 
+* **Advanced Search** 🔎: Implementation of a search engine with filters (category, date, etc.) and a keyword search bar.
+* **Review System** ⭐:
+    * **Registered User:** Add, modify, and delete their own reviews.
+    * **Administrator User:** Manage and moderate all user generated reviews.
+* **Image Upload** 🖼️: Allows uploading profile photos for users/participants and promotional posters for events.
+* **Statistics Charts** 📊:
+    * Tickets sold per event (Bar chart).
+    * Tickets sold by event type (Pie chart).
 
-### ⚡ **Intermediate**
- 
+### 🥇 Advanced 
 
-### 🚀 **Advanced**
+This functionality is more complex, requiring algorithmic implementation or external service integration:
+
+* **Personalized Recommendation System** 🧠: Algorithm that prioritizes events based on genres/themes previously consumed by the user or the event's popularity (tickets sold).
+* **Digital Ticketing & Email** 📧:
+    * Automatic generation of tickets in PDF format.
+    * Sending emails (purchase confirmation, reminders).
+* **Geolocation** 🗺️: Use of Google Maps/OpenStreetMap for event location display.
+* **Real-Time Notifications** 🔔: Implementation of WebSockets for alerts (e.g., sold-out tickets, newly added events).
 
 ---
 

@@ -3,6 +3,9 @@
 ## 🧭 **Introduction**
 
 🎟️ **GoEventsNow** is a creative and dynamic web platform designed to centralize the management and ticket sales for a wide range of **leisure events** 🎤🎭, including concerts, theatrical plays, talks, and similar gatherings. The system enables **administrators** 🧑‍💻 to publish, categorize, and maintain a detailed catalog of events, integrating **geolocation** 🗺️ and managing capacity. For **registered users** 👤, the application offers a complete flow: from the secure purchase of **tickets** 🎟️ and the submission of **reviews** ⭐ with ratings, to instant access to their **personal history** of interactions. Inspired by the future, the platform features a sophisticated **recommendation algorithm** 🧠 based on the tickets bought by the user and external services such as integration for automatic **PDF ticket generation** 📄 or **tickets shipments by email** 📧, ensuring a complete, transparent, and user-centric ecosystem for event administration and the consumer experience. **GoEventsNow: Your Next Event, Now, Simplified.** ✨
+<p align="center">
+<img width="300" height="400" alt="GoEventsNowLogo" src="https://github.com/user-attachments/assets/970ff986-d70c-4107-8ba9-efaf67a03cf3" />
+</p>
 
 ---
 
@@ -149,11 +152,36 @@ This functionality is more complex, requiring algorithmic implementation or exte
 
 ### 🧱 Entities
 
+The application manages five entities, with defined attributes and relationships between them:
+
+| Entity | Primary Attributes | Relationships |
+| :--- | :--- | :--- |
+| **User** | `Username`, `Full Name`, `Password`, `Email`, `Image` (Profile photo), `Role` (Registered/Admin) | Can write zero or multiple reviews (0,N). Can obtain zero or multiple tickets (0,N). |
+| **Event** | `Title`, `Description`, `Category`, `Date`, `Image` (Promotional poster), `Location`, `Maximum Capacity` | Can have zero or multiple tickets sold (0,N). Can have zero or multiple written reviews (0,N). Has a minimum of 1 participant (1,N). |
+| **Participant**| `Name`, `Image`, `Type`, `Biography` | Can participate in zero or multiple events (0,N). |
+| **Ticket** | `Price`, `Ticket Type`, `Number Tickets` | Only 1 user associated (1,1). Only 1 event associated (1,1). |
+| **Review** | `Comment`, `Rating` | Only 1 user associated (1,1). Only 1 event associated (1,1). |
 
 ### 🔐 User Permissions
 
+Permissions based on the user's role:
+
+| User Type | View/Search | Buy Tickets | Post/Edit Reviews | Add, Modify, Delete Events, Participants, Reviews |
+| :--- | :--- | :--- | :--- | :--- |
+| **Anonymous** | **✔️** (Events, Reviews, Participants) | ❌ | ❌ | ❌ |
+| **Registered User** | ✔️ | ✔️ | **✔️** (Own only) | ❌ |
+| **Administrator** | ✔️ | ✔️ | **✔️** (All Reviews) | ✔️ |
 
 ### 🖼️ Images
+
+The following entities will have an associated set of images:
+
+| Entity | Image Description |
+| :--- | :--- |
+| **Registered User and Administrator** | Profile photo . |
+| **Events** | Promotional event poster. |
+| **Participants** | Profile photo. |
+
 
 
 ### 📊 Charts

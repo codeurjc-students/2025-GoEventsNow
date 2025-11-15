@@ -101,46 +101,71 @@ The application development will follow an iterative and incremental methodology
 
 ## ⚙️ **Detailed Functionalities**
 
-Functionalities are classified into three levels based on their priority and complexity:
+The following functionalities are classified into three levels according to their relevance, complexity and impact on the system. This classification helps to clearly define the development priorities and considerations:
 
 ### 🥉 Basic 
 
-Minimum functionality required for the application to be operational:
+These functionalities represents the minimum required for the application to operate correctly and provide the event browsing and ticket management experience:
 
 - **Anonymous User** 🕵️:
-    * View the main list of events.
-    * View specific event details (description, date, location, participants, image).
+    * View and explore the main list of events.
+    * View and explore the main list of participants.
+    * View detailed information about specific events (description, category, date, location, participants, image, reviews) and participants (description, category, image).
 - **Registered User** 👤:
-    * Securely register and log in.
-    * Manage and consult their profile (personal data, image, email, purchase history).
+    * Secure user registration and authentication.
+    * Proile management: personal details, image, email, purchase history, followed participants, favorites events.
     * Purchase event tickets.
+    * Cancel previous purchased tickets.
 - **Administrator User** 👑:
     * Perform CRUD (Add, delete, and modify) operations on Events.
     * Perform CRUD (Add, delete, and modify) operations on Participants.
 
 ### 🥈 Intermediate 
 
-Functionality that adds value and improves content interaction:
+Functionalities that adds value and improves user experience:
 
-* **Advanced Search** 🔎: Implementation of a search engine with filters (category, date, etc.) and a keyword search bar.
+* **Advanced Search** 🔎: 
+    * Filter events by category, date, participant and other event information.
+    * Search through keyword search bar.
+    * Combine multiple filters to refine results.
 * **Review System** ⭐:
     * **Registered User:** Add, modify, and delete their own reviews.
-    * **Administrator User:** Manage and moderate all user generated reviews.
-* **Image Upload** 🖼️: Allows uploading profile photos for users/participants and promotional posters for events.
+    * **Administrator User:** Manage and moderate user generated reviews.
+* **Image Upload** 🖼️: 
+    * Upload and update profile images for registered users and participants.
+    * Upload event promotional posters and images.
 * **Statistics Charts** 📊:
-    * Tickets sold per event (Bar chart).
-    * Tickets sold by event type (Pie chart).
+    * Bar chart displaying the number of tickets sold per event.
+    * Pie chart that categorize sales based on event types.
+* **Help** ❓:
+    * Implementation of a help center that includes a FAQ section with common questions and issues.
+* **Social Interaction** ❤️:
+    * Functionality for registered users to save and manage a personalized list of favorite events.
+    * Functionality for registered users to follow participants to receive upcoming events and other information.
 
 ### 🥇 Advanced 
 
-This functionality is more complex, requiring algorithmic implementation or external service integration:
+Functionality that allows obtaining the final version of the application, which are more complex, requiring algorithmic implementation, additional technologies or external service integration:
 
-* **Personalized Recommendation System** 🧠: Algorithm that prioritizes events based on genres/themes previously consumed by the user or the event's popularity (tickets sold).
-* **Digital Ticketing & Email** 📧:
-    * Automatic generation of tickets in PDF format.
-    * Sending emails (purchase confirmation, reminders).
-* **Geolocation** 🗺️: Use of Google Maps/OpenStreetMap for event location display.
-* **Real-Time Notifications** 🔔: Implementation of WebSockets for alerts (e.g., sold-out tickets, newly added events).
+* **Personalized Recommendation System** 🧠: 
+    * Algorithm that generates personalized event feeds for each user, by analyzing user preferences based on:
+        * Previously consumed genres or categories.
+        * Event popularity metrics like number of tickets sold or rating.
+* **Digital Ticketing (PDF)** 📄:
+    * Automatic generation of tickets in PDF format after successful purchase.   
+* **Email Service** 📧: 
+    * Allow users to contact support through email.
+    * Sends automated emails to users (purchase confirmations, reminders).
+* **Geolocation** 🗺️: 
+    * Use of Google Maps/OpenStreetMap for event location display.
+* **Real-Time Notifications** 🔔: 
+    * Implementation of WebSockets for live alerts (sold-out tickets, newly added events).
+* **Simulated Resale/Transfer** 🔄: 
+    * Implementation of a system to simulate tickets resales or tranfers between users.
+* **Sentiment Analysis (AI Rating)** 🤖✨: 
+    * Automatic processing of user reviews in events by using NLP (Natural Language Processing) to classify coments. The process works as follows:
+        * Each comment receives a sentiment label (Positive, Neutral or Negative), a sentiment score (0.00-1.00) and a rating AI based on the review.
+        * The interface displays and compares both user rating and AI rating for error detection and to improve the recommendation system.
 
 ---
 

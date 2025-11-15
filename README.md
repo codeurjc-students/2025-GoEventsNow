@@ -177,37 +177,35 @@ Functionality that allows obtaining the final version of the application, which 
 
 ### 🧱 Entities
 
-The application manages five entities, with defined attributes and relationships between them:
+The application manages five main entities, each with defined attributes and relationships:
 
 | Entity | Primary Attributes | Relationships |
 | :--- | :--- | :--- |
-| **User** | `Username`, `Full Name`, `Password`, `Email`, `Image` (Profile photo), `Role` (Registered/Admin) | Can write zero or multiple reviews (0,N). Can obtain zero or multiple tickets (0,N). |
-| **Event** | `Title`, `Description`, `Category`, `Date`, `Image` (Promotional poster), `Location`, `Maximum Capacity` | Can have zero or multiple tickets sold (0,N). Can have zero or multiple written reviews (0,N). Has a minimum of 1 participant (1,N). |
-| **Participant**| `Name`, `Image`, `Type`, `Biography` | Can participate in zero or multiple events (0,N). |
-| **Ticket** | `Price`, `Ticket Type`, `Number Tickets` | Only 1 user associated (1,1). Only 1 event associated (1,1). |
-| **Review** | `Comment`, `Rating` | Only 1 user associated (1,1). Only 1 event associated (1,1). |
+| **User** | `Username`, `Full Name`, `Password`, `Email`, `Image` (Profile photo), `Role` (Registered/Admin) | Can write zero or many reviews (0,N). Can obtain zero or many tickets (0,N). Can follow zero or many participants (0,N). Can save zero or many events (0,N).|
+| **Event** | `Title`, `Description`, `Category`, `Date`, `Image` (Promotional poster), `Location`, `Maximum Capacity` | Can have zero or many tickets sold (0,N). Can have zero or many user reviews (0,N). Has a minimum of 1 participant (1,N). Can be saved by zero or many users (0,N)|
+| **Participant**| `Name`, `Image`, `Type`, `Biography` | Can participate in zero or many events (0,N). Can be followed by zero or many users (0,N) |
+| **Ticket** | `Price`, `Ticket Type`, `Quantity` | Only 1 user associated (1,1). Only 1 event associated (1,1). |
+| **Review** | `Comment`, `Rating`, `AI Rating` | Only 1 user associated (1,1). Only 1 event associated (1,1). |
 
 ### 🔐 User Permissions
 
-Permissions based on the user's role:
+Permissions based on user roles:
 
-| User Type | View/Search | Buy Tickets | Post/Edit Reviews | Add, Modify, Delete Events, Participants, Reviews |
+| User Type | View/Search | Buy Tickets | Post/Edit Reviews | Manage Events, Participants, Reviews |
 | :--- | :--- | :--- | :--- | :--- |
 | **Anonymous** | **✔️** (Events, Reviews, Participants) | ❌ | ❌ | ❌ |
-| **Registered User** | ✔️ | ✔️ | **✔️** (Own only) | ❌ |
+| **Registered User** | ✔️ | ✔️ | **✔️** (Only their own reviews) | ❌ |
 | **Administrator** | ✔️ | ✔️ | **✔️** (All Reviews) | ✔️ |
 
 ### 🖼️ Images
 
-The following entities will have an associated set of images:
+The following entities include one or more images associated with them:
 
 | Entity | Image Description |
 | :--- | :--- |
-| **Registered User and Administrator** | Profile photo . |
-| **Events** | Promotional event poster. |
-| **Participants** | Profile photo. |
-
-
+| **Registered User & Administrator** | Profile photo |
+| **Events** | Promotional event poster |
+| **Participants** | Profile photo |
 
 ### 📊 Charts
 

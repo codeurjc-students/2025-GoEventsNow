@@ -174,6 +174,255 @@ Functionality that allows obtaining the final version of the application, which 
 
 ### 📱 Screens & Navigation
 
+The design of the application's screens and navigation has been carried out using the design tool Figma. This decision was not only because it provides a efficient and clear environment for creating wireframes, but also because I already had previous experience using it during the degree in other projects. Each wireframe is defined along with a description of its functionality and the elements it contains.
+
+The goal of these wireframes is to provide a conceptual representation of the user interface without focusing on visual styling or implementation details. They define the structure, layout, and navigation flow of the main pages of the system, specifically covering the Basic and Intermediate functionalities defined. Advanced functionalities are intentionally excluded from the visual design, since they require additional technologies or depend on external services.
+
+#### 🏠 Home / Main screen 
+
+**Description**
+Main page screen that allows any user to view the main list of available events. It includes basic information about the different kind of events (title, date, location, price, category) and a simplified navigation header for authentication and other sections.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Event details** -> By clicking "View details" botton in the event card.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Log in** -> By clicking "Log in" botton in the header.
+- **Sign up** -> By clicking "Sign up" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+
+**Screen:**
+
+<img width="1115" height="844" alt="image" src="https://github.com/user-attachments/assets/2710564e-f00a-428f-b535-9f911e2aba1f" />
+
+#### Event Detail screen 
+
+**Description**
+This screen displays to all users complete and specific information about a selected event, including description, rating, participants, location, reviews, date and ticket availability. It also includes features to registered users like the possibility to add the event to favorites or to get tickets to assist.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Sign up** -> By clicking "Sign up" botton in the header.
+- **Log in** -> By clicking "Log in" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+- **Purchase tickets page** -> By clicking "Get Tickets" botton in the card. Only to registered users.
+
+**Screen:**
+
+<img width="1151" height="832" alt="image" src="https://github.com/user-attachments/assets/ebe98fb7-a053-4a51-9333-87fddcd16318" />
+
+#### Participant List screen 
+
+**Description**
+This screen allows all users to view and discover the registered participants and basic information of each of them (name, description, followers and category). It includes a search bar, category filters to refine the list and the possibility to view the complete profile.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Sign up** -> By clicking "Sign up" botton in the header.
+- **Log in** -> By clicking "Log in" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+- **Participant details** -> By clicking "View profile" botton in the participant card.
+
+**Screen:**
+
+<img width="1175" height="779" alt="image" src="https://github.com/user-attachments/assets/91c67757-270f-49b8-8e99-a835970eb882" />
+
+#### Participant Detail screen 
+
+**Description**
+This screen provides detailed information about a specific participant including their name, category, biography, followers and events participate in. It also includes features to registered users to follow the participant, to easily be informed about upcoming events.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Sign up** -> By clicking "Sign up" botton in the header.
+- **Log in** -> By clicking "Log in" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Event detail** -> By clicking "View Event" botton in the event card in "Upcoming Events"
+
+**Screen:**
+
+<img width="1171" height="836" alt="image" src="https://github.com/user-attachments/assets/13cb1e35-c0cd-41bc-9862-923514807119" />
+
+#### Search Event screen 
+
+**Description**
+This screen allows all users to discover events and display specifics resulting events depending of different kinds of filters, such as category, date or price.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Sign up** -> By clicking "Sign up" botton in the header.
+- **Log in** -> By clicking "Log in" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Event detail** -> By clicking "View Event" botton in the event card in "Upcoming Events"
+
+**Screen:**
+
+<img width="1136" height="822" alt="image" src="https://github.com/user-attachments/assets/1eee1d72-e94c-4c77-a741-210e669cf4db" />
+
+#### Log in screen 
+
+**Description**
+Screen for user authentication, allowing users to sign in to their existing account using their email/username and password. It includes "Sign up" link in order to direct new users to the registration page.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Sign up** -> By clicking "Sign up" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+
+**Screen:**
+
+<img width="1111" height="726" alt="image" src="https://github.com/user-attachments/assets/7ae6c375-987e-4dfc-82a7-16aef5b9dcc2" />
+
+#### Sign up screen 
+
+**Description**
+Screen that allows new users to create an account to join GoEventsNow. The form requires essential credentials (username, email and password) to ensure security and to transform anonymous users to gain the "Registered user" permissions.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Log in** -> By clicking "Log in" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+
+**Screen:**
+
+<img width="1112" height="753" alt="image" src="https://github.com/user-attachments/assets/0cf1edc8-07a9-4fe9-9a0e-2e4c8a713030" />
+
+#### User Profile screen 
+
+**Description**
+This screen provides personal information (username, tickets bought, email address or fullname) for authenticated users and the possibility to edit some personal information. It includes features to see the specific tickets bought, favorites events and participants following.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Sign up** -> By clicking "Sign up" botton in the header.
+- **Log in** -> By clicking "Log in" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Sign out** -> By clicking the exit icon in the header. (Only registered users)
+- **Dashboard** -> By clicking "Dashboard" botton in the header. (Only admin user)
+- **Manage Events** -> By clicking "Manage Events" botton in the header. (Only admin user)
+- **Manage Participants** -> By clicking "Manage Participants" botton in the header. (Only admin user)
+
+**Screen:**
+
+<img width="1142" height="643" alt="image" src="https://github.com/user-attachments/assets/93a4f695-a2d2-483d-bde2-3d473cdae9f9" />
+
+#### Graphic Dashboard screen 
+
+**Description**
+This screen allows the administrator to see statistics and analytics by displaying summarized metrics (total events, total tickets sold, total revenue or active users) and detailed charts (Bar chart for sales per event and Pie chart for sales for category).
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Sign out** -> By clicking the exit icon in the header. 
+- **Manage Events** -> By clicking "Manage Events" botton in the header. 
+- **Manage Participants** -> By clicking "Manage Participants" botton in the header.
+- **Profile** -> By clicking "Profile" botton in the header.
+
+**Screen:**
+
+<img width="1115" height="687" alt="image" src="https://github.com/user-attachments/assets/46f29b3f-d499-4fac-9120-bb3d831a85e2" />
+
+#### Manage Events screen
+
+**Description**
+This screen is an event management only accesible to the administrator. It displays a list of current events, with summary details and icon to modify or delete, and a specific button in order to add new events, with the new event specific information.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Sign out** -> By clicking the exit icon in the header. 
+- **Dashboard** -> By clicking "Dashboard" botton in the header. 
+- **Manage Participants** -> By clicking "Manage Participants" botton in the header.
+- **Profile** -> By clicking "Profile" botton in the header.
+
+**Manage Event Screen:**
+<img width="1114" height="412" alt="image" src="https://github.com/user-attachments/assets/30232372-d7e5-4e8c-b84e-88bf7f2f1664" />
+<img width="453" height="539" alt="image" src="https://github.com/user-attachments/assets/76a034e4-b64b-4dba-840c-d805c6edbc7b" />
+
+#### Manage Participants screen
+
+**Description**
+This screen is a participant management only accesible to the administrator. It displays a list of current participants, with summary details and icon to modify or delete, and a specific button in order to add new participants, with the new participant specific information.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Sign out** -> By clicking the exit icon in the header. 
+- **Manage Events** -> By clicking "Manage Events" botton in the header. 
+- **Dashboard** -> By clicking "Dashboard" botton in the header. 
+- **Profile** -> By clicking "Profile" botton in the header.
+
+**Manage Participant Screen:**
+<img width="1105" height="564" alt="image" src="https://github.com/user-attachments/assets/68344ece-a31b-4a85-b706-9c30425362d2" />
+
+**Create New Participant Screen:**
+<img width="449" height="364" alt="image" src="https://github.com/user-attachments/assets/5147b5f5-dae2-43f3-98bf-dfaa2f67566e" />
+
+#### Purchase Tickets Screen
+
+**Description**
+This screen manages the final step in order to complete the purchase functionality. It allows registered user to select the number of tickets to buy and confirm the payment.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Help page** -> By clicking "Help" botton in the header.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Sign out** -> By clicking the exit icon in the header. 
+- **Manage Events** -> By clicking "Manage Events" botton in the header. 
+- **Profile** -> By clicking "Profile" botton in the header.
+
+**Purchase Tickets Screen:**
+<img width="1109" height="500" alt="image" src="https://github.com/user-attachments/assets/5e99ee53-06f4-4714-8402-887db7981324" />
+
+#### Help / FAQ screen 
+
+**Description**
+The help page allows users to find quick answers to common questions about issues or doubts in the application.
+
+**Navigation:**
+From this screen, the user can navigate to the following screens:
+- **Events list** -> By clicking "Events" botton in the header.
+- **Participants list** -> By clicking "Participants" botton in the header.
+- **Sign up** -> By clicking "Sign up" botton in the header.
+- **Search events page** -> By clicking "Search" botton in the header.
+- **Log in** -> By clicking "Log in" botton in the header.
+
+**Screen:**
+
+<img width="1122" height="807" alt="image" src="https://github.com/user-attachments/assets/2b4b8060-75a0-49ca-b180-9d76565a1a65" />
+
 
 ### 🧱 Entities
 

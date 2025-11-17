@@ -4,13 +4,38 @@
 
 🎟️ **GoEventsNow** is a creative and dynamic web platform designed to centralize the management and ticket sales for a wide range of **leisure events** 🎤🎭, including concerts, theatrical plays, talks, and similar gatherings. The system enables **administrators** 🧑‍💻 to publish, categorize, and maintain a detailed catalog of events, integrating **geolocation** 🗺️ and managing capacity. For **registered users** 👤, the application offers a complete flow: from the secure purchase of **tickets** 🎟️ and the submission of **reviews** ⭐ with ratings, to instant access to their **personal history** of interactions. Inspired by the future, the platform features a sophisticated **recommendation algorithm** 🧠 based on the tickets bought by the user and external services such as integration for automatic **PDF ticket generation** 📄 or **tickets shipments by email** 📧, ensuring a complete, transparent, and user-centric ecosystem for event administration and the consumer experience. **GoEventsNow: Your Next Event, Now, Simplified.** ✨
 <p align="center">
-<img width="300" height="400" alt="GoEventsNowLogo" src="https://github.com/user-attachments/assets/970ff986-d70c-4107-8ba9-efaf67a03cf3" />
+<img width="400" alt="GoEventsNowLogo" src="https://github.com/user-attachments/assets/970ff986-d70c-4107-8ba9-efaf67a03cf3" />
 </p>
 
 ---
 
 ## 🖥️ **Screen Mockups**
 
+> **Description**: This section provides some key screens, which define the structure and the application functionalities. These screens illustrates the navigation flow that different kind of users can follow.
+
+### 1\. Main Page / Event List (Public View)
+
+> **Description**: Main interface that allows any user to view events and access to other key sections.
+
+![Main Page](https://github.com/user-attachments/assets/2710564e-f00a-428f-b535-9f911e2aba1f)
+
+### 2\. User Profile (Registered User)
+
+> **Description**: Personal control center, where the registered user can manage and view important personal information.
+
+![User Profile](https://github.com/user-attachments/assets/93a4f695-a2d2-483d-bde2-3d473cdae9f9)
+
+### 3\. Purchase Ticket (Registered User)
+
+> **Description**: Illustrates the ticket purchasing flow.
+
+![Purchase Ticket](https://github.com/user-attachments/assets/5e99ee53-06f4-4714-8402-887db7981324)
+
+### 4\. Chart Management (Administrator)
+
+> **Description**: Admin dashboard for monitoring statistical charts and summarized metrics.
+
+![Chart Management](https://github.com/user-attachments/assets/46f29b3f-d499-4fac-9120-bb3d831a85e2)
 
 ---
 
@@ -86,16 +111,21 @@ The application development will follow an iterative and incremental methodology
 
 | Phase | Start Date | End Date |
 | :--- | :--- | :--- |
-| **Phase 1: Functionalities definition** 📝 | **[26/10/2025]** | **[Planned End Date]** |
-| **Phase 2: Configuration & CI** 🧪 | **[Planned Start Date]** | **[Planned End Date]** |
-| **Phase 3: Basic Functionality & Docker** 🥇 | **[Planned Start Date]** | **[Planned End Date]** |
-| **Phase 4: Intermediate Functionality** 🥈 | **[Planned Start Date]** | **[Planned End Date]** |
-| **Phase 5: Advanced Functionality** 🏆 | **[Planned Start Date]** | **[Planned End Date]** |
-| **Phase 6: Memory/Report Writing** ✍️ | **[Planned Start Date]** | **[Planned End Date]** |
-| **Phase 7: Defense** 🎤 | **[Planned Start Date]** | **[Planned End Date]** |
+| **Phase 1: Functionalities definition** 📝 | **[26/10/2025]** | **[20/11/2025]** |
+| **Phase 2: Configuration & CI** 🧪 | **[20/11/2025]** | **[15/12/2025]** |
+| **Phase 3: Basic Functionality & Docker** 🥇 | **[15/12/2025]** | **[20/01/2026]** |
+| **Phase 4: Intermediate Functionality** 🥈 | **[20/01/2026]** | **[01/03/2026]** |
+| **Phase 5: Advanced Functionality** 🏆 | **[01/03/2026]** | **[15/04/2026]** |
+| **Phase 6: Memory/Report Writing** ✍️ | **[15/04/2026]** | **[15/05/2026]** |
+| **Phase 7: Defense** 🎤 | **[15/05/2026]** | **[15/06/2026]** |
 
-### 📅 Gantt Chart
+### 📅 Project Schedule (Gantt Diagram)
 
+> **Description**: The following Gantt diagram visually represents the temporal planning of the seven development phases, establishing the start and end dates for each project phase.
+
+<p align="center">
+<img width="700" alt="ganttDiagram" src="https://github.com/user-attachments/assets/97792893-4155-4eb9-a754-63478c513c23" />
+</p>
 
 ---
 

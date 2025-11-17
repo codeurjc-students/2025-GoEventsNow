@@ -600,7 +600,7 @@ The advanced algorithm implementation is the **Event Recommendation System**. Th
 
 Project tracking and task progress will be managed using the following tools:
 
-- 📝 **Blog:** *(No blog available yet)* — planned for updates and development summaries.
+- 📝 **Blog:** [Blog Medium](https://medium.com/@albertoml1799) — planned for updates and development summaries.
 - 💻 **GitHub Project:** [GoEventsNow Project Board](https://github.com/orgs/codeurjc-students/projects/37) - used to manage the project tasks, set their status (*To Do*, *In Progress*, *Done*), and time spent in each task.
 
 ---

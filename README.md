@@ -1,60 +1,44 @@
 # 🎟️ 2025-GoEventsNow-
 
-## 🧭 **Introduction**
-
-🎟️ **GoEventsNow** is a creative and dynamic web platform designed to centralize the management and ticket sales for a wide range of **leisure events** 🎤🎭, including concerts, theatrical plays, talks, and similar gatherings. The system enables **administrators** 🧑‍💻 to publish, categorize, and maintain a detailed catalog of events, integrating **geolocation** 🗺️ and managing capacity. For **registered users** 👤, the application offers a complete flow: from the secure purchase of **tickets** 🎟️ and the submission of **reviews** ⭐ with ratings, to instant access to their **personal history** of interactions. Inspired by the future, the platform features a sophisticated **recommendation algorithm** 🧠 based on the tickets bought by the user and external services such as integration for automatic **PDF ticket generation** 📄 or **tickets shipments by email** 📧, ensuring a complete, transparent, and user-centric ecosystem for event administration and the consumer experience. **GoEventsNow: Your Next Event, Now, Simplified.** ✨
-<p align="center">
-<img width="400" alt="GoEventsNowLogo" src="https://github.com/user-attachments/assets/970ff986-d70c-4107-8ba9-efaf67a03cf3" />
-</p>
+![GoEventsNow Logo](https://github.com/user-attachments/assets/1cbd97f1-e514-47d9-894d-658650db2900)
 
 ---
+## 🧭 *Introduction*
 
-## 🖥️ **Screen Mockups**
+> 🎟️ **GoEventsNow** is a modern and dynamic web platform designed to centralize the management and ticket sales for a wide variety of cultural, social and entertainment events, such as concerts, theatrical plays, talks, and more. The goal of this web is to offer users an unique experience to discover, explore and attend events they are interested in by purchasing tickets directly through the website.
+>
+> Users can explore events using advanced search and filtering options, view complete events and participants details, and register to access to to other features, such as purchasing tickets, managing their profiles, writing reviews, and more. In addition, GoEventsNow includes a personalized recommendation algorithm, real-time notifications and integrations with external services like PDF ticket generation and email ticket delivery.
+>
+> GoEventsNow aims to provide a complete, modern and user-centered system that simplifies the management and discovery of events, offering users a high quality experience. To achieve this, the project is developed using Spring Boot, Angular, and AI-based sentiment analysis, prioritizing technologies studied throughout the degree. The main goals are to ensure high code quality with solid development practices, guaranteeing scalability and maintainability in relation with the expectations of a Final Degree Project (TFG).
+>
+> This project is developed as part of my Final Degree Project (TFG) for the Degree in Software Engineering at the School of Computer Engineering (ETSII) of the King Juan Carlos University (URJC).
+>
+> *GoEventsNow: Your Next Event, Now, Simplified.* ✨ 
 
-> **Description**: This section provides some key screens, which define the structure and the application functionalities. These screens illustrates the navigation flow that different kind of users can follow.
+---
+## 🖥️ *Screen Mockups*
 
-### 1\. Main Page / Event List (Public View)
-
-> **Description**: Main interface that allows any user to view events and access to other key sections.
+> This section provides some key screens, which define the structure and the application functionalities. These screens illustrates the navigation flow that different kind of users can follow.
 
 ![Main Page](https://github.com/user-attachments/assets/2710564e-f00a-428f-b535-9f911e2aba1f)
 
-### 2\. User Profile (Registered User)
+---
+ ![Search Page](https://github.com/user-attachments/assets/1eee1d72-e94c-4c77-a741-210e669cf4db)
+ 
+---
 
-> **Description**: Personal control center, where the registered user can manage and view important personal information.
-
-![User Profile](https://github.com/user-attachments/assets/93a4f695-a2d2-483d-bde2-3d473cdae9f9)
-
-### 3\. Purchase Ticket (Registered User)
-
-> **Description**: Illustrates the ticket purchasing flow.
-
-![Purchase Ticket](https://github.com/user-attachments/assets/5e99ee53-06f4-4714-8402-887db7981324)
-
-### 4\. Chart Management (Administrator)
-
-> **Description**: Admin dashboard for monitoring statistical charts and summarized metrics.
-
-![Chart Management](https://github.com/user-attachments/assets/46f29b3f-d499-4fac-9120-bb3d831a85e2)
+> [!WARNING]
+> At this stage, only the functional and technical objectives of the application have been defined. Implementation has not yet started, and the repository currently contains only the initial Phase 1 documentation.
+> 
+> 📁 *Repository: [GoEventsNow on GitHub](https://github.com/codeurjc-students/2025-GoEventsNow)*
 
 ---
 
-## 🚧 **Project Status**
+## 🎯 *Objectives*
 
-At this stage, only the functional and technical objectives of the application **have been defined**.  
-Implementation has **not yet started**, and the repository currently contains only the **initial Phase 1 documentation**.
+### 📈 **Functional Objectives**
 
-📁 **Repository:** [GoEventsNow on GitHub](https://github.com/codeurjc-students/2025-GoEventsNow)
-
----
-
-## 🎯 **Objectives**
-
-### 📈 Functional Objectives
-
-The main functional objectives is to deliver a complete and creative web for the management and consumption of leisure events, making posible to users to register at the website, and discover, participate in and review different kinds of events. All of this, while administrators manage all the content and user interactions efficiently.
-
-**List of Key Functionalities:**
+> The main functional objectives is to deliver a complete and creative web for the management and consumption of leisure events, making posible to users to register at the website, and discover, participate in and review different kinds of events. All of this, while administrators manage all the content and user interactions efficiently.
 
 | Number | Functionality | Description |
 | :-: | :--- | :--- |
@@ -69,11 +53,9 @@ The main functional objectives is to deliver a complete and creative web for the
 | **9** | **Real Time Communication** 🔔 | Implement a system for real time notifications (e.g., tickets sold out, new events, purchase alerts) for users. |
 | **10** | **AI Implementation** 🤖 | Implement AI functionalities. |
 
-### 💻 Technical Objectives
+### 💻 **Technical Objectives**
 
-The project is firmly approached using modern technologies, prioritizing tools studied during the degree (e.g., Spring Boot, Angular, MySQL). The primary objectives are to guarantee high code quality through rigorous application of good practices, ensuring scalability, maintainability, and delivering a robust user experience, aligning the implementation with the highest standards expected of an Engineering graduate.
-
-**List of Technical Objectives:**
+> The project is firmly approached using modern technologies, prioritizing tools studied during the degree (e.g., Spring Boot, Angular, MySQL). The primary objectives are to guarantee high code quality through rigorous application of good practices, ensuring scalability, maintainability, and delivering a robust user experience, aligning the implementation with the highest standards expected of an Engineering graduate.
 
 | Number | Technical Aspect | Description |
 | :-: | :--- | :--- |
@@ -88,14 +70,13 @@ The project is firmly approached using modern technologies, prioritizing tools s
 | **9** | **Code Quality Analysis** 🔍 | Integration of SonarQube for automated static code analysis, resolving possible code violations. |
 | **10** | **Real-Time Communication** 🔔 | Implementation of WebSockets for delivering real-time notifications (e.g., ticket updates, event changes). |
 
-
 ---
 
-## 🛠️ **Methodology**
+## 🛠️ *Methodology*
 
-The application development will follow an iterative and incremental methodology, structured into seven main phases, managed through GitHub Projects for continuous monitoring, planning and task management, ensuring transparency regarding task status. The continious monitoring and strict emphasis on quality control aligns with the principles of agility, delivering value in increments. Progress will be monitored closely through periodic meetings and email communication with the tutor, who acts as the Project Manager and Technical Lead. Version control adheres strictly to the GitHub repository, where the functionalities are made in differents release branches, remaining the `main` branch stable all time, and finally integrating the changes only after a mandatory Pull Request (PR) process.
+> The application development will follow an iterative and incremental methodology, structured into seven main phases, managed through GitHub Projects for continuous monitoring, planning and task management, ensuring transparency regarding task status. The continious monitoring and strict emphasis on quality control aligns with the principles of agility, delivering value in increments. Progress will be monitored closely through periodic meetings and email communication with the tutor, who acts as the Project Manager and Technical Lead. Version control adheres strictly to the GitHub repository, where the functionalities are made in differents release branches, remaining the `main` branch stable all time, and finally integrating the changes only after a mandatory Pull Request (PR) process.
 
-### 🧩 Phased Development Cycle
+### 🧩 **Phased Development Cycle**
 
 | Phase | Target | 
 | :--- | :--- |
@@ -107,7 +88,7 @@ The application development will follow an iterative and incremental methodology
 | **Phase 6: Memory/Report Writing** ✍️ | Final Degree Project (TFG) Memory/Report writing. |
 | **Phase 7: Defense** 🎤 | Preparation and execution of the TFG Defense. |
 
-### 📅 Start and End Dates for Each Phase
+### 📅 **Start and End Dates for Each Phase**
 
 | Phase | Start Date | End Date |
 | :--- | :--- | :--- |
@@ -119,23 +100,21 @@ The application development will follow an iterative and incremental methodology
 | **Phase 6: Memory/Report Writing** ✍️ | **[15/04/2026]** | **[15/05/2026]** |
 | **Phase 7: Defense** 🎤 | **[15/05/2026]** | **[15/06/2026]** |
 
-### 📅 Project Schedule (Gantt Diagram)
+### 📅 **Project Schedule (Gantt Diagram)**
 
-> **Description**: The following Gantt diagram visually represents the temporal planning of the seven development phases, establishing the start and end dates for each project phase.
+> The following Gantt diagram visually represents the temporal planning of the seven development phases, establishing the start and end dates for each project phase.
 
-<p align="center">
-<img width="700" alt="ganttDiagram" src="https://github.com/user-attachments/assets/97792893-4155-4eb9-a754-63478c513c23" />
-</p>
+![ganttDiagram](https://github.com/user-attachments/assets/97792893-4155-4eb9-a754-63478c513c23)
 
 ---
 
-## ⚙️ **Detailed Functionalities**
+## ⚙️ *Detailed Functionalities*
 
-The following functionalities are classified into three levels according to their relevance, complexity and impact on the system. This classification helps to clearly define the development priorities and considerations:
+> The following functionalities are classified into three levels according to their relevance, complexity and impact on the system. This classification helps to clearly define the development priorities and considerations:
 
-### 🥉 Basic 
+### 🥉 **Basic**
 
-These functionalities represents the minimum required for the application to operate correctly and provide the event browsing and ticket management experience:
+> These functionalities represents the minimum required for the application to operate correctly and provide the event browsing and ticket management experience:
 
 - **Anonymous User** 🕵️:
     * View and explore the main list of events.
@@ -150,9 +129,9 @@ These functionalities represents the minimum required for the application to ope
     * Perform CRUD (Add, delete, and modify) operations on Events.
     * Perform CRUD (Add, delete, and modify) operations on Participants.
 
-### 🥈 Intermediate 
+### 🥈 **Intermediate** 
 
-Functionalities that adds value and improves user experience:
+> Functionalities that adds value and improves user experience:
 
 * **Advanced Search** 🔎: 
     * Filter events by category, date, participant and other event information.
@@ -173,9 +152,9 @@ Functionalities that adds value and improves user experience:
     * Functionality for registered users to save and manage a personalized list of favorite events.
     * Functionality for registered users to follow participants to receive upcoming events and other information.
 
-### 🥇 Advanced 
+### 🥇 **Advanced** 
 
-Functionality that allows obtaining the final version of the application, which are more complex, requiring algorithmic implementation, additional technologies or external service integration:
+> Functionality that allows obtaining the final version of the application, which are more complex, requiring algorithmic implementation, additional technologies or external service integration:
 
 * **Personalized Recommendation System** 🧠: 
     * Algorithm that generates personalized event feeds for each user, by analyzing user preferences based on:
@@ -199,14 +178,14 @@ Functionality that allows obtaining the final version of the application, which 
 
 ---
 
-## 🔍 **Analysis**
+## 🔍 *Analysis*
 
 
-### 📱 Screens & Navigation
+### 📱 **Screens & Navigation**
 
-The design of the application's screens and navigation has been carried out using the design tool Figma. This decision was not only because it provides a efficient and clear environment for creating wireframes, but also because I already had previous experience using it during the degree in other projects. Each wireframe is defined along with a description of its functionality and the elements it contains.
-
-The goal of these wireframes is to provide a conceptual representation of the user interface without focusing on visual styling or implementation details. They define the structure, layout, and navigation flow of the main pages of the system, specifically covering the Basic and Intermediate functionalities defined. Advanced functionalities are intentionally excluded from the visual design, since they require additional technologies or depend on external services.
+> The design of the application's screens and navigation has been carried out using the design tool Figma. This decision was not only because it provides a efficient and clear environment for creating wireframes, but also because I already had previous experience using it during the degree in other projects. Each wireframe is defined along with a description of its functionality and the elements it contains.
+> 
+> The goal of these wireframes is to provide a conceptual representation of the user interface without focusing on visual styling or implementation details. They define the structure, layout, and navigation flow of the main pages of the system, specifically covering the Basic and Intermediate functionalities defined. Advanced functionalities are intentionally excluded from the visual design, since they require additional technologies or depend on external services.
 
 #### 1. Home / Main Screen (Event List)
 
@@ -539,9 +518,9 @@ The goal of these wireframes is to provide a conceptual representation of the us
 
 ---
 
-### 🧱 Entities
+### 🧱 **Entities**
 
-The application manages five main entities, each with defined attributes and relationships:
+> The application manages five main entities, each with defined attributes and relationships:
 
 | Entity | Primary Attributes | Relationships |
 | :--- | :--- | :--- |
@@ -551,9 +530,9 @@ The application manages five main entities, each with defined attributes and rel
 | **Ticket** | `Price`, `Ticket Type`, `Quantity` | Only 1 user associated (1,1). Only 1 event associated (1,1). |
 | **Review** | `Comment`, `Rating`, `AI Rating` | Only 1 user associated (1,1). Only 1 event associated (1,1). |
 
-### 🔐 User Permissions
+### 🔐 **User Permissions**
 
-Permissions based on user roles:
+> Permissions based on user roles:
 
 | User Type | View/Search | Buy Tickets | Post/Edit Reviews | Manage Events, Participants, Reviews |
 | :--- | :--- | :--- | :--- | :--- |
@@ -561,9 +540,9 @@ Permissions based on user roles:
 | **Registered User** | ✔️ | ✔️ | **✔️** (Only their own reviews) | ❌ |
 | **Administrator** | ✔️ | ✔️ | **✔️** (All Reviews) | ✔️ |
 
-### 🖼️ Images
+### 🖼️ **Images**
 
-The following entities include one or more images associated with them:
+> The following entities include one or more images associated with them:
 
 | Entity | Image Description |
 | :--- | :--- |
@@ -571,34 +550,34 @@ The following entities include one or more images associated with them:
 | **Events** | Promotional event poster |
 | **Participants** | Profile photo |
 
-### 📊 Charts
+### 📊 **Charts**
 
-Statistical data will be shown using the following visual charts:
+> Statistical data will be shown using the following visual charts:
 
 1. **Bar Chart:** Show the attendance count (tickets sold) per event.
 2. **Pie Chart:** Show the percentage of tickets depending on the event type (e.g., talk, concert).
 
-### 🧰 Complementary Technologies
+### 🧰 **Complementary Technologies**
 
-The project will integrate the following external technologies:
+> The project will integrate the following external technologies:
 
 1. **PDF Generation:** To create and send the tickets bought.
 2.  **Geolocation:** Use of Google Maps / OpenStreetMap to geolocate and display the exact event location.
 3.  **Email Service:** To send emails with information such as the purchase confirmations or reminders.
 4. **Real-Time communication**: To deliver real-time notifications with WebSockets (e.g., ticket updates, event changes).
 
-### 🧠 Advanced Algorithms 
+### 🧠 **Advanced Algorithms**
 
-The advanced algorithm implementation is the **Event Recommendation System**. This system will sophisticated data processing and filtering techniques to personalize the user's experience by ordering and prioritizing events on the main interface based on two key metrics:
+> The advanced algorithm implementation is the **Event Recommendation System**. This system will sophisticated data processing and filtering techniques to personalize the user's experience by ordering and prioritizing events on the main interface based on two key metrics:
 
 1.  **Personalized Affinity:** Prioritizing events based on the user's purchase history and identified favorite genres.
 2.  **Market Popularity:** Sorting and ranking results by popularity, defined by the total number of tickets sold and current trending activity.
 
 ---
 
-## 📈 Tracking
+## 📈 *Tracking*
 
-Project tracking and task progress will be managed using the following tools:
+> Project tracking and task progress will be managed using the following tools:
 
 - 📝 **Blog:** [Blog Medium](https://medium.com/@albertoml1799) — planned for updates and development summaries.
 - 💻 **GitHub Project:** [GoEventsNow Project Board](https://github.com/orgs/codeurjc-students/projects/37) - used to manage the project tasks, set their status (*To Do*, *In Progress*, *Done*), and time spent in each task.
@@ -606,9 +585,9 @@ Project tracking and task progress will be managed using the following tools:
 ---
 
 
-## 👨‍💻 **Author**
+## 👨‍💻 *Author*
 
-The development of this application is carried out within the context of the **Final Degree Project (TFG)** for the degree **Software Engineer** at the School of Computer Engineering (ETSII) of the URJC.
+> The development of this application is carried out within the context of the Final Degree Project (TFG) for the Degree in Software Engineering at the School of Computer Engineering (ETSII) of the URJC.
 
 ---
 

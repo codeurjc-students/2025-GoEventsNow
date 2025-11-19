@@ -1,4 +1,4 @@
-# 🎟️ 2025-GoEventsNow-
+# 🎟️ 2025-GoEventsNow
 
 ![GoEventsNow Logo](https://github.com/user-attachments/assets/1cbd97f1-e514-47d9-894d-658650db2900)
 
@@ -19,12 +19,9 @@
 ## 🖥️ *Screen Mockups*
 
 > This section provides some key screens, which define the structure and the application functionalities. These screens illustrates the navigation flow that different kind of users can follow.
+>
+> ![Main Page](https://github.com/user-attachments/assets/2710564e-f00a-428f-b535-9f911e2aba1f)
 
-![Main Page](https://github.com/user-attachments/assets/2710564e-f00a-428f-b535-9f911e2aba1f)
-
----
- ![Search Page](https://github.com/user-attachments/assets/1eee1d72-e94c-4c77-a741-210e669cf4db)
- 
 ---
 
 > [!WARNING]
@@ -38,73 +35,61 @@
 
 ### 📈 **Functional Objectives**
 
-> The main functional objectives is to deliver a complete and creative web for the management and consumption of leisure events, making posible to users to register at the website, and discover, participate in and review different kinds of events. All of this, while administrators manage all the content and user interactions efficiently.
+> The goal of the application is to deliver a complete and creative web for managing and discovering events, making posible to users to register, explore, participate in and review a wide variety of events. Users will be able to manage their tickets, add events to their favorites list, follow participants and interact with additional features that make their experience in the web unique and enjoyable.
 
 | Number | Functionality | Description |
 | :-: | :--- | :--- |
-| **1** | **Discovery & Search** 🔍 | Allow users to view, search and filter for events, using multiple criteria (category, date, location...). |
-| **2** | **User Activity** 🔐 | Provide a secure system for user registration, login, and profile management (including purchase history or edit profile). |
-| **3** | **Ticketing & History** 🎟️ | Enable the purchase of tickets for any event and provide users with a historical record of all transactions they made. |
-| **4** | **Events rating** ⭐ | Implement a review and rating system so that registered users can provide feedback on the events they participate in. |
-| **5** | **Content Control** ⚙️ | Provide different functionalities specifically dedicated to the administrator, in order to add, delete, and modify events or participants, and managing user-generated content. |
-| **6** | **Algorithm Personalization** 🧠 | Develop a recommendation system based on user history or popularity to personalize the discovery experience. |
-| **7** | **Digital Ticketing** 📄📧 | Ensure automatic generation of tickets in PDF format and their shipment via email once the user successful purchase the ticket. |
-| **8** | **Graphic Reports** 📊 | Provide the user with graphics (bar and pie charts) on sales performance and attendance data for each event. |
-| **9** | **Real Time Communication** 🔔 | Implement a system for real time notifications (e.g., tickets sold out, new events, purchase alerts) for users. |
-| **10** | **AI Implementation** 🤖 | Implement AI functionalities. |
+| **1** | **Discovery & Search** 🔍 | Users can view, search and filter events using multiple criteria such as category, date and location. |
+| **2** | **User Activity** 🔐 | Provides a secure system for user registration, login, and profile management (including purchase history and profile editing). |
+| **3** | **Ticketing & History** 🎟️ | Registered users can securely purchase tickets through the payment gateway and access to their historical record of all their transactions. |
+| **4** | **Events rating** ⭐ | Registered users can rate and review the events they attend, providing feedback for other users. |
+| **5** | **Content Control** ⚙️ | Administrators can add, delete and modify events or participants. |
+| **6** | **Algorithm Personalization** 🧠 | Implements a recommendation system based on user history and event popularity to personalize event discovery. |
+| **7** | **Digital Ticketing** 📄📧 | Tickets can be downloaded in PDF format and sent via email once the purchase is successfully completed. |
+| **8** | **Chart Reports** 📊 | Users can visualize events statistics based on sales performance and attendance data for each event (Bar and Pie charts). |
+| **9** | **Real Time Communication** 🔔 | Users will receive real-time notifications (tickets sold out, purchase alerts). |
+| **10** | **AI Sentiment Analysis** 🤖 | Users reviews will be analized using an AI sentiment analysis system, generating rating suggestions and classifying comments to improve recommendations. |
 
 ### 💻 **Technical Objectives**
 
-> The project is firmly approached using modern technologies, prioritizing tools studied during the degree (e.g., Spring Boot, Angular, MySQL). The primary objectives are to guarantee high code quality through rigorous application of good practices, ensuring scalability, maintainability, and delivering a robust user experience, aligning the implementation with the highest standards expected of an Engineering graduate.
+> The project will be a full-stack application, using the modern technologies studied during the degree, such as Spring Boot, Angular or MySQL. The goal is to guarantee high code quality through the application of good practices, ensuring scalability, maintainability, and delivering a unique user experience, aligning the implementation with the highest standards expected of an Engineering graduate.
 
 | Number | Technical Aspect | Description |
 | :-: | :--- | :--- |
-| **1** | **Modern Technologies** 🌐 | Implementation using a recommended stack: Backend API REST in Java/Spring Boot and Frontend SPA with Angular. |
+| **1** | **Modern Technologies** 🌐 | Implementation using the recommended stack: Backend API REST using Spring Boot and Frontend SPA using Angular. |
 | **2** | **Continuous Integration and Deployment (CI/CD)** 🚀 | Implementation of the CI/CD pipeline using GitHub Actions, ensuring automated quality control and continuous delivery. |
 | **3** | **Automated Testing** 🧪 | Application of automated testing (Unit, Integration, E2E) using technologies like Java, JUnit, Selenium, and Rest Assured. |
 | **4** | **Packaging & Deployment** ☁️ | Containerization of the entire application using Docker for consistent local development and deployment in Cloud platform (AWS). |
 | **5** | **Data Persistence** 🗄️ | Use of MySQL as the relational database for application persistence and data management. |
 | **6** | **Repository** 💾 | Use of GitHub for version control and GitHub Projects for project tracking and transparency |
-| **7** | **External Service Integration** 🛰️ | Integrate complementary technologies like PDF generation and geolocation (e.g., Google Maps/OpenStreetMap). |
-| **8** | **Security** 🛡️ | Ensure a strong role permission system (Anonymous, Registered, Admin) to protect functionalities and sensitive data. |
+| **7** | **External Service Integration** 🛰️ | Integrate complementary technologies like PDF generation and geolocation (Google Maps/OpenStreetMap). |
+| **8** | **AI Integration (NLP)** 🤖 | Integration of a NLP microservice, implemented with open-source Transformer models, responsible for multilingual sentiment analysis of user reviews. |
 | **9** | **Code Quality Analysis** 🔍 | Integration of SonarQube for automated static code analysis, resolving possible code violations. |
-| **10** | **Real-Time Communication** 🔔 | Implementation of WebSockets for delivering real-time notifications (e.g., ticket updates, event changes). |
+| **10** | **Real-Time Communication** 🔔 | Implementation of WebSockets for delivering real-time notifications such as tickets and events updates. |
 
 ---
 
 ## 🛠️ *Methodology*
 
-> The application development will follow an iterative and incremental methodology, structured into seven main phases, managed through GitHub Projects for continuous monitoring, planning and task management, ensuring transparency regarding task status. The continious monitoring and strict emphasis on quality control aligns with the principles of agility, delivering value in increments. Progress will be monitored closely through periodic meetings and email communication with the tutor, who acts as the Project Manager and Technical Lead. Version control adheres strictly to the GitHub repository, where the functionalities are made in differents release branches, remaining the `main` branch stable all time, and finally integrating the changes only after a mandatory Pull Request (PR) process.
+> The application development will follow an iterative and incremental methodology, structured into seven main phases and managed through GitHub Projects for continuous monitoring, planning and task management, ensuring transparency regarding task status. The continious monitoring and strict emphasis on quality control aligns with the principles of agility, delivering value in increments. Progress will be monitored through periodic meetings and email communication with the tutor, who acts as the Project Manager. Version control will be stick strictly to the GitHub repository, where the functionalities are made in differents `release` branches, remaining the `main` branch stable all time, and finally integrating the changes only after a mandatory Pull Request process.
 
 ### 🧩 **Phased Development Cycle**
 
-| Phase | Target | 
-| :--- | :--- |
-| **Phase 1: Functionalities definition** 📝 |Complete `README.md` with the website documentation (Objectives, Methodology, Basic, Intermediate and Advanced functionalities, Analysis, Screen Design, Planning). |
-| **Phase 2: Configuration & CI** 🧪 | Set repository structure, CI/CD pipeline, automated testing setup, and minimum functionality implemented. |
-| **Phase 3: Basic Functionality & Docker** 🥇 | Implementation of Basic Functionalities. Release v0.1 published with Docker. |
-| **Phase 4: Intermediate Functionality** 🥈 | Implementation of Intermediate Functionalities. Release v0.2 published and application deployed. |
-| **Phase 5: Advanced Functionality** 🏆 | Implementation of Advanced Functionalities. Release v1.0 published and project finalized. |
-| **Phase 6: Memory/Report Writing** ✍️ | Final Degree Project (TFG) Memory/Report writing. |
-| **Phase 7: Defense** 🎤 | Preparation and execution of the TFG Defense. |
-
-### 📅 **Start and End Dates for Each Phase**
-
-| Phase | Start Date | End Date |
-| :--- | :--- | :--- |
-| **Phase 1: Functionalities definition** 📝 | **[26/10/2025]** | **[20/11/2025]** |
-| **Phase 2: Configuration & CI** 🧪 | **[20/11/2025]** | **[15/12/2025]** |
-| **Phase 3: Basic Functionality & Docker** 🥇 | **[15/12/2025]** | **[20/01/2026]** |
-| **Phase 4: Intermediate Functionality** 🥈 | **[20/01/2026]** | **[01/03/2026]** |
-| **Phase 5: Advanced Functionality** 🏆 | **[01/03/2026]** | **[15/04/2026]** |
-| **Phase 6: Memory/Report Writing** ✍️ | **[15/04/2026]** | **[15/05/2026]** |
-| **Phase 7: Defense** 🎤 | **[15/05/2026]** | **[15/06/2026]** |
+| Phase | Target | Start Date | End Date |
+| :--- | :--- | :--- | :--- |
+| **Phase 1: Functionalities definition** 📝 |Complete `README.md` with the website documentation (Objectives, Methodology, Basic, Intermediate and Advanced functionalities, Analysis and Screen Mockups). | [26/10/2025] | [../../....] |
+| **Phase 2: Configuration & CI** 🧪 | Set repository structure, CI/CD pipeline, automated testing setup, and minimum functionality implemented. | [../../....] | [../../....] |
+| **Phase 3: Basic Functionality & Docker** 🥉 | Implementation of Basic Functionalities. Release v0.1 published with Docker. | [../../....] | [../../....] |
+| **Phase 4: Intermediate Functionality** 🥈 | Implementation of Intermediate Functionalities. Release v0.2 published and application deployed. | [../../....] | [../../....] |
+| **Phase 5: Advanced Functionality** 🥇 | Implementation of Advanced Functionalities. Release v1.0 published and project finalized. | [../../....] | [../../....] |
+| **Phase 6: Report Writing** ✍️ | Final Degree Project (TFG) report writing. | [../../....] | [../../....] |
+| **Phase 7: Defense** 🎤 | Preparation and execution of the TFG defense. | [../../....] | [../../....] |
 
 ### 📅 **Project Schedule (Gantt Diagram)**
 
 > The following Gantt diagram visually represents the temporal planning of the seven development phases, establishing the start and end dates for each project phase.
-
-![ganttDiagram](https://github.com/user-attachments/assets/97792893-4155-4eb9-a754-63478c513c23)
+>
+> ![ganttDiagram](https://github.com/user-attachments/assets/af41d9e2-7475-455c-939d-425a66202f6f)
 
 ---
 
@@ -117,69 +102,68 @@
 > These functionalities represents the minimum required for the application to operate correctly and provide the event browsing and ticket management experience:
 
 - **Anonymous User** 🕵️:
-    * View and explore the main list of events.
-    * View and explore the main list of participants.
-    * View detailed information about specific events (description, category, date, location, participants, image, reviews) and participants (description, category, image).
+    - View and explore the main list of events.
+    - View and explore the main list of participants.
+    - View detailed information about specific events (description, category, date, location, participants, image, reviews) and participants (description, category, image).
 - **Registered User** 👤:
-    * Secure user registration and authentication.
-    * Proile management: personal details, image, email, purchase history, followed participants, favorites events.
-    * Purchase event tickets.
-    * Cancel previous purchased tickets.
+    - Secure user registration and authentication.
+    - Proile management: personal details, image, email, purchase history, followed participants, favorites events.
+    - Purchase event tickets.
+    - Cancel previous purchased tickets.
 - **Administrator User** 👑:
-    * Perform CRUD (Add, delete, and modify) operations on Events.
-    * Perform CRUD (Add, delete, and modify) operations on Participants.
+    - Add, delete, and modify operations on Events.
+    - Add, delete, and modify operations on Participants.
 
 ### 🥈 **Intermediate** 
 
 > Functionalities that adds value and improves user experience:
 
-* **Advanced Search** 🔎: 
-    * Filter events by category, date, participant and other event information.
-    * Search through keyword search bar.
-    * Combine multiple filters to refine results.
-* **Review System** ⭐:
-    * **Registered User:** Add, modify, and delete their own reviews.
-    * **Administrator User:** Manage and moderate user generated reviews.
-* **Image Upload** 🖼️: 
-    * Upload and update profile images for registered users and participants.
-    * Upload event promotional posters and images.
-* **Statistics Charts** 📊:
-    * Bar chart displaying the number of tickets sold per event.
-    * Pie chart that categorize sales based on event types.
-* **Help** ❓:
-    * Implementation of a help center that includes a FAQ section with common questions and issues.
-* **Social Interaction** ❤️:
-    * Functionality for registered users to save and manage a personalized list of favorite events.
-    * Functionality for registered users to follow participants to receive upcoming events and other information.
+- **Advanced Search** 🔎: 
+    - Filter events by category, date, participant and other event information.
+    - Search through keyword search bar.
+    - Combine multiple filters to refine results.
+- **Review System** ⭐:
+    - **Registered User:** Add, modify, and delete their own reviews.
+    - **Administrator User:** Manage and moderate user generated reviews.
+- **Image Upload** 🖼️: 
+    - Upload and update profile images for registered users and participants.
+    - Upload event promotional posters and images.
+- **Statistics Charts** 📊:
+    - Bar chart displaying the number of tickets sold per event.
+    - Pie chart that categorize sales based on event types.
+- **Help** ❓:
+    - Implementation of a help center that includes a FAQ section with common questions and issues.
+- **Social Interaction** ❤️:
+    - Functionality for registered users to save and manage a personalized list of favorite events.
+    - Functionality for registered users to follow participants to receive upcoming events and other information.
 
 ### 🥇 **Advanced** 
 
 > Functionality that allows obtaining the final version of the application, which are more complex, requiring algorithmic implementation, additional technologies or external service integration:
 
-* **Personalized Recommendation System** 🧠: 
-    * Algorithm that generates personalized event feeds for each user, by analyzing user preferences based on:
-        * Previously consumed genres or categories.
-        * Event popularity metrics like number of tickets sold or rating.
-* **Digital Ticketing (PDF)** 📄:
-    * Automatic generation of tickets in PDF format after successful purchase.   
-* **Email Service** 📧: 
-    * Allow users to contact support through email.
-    * Sends automated emails to users (purchase confirmations, reminders).
-* **Geolocation** 🗺️: 
-    * Use of Google Maps/OpenStreetMap for event location display.
-* **Real-Time Notifications** 🔔: 
-    * Implementation of WebSockets for live alerts (sold-out tickets, newly added events).
-* **Simulated Resale/Transfer** 🔄: 
-    * Implementation of a system to simulate tickets resales or tranfers between users.
-* **Sentiment Analysis (AI Rating)** 🤖✨: 
-    * Automatic processing of user reviews in events by using NLP (Natural Language Processing) to classify coments. The process works as follows:
-        * Each comment receives a sentiment label (Positive, Neutral or Negative), a sentiment score (0.00-1.00) and a rating AI based on the review.
-        * The interface displays and compares both user rating and AI rating for error detection and to improve the recommendation system.
+- **Personalized Recommendation System** 🧠: 
+    - Algorithm that generates personalized event feeds for each user, by analyzing user preferences based on:
+        - Previously consumed genres or categories.
+        - Event popularity metrics like number of tickets sold or rating.
+- **Digital Ticketing (PDF)** 📄:
+    - Automatic generation of tickets in PDF format after successful purchase.   
+- **Email Service** 📧: 
+    - Allow users to contact support through email.
+    - Sends automated emails to users (purchase confirmations, reminders).
+- **Geolocation** 🗺️: 
+    - Use of Google Maps/OpenStreetMap for event location display.
+- **Real-Time Notifications** 🔔: 
+    - Implementation of WebSockets for live alerts (sold-out tickets, newly added events).
+- **Simulated Tickets Payment** 🔄: 
+    - Implementation of a simulated payment gateway system to simulate a secure payment process .
+- **Sentiment Analysis (AI Rating)** 🤖: 
+    - Automatic processing of user reviews in events by using NLP (Natural Language Processing) to classify coments. The process works as follows:
+        - Each comment receives a sentiment label (Positive, Neutral or Negative), a sentiment score (0.00-1.00) and a rating AI based on the review.
+        - The interface displays and compares both user rating and AI rating for error detection and to improve the recommendation system.
 
 ---
 
 ## 🔍 *Analysis*
-
 
 ### 📱 **Screens & Navigation**
 
@@ -554,24 +538,26 @@
 
 > Statistical data will be shown using the following visual charts:
 
-1. **Bar Chart:** Show the attendance count (tickets sold) per event.
-2. **Pie Chart:** Show the percentage of tickets depending on the event type (e.g., talk, concert).
+- **Bar Chart:** Show the attendance per event.
+- **Pie Chart:** Show the percentage of tickets depending on the event type.
 
 ### 🧰 **Complementary Technologies**
 
 > The project will integrate the following external technologies:
 
-1. **PDF Generation:** To create and send the tickets bought.
-2.  **Geolocation:** Use of Google Maps / OpenStreetMap to geolocate and display the exact event location.
-3.  **Email Service:** To send emails with information such as the purchase confirmations or reminders.
-4. **Real-Time communication**: To deliver real-time notifications with WebSockets (e.g., ticket updates, event changes).
+- **PDF Generation:** To generate the tickets bought.
+- **Geolocation:** Use of Google Maps/OpenStreetMap to display the exact event location.
+- **Email Service:** To send emails with information such as the purchase confirmations or reminders.
+- **Real-Time communication**: To deliver real-time notifications with WebSockets like ticket and event updates.
+- **AI Sentiment Analysis**: Python microservice that processes user reviews to classify sentiment and improve event recommendations.
+- **Simulated Payment Gateway**: Python microservice that emulates a payment gateway to securely simulate ticket purchases.
 
 ### 🧠 **Advanced Algorithms**
 
 > The advanced algorithm implementation is the **Event Recommendation System**. This system will sophisticated data processing and filtering techniques to personalize the user's experience by ordering and prioritizing events on the main interface based on two key metrics:
 
-1.  **Personalized Affinity:** Prioritizing events based on the user's purchase history and identified favorite genres.
-2.  **Market Popularity:** Sorting and ranking results by popularity, defined by the total number of tickets sold and current trending activity.
+- **Personalized Affinity:** Prioritizing events based on the user's purchase history and identified favorite genres.
+- **Market Popularity:** Sorting and ranking results by popularity, defined by the total number of tickets sold and current trending activity.
 
 ---
 
@@ -579,8 +565,8 @@
 
 > Project tracking and task progress will be managed using the following tools:
 
-- 📝 **Blog:** [Blog Medium](https://medium.com/@albertoml1799) — planned for updates and development summaries.
-- 💻 **GitHub Project:** [GoEventsNow Project Board](https://github.com/orgs/codeurjc-students/projects/37) - used to manage the project tasks, set their status (*To Do*, *In Progress*, *Done*), and time spent in each task.
+- 📝 **Blog Medium:** Planned for updates and development summaries during the project -> *[Blog Medium](https://medium.com/@albertoml1799)*.
+- 💻 **GitHub Project:** Used to organize and manage the project tasks, set their status and time spent -> *[GoEventsNow Project Board](https://github.com/orgs/codeurjc-students/projects/37)*.
 
 ---
 

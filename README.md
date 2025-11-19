@@ -5,15 +5,15 @@
 ---
 ## 🧭 *Introduction*
 
-> 🎟️ **GoEventsNow** is a modern and dynamic web platform designed to centralize the management and ticket sales for a wide variety of cultural, social and entertainment events, such as concerts, theatrical plays, talks, and more. The goal of this web is to offer users an unique experience to discover, explore and attend events they are interested in by purchasing tickets directly through the website.
->
-> Users can explore events using advanced search and filtering options, view complete events and participants details, and register to access to to other features, such as purchasing tickets, managing their profiles, writing reviews, and more. In addition, GoEventsNow includes a personalized recommendation algorithm, real-time notifications and integrations with external services like PDF ticket generation and email ticket delivery.
->
-> GoEventsNow aims to provide a complete, modern and user-centered system that simplifies the management and discovery of events, offering users a high quality experience. To achieve this, the project is developed using Spring Boot, Angular, and AI-based sentiment analysis, prioritizing technologies studied throughout the degree. The main goals are to ensure high code quality with solid development practices, guaranteeing scalability and maintainability in relation with the expectations of a Final Degree Project (TFG).
->
-> This project is developed as part of my Final Degree Project (TFG) for the Degree in Software Engineering at the School of Computer Engineering (ETSII) of the King Juan Carlos University (URJC).
->
-> *GoEventsNow: Your Next Event, Now, Simplified.* ✨ 
+🎟️ **GoEventsNow** is a modern and dynamic web platform designed to centralize the management and ticket sales for a wide variety of cultural, social and entertainment events, such as concerts, theatrical plays, talks, and more. The goal of this web is to offer users a unique experience to discover, explore and attend events they are interested in by purchasing tickets directly through the website.
+
+Users can explore events using advanced search and filtering options, view complete events and participants details, and register to access other features, such as purchasing tickets, managing their profiles, writing reviews, and more. In addition, GoEventsNow includes a personalized recommendation algorithm, real-time notifications and integrations with external services like PDF ticket generation and email ticket delivery.
+
+GoEventsNow aims to provide a complete, modern and user-centered system that simplifies the management and discovery of events, offering users a high-quality experience. To achieve this, the project is developed using Spring Boot, Angular, and AI-based sentiment analysis, prioritizing technologies studied throughout the degree. The main goals are to ensure high code quality with solid development practices, guaranteeing scalability and maintainability in relation with the expectations of a Final Degree Project.
+
+This project is developed as part of my Final Degree Project for the Degree in Software Engineering at the School of Computer Engineering (ETSII) of the King Juan Carlos University (URJC).
+
+*GoEventsNow: Your Next Event, Now, Simplified.* ✨ 
 
 ---
 ## 🖥️ *Screen Mockups*
@@ -35,7 +35,7 @@
 
 ### 📈 **Functional Objectives**
 
-> The goal of the application is to deliver a complete and creative web for managing and discovering events, making posible to users to register, explore, participate in and review a wide variety of events. Users will be able to manage their tickets, add events to their favorites list, follow participants and interact with additional features that make their experience in the web unique and enjoyable.
+> The goal of the application is to deliver a complete and creative web for managing and discovering events, making it possible for users to register, explore, participate in and review a wide variety of events. Users will be able to manage their tickets, add events to their favorites list, follow participants and interact with additional features that make their experience in the web unique and enjoyable.
 
 | Number | Functionality | Description |
 | :-: | :--- | :--- |
@@ -48,7 +48,7 @@
 | **7** | **Digital Ticketing** 📄📧 | Tickets can be downloaded in PDF format and sent via email once the purchase is successfully completed. |
 | **8** | **Chart Reports** 📊 | Users can visualize events statistics based on sales performance and attendance data for each event (Bar and Pie charts). |
 | **9** | **Real Time Communication** 🔔 | Users will receive real-time notifications (tickets sold out, purchase alerts). |
-| **10** | **AI Sentiment Analysis** 🤖 | Users reviews will be analized using an AI sentiment analysis system, generating rating suggestions and classifying comments to improve recommendations. |
+| **10** | **AI Sentiment Analysis** 🤖 | Users reviews will be analyzed using an AI sentiment analysis system, generating rating suggestions and classifying comments to improve recommendations. |
 
 ### 💻 **Technical Objectives**
 
@@ -71,7 +71,7 @@
 
 ## 🛠️ *Methodology*
 
-> The application development will follow an iterative and incremental methodology, structured into seven main phases and managed through GitHub Projects for continuous monitoring, planning and task management, ensuring transparency regarding task status. The continious monitoring and strict emphasis on quality control aligns with the principles of agility, delivering value in increments. Progress will be monitored through periodic meetings and email communication with the tutor, who acts as the Project Manager. Version control will be stick strictly to the GitHub repository, where the functionalities are made in differents `release` branches, remaining the `main` branch stable all time, and finally integrating the changes only after a mandatory Pull Request process.
+> The application development will follow an iterative and incremental methodology, structured into seven main phases and managed through GitHub Projects for continuous monitoring, planning and task management, ensuring transparency regarding task status. The continuous monitoring and strict emphasis on quality control aligns with the principles of agility, delivering value in increments. Progress will be monitored through periodic meetings and email communication with the tutor, who acts as the Project Manager. Version control will be adhere strictly to the GitHub repository, where the functionalities are made in different `release` branches, remaining the `main` branch stable all time, and finally integrating the changes only after a mandatory Pull Request process.
 
 ### 🧩 **Phased Development Cycle**
 
@@ -107,9 +107,9 @@
     - View detailed information about specific events (description, category, date, location, participants, image, reviews) and participants (description, category, image).
 - **Registered User** 👤:
     - Secure user registration and authentication.
-    - Proile management: personal details, image, email, purchase history, followed participants, favorites events.
+    - Profile management: personal details, image, email, purchase history, followed participants, favorites events.
     - Purchase event tickets.
-    - Cancel previous purchased tickets.
+    - Cancel previously purchased tickets.
 - **Administrator User** 👑:
     - Add, delete, and modify operations on Events.
     - Add, delete, and modify operations on Participants.
@@ -130,7 +130,7 @@
     - Upload event promotional posters and images.
 - **Statistics Charts** 📊:
     - Bar chart displaying the number of tickets sold per event.
-    - Pie chart that categorize sales based on event types.
+    - Pie chart that categorizes sales based on event types.
 - **Help** ❓:
     - Implementation of a help center that includes a FAQ section with common questions and issues.
 - **Social Interaction** ❤️:
@@ -157,7 +157,7 @@
 - **Simulated Tickets Payment** 🔄: 
     - Implementation of a simulated payment gateway system to simulate a secure payment process .
 - **Sentiment Analysis (AI Rating)** 🤖: 
-    - Automatic processing of user reviews in events by using NLP (Natural Language Processing) to classify coments. The process works as follows:
+    - Automatic processing of user reviews in events by using NLP (Natural Language Processing) to classify comments. The process works as follows:
         - Each comment receives a sentiment label (Positive, Neutral or Negative), a sentiment score (0.00-1.00) and a rating AI based on the review.
         - The interface displays and compares both user rating and AI rating for error detection and to improve the recommendation system.
 
@@ -167,7 +167,7 @@
 
 ### 📱 **Screens & Navigation**
 
-> The design of the application's screens and navigation has been carried out using the design tool Figma. This decision was not only because it provides a efficient and clear environment for creating wireframes, but also because I already had previous experience using it during the degree in other projects. Each wireframe is defined along with a description of its functionality and the elements it contains.
+> The design of the application's screens and navigation has been carried out using the design tool Figma. This decision was not only because it provides an efficient and clear environment for creating wireframes, but also because I already had previous experience using it during the degree in other projects. Each wireframe is defined along with a description of its functionality and the elements it contains.
 > 
 > The goal of these wireframes is to provide a conceptual representation of the user interface without focusing on visual styling or implementation details. They define the structure, layout, and navigation flow of the main pages of the system, specifically covering the Basic and Intermediate functionalities defined. Advanced functionalities are intentionally excluded from the visual design, since they require additional technologies or depend on external services.
 
@@ -177,26 +177,8 @@
 | :--- |
 | Main page screen that allows any user to view the main list of available events. It includes basic information about the different kind of events (title, date, location, price, category) and a simplified navigation header for authentication and other sections.|
 
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Event details** | Event Detail Screen | By clicking "View details" button in the event card. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Log in** | Log In Screen | By clicking "Log in" button in the header. (Anonymous user) |
-| **Sign up** | Sign Up Screen | By clicking "Sign up" button in the header. (Anonymous user) |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-| **Manage Events** | Manage Events Screen | By clicking "Manage Events" button in the header. (Administrator user) |
-| **Manage Participants** | Manage Participants Screen | By clicking "Manage Participants" button in the header. (Administrator user) |
-| **Dashboard** | Graphic Dashboard Screen | By clicking "Dashboard" button in the header. (Administrator user) |
-| **Profile** | User Profile Screen | By clicking "Profile" button in the header. (Registered user) |
-| **Sign out** | Home / Main Screen | By clicking the exit icon in the header. (Registered user) |
-
 ---
-
-<p align="center">
-<img width="800" alt="mainScreen" src="https://github.com/user-attachments/assets/2710564e-f00a-428f-b535-9f911e2aba1f" />
-</p>
+![Main Screen](https://github.com/user-attachments/assets/2710564e-f00a-428f-b535-9f911e2aba1f)
 
 #### 2. Event Detail Screen 
 
@@ -204,28 +186,8 @@
 | :--- |
 | This screen displays to all users complete and specific information about a selected event, including description, rating, participants, location, reviews, date and ticket availability. It also includes features to registered users like the possibility to add the event to favorites, to get tickets to assist or to write a review.|
 
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Sign up** | Sign Up Screen | By clicking "Sign up" button in the header. (Anonymous user) |
-| **Log in** | Log In Screen | By clicking "Log in" button in the header. (Anonymous user) |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-| **Purchase tickets page** | Purchase Tickets Screen | By clicking "Get Tickets" button in the card. Only to registered users. |
-| **Manage Events** | Manage Events Screen | By clicking "Manage Events" button in the header. (Administrator user) |
-| **Manage Participants** | Manage Participants Screen | By clicking "Manage Participants" button in the header. (Administrator user) |
-| **Dashboard** | Graphic Dashboard Screen | By clicking "Dashboard" button in the header. (Administrator user) |
-| **Profile** | User Profile Screen | By clicking "Profile" button in the header. (Registered user) |
-| **Sign out** | Home / Main Screen | By clicking the exit icon in the header. (Registered user) |
-
 ---
-
-<p align="center">
-<img width="800" alt="eventDetail" src="https://github.com/user-attachments/assets/ebe98fb7-a053-4a51-9333-87fddcd16318" />
-<img width="450" height="450" alt="reviewImage" src="https://github.com/user-attachments/assets/0946ea83-d997-44d3-98f9-c18f26288760" />
-</p>
+![Event Detail](https://github.com/user-attachments/assets/ebe98fb7-a053-4a51-9333-87fddcd16318)
 
 #### 3. Participant List Screen 
 
@@ -233,81 +195,26 @@
 | :--- |
 | This screen allows all users to view and discover the registered participants and basic information of each of them (name, description, followers and category). It includes a search bar, category filters to refine the list and the possibility to view the complete profile.|
 
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Sign up** | Sign Up Screen | By clicking "Sign up" button in the header. (Anonymous user) |
-| **Log in** | Log In Screen | By clicking "Log in" button in the header. (Anonymous user) |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-| **Participant details** | Participant Detail Screen | By clicking "View profile" button in the participant card. |
-| **Manage Events** | Manage Events Screen | By clicking "Manage Events" button in the header. (Administrator user) |
-| **Manage Participants** | Manage Participants Screen | By clicking "Manage Participants" button in the header. (Administrator user) |
-| **Dashboard** | Graphic Dashboard Screen | By clicking "Dashboard" button in the header. (Administrator user) |
-| **Profile** | User Profile Screen | By clicking "Profile" button in the header. (Registered user) |
-| **Sign out** | Home / Main Screen | By clicking the exit icon in the header. (Registered user) |
-
 ---
-
-<p align="center">
-<img width="800" alt="participantList" src="https://github.com/user-attachments/assets/91c67757-270f-49b8-8e99-a835970eb882" />
-</p>
+![Participant List](https://github.com/user-attachments/assets/91c67757-270f-49b8-8e99-a835970eb882)
 
 #### 4. Participant Detail Screen 
 
 | Description |
 | :--- |
-| This screen provides detailed information about a specific participant including their name, category, biography, followers and events participate in. It also includes features to registered users to follow the participant, to easily be informed about upcoming events.|
-
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Sign up** | Sign Up Screen | By clicking "Sign up" button in the header. (Anonymous user) |
-| **Log in** | Log In Screen | By clicking "Log in" button in the header. (Anonymous user) |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Event detail** | Event Detail Screen | By clicking "View Event" button in the event card in "Upcoming Events" |
-| **Manage Events** | Manage Events Screen | By clicking "Manage Events" button in the header. (Administrator user) |
-| **Manage Participants** | Manage Participants Screen | By clicking "Manage Participants" button in the header. (Administrator user) |
-| **Dashboard** | Graphic Dashboard Screen | By clicking "Dashboard" button in the header. (Administrator user) |
-| **Profile** | User Profile Screen | By clicking "Profile" button in the header. (Registered user) |
-| **Sign out** | Home / Main Screen | By clicking the exit icon in the header. (Registered user) |
+| This screen provides detailed information about a specific participant including their name, category, biography, followers and events they participated in. It also includes features to registered users to follow the participant, to easily be informed about upcoming events.|
 
 ---
-
-<p align="center">
-<img width="800" alt="participantDetail" src="https://github.com/user-attachments/assets/13cb1e35-c0cd-41bc-9862-923514807119" />
-</p>
+![Participant Detail](https://github.com/user-attachments/assets/13cb1e35-c0cd-41bc-9862-923514807119)
 
 #### 5. Search Event Screen 
 
 | Description |
 | :--- |
-| This screen allows all users to discover events and display specifics resulting events depending of different kinds of filters, such as category, date or price.|
-
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Sign up** | Sign Up Screen | By clicking "Sign up" button in the header. (Anonymous user) |
-| **Log in** | Log In Screen | By clicking "Log in" button in the header. (Anonymous user) |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Event detail** | Event Detail Screen | By clicking "View Event" button in the event card in "Upcoming Events" |
-| **Manage Events** | Manage Events Screen | By clicking "Manage Events" button in the header. (Administrator user) |
-| **Manage Participants** | Manage Participants Screen | By clicking "Manage Participants" button in the header. (Administrator user) |
-| **Dashboard** | Graphic Dashboard Screen | By clicking "Dashboard" button in the header. (Administrator user) |
-| **Profile** | User Profile Screen | By clicking "Profile" button in the header. (Registered user) |
-| **Sign out** | Home / Main Screen | By clicking the exit icon in the header. (Registered user) |
+| This screen allows all users to discover events and display specific resulting events depending on different kinds of filters, such as category, date or price.|
 
 ---
-
-<p align="center">
-<img width="800" alt="searchEvent" src="https://github.com/user-attachments/assets/1eee1d72-e94c-4c77-a741-210e669cf4db" />
-</p>
+![Search Event](https://github.com/user-attachments/assets/1eee1d72-e94c-4c77-a741-210e669cf4db)
 
 #### 6. Log In Screen 
 
@@ -315,20 +222,8 @@
 | :--- |
 | Screen for user authentication, allowing users to sign in to their existing account using their email/username and password. It includes "Sign up" link in order to direct new users to the registration page.|
 
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Sign up** | Sign Up Screen | By clicking "Sign up" button in the header. |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-
 ---
-
-<p align="center">
-<img width="800" alt="logIn" src="https://github.com/user-attachments/assets/7ae6c375-987e-4dfc-82a7-16aef5b9dcc2" />
-</p>
+![Log In](https://github.com/user-attachments/assets/7ae6c375-987e-4dfc-82a7-16aef5b9dcc2)
 
 #### 7. Sign Up Screen 
 
@@ -336,20 +231,8 @@
 | :--- |
 | Screen that allows new users to create an account to join GoEventsNow. The form requires essential credentials (username, email and password) to ensure security and to transform anonymous users to gain the "Registered user" permissions.|
 
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Log in** | Log In Screen | By clicking "Log in" button in the header. |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-
 ---
-
-<p align="center">
-<img width="800" alt="signUp" src="https://github.com/user-attachments/assets/0cf1edc8-07a9-4fe9-9a0e-2e4c8a713030" />
-</p>
+![Sign Up](https://github.com/user-attachments/assets/0cf1edc8-07a9-4fe9-9a0e-2e4c8a713030)
 
 #### 8. User Profile Screen 
 
@@ -357,122 +240,44 @@
 | :--- |
 | This screen provides personal information (username, tickets bought, email address or fullname) for authenticated users and the possibility to edit some personal information. It includes features to see the specific tickets bought, favorites events and participants following.|
 
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Manage Events** | Manage Events Screen | By clicking "Manage Events" button in the header. (Administrator user) |
-| **Manage Participants** | Manage Participants Screen | By clicking "Manage Participants" button in the header. (Administrator user) |
-| **Dashboard** | Graphic Dashboard Screen | By clicking "Dashboard" button in the header. (Administrator user) |
-| **Sign out** | Home / Main Screen | By clicking the exit icon in the header. |
-
 ---
+![User Profile](https://github.com/user-attachments/assets/93a4f695-a2d2-483d-bde2-3d473cdae9f9)
 
-<p align="center">
-<img width="800" alt="userProfile" src="https://github.com/user-attachments/assets/93a4f695-a2d2-483d-bde2-3d473cdae9f9" />
-<img width="500" height="500" alt="myTickets" src="https://github.com/user-attachments/assets/37707d68-4389-4f07-aed8-c2ffa9db029e" />
-</p>
-
-#### 9. Dashboard Chart Screen 
+#### 9. Chart Screen 
 
 | Description |
 | :--- |
-| This screen allows the administrator to see statistics and analytics by displaying summarized metrics (total events, total tickets sold, total revenue or active users) and detailed charts (Bar chart for sales per event and Pie chart for sales for category).|
-
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Sign out** | Log In / Home Screen | By clicking the exit icon in the header. |
-| **Manage Events** | Manage Events Screen | By clicking "Manage Events" button in the header. |
-| **Manage Participants** | Manage Participants Screen | By clicking "Manage Participants" button in the header. |
-| **Profile** | User Profile Screen | By clicking "Profile" button in the header. |
+| This screen allows users to see statistics and analytics by displaying summarized metrics and detailed charts (Bar chart for sales per event and Pie chart for sales for category).|
 
 ---
-
-<p align="center">
-<img width="800" alt="chartScreen" src="https://github.com/user-attachments/assets/46f29b3f-d499-4fac-9120-bb3d831a85e2" />
-</p>
+![Chart Screen](https://github.com/user-attachments/assets/46f29b3f-d499-4fac-9120-bb3d831a85e2)
 
 #### 10. Manage Events Screen
 
 | Description |
 | :--- |
-| This screen is an event management only accesible to the administrator. It displays a list of current events, with summary details and icon to modify or delete, and a specific button in order to add new events, with the new event specific information.|
-
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Sign out** | Log In / Home Screen | By clicking the exit icon in the header. |
-| **Dashboard** | Graphic Dashboard Screen | By clicking "Dashboard" button in the header. |
-| **Manage Participants** | Manage Participants Screen | By clicking "Manage Participants" button in the header. |
-| **Profile** | User Profile Screen | By clicking "Profile" button in the header. |
+| This screen is an event management only accessible to the administrator. It displays a list of current events, with summary details and icon to modify or delete, and a specific button in order to add new events.|
 
 ---
-
-<p align="center">
-<img width="800" alt="manageEvent" src="https://github.com/user-attachments/assets/30232372-d7e5-4e8c-b84e-88bf7f2f1664" />
-<img width="400" height="400" alt="addEvent" src="https://github.com/user-attachments/assets/76a034e4-b64b-4dba-840c-d805c6edbc7b" />
-</p>
+![Manage Events](https://github.com/user-attachments/assets/30232372-d7e5-4e8c-b84e-88bf7f2f1664)
 
 #### 11. Manage Participants Screen
 
 | Description |
 | :--- |
-| This screen is a participant management only accesible to the administrator. It displays a list of current participants, with summary details and icon to modify or delete, and a specific button in order to add new participants, with the new participant specific information.|
-
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Sign out** | Log In / Home Screen | By clicking the exit icon in the header. |
-| **Manage Events** | Manage Events Screen | By clicking "Manage Events" button in the header. |
-| **Dashboard** | Graphic Dashboard Screen | By clicking "Dashboard" button in the header. |
-| **Profile** | User Profile Screen | By clicking "Profile" button in the header. |
+| This screen is a participant management only accessible to the administrator. It displays a list of current participants, with summary details and icon to modify or delete, and a specific button in order to add new participants.|
 
 ---
-
-<p align="center">
-<img width="800" alt="manageParticipant" src="https://github.com/user-attachments/assets/68344ece-a31b-4a85-b706-9c30425362d2" />
-</p>
+![Manage Participants](https://github.com/user-attachments/assets/68344ece-a31b-4a85-b706-9c30425362d2)
 
 #### 12. Purchase Tickets Screen
 
 | Description |
 | :--- |
-| This screen manages the final step in order to complete the purchase functionality. It allows registered user to select the number of tickets to buy and confirm the payment.|
-
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Help page** | Help / FAQ Screen | By clicking "Help" button in the header. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Manage Events** | Manage Events Screen | By clicking "Manage Events" button in the header. (Administrator user) |
-| **Manage Participants** | Manage Participants Screen | By clicking "Manage Participants" button in the header. (Administrator user) |
-| **Dashboard** | Graphic Dashboard Screen | By clicking "Dashboard" button in the header. (Administrator user) |
-| **Profile** | User Profile Screen | By clicking "Profile" button in the header. |
-| **Sign out** | Home / Main Screen | By clicking the exit icon in the header. |
+| This screen manages the final step required to complete the purchase process. It allows registered user to select the number of tickets to buy and confirm the payment.|
 
 ---
-
-<p align="center">
-<img width="800" alt="purchaseTicket" src="https://github.com/user-attachments/assets/5e99ee53-06f4-4714-8402-887db7981324" />
-</p>
+![Purchase Ticket](https://github.com/user-attachments/assets/5e99ee53-06f4-4714-8402-887db7981324)
 
 #### 13. Help / FAQ Screen 
 
@@ -480,25 +285,22 @@
 | :--- |
 | The help page allows users to find quick answers to common questions about issues or doubts in the application.|
 
-##### ➡️ Navigation Links
-| Navigation | Destination | Method |
-| :--- | :--- | :--- |
-| **Events list** | Home / Main Screen | By clicking "Events" button in the header. |
-| **Participants list** | Participant List Screen | By clicking "Participants" button in the header. |
-| **Sign up** | Sign Up Screen | By clicking "Sign up" button in the header. (Anonymous user) |
-| **Search events page** | Search Event Screen | By clicking "Search" button in the header. |
-| **Log in** | Log In Screen | By clicking "Log in" button in the header. (Anonymous user) |
-| **Manage Events** | Manage Events Screen | By clicking "Manage Events" button in the header. (Administrator user) |
-| **Manage Participants** | Manage Participants Screen | By clicking "Manage Participants" button in the header. (Administrator user) |
-| **Dashboard** | Graphic Dashboard Screen | By clicking "Dashboard" button in the header. (Administrator user) |
-| **Profile** | User Profile Screen | By clicking "Profile" button in the header. (Registered user) |
-| **Sign out** | Home / Main Screen | By clicking the exit icon in the header. (Registered user) |
+---
+![FAQ](https://github.com/user-attachments/assets/2b4b8060-75a0-49ca-b180-9d76565a1a65)
 
 ---
+#### 🗺️ Navigation Diagram
 
-<p align="center">
-<img width="800" alt="FAQ" src="https://github.com/user-attachments/assets/2b4b8060-75a0-49ca-b180-9d76565a1a65" />
-</p>
+> [!NOTE]
+> The header routes are not considered, except in the Main Screen.
+> Colors in arrows represent role permissions:
+> - 🟡 Anonymous, Registered, Admin
+> - 🟢 Registered, Admin
+> - 🔵 Admin only
+
+---
+![Navigation Diagram](https://github.com/user-attachments/assets/807f68e0-78e7-40bc-b699-2ea43d2c6886)
+
 
 ---
 

@@ -11,16 +11,17 @@ Users can explore events using advanced search and filtering options, view compl
 
 GoEventsNow aims to provide a complete, modern and user-centered system that simplifies the management and discovery of events, offering users a high-quality experience. To achieve this, the project is developed using Spring Boot, Angular, and AI-based sentiment analysis, prioritizing technologies studied throughout the degree. The main goals are to ensure high code quality with solid development practices, guaranteeing scalability and maintainability in relation with the expectations of a Final Degree Project.
 
-This project is developed as part of my Final Degree Project for the Degree in Software Engineering at the School of Computer Engineering (ETSII) of the King Juan Carlos University (URJC).
-
 *GoEventsNow: Your Next Event, Now, Simplified.* ✨ 
 
 ---
 ## 🖥️ *Screen Mockups*
 
-> This section provides some key screens, which define the structure and the application functionalities. These screens illustrates the navigation flow that different kind of users can follow.
+> This section provides some key screens, which define the structure and the application functionalities.
 >
 > ![Main Page](https://github.com/user-attachments/assets/2710564e-f00a-428f-b535-9f911e2aba1f)
+---
+>
+> ![Search Event](https://github.com/user-attachments/assets/1eee1d72-e94c-4c77-a741-210e669cf4db)
 
 ---
 
@@ -47,7 +48,7 @@ This project is developed as part of my Final Degree Project for the Degree in S
 | **6** | **Algorithm Personalization** 🧠 | Implements a recommendation system based on user history and event popularity to personalize event discovery. |
 | **7** | **Digital Ticketing** 📄📧 | Tickets can be downloaded in PDF format and sent via email once the purchase is successfully completed. |
 | **8** | **Chart Reports** 📊 | Users can visualize events statistics based on sales performance and attendance data for each event (Bar and Pie charts). |
-| **9** | **Real Time Communication** 🔔 | Users will receive real-time notifications (tickets sold out, purchase alerts). |
+| **9** | **Real-Time Communication** 🔔 | Users will receive real-time notifications (tickets sold out, purchase alerts). |
 | **10** | **AI Sentiment Analysis** 🤖 | Users reviews will be analyzed using an AI sentiment analysis system, generating rating suggestions and classifying comments to improve recommendations. |
 
 ### 💻 **Technical Objectives**
@@ -63,15 +64,15 @@ This project is developed as part of my Final Degree Project for the Degree in S
 | **5** | **Data Persistence** 🗄️ | Use of MySQL as the relational database for application persistence and data management. |
 | **6** | **Repository** 💾 | Use of GitHub for version control and GitHub Projects for project tracking and transparency |
 | **7** | **External Service Integration** 🛰️ | Integrate complementary technologies like PDF generation and geolocation (Google Maps/OpenStreetMap). |
-| **8** | **AI Integration (NLP)** 🤖 | Integration of a NLP microservice, implemented with open-source Transformer models, responsible for multilingual sentiment analysis of user reviews. |
+| **8** | **AI Integration (NLP)** 🤖 | Integration of a NLP microservice, implemented with open-source models, responsible for multilingual sentiment analysis of user reviews. |
 | **9** | **Code Quality Analysis** 🔍 | Integration of SonarQube for automated static code analysis, resolving possible code violations. |
-| **10** | **Real-Time Communication** 🔔 | Implementation of WebSockets for delivering real-time notifications such as tickets and events updates. |
+| **10** | **Real-Time Communication** 🔔 | Implementation of WebSocket for delivering real-time notifications such as tickets and events updates. |
 
 ---
 
 ## 🛠️ *Methodology*
 
-> The application development will follow an iterative and incremental methodology, structured into seven main phases and managed through GitHub Projects for continuous monitoring, planning and task management, ensuring transparency regarding task status. The continuous monitoring and strict emphasis on quality control aligns with the principles of agility, delivering value in increments. Progress will be monitored through periodic meetings and email communication with the tutor, who acts as the Project Manager. Version control will be adhere strictly to the GitHub repository, where the functionalities are made in different `release` branches, remaining the `main` branch stable all time, and finally integrating the changes only after a mandatory Pull Request process.
+> The application development will follow an iterative and incremental methodology, structured into seven main phases and managed through GitHub Projects for continuous monitoring, planning and task management, ensuring transparency regarding task status. The continuous monitoring and strict emphasis on quality control aligns with the principles of agility, delivering value in increments. Progress will be monitored through periodic meetings and email communication with the tutor, who acts as the Project Manager. Version control will be adhered strictly to the GitHub repository, where the functionalities are made in different `release` branches, remaining the `main` branch stable all time, and finally integrating the changes only after a mandatory Pull Request process.
 
 ### 🧩 **Phased Development Cycle**
 
@@ -99,7 +100,7 @@ This project is developed as part of my Final Degree Project for the Degree in S
 
 ### 🥉 **Basic**
 
-> These functionalities represents the minimum required for the application to operate correctly and provide the event browsing and ticket management experience:
+> These functionalities represent the minimum required for the application to operate correctly and provide the event browsing and ticket management experience:
 
 - **Anonymous User** 🕵️:
     - View and explore the main list of events.
@@ -107,7 +108,7 @@ This project is developed as part of my Final Degree Project for the Degree in S
     - View detailed information about specific events (description, category, date, location, participants, image, reviews) and participants (description, category, image).
 - **Registered User** 👤:
     - Secure user registration and authentication.
-    - Profile management: personal details, image, email, purchase history, followed participants, favorites events.
+    - Explore and edit profile: personal details, image, email, purchase history, followed participants, favorites events.
     - Purchase event tickets.
     - Cancel previously purchased tickets.
 - **Administrator User** 👑:
@@ -153,12 +154,12 @@ This project is developed as part of my Final Degree Project for the Degree in S
 - **Geolocation** 🗺️: 
     - Use of Google Maps/OpenStreetMap for event location display.
 - **Real-Time Notifications** 🔔: 
-    - Implementation of WebSockets for live alerts (sold-out tickets, newly added events).
+    - Implementation of WebSocket for live alerts (sold-out tickets, newly added events).
 - **Simulated Tickets Payment** 🔄: 
-    - Implementation of a simulated payment gateway system to simulate a secure payment process .
+    - Implementation of a simulated payment gateway system to simulate a secure payment process.
 - **Sentiment Analysis (AI Rating)** 🤖: 
     - Automatic processing of user reviews in events by using NLP (Natural Language Processing) to classify comments. The process works as follows:
-        - Each comment receives a sentiment label (Positive, Neutral or Negative), a sentiment score (0.00-1.00) and a rating AI based on the review.
+        - Each comment receives a sentiment label (Positive, Neutral or Negative), a sentiment score (0.00-1.00) and an AI rating based on the review.
         - The interface displays and compares both user rating and AI rating for error detection and to improve the recommendation system.
 
 ---
@@ -167,7 +168,7 @@ This project is developed as part of my Final Degree Project for the Degree in S
 
 ### 📱 **Screens & Navigation**
 
-> The design of the application's screens and navigation has been carried out using the design tool Figma. This decision was not only because it provides an efficient and clear environment for creating wireframes, but also because I already had previous experience using it during the degree in other projects. Each wireframe is defined along with a description of its functionality and the elements it contains.
+> The design of the application screens and navigation has been carried out using the design tool Figma. This decision was not only because it provides an efficient and clear environment for creating wireframes, but also because I already had previous experience using it during the degree in other projects. Each wireframe is defined along with a description of its functionality.
 > 
 > The goal of these wireframes is to provide a conceptual representation of the user interface without focusing on visual styling or implementation details. They define the structure, layout, and navigation flow of the main pages of the system, specifically covering the Basic and Intermediate functionalities defined. Advanced functionalities are intentionally excluded from the visual design, since they require additional technologies or depend on external services.
 
@@ -184,7 +185,7 @@ This project is developed as part of my Final Degree Project for the Degree in S
 
 | Description |
 | :--- |
-| This screen displays to all users complete and specific information about a selected event, including description, rating, participants, location, reviews, date and ticket availability. It also includes features to registered users like the possibility to add the event to favorites, to get tickets to assist or to write a review.|
+| This screen displays to all users complete and specific information about a selected event, including description, rating, participants, location, reviews, date and ticket availability. It also includes features to registered users like the possibility to add the event to favorites, to get tickets or to write a review.|
 
 ---
 ![Event Detail](https://github.com/user-attachments/assets/ebe98fb7-a053-4a51-9333-87fddcd16318)
@@ -220,7 +221,7 @@ This project is developed as part of my Final Degree Project for the Degree in S
 
 | Description |
 | :--- |
-| Screen for user authentication, allowing users to sign in to their existing account using their email/username and password. It includes "Sign up" link in order to direct new users to the registration page.|
+| Screen for user authentication, allowing users to log in to their existing account using their email/username and password. It includes "Sign up" link in order to redirect new users to the registration page.|
 
 ---
 ![Log In](https://github.com/user-attachments/assets/7ae6c375-987e-4dfc-82a7-16aef5b9dcc2)
@@ -229,7 +230,7 @@ This project is developed as part of my Final Degree Project for the Degree in S
 
 | Description |
 | :--- |
-| Screen that allows new users to create an account to join GoEventsNow. The form requires essential credentials (username, email and password) to ensure security and to transform anonymous users to gain the "Registered user" permissions.|
+| Screen that allows new users to create an account to join GoEventsNow. The form requires essential credentials (username, email and password) to ensure security and to transform anonymous users into registered users.|
 
 ---
 ![Sign Up](https://github.com/user-attachments/assets/0cf1edc8-07a9-4fe9-9a0e-2e4c8a713030)
@@ -238,7 +239,7 @@ This project is developed as part of my Final Degree Project for the Degree in S
 
 | Description |
 | :--- |
-| This screen provides personal information (username, tickets bought, email address or fullname) for authenticated users and the possibility to edit some personal information. It includes features to see the specific tickets bought, favorites events and participants following.|
+| This screen provides personal information (username, tickets bought, email address or full name) for authenticated users and the possibility to edit some personal information. It includes features to see the specific tickets bought, favorites events and participants following.|
 
 ---
 ![User Profile](https://github.com/user-attachments/assets/93a4f695-a2d2-483d-bde2-3d473cdae9f9)
@@ -320,7 +321,7 @@ This project is developed as part of my Final Degree Project for the Degree in S
 
 > Permissions based on user roles:
 
-| User Type | View/Search | Buy Tickets | Post/Edit Reviews | Manage Events, Participants, Reviews |
+| User Type | View/Search | Buy Tickets | Post/Delete Reviews | Manage Events, Participants, Reviews |
 | :--- | :--- | :--- | :--- | :--- |
 | **Anonymous** | **✔️** (Events, Reviews, Participants) | ❌ | ❌ | ❌ |
 | **Registered User** | ✔️ | ✔️ | **✔️** (Only their own reviews) | ❌ |
@@ -371,7 +372,6 @@ This project is developed as part of my Final Degree Project for the Degree in S
 - 💻 **GitHub Project:** Used to organize and manage the project tasks, set their status and time spent -> *[GoEventsNow Project Board](https://github.com/orgs/codeurjc-students/projects/37)*.
 
 ---
-
 
 ## 👨‍💻 *Author*
 

@@ -16,9 +16,9 @@ public class EventController {
 
     @GetMapping("/")
     public String getMainPage(Model model) {
-        
+
         model.addAttribute("events", eventService.getAllEvents());
-        return "mainPage";
+        return "index";
     }
     
 }

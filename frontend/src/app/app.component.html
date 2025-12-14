@@ -1,0 +1,32 @@
+<div class="container mt-5">
+
+    <div>
+        <h1 class="display-5 text-primary">GoEventsNow</h1>
+        <p>Events list.</p>
+    </div>
+
+    @if (events$ | async; as events){
+    <h2 class="mb-4 text-secondary">Events loaded ({{ events.length }} to test) </h2>
+    
+    @for (event of events; track event.id){
+    <section id="event-list" class="mt-4">
+
+        <div class="event-card bg-white shadow-sm p-3 mb-3">
+            <h3 class="h5 text-dark" id="event-title-{{event.id}}">{{event.title}}</h3>
+            <p class="mb-1" id="event-category-{{event.id}}"><strong>Category:</strong> {{event.category}} </p>
+            <p class="mb-1" id="event-location-{{event.id}}"><strong>Location:</strong> {{event.location}}</p>
+            <p class="mb-1" id="event-date-{{event.id}}"><strong>Date:</strong> {{event.date}}</p>
+            
+        </div>
+
+    </section>
+    }
+    } @else {
+        <p class="alert alert-info">Loading...</p>
+    }
+    
+    <footer class="text-center mt-5 p-3 text-muted border-top">
+        <p>GoEventsNow TFG</p>
+    </footer>
+
+</div>

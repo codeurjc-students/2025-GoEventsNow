@@ -1,0 +1,59 @@
+name: CI - Basic
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'feature/**'
+
+jobs:
+
+  server-quality:
+    name: Server - Basic CI
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: goeventsnow_db
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Compile Server & Run Backend Unit Test
+        run: |
+          cd backend
+          mvn clean verify -Dtest="es.goeventsnow.backend.unit.EventTest"
+        
+  client-quality:
+    name: Client - Basic CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install Dependencies
+        run: | 
+          cd frontend
+          npm install
+      - name: Build project
+        run: |
+          cd frontend
+          npx ng build --configuration=production 
+      - name: Run frontend unitary tests
+        run: |
+          cd frontend
+          npx ng test  --include=src/app/app.component.spec.ts  --coverage  

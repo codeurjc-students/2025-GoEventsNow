@@ -1,9 +1,8 @@
 name: CI - Complete
 on:
-  workflow_dispatch:
-  push:
+  pull_request:
     branches:
-      - 'feature/**'
+      - main
 jobs:
   full-quality-testing:
     name: Complete Quality Control (Unit, Integration & System Tests)

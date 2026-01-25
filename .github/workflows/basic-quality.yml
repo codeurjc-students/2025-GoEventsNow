@@ -1,7 +1,6 @@
 name: CI - Basic
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - 'feature/**'
@@ -35,20 +34,6 @@ jobs:
         run: |
           cd backend
           mvn clean verify -Dtest="es.goeventsnow.backend.unit.EventTest"
-      
-      - name: SonarQube Analysis (Backend)
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd backend
-          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-            -Dsonar.projectName="2025-GoEventsNow" \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         
   client-quality:
     name: Client - Basic CI

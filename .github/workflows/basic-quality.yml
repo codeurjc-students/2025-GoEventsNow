@@ -9,8 +9,8 @@ on:
 
 jobs:
 
-  server-quality:
-    name: Server - Basic CI
+  quality:
+    name: Server + Client + Sonar - CI Workflow
     runs-on: ubuntu-latest
     services:
       mysql:
@@ -34,10 +34,6 @@ jobs:
           cd backend
           mvn clean verify -Dtest="es.goeventsnow.backend.unit.EventTest"
         
-  client-quality:
-    name: Client - Basic CI
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up Node.js 20

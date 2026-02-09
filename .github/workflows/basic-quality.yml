@@ -1,7 +1,6 @@
 name: CI - Basic
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - 'feature/**'

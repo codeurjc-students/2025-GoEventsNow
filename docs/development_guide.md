@@ -277,7 +277,7 @@ Access the application at: http://localhost:4200/.
 5. Send the request and review the response from the server.
 
 **Collection File:**
-- You can find the Postman collection file generated here: [GoEventsNow Postman Collection](GoEventsNow.postman_collection.json).
+- You can find the Postman collection file generated here: [GoEventsNow Postman Collection](GoEventsNow_Collection.postman_collection.json).
 
 ### Test Execution
 
@@ -330,3 +330,4 @@ The release process follows these steps:
 
 You can find the list of releases here:
 [GoEventsNow Releases](https://github.com/codeurjc-students/2025-GoEventsNow/releases)
+

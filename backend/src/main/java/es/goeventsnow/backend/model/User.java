@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -27,6 +28,9 @@ public class User {
 
     private boolean profileImage;
     private String encodedPassword;
+
+    @OneToMany(mappedBy = "userOwner", fetch = FetchType.LAZY)
+    private List<Ticket> tickets;
     
     @Lob
     private Blob profileImageFile;
@@ -136,6 +140,14 @@ public class User {
 
     public void setFavoriteGenre(String favoriteGenre) {
         this.favoriteGenre = favoriteGenre;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
 }

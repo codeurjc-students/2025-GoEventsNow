@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.goeventsnow.backend.dto.ticket.TicketDTO;
 import es.goeventsnow.backend.dto.user.NewUserDTO;
 import es.goeventsnow.backend.dto.user.UserDTO;
 import es.goeventsnow.backend.dto.user.UserMapper;
@@ -92,6 +93,7 @@ public class UserService {
 		String userName = newUserDTO.username();
 		String password = null;
 		Integer numTicketsBought = 0;
+        List<TicketDTO> tickets = null;
 		String favoriteGenre = "None";
 		List<String> roles = List.of("USER");
 
@@ -103,13 +105,15 @@ public class UserService {
 			UserDTO oldUser = findById(userId);
 			image = removeImage != null && removeImage ? false : oldUser.profileImage();
 			userName = oldUser.username();
+            numTicketsBought = oldUser.tickets() != null ? oldUser.tickets().stream().mapToInt(TicketDTO::numTickets).sum() : 0;
 			password = oldUser.password();
 			favoriteGenre = oldUser.favoriteGenre();
+            tickets = oldUser.tickets();
 			roles = oldUser.roles();
 		}
 
 		UserDTO userDTO = new UserDTO(userId, newUserDTO.fullname(), userName, newUserDTO.phone(),
-				newUserDTO.email(), password, numTicketsBought, favoriteGenre, image, roles);
+				newUserDTO.email(), password, numTicketsBought, favoriteGenre, image,tickets, roles);
 
 		UserDTO newUser = createOrReplaceUser(userId, userDTO);
 

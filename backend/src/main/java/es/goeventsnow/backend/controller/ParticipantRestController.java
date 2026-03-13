@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -35,8 +37,8 @@ public class ParticipantRestController {
     private ParticipantService participantService;
 
     @GetMapping("/")
-    public Collection<ParticipantDTO> getParticipants() {
-        return participantService.getAllParticipants();
+    public Page<ParticipantDTO> getParticipants(Pageable pageable) {
+        return participantService.getAllParticipants(pageable);
     }
 
     @GetMapping("/{id}")

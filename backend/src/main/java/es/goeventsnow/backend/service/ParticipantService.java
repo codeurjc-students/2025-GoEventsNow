@@ -15,6 +15,9 @@ import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.dto.participant.ParticipantMapper;
 import es.goeventsnow.backend.model.Participant;
 import es.goeventsnow.backend.repository.ParticipantRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 @Service
 public class ParticipantService {
@@ -25,8 +28,8 @@ public class ParticipantService {
     @Autowired
     private ParticipantMapper participantMapper;
 
-    public Collection<ParticipantDTO> getAllParticipants(){
-       return toDTOs(participantRepository.findAll());
+    public Page<ParticipantDTO> getAllParticipants(Pageable pageable){
+       return participantRepository.findAll(pageable).map(this::toDTO);
     }
 
     public ParticipantDTO getParticipantById(Long id){

@@ -7,6 +7,9 @@ import java.util.Collection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import es.goeventsnow.backend.model.Event;
 import es.goeventsnow.backend.service.EventService;
@@ -39,10 +42,12 @@ public class EventBBDDTest {
         EventDTO event1DTO = eventMapper.toDTO(event1);
         EventDTO event2DTO = eventMapper.toDTO(event2);
 
-        Collection<EventDTO> eventListService = eventService.getAllEvents();
+        Pageable pageable = PageRequest.of(0, 20);
 
-        assertTrue(eventListService.stream().anyMatch(e -> e.title().equals(event1DTO.title())));
-        assertTrue(eventListService.stream().anyMatch(e -> e.title().equals(event2DTO.title())));
+        Page<EventDTO> eventListService = eventService.getAllEvents(pageable);
+
+        assertTrue(eventListService.getContent().stream().anyMatch(e -> e.title().equals(event1DTO.title())));
+        assertTrue(eventListService.getContent().stream().anyMatch(e -> e.title().equals(event2DTO.title())));
 
     }
 

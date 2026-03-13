@@ -2,9 +2,10 @@ package es.goeventsnow.backend.unit;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,11 +17,17 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import es.goeventsnow.backend.model.Event;
 import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.dto.event.EventMapper;
 import es.goeventsnow.backend.repository.EventRepository;
 import es.goeventsnow.backend.service.EventService;
+
 
 public class EventTest {
 
@@ -56,18 +63,24 @@ public class EventTest {
 
     @Test
     public void getAllEventsTest(){
+
+        Pageable pageable = PageRequest.of(0, 20);
+        Page<Event> eventPage = new PageImpl<>(List.of(event1, event2), pageable, 2);
+
+        when(eventMapper.toDTO(event1)).thenReturn(eventDTO1);
+        when(eventMapper.toDTO(event2)).thenReturn(eventDTO2);
         
-        when(eventRepository.findAll()).thenReturn(eventList);
+        when(eventRepository.findAll(pageable)).thenReturn(eventPage);
 
         when(eventMapper.toDTOs(eventList)).thenReturn(List.of(eventDTO1, eventDTO2));
 
-        Collection<EventDTO> eventListService = eventService.getAllEvents();
+        Page<EventDTO> eventListService = eventService.getAllEvents(pageable);
 
-        assertEquals(2, eventListService.size());
-        List<EventDTO> resultList = new ArrayList<>(eventListService);
-        assertEquals(eventDTO1.title(), resultList.get(0).title());
-        
-        verify(eventRepository, times(1)).findAll();
+        assertEquals(2, eventListService.getNumberOfElements());
+        assertTrue(eventListService.getContent().stream().anyMatch(e -> e.title().equals(eventDTO1.title())));
+        assertTrue(eventListService.getContent().stream().anyMatch(e -> e.title().equals(eventDTO2.title())));
+
+        verify(eventRepository, times(1)).findAll(pageable);
     }
 
     @Test

@@ -25,6 +25,9 @@ import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.service.EventService;
 
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 
 
@@ -36,8 +39,8 @@ public class EventRestController {
     private EventService eventService;
 
     @GetMapping("/")
-    public Collection<EventDTO> getEvents() {
-        return eventService.getAllEvents();
+    public Page<EventDTO> getEvents(Pageable pageable) {
+        return eventService.getAllEvents(pageable);
     }
 
     @GetMapping("/{id}")

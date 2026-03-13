@@ -9,12 +9,15 @@ import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import es.goeventsnow.backend.dto.event.EventDTO;
+import es.goeventsnow.backend.dto.event.EventMapper;
 import es.goeventsnow.backend.model.Event;
 import es.goeventsnow.backend.repository.EventRepository;
-import es.goeventsnow.backend.dto.event.EventMapper;
-import es.goeventsnow.backend.dto.event.EventDTO;
+
 
 @Service
 public class EventService {
@@ -25,8 +28,8 @@ public class EventService {
     @Autowired
     private EventMapper eventMapper;
 
-    public Collection<EventDTO> getAllEvents(){
-       return toDTOs(eventRepository.findAll());
+    public Page<EventDTO> getAllEvents(Pageable pageable){
+       return eventRepository.findAll(pageable).map(this::toDTO);
     }
 
     public EventDTO getEventById(Long id){

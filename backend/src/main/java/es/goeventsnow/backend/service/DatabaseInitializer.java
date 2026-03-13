@@ -59,6 +59,20 @@ public class DatabaseInitializer {
         eventRepository.save(event2);
         eventRepository.save(event3);
 
+        setEventImage(event1, participant1, "static/images/events/event1.jpg");
+        setEventImage(event2, participant2, "static/images/events/event1.jpg");
+        setEventImage(event3, participant3, "static/images/events/event1.jpg");
+
+    }
+
+    public void setEventImage(Event event, Participant participant,String classpathResource) throws IOException {
+        event.setImage(true);
+        Resource image = new ClassPathResource(classpathResource);
+        event.setImageFile(BlobProxy.generateProxy(image.getInputStream(), image.contentLength()));
+
+        participant.setParticipantImage(true);
+        Resource participantImage = new ClassPathResource(classpathResource);
+        participant.setParticipantImageFile(BlobProxy.generateProxy(participantImage.getInputStream(), participantImage.contentLength()));
     }
 
 }

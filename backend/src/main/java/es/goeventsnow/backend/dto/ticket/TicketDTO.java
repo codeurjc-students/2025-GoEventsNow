@@ -5,5 +5,6 @@ public record TicketDTO(
     String ticketType,
     Double price,
     Integer numTickets,
-    Long eventId 
+    Long eventId ,
+    Long userOwnerId
 ) {}

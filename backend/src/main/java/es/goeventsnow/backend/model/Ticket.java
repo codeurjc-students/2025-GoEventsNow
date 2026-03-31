@@ -73,8 +73,14 @@ public class Ticket {
         this.numTickets = numTickets;
     }
 
-    
-    
+    public User getUserOwner() {
+        return userOwner;
+    }
+
+    public void setUserOwner(User userOwner) {
+        this.userOwner = userOwner;
+    }
+
 
     
 }

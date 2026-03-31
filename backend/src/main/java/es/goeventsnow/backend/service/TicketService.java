@@ -8,13 +8,18 @@ import org.springframework.stereotype.Service;
 import es.goeventsnow.backend.dto.ticket.TicketDTO;
 import es.goeventsnow.backend.dto.ticket.TicketMapper;
 import es.goeventsnow.backend.model.Ticket;
+import es.goeventsnow.backend.model.User;
 import es.goeventsnow.backend.repository.TicketRepository;
+import es.goeventsnow.backend.repository.UserRepository;
 
 @Service
 public class TicketService {
 
     @Autowired
     private TicketRepository ticketRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private TicketMapper ticketMapper;

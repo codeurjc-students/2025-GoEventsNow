@@ -1,3 +1,5 @@
+import { Participant } from "./participant";
+import { Ticket } from "./ticket";
 
 export interface Event {
 
@@ -5,6 +7,9 @@ export interface Event {
     title:string,
     category:string,
     location:string,
-    date:string
-
+    date:string,
+    image?:boolean,
+    participants?: Participant[],
+    tickets?: Ticket[]
+    
 }

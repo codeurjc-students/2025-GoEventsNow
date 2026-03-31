@@ -1,4 +1,5 @@
 
+import { Ticket } from "./ticket"
 
 export interface User {
 
@@ -10,7 +11,8 @@ export interface User {
     password:string,
     numTicketsBought:number,
     favoriteGenre:string,
-    profileImage?:boolean
+    profileImage?:boolean,
+    tickets?: Ticket[],
     roles?: string[]
 
 }

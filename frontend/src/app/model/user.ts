@@ -1,4 +1,4 @@
-import { Ticket } from "./ticket"
+
 
 export interface User {
 
@@ -10,8 +10,7 @@ export interface User {
     password:string,
     numTicketsBought:number,
     favoriteGenre:string,
-    profileImage?:boolean,
-    tickets?: Ticket[],
+    profileImage?:boolean
     roles?: string[]
 
 }

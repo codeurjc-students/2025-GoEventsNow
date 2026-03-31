@@ -28,6 +28,9 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
+            ],
+            "polyfills": [
+              "@angular/localize/init"
             ]
           },
           "configurations": {
@@ -65,9 +68,9 @@
             }
           },
           "defaultConfiguration": "development",
-          "options": {
-            "proxyConfig": "./proxy.conf.json"
-          }
+           "options": {
+              "proxyConfig": "./proxy.conf.json"
+            }
         },
         "test": {
           "builder": "@angular/build:unit-test"

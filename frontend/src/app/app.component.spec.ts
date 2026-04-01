@@ -3,6 +3,7 @@ import { EventListComponent } from './components/events/event-list.component';
 import { EventService } from './service/event.service';
 import { of } from 'rxjs';
 import { Event } from './model/event';
+import { ActivatedRoute } from '@angular/router';
 
 
 const mockEvents: Event[] = [
@@ -43,7 +44,8 @@ describe('EventListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [EventListComponent],
       providers: [
-        { provide: EventService, useValue: eventServiceMock }
+        { provide: EventService, useValue: eventServiceMock },
+        { provide: ActivatedRoute, useValue: {} }
       ]
     }).compileComponents();
   });

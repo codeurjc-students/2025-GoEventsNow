@@ -1,0 +1,96 @@
+<div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
+    <div class="card border p-4 p-md-5" style="max-width: 500px; width: 100%; border-radius: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+        
+        <form (ngSubmit)="register()" #registerForm="ngForm" novalidate class="text-center">
+
+            <div class="mb-4">
+                <img src="/images/noImage.png" alt="GoEventsNow Logo" style="height: 100px; max-width: 100%; object-fit: contain;">
+            </div>
+
+            <h2 class="h5 fw-bold mb-1 text-dark">Create an Account</h2>
+            <p class="text-muted small mb-4">Sign up to start managing your events</p>
+
+            <ngb-alert *ngIf="errorMessage" type="danger" [dismissible]="true" (closed)="errorMessage = null" class="mb-4 text-start">
+                {{ errorMessage }}
+            </ngb-alert>
+
+            <div class="text-start mb-3">
+                <label for="fullname" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Fullname</label>
+                <input type="text" class="form-control bg-light border-0 py-2 rounded-3" id="fullname" name="fullname" [(ngModel)]="fullname" placeholder="Enter your fullname">
+                @if (fullname && fullname.trim().length > 0) {
+                    <div class="form-text text-muted">Good!</div>
+                } @else {
+                    <div class="form-text text-danger">Fullname is required.</div>
+                }
+            </div>
+
+            <div class="text-start mb-3">
+                <label for="username" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Username (Minimum 3 characters)</label>
+                <input type="text" class="form-control bg-light border-0 py-2 rounded-3" id="username" name="username" [(ngModel)]="username" placeholder="Enter your username" required minlength="3">
+                @if (username && username.trim().length >= 3) {
+                    <div class="form-text text-muted">Good!</div>
+                } @else {
+                    <div class="form-text text-danger">Username must be at least 3 characters long.</div>
+                }
+            </div>
+
+            <div class="text-start mb-3">
+                <label for="email" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Email address</label>
+                <input type="email" class="form-control bg-light border-0 py-2 rounded-3" id="email" name="email" [(ngModel)]="email" placeholder="name@example.com" required>
+                @if (email && email.trim().length > 0 && email.includes('@') && email.includes('.')) {
+                    <div class="form-text text-muted">Good!</div>
+                }
+                @else {
+                    <div class="form-text text-danger">Email is required.</div>
+                }
+            </div>
+
+            <div class="text-start mb-3">
+                <label for="phone" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Phone number</label>
+                <input type="tel" class="form-control bg-light border-0 py-2 rounded-3" id="phone" name="phone" [(ngModel)]="phone" placeholder="Enter your phone number" required pattern="^\d{9}$" inputmode="numeric">
+                @if (phone && phone.trim().length === 9) {
+                    <div class="form-text text-muted">Good!</div>
+                }
+                @else {
+                    <div class="form-text text-danger">Please enter a valid 9-digit phone number.</div>
+                }
+            </div>
+
+            <div class="text-start mb-3">
+                <label for="password" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Password (minimum 5 characters)</label>
+                <input type="password" class="form-control bg-light border-0 py-2 rounded-3" id="password" name="password" [(ngModel)]="password" placeholder="••••••••" required minlength="5">
+                @if (password && password.trim().length >= 5) {
+                    <div class="form-text text-muted">Good!</div>
+                }
+                @else {
+                    <div class="form-text text-danger">Password must be at least 5 characters long.</div>
+                }
+            </div>
+
+            <div class="text-start mb-3">
+                <label for="confirmPassword" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Confirm Password</label>
+                <input type="password" class="form-control bg-light border-0 py-2 rounded-3" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Confirm your password" required minlength="5">
+                @if (confirmPassword && confirmPassword === password) {
+                    <div class="form-text text-muted">Passwords match.</div>
+                }
+                @else {
+                    <div class="form-text text-danger">Passwords do not match.</div>
+                }
+            </div>
+
+            <div class="text-start mb-4">
+                <label class="form-label fw-bold text-dark" style="font-size: 0.85rem;" for="profilePicture">Profile Image</label>
+                <input type="file" class="form-control bg-light border-0 py-2 rounded-3" id="profilePicture" name="profilePicture" (change)="onFileSelected($event)" accept=".jpg, .jpeg, .png">
+            </div>
+
+            <div class="d-grid mb-4">
+                <button type="submit" class="btn btn-primary fw-bold py-2 rounded-3" [disabled]="!isFormValid()">Register</button>
+            </div>
+
+            <p class="text-muted mb-0" style="font-size: 0.85rem;">
+                Already have an account? <a [routerLink]="['/login']" class="text-primary text-decoration-none fw-bold">Sign in</a>
+            </p>
+
+        </form>
+    </div>
+</div>

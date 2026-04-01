@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './service/auth.service';
 import { UserService } from './service/user.service';
@@ -7,7 +9,7 @@ import { UserService } from './service/user.service';
   standalone: true,
   selector: 'app-root',
   templateUrl: './app.component.html',
-  imports: [ RouterOutlet]
+  imports: [ RouterOutlet, HeaderComponent, FooterComponent ]
 })
 export class AppComponent implements OnInit {
 

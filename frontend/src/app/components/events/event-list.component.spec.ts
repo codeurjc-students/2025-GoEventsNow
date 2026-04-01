@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { EventService } from './service/event.service';
+import { EventListComponent } from './event-list.component';
+import { EventService } from '../../service/event.service';
 import { of } from 'rxjs';
-import { Event } from './model/event';
+import { Event } from '../../model/event';
 
 
 const mockEvents: Event[] = [
@@ -29,10 +29,10 @@ const mockEvents: Event[] = [
                 }
         ];
 
-describe('AppComponent', () => {
+describe('EventListComponent', () => {
 
-  let component: AppComponent;
-  let fixture: ComponentFixture<AppComponent>;
+  let component: EventListComponent;
+  let fixture: ComponentFixture<EventListComponent>;
   let eventServiceMock: Partial<EventService>;
 
   beforeEach(async () => {
@@ -41,7 +41,7 @@ describe('AppComponent', () => {
       findAll: vi.fn().mockReturnValue(of(mockEvents))
     };
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [EventListComponent],
       providers: [
         { provide: EventService, useValue: eventServiceMock }
       ]
@@ -49,7 +49,7 @@ describe('AppComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(EventListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges(); 
   });
@@ -63,7 +63,7 @@ describe('AppComponent', () => {
   });
 
   it('should have events$ ', () => {
-    component.events$.subscribe( (events) => {
+    component.events$.subscribe((events: Event[]) => {
       expect(events.length).toBe(3);
       expect(events).toEqual(mockEvents);
     })

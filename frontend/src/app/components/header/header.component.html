@@ -1,0 +1,46 @@
+<header
+    class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 px-3 border-bottom ">
+
+    <a [routerLink]="''" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-decoration-none">
+        <img src="/images/GoEventsNowLogo.png" alt="GoEventsNow Logo" style="height: 60px; max-width: 100%; object-fit: contain;">
+    </a>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center fw-semibold text-dark">
+        <li><a [routerLink]="''" class="nav-link px-3 link-dark"><i class="bi bi-house"></i> Home</a></li>
+        <li><a [routerLink]="'participants'" class="nav-link px-3 link-dark"><i class="bi bi-people"></i>
+                Participants</a></li>
+        <li><a [routerLink]="'events'" class="nav-link px-3 link-dark"><i class="bi bi-calendar"></i> Events</a></li>
+    </ul>
+
+    <div class="col-md-3 text-end">
+        @if (!isLogged || !user) {
+        <button [routerLink]="'login'" type="button"
+            class="btn btn-link text-dark text-decoration-none fw-bold me-2">Log In</button>
+        <button [routerLink]="'register'" type="button" class="btn btn-dark fw-bold px-4 rounded-pill">Sign Up</button>
+        } @else {
+        <div ngbDropdown class="d-inline-block">
+            <button type="button" class="btn btn-outline-dark fw-bold" id="userMenu" ngbDropdownToggle>
+                <i class="bi bi-person-circle me-1"></i> {{ user.username }}
+            </button>
+
+            <div ngbDropdownMenu aria-labelledby="userMenu" class="dropdown-menu-end shadow-sm border-0 mt-2">
+                <button ngbDropdownItem [routerLink]="'user/' + user.id" class="py-2">
+                    <i class="bi bi-person me-2"></i> My Profile
+                </button>
+                @if (admin){
+                <button ngbDropdownItem [routerLink]="'manage-events'" class="py-2">
+                    <i class="bi bi-calendar me-2"></i> Manage Events
+                </button>
+                <button ngbDropdownItem [routerLink]="'manage-participants'" class="py-2">
+                    <i class="bi bi-people me-2"></i> Manage Participants
+                </button>
+                }
+                <div class="dropdown-divider"></div>
+                <button ngbDropdownItem (click)="logout()" class="text-danger py-2">
+                    <i class="bi bi-box-arrow-left me-2"></i> Log Out
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+</header>

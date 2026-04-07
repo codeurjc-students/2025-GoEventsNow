@@ -1,0 +1,74 @@
+<div class="container-fluid px-4 py-4">
+    <div class="row">
+        
+        <aside class="col-12 col-md-4 col-lg-2 mb-4">
+            <div class="sticky-top" style="top: 20px;">
+                <h5 class="fw-bold mb-3"><i class="bi bi-filter"></i> Filters</h5>
+                <div class="d-flex flex-column gap-2">
+                    <p class="mb-1 fw-semibold small text-secondary">Category</p>
+                    
+                    <input type="checkbox" class="btn-check" id="btn-all" autocomplete="off">
+                    <label class="btn btn-outline-primary w-100 text-start border-0 py-2 rounded-3" for="btn-all">All</label>
+
+                    <input type="checkbox" class="btn-check" id="btn-music" autocomplete="off">
+                    <label class="btn btn-outline-primary w-100 text-start border-0 py-2 rounded-3" for="btn-music">Music</label>
+                    
+                    <input type="checkbox" class="btn-check" id="btn-tech" autocomplete="off">
+                    <label class="btn btn-outline-primary w-100 text-start border-0 py-2 rounded-3" for="btn-tech">Technology</label>
+
+                    </div>
+                <button class="btn btn-outline-dark btn-sm w-100 mt-4 rounded-pill">Clear All Filters</button>
+            </div>
+        </aside>
+
+        <main class="col-12 col-md-8 col-lg-10">
+            
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="input-group input-group-lg shadow-sm rounded-pill overflow-hidden bg-white border">
+                        <span class="input-group-text bg-white border-0 ps-4">
+                            <i class="bi bi-search text-secondary"></i>
+                        </span>
+                        <input type="text" class="form-control border-0 py-3" placeholder="Search participants by name, location, or description...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4" id="participant-list">
+                <h5 class="fw-bold mb-3">{{participants.length}} Participants Found</h5>
+                @for (participant of participants; track participant.id) {
+                    
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-1 border-light rounded-4 overflow-hidden">
+                        
+                        <div class="position-relative bg-dark" style="height: 200px;">
+                            <img [src]="participant.participantImage ? ('/api/v1/participants/' + participant.id + '/image') : '/images/noImage.png'"
+                                 class="w-100 h-100 object-fit-cover opacity-75" alt="Participant cover">
+            
+                        </div>
+
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="mb-2">
+                                <span class="badge border border-secondary-subtle text-secondary fw-normal rounded-pill px-3 py-1 bg-transparent">
+                                    {{participant.type}}
+                                </span>
+                            </div>
+
+                            <h3 class="card-title h6 text-dark fw-bold mb-3">{{participant.name}}</h3>
+
+                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
+                                <a [routerLink]="['/participant/', participant.id]" class="btn btn-dark btn-sm rounded-pill px-4 fw-bold py-2">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <div class="text-center mt-5" *ngIf="hasMore">
+                <button (click)="loadParticipants()" class="btn btn-outline-dark rounded-pill px-5">Load More Participants</button>
+            </div>
+        </main>
+
+    </div>
+</div>

@@ -12,6 +12,7 @@ import { ParticipantsListComponent } from './components/participants/participant
 import { ParticipantDetailComponent } from './components/participants/participant-detail.component';
 import { ManageParticipantsComponent } from './components/participants/manage-participants.component';
 import { AddParticipantsComponent } from './components/participants/add-participants.component';
+import { UserPageComponent } from './components/user/user-page.component';
 
 export const appRoutes: Routes = [
 
@@ -28,6 +29,7 @@ export const appRoutes: Routes = [
     { path: 'manage-participants', component: ManageParticipantsComponent},
     { path: 'create-participant', component: AddParticipantsComponent },
     { path: 'edit-participant/:id', component: AddParticipantsComponent },
+    { path: 'user/:id', component: UserPageComponent},
     { path: 'error/:type', component: ErrorComponent },
     { path: '**', redirectTo: 'error/404' }
 

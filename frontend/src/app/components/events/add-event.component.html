@@ -1,0 +1,100 @@
+<div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
+    <div class="card border p-4 p-md-5"
+        style="max-width: 500px; width: 100%; border-radius: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+
+        <form (ngSubmit)="send()" #registerForm="ngForm" novalidate class="text-center">
+
+            @if (event.id == null) {
+            <h2 class="h5 fw-bold mb-1 text-dark">Add New Event</h2>
+            <p class="text-muted small mb-4">Fill in the details to create an event</p>
+            <div class="mb-4">
+                <img src="/images/noImage.png" alt="GoEventsNow Logo" style="height: 150px; max-width: 100%; object-fit: contain;">
+            </div>
+            } @else {
+            <h2 class="h5 fw-bold mb-1 text-dark">Edit Event</h2>
+            <p class="text-muted small mb-4">Update the details of your event</p>
+            <div class="mb-4">
+                <img [src]="'/api/v1/events/' + event.id + '/image'" alt="GoEventsNow Logo" style="height: 150px; max-width: 100%; object-fit: contain;">
+            </div>
+            }
+
+            <ngb-alert *ngIf="errorMessage" type="danger" [dismissible]="true" (closed)="errorMessage = null" class="mb-4 text-start">
+                {{ errorMessage }}
+            </ngb-alert>
+
+
+            <div class="text-start mb-3">
+                <label for="title" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Title</label>
+                <input type="text" class="form-control bg-light border-0 py-2 rounded-3" id="title" name="title"
+                    [(ngModel)]="event.title" required placeholder="Enter event title">
+                @if (event.title && event.title.trim().length > 0) {
+                    <div class="form-text text-muted">Good!</div>
+                } @else {
+                    <div class="form-text text-danger">Title is required.</div>
+                }
+            </div>
+
+            <div class="text-start mb-3">
+                <label for="category" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Category</label>
+                <input type="text" class="form-control bg-light border-0 py-2 rounded-3" id="category" name="category"
+                    [(ngModel)]="event.category" required placeholder="Enter event category">
+                @if (event.category && event.category.trim().length > 0) {
+                    <div class="form-text text-muted">Good!</div>
+                } @else {
+                    <div class="form-text text-danger">Category is required.</div>
+                }
+            </div>
+
+            <div class="text-start mb-3">
+                <label for="location" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Location</label>
+                <input type="text" class="form-control bg-light border-0 py-2 rounded-3" id="location" name="location"
+                    [(ngModel)]="event.location" required placeholder="Enter event location">
+                @if (event.location && event.location.trim().length > 0) {
+                    <div class="form-text text-muted">Good!</div>
+                } @else {
+                    <div class="form-text text-danger">Location is required.</div>
+                }
+            </div>
+
+            <div class="text-start mb-3">
+                <label for="date" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Date</label>
+                <input type="date" class="form-control bg-light border-0 py-2 rounded-3" id="date" name="date"
+                    [(ngModel)]="event.date" required>
+                @if (event.date) {
+                    <div class="form-text text-muted">Good!</div>
+                } @else {
+                    <div class="form-text text-danger">Date is required.</div>
+                }
+            </div>
+
+            <div class="text-start mb-3">
+                <label for="participantIds" class="form-label fw-bold text-dark"
+                    style="font-size: 0.85rem;">Participants:</label>
+                <select [(ngModel)]="selectedParticipants" name="participantIds" id="participantIds"
+                    class="form-select bg-light border-0 py-2 rounded-3" multiple required>
+                    @for (participant of allParticipants; track participant.id) {
+                    <option [value]="participant.id">
+                        {{ participant.name }}
+                    </option>
+                    }
+                </select>
+                @if (selectedParticipants && selectedParticipants.length > 0) {
+                    <div class="form-text text-muted">Good!</div>
+                } @else {
+                    <div class="form-text text-danger">Please select at least one participant.</div>
+                }
+            </div>
+
+            <div class="text-start mb-4">
+                <label class="form-label fw-bold text-dark" style="font-size: 0.85rem;" for="image">Event
+                    Image</label>
+                <input type="file" class="form-control bg-light border-0 py-2 rounded-3" id="image" name="image"
+                    (change)="onFileSelected($event)">
+            </div>
+
+            <div class="d-grid mb-2">
+                <button type="submit" class="btn btn-primary fw-bold py-2 rounded-3">Send</button>
+            </div>
+        </form>
+    </div>
+</div>

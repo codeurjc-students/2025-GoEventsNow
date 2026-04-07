@@ -13,6 +13,7 @@ import { ParticipantDetailComponent } from './components/participants/participan
 import { ManageParticipantsComponent } from './components/participants/manage-participants.component';
 import { AddParticipantsComponent } from './components/participants/add-participants.component';
 import { UserPageComponent } from './components/user/user-page.component';
+import { TicketSelectionComponent } from './components/tickets/ticket-selection.component';
 
 export const appRoutes: Routes = [
 
@@ -30,6 +31,7 @@ export const appRoutes: Routes = [
     { path: 'create-participant', component: AddParticipantsComponent },
     { path: 'edit-participant/:id', component: AddParticipantsComponent },
     { path: 'user/:id', component: UserPageComponent},
+    { path: 'event/:id/tickets', component: TicketSelectionComponent},
     { path: 'error/:type', component: ErrorComponent },
     { path: '**', redirectTo: 'error/404' }
 

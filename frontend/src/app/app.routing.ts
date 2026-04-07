@@ -10,6 +10,8 @@ import { ManageEventsComponent } from './components/events/manage-events.compone
 import { AddEventComponent } from './components/events/add-event.component';
 import { ParticipantsListComponent } from './components/participants/participants-list.component';
 import { ParticipantDetailComponent } from './components/participants/participant-detail.component';
+import { ManageParticipantsComponent } from './components/participants/manage-participants.component';
+import { AddParticipantsComponent } from './components/participants/add-participants.component';
 
 export const appRoutes: Routes = [
 
@@ -23,6 +25,9 @@ export const appRoutes: Routes = [
     { path: 'edit-event/:id', component: AddEventComponent },
     { path: 'participants', component: ParticipantsListComponent},
     { path: 'participant/:id', component: ParticipantDetailComponent},
+    { path: 'manage-participants', component: ManageParticipantsComponent},
+    { path: 'create-participant', component: AddParticipantsComponent },
+    { path: 'edit-participant/:id', component: AddParticipantsComponent },
     { path: 'error/:type', component: ErrorComponent },
     { path: '**', redirectTo: 'error/404' }
 

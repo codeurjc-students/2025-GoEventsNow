@@ -67,14 +67,14 @@
                             <h3 class="card-title h6 text-dark fw-bold mb-3">{{event.title}}</h3>
 
                             <p class="text-secondary mb-1 small d-flex align-items-center">
-                                <i class="bi bi-calendar3 me-2"></i> {{event.date}}
+                                <i class="bi bi-calendar3 me-2"></i> {{event.date}} / {{event.time}}
                             </p>
                             <p class="text-secondary mb-4 small d-flex align-items-center">
                                 <i class="bi bi-geo-alt me-2"></i> {{event.location}}
                             </p>
 
                             <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <span class="text-primary fw-bold">From $89.99</span>
+                                <span class="text-primary fw-bold">From ${{event.basicPrice}} - ${{event.vipPrice}}</span>
                                 <a [routerLink]="['/event/', event.id]" class="btn btn-dark btn-sm rounded-pill px-4 fw-bold py-2">View Details</a>
                             </div>
                         </div>

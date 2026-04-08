@@ -6,28 +6,46 @@ import { Event } from '../../model/event';
 
 
 const mockEvents: Event[] = [
-                {
-                    "id": 1,
-                    "title": "Taller de Spring Boot 4.0",
-                    "category": "Tecnología",
-                    "location": "Fuenlabrada, Madrid",
-                    "date": "15-03-2026"
-                },
-                {
-                    "id": 2,
-                    "title": "Exposición Arte",
-                    "category": "Cultura",
-                    "location": "Barcelona",
-                    "date": "12-02-2026"
-                },
-                {
-                    "id": 3,
-                    "title": "Torneo de Baloncesto",
-                    "category": "Deportes",
-                    "location": "Getafe, Madrid",
-                    "date": "02-08-2026"
-                }
-        ];
+  {
+    id: 1,
+    title: "Spring Boot 4.0 Workshop",
+    description: "Intensive workshop on the framework's new features.",
+    category: "Technology",
+    location: "Fuenlabrada, Madrid",
+    date: "2026-03-15",
+    time: "10:00",
+    basicPrice: 50.0,
+    vipPrice: 120.0,
+    availableBasicTickets: 100,
+    availableVipTickets: 20
+  },
+  {
+    id: 2,
+    title: "Art Exhibition",
+    description: "International contemporary art exhibition.",
+    category: "Culture",
+    location: "Barcelona",
+    date: "2026-02-12",
+    time: "17:00",
+    basicPrice: 15.0,
+    vipPrice: 40.0,
+    availableBasicTickets: 200,
+    availableVipTickets: 50
+  },
+  {
+    id: 3,
+    title: "Basketball Tournament",
+    description: "Regional amateur team competition.",
+    category: "Sports",
+    location: "Getafe, Madrid",
+    date: "2026-08-02",
+    time: "09:30",
+    basicPrice: 10.0,
+    vipPrice: 25.0,
+    availableBasicTickets: 500,
+    availableVipTickets: 50
+  }
+];
 
 describe('EventListComponent', () => {
 
@@ -51,7 +69,7 @@ describe('EventListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EventListComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); 
+    fixture.detectChanges();
   });
 
   it('should create the component', () => {
@@ -59,7 +77,7 @@ describe('EventListComponent', () => {
   });
 
   it('should initialize events$ in ngOnInit ', () => {
-      expect(eventServiceMock.findAll).toHaveBeenCalledTimes(1);
+    expect(eventServiceMock.findAll).toHaveBeenCalledTimes(1);
   });
 
   it('should have events$ ', () => {
@@ -68,6 +86,6 @@ describe('EventListComponent', () => {
       expect(events).toEqual(mockEvents);
     })
   });
-  
+
 
 });

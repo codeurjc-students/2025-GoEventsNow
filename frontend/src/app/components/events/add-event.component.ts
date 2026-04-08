@@ -20,7 +20,7 @@ export class AddEventComponent {
 
     newEvent: boolean = true;
     event: Event = {
-        title: '', category: '', location: '', date: '',
+        title: '', description:'', category: '', location: '', date: '', time: '', basicPrice: 0, vipPrice: 0, availableBasicTickets: 0, availableVipTickets: 0,
         image: false, participants: [], tickets: []
     };
     allParticipants: Participant[] = [];
@@ -38,7 +38,6 @@ export class AddEventComponent {
                 this.cd.detectChanges();
             }
         });
-        console.log('Event ID from route:', eventId);
         if (eventId) {
             this.newEvent = false;
             this.eventService.findById(eventId).subscribe({
@@ -96,11 +95,19 @@ export class AddEventComponent {
     }
 
     isFormEventValid(): boolean {
-        return this.event.title.trim().length > 0 &&
-            this.event.category.trim().length > 0 &&
-            this.event.location.trim().length > 0 &&
-            this.event.date.trim().length > 0 &&
-            this.selectedParticipants.length > 0;
-    }
+    return !!(
+        this.event.title && this.event.title.trim().length > 0 && 
+        this.event.description && this.event.description.trim().length > 0 &&
+        this.event.category && this.event.category.trim().length > 0 &&
+        this.event.location && this.event.location.trim().length > 0 &&
+        this.event.date && this.event.date.trim().length > 0 &&
+        this.event.time && this.event.time.trim().length > 0 &&
+        this.event.basicPrice != null && this.event.basicPrice >= 0 &&
+        this.event.vipPrice != null && this.event.vipPrice >= 0 &&
+        this.event.availableBasicTickets != null && this.event.availableBasicTickets >= 0 &&
+        this.event.availableVipTickets != null && this.event.availableVipTickets >= 0 &&
+        this.selectedParticipants && this.selectedParticipants.length > 0
+    );
+}
 
 }

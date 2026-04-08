@@ -7,9 +7,15 @@ import es.goeventsnow.backend.dto.ticket.TicketDTO;
 public record EventDTO (
     Long id,
     String title,
+    String description,
     String category,
     String location,
     String date,
+    String time,
+    Double basicPrice,
+    Double vipPrice,
+    Integer availableBasicTickets,
+    Integer availableVipTickets,
     Boolean image,
     List<ParticipantDTO> participants,
     List<TicketDTO> tickets

@@ -29,7 +29,7 @@
                             </div>
                             <div>
                                 <p class="text-muted mb-0 small">Date</p>
-                                <p class="fw-medium text-dark mb-0">{{ event.date }}</p>
+                                <p class="fw-medium text-dark mb-0">{{ event.date }} / {{ event.time }}</p>
                             </div>
                         </div>
                         <div class="col-md-6 d-flex align-items-start">
@@ -47,7 +47,7 @@
                             </div>
                             <div>
                                 <p class="text-muted mb-0 small">Availability</p>
-                                <p class="fw-medium text-dark mb-0">200</p>
+                                <p class="fw-medium text-dark mb-0">{{ event.availableBasicTickets }} Basic / {{ event.availableVipTickets }} VIP</p>
                             </div>
                         </div>
                     </div>
@@ -56,11 +56,9 @@
 
                     <h5 class="fw-bold mb-3 text-dark">About This Event</h5>
                     <p class="text-muted mb-5 lh-lg">
-                        Experience the biggest music festival of the year featuring top international artists and bands.
-                        Three days of non-stop entertainment with multiple stages, food courts, and camping facilities.
+                        {{ event.description }}
                     </p>
-
-                    <h5 class="fw-bold mb-4 text-dark">Featured Participants ({{ participants.length }})</h5>
+                    <h5 class="fw-bold mb-3 text-dark">Featured Participants ({{ participants.length }})</h5>
                     @for (participant of participants; track participant.id) {
                     <div class="row g-3">
                         <div class="col-md-6 col-lg-12">
@@ -93,10 +91,13 @@
         <div class="col-lg-4">
             <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top: 20px;">
                 <div class="card-body p-4 p-md-5">
-                    <p class="text-muted mb-2">Price per ticket</p>
-                    <h2 class="text-primary fw-bold mb-4 display-6">$89.99</h2>
-
+                    <p class="text-muted mb-2">Price per ticket (Basic / VIP)</p>
+                    <h2 class="text-primary fw-bold mb-4 display-6">${{ event.basicPrice }} - ${{ event.vipPrice }}</h2>
+                     @if (event.availableBasicTickets > 0 || event.availableVipTickets > 0) {
                     <button [routerLink]="'/event/'+ event.id + '/tickets'" class="btn btn-dark w-100 py-3 rounded-3 fw-bold mb-4">Get Tickets</button>
+                     } @else {
+                    <button class="btn btn-secondary w-100 py-3 rounded-3 fw-bold mb-4" disabled>Sold Out</button>
+                     }
                 </div>
             </div>
         </div>

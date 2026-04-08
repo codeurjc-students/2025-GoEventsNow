@@ -52,7 +52,7 @@ public class TicketRestController {
 
         if (principal != null) {
 
-            TicketDTO createdTicketDTO = new TicketDTO(null, ticketDTO.ticketType(), 10.0, ticketDTO.numTickets(), ticketDTO.eventId(), userService.findByUsername(principal.getName()).id());
+            TicketDTO createdTicketDTO = new TicketDTO(null, ticketDTO.ticketType(), ticketDTO.price(), ticketDTO.numTickets(), ticketDTO.eventId(), userService.findByUsername(principal.getName()).id());
             TicketDTO savedTicketDTO =  ticketService.addTicket(createdTicketDTO);
             
             URI location = ServletUriComponentsBuilder

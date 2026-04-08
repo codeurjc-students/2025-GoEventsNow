@@ -11,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -20,36 +19,49 @@ import jakarta.persistence.Table;
 public class Event {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;
+    private String description;
     private String category;
     private String location;
     private String date;
-
+    private String time;
+    private Double basicPrice;
+    private Double vipPrice;
+    private int availableBasicTickets;
+    private int availableVipTickets;
     private boolean image;
 
-    @Lob 
+    @Lob
     @JsonIgnore
     private Blob imageFile;
 
     @ManyToMany
     private List<Participant> participants;
 
-    @OneToMany(mappedBy = "event") 
+    @OneToMany(mappedBy = "event")
     private List<Ticket> tickets;
 
+    public Event() {
+    }
 
-    public Event(){}
-
-    public Event (String title, String category, String location, String date, List<Participant> participants) {
+    public Event(String title, String description, String category, String location, String date, String time,
+            Double basicPrice, Double vipPrice, int availableBasicTickets, int availableVipTickets,
+            List<Participant> participants) {
         super();
-        this.title=title;
-        this.category=category;
-        this.location=location;
-        this.date=date;
-        this.participants=participants;
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.location = location;
+        this.time = time;
+        this.date = date;
+        this.basicPrice = basicPrice;
+        this.vipPrice = vipPrice;
+        this.availableBasicTickets = availableBasicTickets;
+        this.availableVipTickets = availableVipTickets;
+        this.participants = participants;
     }
 
     public Long getId() {
@@ -122,6 +134,54 @@ public class Event {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Double getBasicPrice() {
+        return basicPrice;
+    }
+
+    public void setBasicPrice(Double basicPrice) {
+        this.basicPrice = basicPrice;
+    }
+
+    public Double getVipPrice() {
+        return vipPrice;
+    }
+
+    public void setVipPrice(Double vipPrice) {
+        this.vipPrice = vipPrice;
+    }
+
+    public int getAvailableBasicTickets() {
+        return availableBasicTickets;
+    }
+
+    public void setAvailableBasicTickets(int availableBasicTickets) {
+        this.availableBasicTickets = availableBasicTickets;
+    }
+
+    public int getAvailableVipTickets() {
+        return availableVipTickets;
+    }
+
+    public void setAvailableVipTickets(int availableVipTickets) {
+        this.availableVipTickets = availableVipTickets;
     }
 
 }

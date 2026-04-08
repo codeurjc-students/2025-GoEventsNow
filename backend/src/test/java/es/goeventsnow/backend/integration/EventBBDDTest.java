@@ -35,8 +35,8 @@ public class EventBBDDTest {
     @Test
     public void getAllEventsBBDDTest () {
 
-        Event event1 = new Event ("BBDD-Testing1 ","Testing1","USA","05-10-2025",null);
-        Event event2 = new Event ("BBDD-Testing2","Testing2","Madrid","16-08-2025",null);
+        Event event1 = new Event("BBDD-Testing1", "Description 1", "Testing1", "USA", "2025-10-05", "10:00", 20.0, 50.0, 100, 20, null);
+        Event event2 = new Event("BBDD-Testing2", "Description 2", "Testing2", "Madrid", "2025-08-16", "18:00", 30.0, 70.0, 200, 50, null);
         eventRepository.save(event1);
         eventRepository.save(event2);
         EventDTO event1DTO = eventMapper.toDTO(event1);
@@ -54,15 +54,21 @@ public class EventBBDDTest {
     @Test
     public void addEventBBDDTest () {
 
-        Event eventTest = new Event ("Summer Music Festival 2025","Music","Los Angeles","15-07-2025",null);
+        Event eventTest = new Event("Summer Music Festival 2025", "Amazing music festival", "Music", "Los Angeles", "2025-07-15", "12:00", 50.0, 150.0, 5000, 500, null);
 
         EventDTO eventCreatedDTO = eventService.addEvent(eventMapper.toDTO(eventTest));
         Event eventInRepository = eventRepository.findById(eventCreatedDTO.id()).orElseThrow();
 
-        assertEquals(eventTest.getTitle(),eventInRepository.getTitle(), "The title should match");
-        assertEquals(eventTest.getCategory(),eventInRepository.getCategory(),"The category should match");
-        assertEquals(eventTest.getDate(),eventInRepository.getDate(),"The date should match");
-        assertEquals(eventTest.getLocation(),eventInRepository.getLocation(),"The location should match");
+        assertEquals(eventTest.getTitle(), eventInRepository.getTitle(), "The title should match");
+        assertEquals(eventTest.getDescription(), eventInRepository.getDescription(), "The description should match");
+        assertEquals(eventTest.getCategory(), eventInRepository.getCategory(), "The category should match");
+        assertEquals(eventTest.getLocation(), eventInRepository.getLocation(), "The location should match");
+        assertEquals(eventTest.getDate(), eventInRepository.getDate(), "The date should match");
+        assertEquals(eventTest.getTime(), eventInRepository.getTime(), "The time should match");
+        assertEquals(eventTest.getBasicPrice(), eventInRepository.getBasicPrice(), "The basic price should match");
+        assertEquals(eventTest.getVipPrice(), eventInRepository.getVipPrice(), "The VIP price should match");
+        assertEquals(eventTest.getAvailableBasicTickets(), eventInRepository.getAvailableBasicTickets(), "The available basic tickets should match");
+        assertEquals(eventTest.getAvailableVipTickets(), eventInRepository.getAvailableVipTickets(), "The available VIP tickets should match");
         
     }
     

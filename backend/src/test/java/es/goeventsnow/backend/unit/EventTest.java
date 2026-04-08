@@ -50,10 +50,11 @@ public class EventTest {
 
         MockitoAnnotations.openMocks(this);
 
-        event1 = new Event("MockExample1", "Test", "None", "00-00-0000", null);
-        event2 = new Event("MockExample2", "Test", "None", "00-00-0000", null);
-        eventDTO1 = new EventDTO(1L, "MockExample1", "Test", "None", "00-00-0000", false, new ArrayList<>(), new ArrayList<>());
-        eventDTO2 = new EventDTO(2L, "MockExample2", "Test", "None", "00-00-0000", false, new ArrayList<>(), new ArrayList<>());
+        event1 = new Event("MockExample1", "Description 1", "Test", "None", "00-00-0000", "00:00", 10.0, 20.0, 100, 50, null);
+        event2 = new Event("MockExample2", "Description 2", "Test", "None", "00-00-0000", "00:00", 10.0, 20.0, 100, 50, null);
+        
+        eventDTO1 = new EventDTO(1L, "MockExample1", "Description 1", "Test", "None", "00-00-0000", "00:00", 10.0, 20.0, 100, 50, false, new ArrayList<>(), new ArrayList<>());
+        eventDTO2 = new EventDTO(2L, "MockExample2", "Description 2", "Test", "None", "00-00-0000", "00:00", 10.0, 20.0, 100, 50, false, new ArrayList<>(), new ArrayList<>());
 
         eventList.add(event1);
         eventList.add(event2);

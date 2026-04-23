@@ -14,6 +14,8 @@ import { ManageParticipantsComponent } from './components/participants/manage-pa
 import { AddParticipantsComponent } from './components/participants/add-participants.component';
 import { UserPageComponent } from './components/user/user-page.component';
 import { TicketSelectionComponent } from './components/tickets/ticket-selection.component';
+import { AdminGuard } from './admin.guard';
+import { authGuard } from './auth.guard';
 
 export const appRoutes: Routes = [
 
@@ -22,16 +24,16 @@ export const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'events', component: AllEventsComponent },
     { path: 'event/:id', component: EventDetailComponent },
-    { path: 'manage-events', component: ManageEventsComponent},
-    { path: 'create-event', component: AddEventComponent },
-    { path: 'edit-event/:id', component: AddEventComponent },
+    { path: 'manage-events', component: ManageEventsComponent, canActivate: [AdminGuard] },
+    { path: 'create-event', component: AddEventComponent, canActivate: [AdminGuard] },
+    { path: 'edit-event/:id', component: AddEventComponent, canActivate: [AdminGuard] },
     { path: 'participants', component: ParticipantsListComponent},
     { path: 'participant/:id', component: ParticipantDetailComponent},
-    { path: 'manage-participants', component: ManageParticipantsComponent},
-    { path: 'create-participant', component: AddParticipantsComponent },
-    { path: 'edit-participant/:id', component: AddParticipantsComponent },
-    { path: 'user/:id', component: UserPageComponent},
-    { path: 'event/:id/tickets', component: TicketSelectionComponent},
+    { path: 'manage-participants', component: ManageParticipantsComponent, canActivate: [AdminGuard] },
+    { path: 'create-participant', component: AddParticipantsComponent, canActivate: [AdminGuard] },
+    { path: 'edit-participant/:id', component: AddParticipantsComponent, canActivate: [AdminGuard] },
+    { path: 'user/:id', component: UserPageComponent, canActivate: [authGuard] },
+    { path: 'event/:id/tickets', component: TicketSelectionComponent, canActivate: [authGuard]},
     { path: 'error/:type', component: ErrorComponent },
     { path: '**', redirectTo: 'error/404' }
 

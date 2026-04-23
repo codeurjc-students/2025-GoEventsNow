@@ -25,7 +25,6 @@ export class TicketSelectionComponent implements OnInit {
     quantity: number = 0;
     event$: Observable<Event> = new Observable<Event>();
     eventId: number = 0;
-    user: User = {} as User;
     ticket: Ticket = {} as Ticket;
     ticketUser: Ticket[] = [];
     priceBasic: number = 0;
@@ -40,9 +39,9 @@ export class TicketSelectionComponent implements OnInit {
 
     ngOnInit(): void {
         const id = this.activatedRoute.snapshot.params['id'];
-        this.event$ = this.eventService.findById(id);
 
         if (id) {
+            this.event$ = this.eventService.findById(id);
             this.eventId = Number(id);
             this.event$.subscribe(event => {
                 this.priceBasic = event.basicPrice;
@@ -54,18 +53,10 @@ export class TicketSelectionComponent implements OnInit {
                 ticketType: '',
                 price: 0,
                 numTickets: 0,
-                eventId: 0,
-                userOwnerId: 0
-            }
-
-            this.userService.getCurrentUser().subscribe(user => {
-                this.user = user;
-                this.ticket.userOwnerId = user.id || 0;
-            });
+                eventId: this.eventId
+            };
         }
-
     }
-
 
     increase(): void {
         this.quantity += 1;
@@ -96,42 +87,21 @@ export class TicketSelectionComponent implements OnInit {
             return;
         }
 
-
         this.errorMessage = null;
 
-        this.ticket.eventId = this.eventId;
-        this.ticket.userOwnerId = this.user.id;
+
         this.ticket.numTickets = this.quantity;
         this.ticket.ticketType = this.selectedTicketType;
-
         this.reloadPriceTotal();
-
         this.ticket.price = this.priceTotal;
 
         this.ticketService.createTicket(this.ticket).subscribe({
             next: (ticket: Ticket) => {
-                this.ticket = ticket
-                this.user.tickets?.push(ticket)
-                this.user.numTicketsBought = this.user.numTicketsBought + ticket.numTickets
-                this.event$.subscribe(event => {
-                    if (ticket.ticketType === 'BASIC') {
-                        event.availableBasicTickets = event.availableBasicTickets - ticket.numTickets;
-                    } else if (ticket.ticketType === 'VIP') {
-                        event.availableVipTickets = event.availableVipTickets - ticket.numTickets;
-                    }
-                    this.eventService.createOrReplaceEvent(event).subscribe({
-                        next: () => {
-                            this.event$ = this.eventService.findById(this.eventId);
-                        }
-                    });
-                });
-
-                this.userService.replaceUser(this.user).subscribe({
-                    next: (updatedUser: User) => {
-                        this.user = updatedUser;
-                        this.router.navigate(['/user/' + this.user.id]);
-                    }
-                });
+                this.router.navigate(['/user/' + ticket.userOwnerId]);
+            },
+            error: (error) => {
+                this.errorMessage = error?.error?.message || 'Failed to purchase tickets. Please try again.';
+                console.error('Failed to purchase tickets:', error);
             }
         });
 

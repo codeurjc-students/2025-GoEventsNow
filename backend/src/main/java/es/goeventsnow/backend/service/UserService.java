@@ -2,6 +2,7 @@ package es.goeventsnow.backend.service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
@@ -21,6 +22,7 @@ import es.goeventsnow.backend.dto.user.UserDTO;
 import es.goeventsnow.backend.dto.user.UserMapper;
 import es.goeventsnow.backend.model.User;
 import es.goeventsnow.backend.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class UserService {
@@ -30,7 +32,6 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
-
 
     public Collection<UserDTO> getAllUsers() {
         return toDTOs(userRepository.findAll());
@@ -50,82 +51,92 @@ public class UserService {
 
     public UserDTO createUser(UserDTO userDTO) throws SQLException {
 
-		if (userDTO == null ||userDTO.id() != null) {
-			throw new IllegalArgumentException();
-		}
+        if (userDTO == null || userDTO.id() != null) {
+            throw new IllegalArgumentException();
+        }
 
-		User user = toDomain(userDTO);
+        User user = toDomain(userDTO);
 
-		userRepository.save(user);
+        userRepository.save(user);
 
-		return toDTO(user);
-	}
+        return toDTO(user);
+    }
 
-	public UserDTO replaceUser(long id, UserDTO updateUserDTO) throws SQLException {
+    public UserDTO replaceUser(long id, UserDTO updateUserDTO) throws SQLException {
 
-		if (userRepository.existsById(id)) {
-			User updatedUser = toDomain(updateUserDTO);
-			User existingUser = userRepository.findById(id).orElseThrow();
-			updatedUser.setProfileImageFile(existingUser.getProfileImageFile());
-			updatedUser.setProfileImage(existingUser.getProfileImage());
-			updatedUser.setId(id);
-			userRepository.save(updatedUser);
-			return toDTO(updatedUser);
-		} else {
-			throw new NoSuchElementException();
-		}
+        if (userRepository.existsById(id)) {
 
-	}
+            User existingUser = userRepository.findById(id).orElseThrow();
 
-	public UserDTO createOrReplaceUser(Long id, UserDTO userDTO) throws SQLException {
+            if (updateUserDTO.fullname() != null) {
+                existingUser.setFullname(updateUserDTO.fullname());
+            }
+            if (updateUserDTO.phone() != null) {
+                existingUser.setPhone(updateUserDTO.phone());
+            }
+            if (updateUserDTO.email() != null) {
+                existingUser.setEmail(updateUserDTO.email());
+            }
 
-		UserDTO user;
-		if (id == null) {
-			user = createUser(userDTO);
-		} else {
-			user = replaceUser(id, userDTO);
-		}
-		return user;
-	}
+            userRepository.save(existingUser);
+            return toDTO(existingUser);
+        } else {
+            throw new NoSuchElementException();
+        }
 
-    public UserDTO UserCreationReplacement(Long userId, NewUserDTO newUserDTO, Boolean removeImage, PasswordEncoder passwordEncoder) throws IOException, SQLException {
-		boolean image = false;
-		String userName = newUserDTO.username();
-		String password = null;
-		Integer numTicketsBought = 0;
+    }
+
+    public UserDTO createOrReplaceUser(Long id, UserDTO userDTO) throws SQLException {
+
+        UserDTO user;
+        if (id == null) {
+            user = createUser(userDTO);
+        } else {
+            user = replaceUser(id, userDTO);
+        }
+        return user;
+    }
+
+    public UserDTO UserCreationReplacement(Long userId, NewUserDTO newUserDTO, Boolean removeImage,
+            PasswordEncoder passwordEncoder) throws IOException, SQLException {
+        boolean image = false;
+        String userName = newUserDTO.username();
+        String password = null;
+        Integer numTicketsBought = 0;
         List<TicketDTO> tickets = null;
-		String favoriteGenre = "None";
-		List<String> roles = List.of("USER");
+        String favoriteGenre = "None";
+        List<String> roles = List.of("USER");
 
-		if (newUserDTO.password() != null && !newUserDTO.password().isEmpty()) {
-			password = passwordEncoder.encode(newUserDTO.password());
-		}
+        if (newUserDTO.password() != null && !newUserDTO.password().isEmpty()) {
+            password = passwordEncoder.encode(newUserDTO.password());
+        }
 
-		if (userId != null) {
-			UserDTO oldUser = findById(userId);
-			image = removeImage != null && removeImage ? false : oldUser.profileImage();
-			userName = oldUser.username();
-            numTicketsBought = oldUser.tickets() != null ? oldUser.tickets().stream().mapToInt(TicketDTO::numTickets).sum() : 0;
-			password = oldUser.password();
-			favoriteGenre = oldUser.favoriteGenre();
+        if (userId != null) {
+            UserDTO oldUser = findById(userId);
+            image = removeImage != null && removeImage ? false : oldUser.profileImage();
+            userName = oldUser.username();
+            numTicketsBought = oldUser.tickets() != null
+                    ? oldUser.tickets().stream().mapToInt(TicketDTO::numTickets).sum()
+                    : 0;
+            password = oldUser.password();
+            favoriteGenre = oldUser.favoriteGenre();
             tickets = oldUser.tickets();
-			roles = oldUser.roles();
-		}
+            roles = oldUser.roles();
+        }
 
-		UserDTO userDTO = new UserDTO(userId, newUserDTO.fullname(), userName, newUserDTO.phone(),
-				newUserDTO.email(), password, numTicketsBought, favoriteGenre, image,tickets, roles);
+        UserDTO userDTO = new UserDTO(userId, newUserDTO.fullname(), userName, newUserDTO.phone(),
+                newUserDTO.email(), password, numTicketsBought, favoriteGenre, image, tickets, roles);
 
-		UserDTO newUser = createOrReplaceUser(userId, userDTO);
+        UserDTO newUser = createOrReplaceUser(userId, userDTO);
 
-		MultipartFile imageField = newUserDTO.profileImageFile();
-		if (imageField != null && !imageField.isEmpty()) {
-			createProfilePhoto(newUser.id(), imageField.getInputStream(), imageField.getSize());
-		}
+        MultipartFile imageField = newUserDTO.profileImageFile();
+        if (imageField != null && !imageField.isEmpty()) {
+            createProfilePhoto(newUser.id(), imageField.getInputStream(), imageField.getSize());
+        }
 
-		return newUser;
-	}
+        return newUser;
+    }
 
-    
     public void createProfilePhoto(long id, InputStream inputStream, long size) {
         User user = userRepository.findById(id).orElseThrow();
         user.setProfileImage(true);
@@ -167,15 +178,24 @@ public class UserService {
         userRepository.save(user);
     }
 
-    private UserDTO toDTO (User user) {
+    public UserDTO getAuthenticatedUser(HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            return findByUsername(principal.getName());
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
+
+    private UserDTO toDTO(User user) {
         return userMapper.toDTO(user);
     }
 
-    private Collection<UserDTO> toDTOs (Collection<User> users) {
+    private Collection<UserDTO> toDTOs(Collection<User> users) {
         return userMapper.toDTOs(users);
     }
 
-    private User toDomain (UserDTO userDTO) {
+    private User toDomain(UserDTO userDTO) {
         return userMapper.toDomain(userDTO);
     }
 

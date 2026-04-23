@@ -5,9 +5,9 @@ import java.net.URI;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.goeventsnow.backend.dto.ticket.TicketDTO;
-import es.goeventsnow.backend.dto.ticket.TicketMapperImpl;
 import es.goeventsnow.backend.service.TicketService;
-import es.goeventsnow.backend.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
+
+
 
 @RestController
 @RequestMapping("/api/v1/tickets")
@@ -30,30 +29,31 @@ public class TicketRestController {
     @Autowired
     private TicketService ticketService;
 
-    @Autowired
-    private UserService userService;
-
     @GetMapping("/")
-    public Collection<TicketDTO> getAllTickets() {
-        return ticketService.getAllTickets();
+    public ResponseEntity<Collection<TicketDTO>> getAllTickets(Principal principal) {
+        if (principal != null) {
+            return ResponseEntity.ok(ticketService.getTicketsByUsername(principal.getName()));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
     }
 
     @GetMapping("/{id}")
-    public TicketDTO getTicketById(@PathVariable Long id) {
-        return ticketService.getTicketById(id);
+    public ResponseEntity<TicketDTO> getTicketById(@PathVariable Long id, Principal principal) {
+        if (principal != null) {
+            return ResponseEntity.ok(ticketService.getTicketById(id, principal.getName()));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @PostMapping("/")
-    public ResponseEntity<TicketDTO> createTicket(@RequestBody TicketDTO ticketDTO, HttpServletRequest request)  throws SQLException {
-
-        
-
-        Principal principal = request.getUserPrincipal();
+    public ResponseEntity<TicketDTO> createTicket(@RequestBody TicketDTO ticketDTO, Principal principal)  throws SQLException {
 
         if (principal != null) {
 
-            TicketDTO createdTicketDTO = new TicketDTO(null, ticketDTO.ticketType(), ticketDTO.price(), ticketDTO.numTickets(), ticketDTO.eventId(), userService.findByUsername(principal.getName()).id());
-            TicketDTO savedTicketDTO =  ticketService.addTicket(createdTicketDTO);
+            TicketDTO savedTicketDTO =  ticketService.addTicket(ticketDTO, principal.getName());
             
             URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -63,7 +63,7 @@ public class TicketRestController {
 
         return ResponseEntity.created(location).body(savedTicketDTO);
         }else {
-			throw new NoSuchElementException();
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 
     }

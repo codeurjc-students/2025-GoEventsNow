@@ -38,6 +38,8 @@ public class EventService {
 
     public EventDTO addEvent(EventDTO eventDTO){
         Event eventSaved = toDomain(eventDTO);
+        eventSaved.setId(null);
+        eventSaved.setTickets(null);
         eventRepository.save(eventSaved);
         return toDTO(eventSaved);
     }
@@ -53,9 +55,19 @@ public class EventService {
         if (eventRepository.existsById(id)){
             Event eventSaved = eventRepository.findById(id).orElseThrow();
             Event updatedEvent = toDomain(eventDTO);
-            updatedEvent.setId(eventSaved.getId());
-            updatedEvent.setImage(eventSaved.getImage());
-            updatedEvent.setImageFile(eventSaved.getImageFile());
+            
+            eventSaved.setTitle(eventDTO.title());
+            eventSaved.setDescription(eventDTO.description());
+            eventSaved.setCategory(eventDTO.category());
+            eventSaved.setLocation(eventDTO.location());
+            eventSaved.setDate(eventDTO.date());
+            eventSaved.setTime(eventDTO.time());
+            eventSaved.setBasicPrice(eventDTO.basicPrice());
+            eventSaved.setVipPrice(eventDTO.vipPrice());
+            eventSaved.setAvailableBasicTickets(eventDTO.availableBasicTickets());
+            eventSaved.setAvailableVipTickets(eventDTO.availableVipTickets());
+            eventSaved.setParticipants(updatedEvent.getParticipants());
+
             eventRepository.save(updatedEvent);
             return toDTO(updatedEvent);
         } else {

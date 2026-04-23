@@ -38,6 +38,7 @@ public class ParticipantService {
 
     public ParticipantDTO addParticipant(ParticipantDTO participantDTO){
         Participant participant = toDomain(participantDTO);
+        participant.setId(null);
         return toDTO(participantRepository.save(participant));
     }
 

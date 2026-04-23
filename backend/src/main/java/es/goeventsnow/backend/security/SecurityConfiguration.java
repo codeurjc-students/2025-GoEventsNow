@@ -64,11 +64,26 @@ public class SecurityConfiguration {
             .requestMatchers(HttpMethod.POST,"/api/v1/events/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.PUT,"/api/v1/events/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.DELETE,"/api/v1/events/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.POST,"/api/v1/events/*/image").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.PUT,"/api/v1/events/*/image").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE,"/api/v1/events/*/image").hasRole("ADMIN")
 
             .requestMatchers(HttpMethod.POST,"/api/v1/participants/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.PUT,"/api/v1/participants/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.DELETE,"/api/v1/participants/**").hasRole("ADMIN")
-          
+            .requestMatchers(HttpMethod.POST,"/api/v1/participants/*/image").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.PUT,"/api/v1/participants/*/image").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE,"/api/v1/participants/*/image").hasRole("ADMIN")
+
+            .requestMatchers(HttpMethod.POST,"/api/v1/users/me/image").hasAnyRole("USER","ADMIN")
+            .requestMatchers(HttpMethod.PUT,"/api/v1/users/me/image").hasAnyRole("USER","ADMIN")
+            .requestMatchers(HttpMethod.GET,"/api/v1/users/me/image").hasAnyRole("USER","ADMIN")
+            .requestMatchers(HttpMethod.GET,"/api/v1/users/me").hasAnyRole("USER","ADMIN")
+            .requestMatchers(HttpMethod.PUT,"/api/v1/users/**").hasAnyRole("USER","ADMIN")
+
+            .requestMatchers(HttpMethod.POST,"/api/v1/tickets/**").hasAnyRole("USER","ADMIN")
+            .requestMatchers(HttpMethod.GET,"/api/v1/tickets/**").hasAnyRole("USER","ADMIN")
+
             .anyRequest().permitAll()
         );
 

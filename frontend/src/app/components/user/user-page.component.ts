@@ -6,7 +6,7 @@ import { Ticket } from "../../model/ticket";
 import { Event } from "../../model/event";
 import { UserService } from "../../service/user.service";
 import { FormsModule } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { EventService } from "../../service/event.service";
 import { NgbAlert } from "@ng-bootstrap/ng-bootstrap/alert";
 
@@ -23,19 +23,31 @@ export class UserPageComponent {
     profileImage: File | null = null;
     eventsMap: Map<number, Event> = new Map();
     user: User = {} as User;
+    userId: string | null = '';
     userPhone: string = '';
     tickets: Ticket[] = [];
     errorMessage: string | null = null;
 
-    constructor(private router: Router, private eventService:EventService ,private userService: UserService, private cd: ChangeDetectorRef) {
+    constructor(private router: Router, private eventService:EventService ,private userService: UserService, private cd: ChangeDetectorRef, private activatedRoute: ActivatedRoute) {
+
+        this.userId = this.activatedRoute.snapshot.paramMap.get('id');
+
+        if (this.userId) {
         this.userService.getCurrentUser().subscribe({
             next: (user: User) => {
+                
+                if (user.id !== Number(this.userId)) {
+                    this.router.navigate(['/error/unauthorized']);
+                    return;
+                }
+
                 this.user = user;
                 this.tickets = this.user.tickets || [];
                 this.loadEventsForTickets();
                 
             }
         });
+        }
     }
 
 

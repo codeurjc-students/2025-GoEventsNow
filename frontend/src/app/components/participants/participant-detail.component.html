@@ -1,9 +1,12 @@
 @let participant = (participant$ | async);
 @if (participant) {
+    
 <div class="position-relative"
-    [style.background]="'url(/api/v1/participants/' + participant.id + '/image) center/cover no-repeat'"
+    [style.background]="participant.participantImage ? 'url(/api/v1/participants/' + participant.id + '/image) center/cover no-repeat' : '#e9ecef'"
     style="height: 250px;">
-    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+    @if (participant.participantImage) {
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+    }
 </div>
 
 

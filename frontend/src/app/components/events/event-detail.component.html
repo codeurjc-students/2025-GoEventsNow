@@ -1,9 +1,11 @@
 @if (event$ | async; as event) {
 
 <div class="position-relative"
-     [style.background]="'url(/api/v1/events/' + event.id + '/image) center/cover no-repeat'"
+     [style.background]="event.image ? 'url(/api/v1/events/' + event.id + '/image) center/cover no-repeat' : '#e9ecef'"
      style="height: 250px;">
-    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+        @if (event.image) {
+            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+        }
 </div>
 
 <div class="container pb-5" style="margin-top: -80px; position: relative; z-index: 10;">

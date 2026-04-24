@@ -50,4 +50,9 @@ export class EventService {
         }
     }
 
+    public deleteEventImage(event: Event): Observable<Event> {
+        const id = Number(event.id);
+        return this.httpClient.delete<any>(BASE_URL + id + '/image');
+    }
+
 }

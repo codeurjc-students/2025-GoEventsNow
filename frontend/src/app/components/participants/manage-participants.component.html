@@ -19,9 +19,16 @@
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card h-100 shadow-sm border-1 border-light rounded-4 overflow-hidden">
 
-                    <div class="position-relative bg-dark" style="height: 200px;">
-                        <img [src]="participant.participantImage ? ('/api/v1/participants/' + participant.id + '/image') : '/images/noImage.png'"
+                    <div class="position-relative" [class.bg-dark]="participant.participantImage"
+                        style="height: 200px; background-color: #f8f9fa;">
+
+                        @if (participant.participantImage) {
+                        <img [src]="'/api/v1/participants/' + participant.id + '/image'"
                             class="w-100 h-100 object-fit-cover opacity-75" alt="Participant cover">
+                        } @else {
+                        <img src="/images/noImage.png" class="w-100 h-100 object-fit-contain"
+                            alt="No participant cover available">
+                        }
 
                     </div>
 

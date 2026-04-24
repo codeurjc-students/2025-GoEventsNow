@@ -6,7 +6,8 @@
             <h1 class="display-5 fw-bold mb-3">Discover Amazing Events Near You</h1>
             <p class="fs-5 fw-light mb-4">Book tickets to concerts, festivals, conferences, and more. Your next
                 unforgettable experience awaits.</p>
-            <button [routerLink]="'events'" class="btn btn-light btn-lg text-primary fw-bold rounded-pill px-4 shadow-sm mt-3">
+            <button [routerLink]="'events'"
+                class="btn btn-light btn-lg text-primary fw-bold rounded-pill px-4 shadow-sm mt-3">
                 <i class="bi bi-search me-2"></i>Explore Events
             </button>
         </div>
@@ -23,21 +24,23 @@
             @for (event of events; track event.id) {
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card h-100 shadow-sm border-1 border-light rounded-4 overflow-hidden">
-                    
-                    <div class="position-relative bg-dark" style="height: 200px;">
-                        @if (event.image == true){
-                            <img [src]="'/api/v1/events/' + event.id + '/image'"
+
+                    <div class="position-relative" [class.bg-dark]="event.image"
+                        style="height: 200px; background-color: #f8f9fa;">
+
+                        @if (event.image) {
+                        <img [src]="'/api/v1/events/' + event.id + '/image'"
                             class="w-100 h-100 object-fit-cover opacity-75" alt="Event cover">
                         } @else {
-                            <img src="/images/noImage.png"
-                            class="w-100 h-100 object-fit-cover opacity-75" alt="Event cover">
+                        <img src="/images/noImage.png" class="w-100 h-100 object-fit-contain"
+                            alt="No event cover available">
                         }
+
                         <span
                             class="badge bg-primary position-absolute top-0 end-0 m-3 rounded-pill px-3 py-2">Featured</span>
-                        
-                        
+
                     </div>
-                 
+
                     <div class="card-body p-4 d-flex flex-column">
                         <div class="mb-3">
                             <span
@@ -62,7 +65,8 @@
 
                         <div
                             class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top border-light">
-                            <span class="text-primary fw-semibold small">From ${{event.basicPrice}} - ${{event.vipPrice}}</span>
+                            <span class="text-primary fw-semibold small">From ${{event.basicPrice}} -
+                                ${{event.vipPrice}}</span>
                             <a [routerLink]="['/event/', event.id]"
                                 class="btn btn-dark btn-sm rounded-pill px-4 fw-bold py-2">View Details</a>
                         </div>
@@ -79,7 +83,7 @@
             <p class="text-muted fs-5 mb-0">Loading featured events...</p>
         </div>
         }
-   
+
         @if (participants$ | async; as participants) {
         <div class="d-flex align-items-center mb-4 py-3">
             <i class="bi bi-graph-up-arrow text-primary fs-4 me-2"></i>
@@ -90,21 +94,23 @@
             @for (participant of participants; track participant.id) {
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card h-100 shadow-sm border-1 border-light rounded-4 overflow-hidden">
-                    
-                    <div class="position-relative bg-dark" style="height: 200px;">
-                        @if (participant.participantImage == true){
-                            <img [src]="'/api/v1/participants/' + participant.id + '/image'"
+
+                    <div class="position-relative" [class.bg-dark]="participant.participantImage"
+                        style="height: 200px; background-color: #f8f9fa;">
+
+                        @if (participant.participantImage) {
+                        <img [src]="'/api/v1/participants/' + participant.id + '/image'"
                             class="w-100 h-100 object-fit-cover opacity-75" alt="Participant cover">
                         } @else {
-                            <img src="/images/noImage.png"
-                            class="w-100 h-100 object-fit-cover opacity-75" alt="Participant cover">
+                        <img src="/images/noImage.png" class="w-100 h-100 object-fit-contain"
+                            alt="No participant cover available">
                         }
+
                         <span
                             class="badge bg-primary position-absolute top-0 end-0 m-3 rounded-pill px-3 py-2">Featured</span>
-                        
-                        
+
                     </div>
-                 
+
                     <div class="card-body p-4 d-flex flex-column">
                         <div class="mb-3">
                             <span
@@ -118,7 +124,8 @@
                             {{participant.name}}
                         </h3>
 
-                        <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top border-light">
+                        <div
+                            class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top border-light">
                             <a [routerLink]="['/participant/', participant.id]"
                                 class="btn btn-dark btn-sm rounded-pill px-4 fw-bold py-2">View Details</a>
                         </div>

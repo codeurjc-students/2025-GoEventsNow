@@ -25,6 +25,7 @@ export class AddEventComponent {
     };
     allParticipants: Participant[] = [];
     selectedParticipants: number[] = [];
+    removeImage: boolean = false;
     imageFile: File | null = null;
     errorMessage: string | null = null;
 
@@ -66,8 +67,12 @@ export class AddEventComponent {
 
         this.eventService.createOrReplaceEvent(this.event).subscribe({
             next: (event: Event) => {
-                console.log('Event created successfully:', event);
-                if (this.imageFile) {
+                if (this.removeImage) {
+                    this.eventService.deleteEventImage(event).subscribe({
+                        next: () => { this.router.navigate(['']); },
+                        error: (error) => console.error('Failed to delete image:', error)
+                    });
+                }else if (this.imageFile) {
                     this.uploadImage(event);
                 }
                 this.router.navigate(['']);
@@ -102,6 +107,7 @@ export class AddEventComponent {
         this.event.location && this.event.location.trim().length > 0 &&
         this.event.date && this.event.date.trim().length > 0 &&
         this.event.time && this.event.time.trim().length > 0 &&
+        !(this.imageFile !== null && this.removeImage === true) &&
         this.event.basicPrice != null && this.event.basicPrice >= 0 &&
         this.event.vipPrice != null && this.event.vipPrice >= 0 &&
         this.event.availableBasicTickets != null && this.event.availableBasicTickets >= 0 &&

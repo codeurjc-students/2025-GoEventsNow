@@ -48,4 +48,10 @@ export class ParticipantService {
             return this.httpClient.post<any>(BASE_URL + id + '/image', formData);
         }
     }
+
+    public deleteParticipantImage(participant: Participant): Observable<Participant> {
+        const id = Number(participant.id);
+        return this.httpClient.delete<any>(BASE_URL + id + '/image');
+    }
+    
 }

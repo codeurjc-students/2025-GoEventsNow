@@ -20,6 +20,7 @@ export class AddParticipantsComponent {
     participant: Participant = {
         name: '', type: '', biography: '', participantImage: false
     };
+    removeImage: boolean = false;
     errorMessage: string | null = null;
     imageFile: File | null = null;
 
@@ -51,7 +52,12 @@ export class AddParticipantsComponent {
 
         this.participantService.createOrReplaceParticipant(this.participant).subscribe({
             next: (participant: Participant) => {
-                if (this.imageFile) {
+                if (this.removeImage) {
+                    this.participantService.deleteParticipantImage(participant).subscribe({
+                        next: () => { this.router.navigate(['']); },
+                        error: (error) => console.error('Failed to delete image:', error)
+                    });
+                }else if (this.imageFile) {
                     this.uploadImage(participant);
                 }
                 this.router.navigate(['']);
@@ -81,6 +87,7 @@ export class AddParticipantsComponent {
     isFormParticipantValid(): boolean {
         return this.participant.name.trim().length > 0 &&
             this.participant.type.trim().length > 0 &&
+            !(this.imageFile !== null && this.removeImage === true) &&
             this.participant.biography.trim().length > 0;
     }
 

@@ -108,9 +108,30 @@
                                         </div>
 
                                         <div class="mb-4">
-                                            <label class="form-label" for="profilePicture">Profile Image</label>
-                                            <input type="file" class="form-control" id="profilePicture"
-                                                name="profilePicture" (change)="onFileSelected($event)">
+                                            <label for="profilePicture">Profile Image:</label>
+
+                                            @if (user.profileImage) {
+                                            <div class="form-check mb-2">
+                                                <input type="checkbox" name="removeImage" class="form-check-input"
+                                                    [(ngModel)]="removeImage" id="removeImage">
+                                                <label class="form-check-label d-block" for="removeImage">Remove
+                                                    Image</label>
+                                                <label class="form-label d-block mt-2">Update Image (MAX 1MB):</label>
+                                            </div>
+                                            } @else {
+                                            <div>
+                                                <label class="form-label">Upload Image</label>
+                                            </div>
+                                            }
+                                            <input #file type="file" class="form-control" id="profilePicture"
+                                                name="profilePicture" accept=".jpg, .jpeg"
+                                                (change)="onFileSelected($event)" />
+
+                                            @if(profileImage && removeImage) {
+                                            <div class="form-text text-danger">Cannot upload and remove image at the
+                                                same time. Please uncheck "Remove Image" to upload a new one.</div>
+                                            }
+                                            
                                         </div>
 
                                         <div class="d-grid">

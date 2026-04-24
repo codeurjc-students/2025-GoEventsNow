@@ -35,5 +35,10 @@ export class UserService {
         }
     }
 
+    public deleteUserImage(user: User): Observable<User> {
+        const id = Number(user.id);
+        return this.httpClient.delete<any>(BASE_URL + id + '/image');
+    }
+
 
 }

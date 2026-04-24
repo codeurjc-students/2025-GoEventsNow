@@ -25,6 +25,7 @@ export class UserPageComponent {
     user: User = {} as User;
     userId: string | null = '';
     userPhone: string = '';
+    removeImage: boolean = false;
     tickets: Ticket[] = [];
     errorMessage: string | null = null;
 
@@ -62,7 +63,12 @@ export class UserPageComponent {
 
         this.userService.replaceUser(this.user).subscribe({
             next: (user: User) => {
-                if (this.profileImage) {
+                if (this.removeImage) {
+                    this.userService.deleteUserImage(user).subscribe({
+                        next: () => { this.router.navigate(['']); },
+                        error: (error) => console.error('Failed to delete image:', error)
+                    });
+                }else if (this.profileImage) {
                     this.uploadImage(user);
                 }
                 this.router.navigate(['']);
@@ -112,6 +118,7 @@ export class UserPageComponent {
                this.user.email.trim().length > 0 &&
                this.user.email.includes('@') &&
                this.user.email.includes('.') &&
+                !(this.profileImage !== null && this.removeImage === true) &&
                hasValidPhone;
     }
 }

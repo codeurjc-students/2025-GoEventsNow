@@ -74,8 +74,9 @@ export class AddEventComponent {
                     });
                 }else if (this.imageFile) {
                     this.uploadImage(event);
-                }
-                this.router.navigate(['']);
+                }else {
+                    this.router.navigate(['']);
+                };
             },
             error: (error) => console.error('Failed to create event:', error)
         });

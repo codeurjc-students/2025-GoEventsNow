@@ -36,6 +36,10 @@ public class EventService {
         return toDTO(eventRepository.findById(id).orElseThrow());
     }
 
+    public Page<EventDTO> getEventsByParticipantId(Long participantId, Pageable pageable) {
+        return eventRepository.findByParticipantsId(participantId, pageable).map(this::toDTO);
+    }
+
     public EventDTO addEvent(EventDTO eventDTO){
         Event eventSaved = toDomain(eventDTO);
         eventSaved.setId(null);
@@ -68,8 +72,8 @@ public class EventService {
             eventSaved.setAvailableVipTickets(eventDTO.availableVipTickets());
             eventSaved.setParticipants(updatedEvent.getParticipants());
 
-            eventRepository.save(updatedEvent);
-            return toDTO(updatedEvent);
+            eventRepository.save(eventSaved);
+            return toDTO(eventSaved);
         } else {
             throw new NoSuchElementException();
         }

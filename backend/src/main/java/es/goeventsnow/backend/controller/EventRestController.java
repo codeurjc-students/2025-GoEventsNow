@@ -96,9 +96,13 @@ public class EventRestController {
 
     @DeleteMapping("/{id}/image")
     public ResponseEntity<Object> deleteEventImage(@PathVariable long id) {
-
         eventService.deleteEventImage(id);
         return ResponseEntity.noContent().build();
     }
-    
+
+    @GetMapping("/participant/{participantId}")
+    public Page<EventDTO> getEventsByParticipantId(@PathVariable Long participantId, Pageable pageable) {
+        return eventService.getEventsByParticipantId(participantId, pageable);
+    }
+
 }

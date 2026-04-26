@@ -22,12 +22,12 @@ services:
       database:
         condition: service_healthy
     ports:
-      - "443:443"
+      - "443:8443"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/goeventsnow_db?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=password
-      - SERVER_PORT=443
+      - SERVER_PORT=8443
       - SERVER_SSL_KEY_STORE=classpath:keystore.jks
       - SERVER_SSL_KEY_STORE_PASSWORD=password
       - SERVER_SSL_KEY_STORE_TYPE=JKS

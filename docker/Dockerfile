@@ -35,6 +35,6 @@ WORKDIR /usr/app/
 
 COPY --from=builder /project/target/*.jar /usr/app/
 
-EXPOSE 443
+EXPOSE 8443
 
 CMD [ "java", "-jar", "backend-0.0.1-SNAPSHOT.jar" ]

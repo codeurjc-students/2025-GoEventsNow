@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:8.0
+    container_name: goeventsnow-db-dev
+    environment:
+      MYSQL_DATABASE: goeventsnow_db
+      MYSQL_ROOT_PASSWORD: password
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - dev-net
+
+  webapp:
+    image: albertoml1999/goeventsnow-app:dev
+    container_name: goeventsnow-app-dev
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "443:8443"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/goeventsnow_db?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - SERVER_PORT=8443
+      - SERVER_SSL_KEY_STORE=classpath:keystore.jks
+      - SERVER_SSL_KEY_STORE_PASSWORD=password
+      - SERVER_SSL_KEY_STORE_TYPE=JKS
+      - SERVER_SSL_KEY_ALIAS=goeventsnow
+    networks:
+      - dev-net
+
+networks:
+  dev-net:
+    driver: bridge

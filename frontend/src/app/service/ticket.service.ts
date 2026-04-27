@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Ticket } from "../model/ticket";
-import { Observable } from "rxjs/internal/Observable";
 import { HttpClient } from "@angular/common/http";
+import { map, Observable } from "rxjs";
 
 
 const BASE_URL = '/api/v1/tickets/';
@@ -13,8 +13,11 @@ export class TicketService {
 
      constructor(private httpClient: HttpClient) { }
 
-    public findAll(): Observable<Ticket[]> {
-        return this.httpClient.get<Ticket[]>(BASE_URL);
+    public findAll(page = 0, size = 10): Observable<Ticket[]> {
+        const url = `${BASE_URL}?page=${page}&size=${size}`;
+        return this.httpClient.get<any>(url).pipe(
+            map(response => response.content)
+        );
     }
 
     public findById(ticketId: number | string): Observable<Ticket> {

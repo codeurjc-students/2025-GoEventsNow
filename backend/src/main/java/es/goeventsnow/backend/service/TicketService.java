@@ -1,9 +1,11 @@
 package es.goeventsnow.backend.service;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.goeventsnow.backend.dto.ticket.TicketDTO;
 import es.goeventsnow.backend.dto.ticket.TicketMapper;
@@ -29,60 +31,65 @@ public class TicketService {
     @Autowired
     private TicketMapper ticketMapper;
 
-    public Collection<TicketDTO> getTicketsByUsername(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow();
-       return toDTOs(user.getTickets());
+    public Page<TicketDTO> getTicketsByUsername(String username, Pageable pageable) {
+        userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        return ticketRepository.findByUserOwnerUsername(username, pageable).map(this::toDTO);
     }
 
     public TicketDTO getTicketById(Long id, String username) {
-        Ticket ticket = ticketRepository.findById(id).orElseThrow();
-        User user = userRepository.findByUsername(username).orElseThrow();
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ticket not found"));
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         if (!ticket.getUserOwner().getId().equals(user.getId())) {
-            throw new IllegalArgumentException("Ticket does not belong to the specified user");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Ticket does not belong to the authenticated user");
         }
         return toDTO(ticket);
     }
 
     public TicketDTO addTicket(TicketDTO ticketDTO, String username) {
-        User user = userRepository.findByUsername(username).orElseThrow();
-        Event event = eventRepository.findById(ticketDTO.eventId()).orElseThrow();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        Event event = eventRepository.findById(ticketDTO.eventId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
 
         int requestedAmount = ticketDTO.numTickets();
 
         if (ticketDTO.ticketType().equalsIgnoreCase("VIP")) {
             if (event.getAvailableVipTickets() < requestedAmount) {
-                throw new IllegalStateException("Not enough VIP tickets available.");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "Not enough VIP tickets available.");
             }
             event.setAvailableVipTickets(event.getAvailableVipTickets() - requestedAmount);
+
         } else if (ticketDTO.ticketType().equalsIgnoreCase("BASIC")) {
             if (event.getAvailableBasicTickets() < requestedAmount) {
-                throw new IllegalStateException("Not enough basic tickets available.");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "Not enough BASIC tickets available.");
             }
             event.setAvailableBasicTickets(event.getAvailableBasicTickets() - requestedAmount);
+
         } else {
-            throw new IllegalArgumentException("Invalid ticket type. Must be 'VIP' or 'BASIC'.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Ticket type must be either VIP or BASIC.");
         }
 
         eventRepository.save(event);
 
-        TicketDTO savedTicketDTO = new TicketDTO(null, ticketDTO.ticketType(), ticketDTO.price(), ticketDTO.numTickets(), event.getId(), user.getId());
+        TicketDTO savedTicketDTO = new TicketDTO(null, ticketDTO.ticketType(), ticketDTO.price(),
+                ticketDTO.numTickets(), event.getId(), user.getId());
         Ticket ticketSaved = toDomain(savedTicketDTO);
         return toDTO(ticketRepository.save(ticketSaved));
     }
 
-
-    private TicketDTO toDTO (Ticket ticket) {
+    private TicketDTO toDTO(Ticket ticket) {
         return ticketMapper.toDTO(ticket);
     }
 
-    private Collection<TicketDTO> toDTOs (Collection<Ticket> tickets) {
-        return ticketMapper.toDTOs(tickets);
-    }
-
-    private Ticket toDomain (TicketDTO ticketDTO) {
+    private Ticket toDomain(TicketDTO ticketDTO) {
         return ticketMapper.toDomain(ticketDTO);
     }
 
-    
 }

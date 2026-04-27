@@ -4,9 +4,10 @@ package es.goeventsnow.backend.controller;
 import java.net.URI;
 import java.security.Principal;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,9 +31,9 @@ public class TicketRestController {
     private TicketService ticketService;
 
     @GetMapping("/")
-    public ResponseEntity<Collection<TicketDTO>> getAllTickets(Principal principal) {
+    public ResponseEntity<Page<TicketDTO>> getAllTickets(Principal principal, Pageable pageable) {
         if (principal != null) {
-            return ResponseEntity.ok(ticketService.getTicketsByUsername(principal.getName()));
+            return ResponseEntity.ok(ticketService.getTicketsByUsername(principal.getName(), pageable));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

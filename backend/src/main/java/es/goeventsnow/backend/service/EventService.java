@@ -2,8 +2,6 @@ package es.goeventsnow.backend.service;
 
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.NoSuchElementException;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +9,16 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.dto.event.EventMapper;
+import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.model.Event;
 import es.goeventsnow.backend.repository.EventRepository;
+import es.goeventsnow.backend.repository.ParticipantRepository;
 
 
 @Service
@@ -26,6 +28,9 @@ public class EventService {
     private EventRepository eventRepository;
 
     @Autowired
+    private ParticipantRepository participantRepository;
+
+    @Autowired
     private EventMapper eventMapper;
 
     public Page<EventDTO> getAllEvents(Pageable pageable){
@@ -33,15 +38,27 @@ public class EventService {
     }
 
     public EventDTO getEventById(Long id){
-        return toDTO(eventRepository.findById(id).orElseThrow());
+        return toDTO(eventRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found")));
     }
 
     public Page<EventDTO> getEventsByParticipantId(Long participantId, Pageable pageable) {
+
+            if (!participantRepository.existsById(participantId)) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found");
+            }
         return eventRepository.findByParticipantsId(participantId, pageable).map(this::toDTO);
     }
 
     public EventDTO addEvent(EventDTO eventDTO){
         Event eventSaved = toDomain(eventDTO);
+        if (eventDTO.participants() != null) {
+            for (ParticipantDTO p : eventDTO.participants()) {
+                if (!participantRepository.existsById(p.id())) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                            "Participant with " + p.id() + " does not exist");
+                }
+            }
+        }
         eventSaved.setId(null);
         eventSaved.setTickets(null);
         eventRepository.save(eventSaved);
@@ -49,7 +66,10 @@ public class EventService {
     }
 
     public EventDTO deleteEvent(long id) {
-        Event event = eventRepository.findById(id).orElseThrow();
+        Event event = eventRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
+        if (!event.getTickets().isEmpty()) { 
+        throw new ResponseStatusException(HttpStatus.CONFLICT, "Event cannot be deleted because it has associated tickets");
+        }
         EventDTO eventDTO = toDTO(event);
         eventRepository.deleteById(id);
         return eventDTO;    
@@ -57,9 +77,16 @@ public class EventService {
 
     public EventDTO replaceEvent(long id, EventDTO eventDTO) throws SQLException {
         if (eventRepository.existsById(id)){
-            Event eventSaved = eventRepository.findById(id).orElseThrow();
+            Event eventSaved = eventRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
             Event updatedEvent = toDomain(eventDTO);
-            
+            if (eventDTO.participants() != null) {
+            for (ParticipantDTO p : eventDTO.participants()) {
+                if (!participantRepository.existsById(p.id())) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                            "Participant with " + p.id() + " does not exist");
+                }
+            }
+        }
             eventSaved.setTitle(eventDTO.title());
             eventSaved.setDescription(eventDTO.description());
             eventSaved.setCategory(eventDTO.category());
@@ -75,33 +102,33 @@ public class EventService {
             eventRepository.save(eventSaved);
             return toDTO(eventSaved);
         } else {
-            throw new NoSuchElementException();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found");
         }
 
     }
 
     public void createEventImage(long id, InputStream inputStream, long size) {
-        Event event = eventRepository.findById(id).orElseThrow();
+        Event event = eventRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
         event.setImage(true);
         event.setImageFile(BlobProxy.generateProxy(inputStream, size));
         eventRepository.save(event);
     }
 
     public Resource getEventImage(long id) throws SQLException {
-        Event event = eventRepository.findById(id).orElseThrow();
+        Event event = eventRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
 
         if (event.getImageFile() == null) {
-            throw new NoSuchElementException();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event image not found");
         } else {
             return new InputStreamResource(event.getImageFile().getBinaryStream());
         }
     }
 
     public void replaceEventImage(long id, InputStream inputStream, long size) {
-        Event event = eventRepository.findById(id).orElseThrow();
+        Event event = eventRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
 
         if (event.getImageFile() == null) {
-            throw new NoSuchElementException();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event image not found");
         }
 
         event.setImage(true);
@@ -110,10 +137,10 @@ public class EventService {
     }
 
     public void deleteEventImage(long id) {
-        Event event = eventRepository.findById(id).orElseThrow();
+        Event event = eventRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
 
         if (event.getImageFile() == null) {
-            throw new NoSuchElementException();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event image not found");
         }
 
         event.setImage(false);
@@ -123,10 +150,6 @@ public class EventService {
 
     private EventDTO toDTO ( Event event) {
         return eventMapper.toDTO(event);
-    }
-
-    private Collection<EventDTO> toDTOs (Collection<Event> events) {
-        return eventMapper.toDTOs(events);
     }
 
     private Event toDomain (EventDTO eventDTO) {

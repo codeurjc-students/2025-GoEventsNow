@@ -1,9 +1,12 @@
 package es.goeventsnow.backend.security.jwt;
 
+import java.net.URI;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,11 +15,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import es.goeventsnow.backend.service.UserService;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import es.goeventsnow.backend.dto.user.NewUserDTO;
+import es.goeventsnow.backend.dto.user.UserDTO;
+import es.goeventsnow.backend.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -81,7 +86,7 @@ public class UserLoginService {
 			log.error("Error while processing refresh token", e);
 			AuthResponse loginResponse = new AuthResponse(AuthResponse.Status.FAILURE,
 					"Failure while processing refresh token");
-			return ResponseEntity.ok().body(loginResponse);
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(loginResponse);
 		}
 	}
 
@@ -130,9 +135,16 @@ public class UserLoginService {
             null
         );
 
-        userService.UserCreationReplacement(null, newUserDTO, false, passwordEncoder);
+		UserDTO createdUser = userService.UserCreationReplacement(null, newUserDTO, false, passwordEncoder);
 
-        return ResponseEntity.ok(new AuthResponse(AuthResponse.Status.SUCCESS, "User registered successfully"));
+		URI location = ServletUriComponentsBuilder
+			.fromCurrentContextPath()
+			.path("/api/v1/users/{id}")
+			.buildAndExpand(createdUser.id())
+			.toUri();
+
+		return ResponseEntity.created(location)
+			.body(new AuthResponse(AuthResponse.Status.SUCCESS, "User registered successfully"));
 
     } catch (Exception e) {
         return ResponseEntity.internalServerError()
@@ -148,21 +160,36 @@ public ResponseEntity<AuthResponse> register(HttpServletResponse response,
                                              String phone,
                                              MultipartFile profileImageFile) {
     try {
+		int parsedPhone;
+		try {
+			parsedPhone = Integer.parseInt(phone);
+		} catch (NumberFormatException ex) {
+			return ResponseEntity.badRequest()
+					.body(new AuthResponse(AuthResponse.Status.ERROR, "Phone must be a valid number"));
+		}
+
         NewUserDTO dto = new NewUserDTO(
             fullname,
             username,
-            Integer.parseInt(phone),
+			parsedPhone,
 			email,
             password,
             profileImageFile
         );
 
-        userService.UserCreationReplacement(null, dto, false, passwordEncoder);
+		UserDTO createdUser = userService.UserCreationReplacement(null, dto, false, passwordEncoder);
 
-        return ResponseEntity.ok(new AuthResponse(AuthResponse.Status.SUCCESS, "User registered"));
+		URI location = ServletUriComponentsBuilder
+			.fromCurrentContextPath()
+			.path("/api/v1/users/{id}")
+			.buildAndExpand(createdUser.id())
+			.toUri();
+
+		return ResponseEntity.created(location)
+			.body(new AuthResponse(AuthResponse.Status.SUCCESS, "User registered"));
 
     } catch (Exception e) {
-        e.printStackTrace();
+		log.error("Error during registration", e);
         return ResponseEntity.status(500).body(new AuthResponse(AuthResponse.Status.ERROR, "Registration failed"));
     }
 }

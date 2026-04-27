@@ -3,17 +3,19 @@ package es.goeventsnow.backend.controller;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody; 
+import org.springframework.web.bind.annotation.PutMapping; 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,10 +25,6 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.service.EventService;
-
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 
 
@@ -39,8 +37,11 @@ public class EventRestController {
     private EventService eventService;
 
     @GetMapping("/")
-    public Page<EventDTO> getEvents(Pageable pageable) {
-        return eventService.getAllEvents(pageable);
+    public Page<EventDTO> getEvents(@RequestParam(required = false) Long participantId, Pageable pageable) {
+        if (participantId == null) {
+            return eventService.getAllEvents(pageable);
+        }
+        return eventService.getEventsByParticipantId(participantId, pageable);
     }
 
     @GetMapping("/{id}")
@@ -98,11 +99,6 @@ public class EventRestController {
     public ResponseEntity<Object> deleteEventImage(@PathVariable long id) {
         eventService.deleteEventImage(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/participant/{participantId}")
-    public Page<EventDTO> getEventsByParticipantId(@PathVariable Long participantId, Pageable pageable) {
-        return eventService.getEventsByParticipantId(participantId, pageable);
     }
 
 }

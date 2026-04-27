@@ -57,7 +57,7 @@ export class EventService {
 
     public getEventsByParticipantId(participantId: number | string, page = 0, size = 10): Observable<Event[]> {
         const id = Number(participantId);
-        const url = `${BASE_URL}participant/${id}?page=${page}&size=${size}`;
+        const url = `${BASE_URL}?participantId=${id}&page=${page}&size=${size}`;
         return this.httpClient.get<any>(url).pipe(
             map(response => response.content)
         );

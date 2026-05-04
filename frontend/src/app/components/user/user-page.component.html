@@ -11,7 +11,7 @@
 
 
                     <div style="padding-top: 15px; text-align: center;">
-                        <p>{{ user.username }}</p>
+                        <p id="user-profile-username">{{ user.username }}</p>
 
                         <span class="badge bg-dark text-white rounded-pill px-3 py-2 fw-normal">
                             @if (user.roles?.includes('ADMIN')) {
@@ -42,13 +42,13 @@
                         <div class="d-flex justify-content-between align-items-center bg-light p-1 rounded-pill shadow-sm mb-4"
                             style="max-width: 800px; margin: 0 auto;">
 
-                            <button (click)="section = 'personal'" [class.bg-white]="section === 'personal'"
+                            <button id="personal-section" (click)="section = 'personal'" [class.bg-white]="section === 'personal'"
                                 [class.shadow-sm]="section === 'personal'"
                                 class="btn border-0 rounded-pill px-4 py-2 fw-bold flex-grow-1 transition-all">
                                 Personal Info
                             </button>
 
-                            <button (click)="section = 'tickets'" [class.bg-white]="section === 'tickets'"
+                            <button id="ticket-section" (click)="section = 'tickets'" [class.bg-white]="section === 'tickets'"
                                 [class.shadow-sm]="section === 'tickets'"
                                 class="btn border-0 rounded-pill px-4 py-2 fw-bold flex-grow-1 transition-all">
                                 My Tickets ({{ user.tickets?.length || 0 }})
@@ -165,7 +165,7 @@
 
                                             <div class="d-flex justify-content-between align-items-start mb-1">
                                                 <div>
-                                                    <h5 class="card-title fw-bold d-inline-block me-2">{{event.title}}
+                                                    <h5 id="event-bought-title-{{event.id}}" class="card-title fw-bold d-inline-block me-2">{{event.title}}
                                                     </h5>
                                                     <div class="mt-1">
                                                         <span

@@ -76,7 +76,7 @@
                         <label class="fw-bold small shadow-none">Number of Tickets</label>
 
                         <div class="d-flex align-items-center gap-3">
-                            <button type="button" (click)="decrease()"
+                            <button id="decrease-ticket-btn" type="button" (click)="decrease()"
                                 class="btn btn-outline-secondary d-flex align-items-center justify-content-center p-0 rounded-3 border-light-subtle shadow-sm"
                                 style="width: 32px; height: 32px;">
                                 <i class="bi bi-dash fs-5"></i>
@@ -84,7 +84,7 @@
 
                             <span class="fw-semibold fs-5 px-2">{{ quantity }}</span>
 
-                            <button type="button" (click)="increase()"
+                            <button id="increase-ticket-btn" type="button" (click)="increase()"
                                 class="btn btn-outline-secondary d-flex align-items-center justify-content-center p-0 rounded-3 border-light-subtle shadow-sm"
                                 style="width: 32px; height: 32px;">
                                 <i class="bi bi-plus fs-5"></i>
@@ -125,7 +125,7 @@
                         <span class="text-primary fs-5">${{this.priceTotal.toFixed(2)}}</span>
                     </div>
 
-                    <button (click)="pay();" class="btn btn-dark w-100 py-3 rounded-3 fw-bold mb-4"
+                    <button id="pay-btn" (click)="pay();" class="btn btn-dark w-100 py-3 rounded-3 fw-bold mb-4"
                         style="margin-top: 20px;">Pay</button>
                 </div>
             </div>

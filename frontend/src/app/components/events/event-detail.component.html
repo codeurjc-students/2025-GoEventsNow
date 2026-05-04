@@ -13,7 +13,7 @@
 
         <div class="col-lg-8">
             <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-body p-4 p-md-5">
+                <div id="event-detail-page" class="card-body p-4 p-md-5">
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <span class="badge bg-dark text-white rounded-pill px-3 py-2 fw-normal">{{ event.category}}</span>
@@ -96,7 +96,7 @@
                     <p class="text-muted mb-2">Price per ticket (Basic / VIP)</p>
                     <h2 class="text-primary fw-bold mb-4 display-6">${{ event.basicPrice }} - ${{ event.vipPrice }}</h2>
                      @if (event.availableBasicTickets > 0 || event.availableVipTickets > 0) {
-                    <button [routerLink]="'/event/'+ event.id + '/tickets'" class="btn btn-dark w-100 py-3 rounded-3 fw-bold mb-4">Get Tickets</button>
+                    <button id="buy-ticket-link" [routerLink]="'/event/'+ event.id + '/tickets'" class="btn btn-dark w-100 py-3 rounded-3 fw-bold mb-4">Get Tickets</button>
                      } @else {
                     <button class="btn btn-secondary w-100 py-3 rounded-3 fw-bold mb-4" disabled>Sold Out</button>
                      }

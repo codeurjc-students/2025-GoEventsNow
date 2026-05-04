@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EventListComponent } from './event-list.component';
 import { EventService } from '../../service/event.service';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 import { Event } from '../../model/event';
+import { ParticipantService } from '../../service/participant.service';
+import { provideRouter } from '@angular/router';
 
 
 const mockEvents: Event[] = [
@@ -47,21 +49,48 @@ const mockEvents: Event[] = [
   }
 ];
 
+const mockParticipants = [
+  {
+    id: 1,
+    name: "Bad Bunny",
+    type: "Music",
+    biography: "Great Artist",
+  },
+  {
+    id: 2,
+    name: "Pablo Picasso",
+    type: "Painter",
+    biography: "Famous Painter",
+  },
+  {
+    id: 3,
+    name: "Michael Jordan",
+    type: "Basketball Player",
+    biography: "Legendary Basketball Player",
+  }
+]
+
 describe('EventListComponent', () => {
 
   let component: EventListComponent;
   let fixture: ComponentFixture<EventListComponent>;
   let eventServiceMock: Partial<EventService>;
+  let participantServiceMock: Partial<ParticipantService>;
 
   beforeEach(async () => {
 
     eventServiceMock = {
       findAll: vi.fn().mockReturnValue(of(mockEvents))
     };
+    participantServiceMock = {
+      findAll: vi.fn().mockReturnValue(of(mockParticipants))
+    };
     await TestBed.configureTestingModule({
       imports: [EventListComponent],
       providers: [
-        { provide: EventService, useValue: eventServiceMock }
+        provideRouter([]),
+        { provide: EventService, useValue: eventServiceMock },
+        { provide: ParticipantService, useValue: participantServiceMock }
       ]
     }).compileComponents();
   });
@@ -76,15 +105,36 @@ describe('EventListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize events$ in ngOnInit ', () => {
+  it('should initialize events$ in ngOnInit', () => {
+    expect(eventServiceMock.findAll).toHaveBeenCalledWith(0, 3);
     expect(eventServiceMock.findAll).toHaveBeenCalledTimes(1);
   });
 
-  it('should have events$ ', () => {
-    component.events$.subscribe((events: Event[]) => {
-      expect(events.length).toBe(3);
-      expect(events).toEqual(mockEvents);
-    })
+  it('should initialize participants$ in ngOnInit', () => {
+    expect(participantServiceMock.findAll).toHaveBeenCalledWith(0, 3);
+    expect(participantServiceMock.findAll).toHaveBeenCalledTimes(1);
+  });
+
+  it('should have event$', async () => {
+    const events = await firstValueFrom(component.events$);
+
+    expect(events.length).toBe(3);
+    expect(events[0].title).toBe('Spring Boot 4.0 Workshop');
+    expect(events[0].location).toBe('Fuenlabrada, Madrid');
+  });
+
+  it('should have participants$', async () => {
+    const participants = await firstValueFrom(component.participants$);
+    expect(participants[0].name).toBe('Bad Bunny');
+    expect(participants.length).toBe(3);
+  });
+
+  it('should render event titles in the DOM', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.textContent).toContain('Spring Boot 4.0 Workshop');
+    expect(compiled.textContent).toContain('Art Exhibition');
+    expect(compiled.textContent).toContain('Basketball Tournament');
   });
 
 

@@ -3,11 +3,13 @@ import { provideRouter, Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { RegisterComponent } from './register.component';
 import { AuthService } from '../../service/auth.service';
+import { UserService } from '../../service/user.service';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
   let authServiceMock: any;
+  let userServiceMock: any;
   let navigateSpy: any;
 
   beforeEach(async () => {
@@ -15,11 +17,16 @@ describe('RegisterComponent', () => {
       register: vi.fn().mockReturnValue(of({}))
     };
 
+    userServiceMock = {
+      userExists: vi.fn().mockReturnValue(of(false))
+    };
+
     await TestBed.configureTestingModule({
       imports: [RegisterComponent],
       providers: [
         provideRouter([]),
-        { provide: AuthService, useValue: authServiceMock }
+        { provide: AuthService, useValue: authServiceMock },
+        { provide: UserService, useValue: userServiceMock }
       ]
     }).compileComponents();
 
@@ -86,6 +93,7 @@ describe('RegisterComponent', () => {
     expect(component.profilePicture).toBe(file);
   });
 
+
   it('should show backend error message when register fails', () => {
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
     authServiceMock.register = vi.fn().mockReturnValue(
@@ -101,6 +109,16 @@ describe('RegisterComponent', () => {
 
     expect(component.errorMessage).toBe('Username already exists');
     consoleSpy.mockRestore();
+  });
+
+  it('should show error and not call register when username already exists', () => {
+    fillValidForm(component);
+    userServiceMock.userExists = vi.fn().mockReturnValue(of(true));
+
+    component.register();
+
+    expect(component.errorMessage).toBe('Username already exists. Choose another one.');
+    expect(authServiceMock.register).not.toHaveBeenCalled();
   });
 
   it('should render register form', () => {

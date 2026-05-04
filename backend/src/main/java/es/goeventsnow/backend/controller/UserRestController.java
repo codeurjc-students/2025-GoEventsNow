@@ -45,20 +45,23 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> replaceUser(@PathVariable long id, @RequestBody UserDTO userDTO, HttpServletRequest request) throws SQLException {
+    public ResponseEntity<UserDTO> replaceUser(@PathVariable long id, @RequestBody UserDTO userDTO,
+            HttpServletRequest request) throws SQLException {
         validateAuthenticatedUser(id, request);
         return ResponseEntity.ok(userService.replaceUser(id, userDTO));
     }
 
     @GetMapping("/{id}/image")
-    public ResponseEntity<Object> getProfilePhoto(@PathVariable long id, HttpServletRequest request) throws IOException, SQLException {
+    public ResponseEntity<Object> getProfilePhoto(@PathVariable long id, HttpServletRequest request)
+            throws IOException, SQLException {
         validateAuthenticatedUser(id, request);
         Resource profilePhoto = userService.getProfilePhoto(id);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE,"image/jpeg").body(profilePhoto);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(profilePhoto);
     }
 
     @PostMapping("/{id}/image")
-    public ResponseEntity<Object> createUserImage(@PathVariable long id, @RequestParam MultipartFile imageFile, HttpServletRequest request) throws IOException {
+    public ResponseEntity<Object> createUserImage(@PathVariable long id, @RequestParam MultipartFile imageFile,
+            HttpServletRequest request) throws IOException {
         validateAuthenticatedUser(id, request);
         URI location = fromCurrentRequest().build().toUri();
         userService.createProfilePhoto(id, imageFile.getInputStream(), imageFile.getSize());
@@ -66,17 +69,24 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}/image")
-    public ResponseEntity<Object> replaceUserImage(@PathVariable long id, @RequestParam MultipartFile imageFile, HttpServletRequest request) throws IOException {
+    public ResponseEntity<Object> replaceUserImage(@PathVariable long id, @RequestParam MultipartFile imageFile,
+            HttpServletRequest request) throws IOException {
         validateAuthenticatedUser(id, request);
         userService.replaceProfilePhoto(id, imageFile.getInputStream(), imageFile.getSize());
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}/image")
-    public ResponseEntity<Object> deleteUserImage(@PathVariable long id, HttpServletRequest request) throws IOException {
+    public ResponseEntity<Object> deleteUserImage(@PathVariable long id, HttpServletRequest request)
+            throws IOException {
         validateAuthenticatedUser(id, request);
         userService.deleteProfilePhoto(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/exists")
+    public ResponseEntity<Boolean> exists(@RequestParam String username) {
+        return ResponseEntity.ok(userService.userExists(username));
     }
 
     private void validateAuthenticatedUser(Long id, HttpServletRequest request) {

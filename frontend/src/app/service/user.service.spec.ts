@@ -15,6 +15,14 @@ async function getCurrentUser(cookie: string) {
     return response.json();
 }
 
+async function userExists(username: string) {
+    const response = await fetch(API_URL + 'exists?username=' + encodeURIComponent(username));
+
+    expect(response.ok).toBe(true);
+
+    return response.json();
+}
+
 function buildUser(fullname: string, email: string) {
     return {
         fullname,
@@ -61,6 +69,12 @@ describe('User API Integration', () => {
         expect(user.phone).toBe(updatedUser.phone);
         expect(user.email).toBe(updatedUser.email);
         expect(user.username).toBe(currentUser.username);
+    });
+
+    it('should detect existing username in real backend', async () => {
+        const exists = await userExists('admin');
+
+        expect(exists).toBe(true);
     });
 
 });

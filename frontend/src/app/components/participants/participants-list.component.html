@@ -64,10 +64,10 @@
                                 </span>
                             </div>
 
-                            <h3 class="card-title h6 text-dark fw-bold mb-3">{{participant.name}}</h3>
+                            <h3 id="participant-name-list-{{participant.id}}" class="card-title h6 text-dark fw-bold mb-3">{{participant.name}}</h3>
 
                             <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <a [routerLink]="['/participant/', participant.id]"
+                                <a id="participant-detail-{{participant.id}}" [routerLink]="['/participant/', participant.id]"
                                     class="btn btn-dark btn-sm rounded-pill px-4 fw-bold py-2">View Details</a>
                             </div>
                         </div>

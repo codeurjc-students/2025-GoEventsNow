@@ -71,7 +71,7 @@
                                 </span>
                             </div>
 
-                            <h3 class="card-title h6 text-dark fw-bold mb-3">{{event.title}}</h3>
+                            <h3 id="event-title-list-{{event.id}}" class="card-title h6 text-dark fw-bold mb-3">{{event.title}}</h3>
 
                             <p class="text-secondary mb-1 small d-flex align-items-center">
                                 <i class="bi bi-calendar3 me-2"></i> {{event.date}} / {{event.time}}
@@ -92,7 +92,7 @@
                 }
             </div>
 
-            <div class="text-center mt-5" *ngIf="hasMore">
+            <div id="load-more-events" class="text-center mt-5" *ngIf="hasMore">
                 <button (click)="loadEvents()" class="btn btn-outline-dark rounded-pill px-5">Load More Events</button>
             </div>
         </main>

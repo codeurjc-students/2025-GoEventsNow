@@ -20,8 +20,8 @@ function buildEvent(title: string) {
             {
                 id: 1,
                 name: 'Bad Bunny',
-                type: 'Music',
-                biography: 'Great Artist',
+                type: 'Music Artist',
+                biography: 'Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.',
                 participantImage: true
             }
         ],
@@ -41,9 +41,9 @@ describe('Event API Integration', () => {
         const events = page.content;
 
         expect(events.length).toBe(5);
-        expect(events[0].title).toBe("Spring Boot 4.0 Workshop");
-        expect(events[0].description).toBe("Intensive workshop on the framework's new features.");
-        expect(events[1].title).toBe("Art Exhibition");
+        expect(events[0].title).toBe("Global Latin Music Festival");
+        expect(events[0].description).toBe("A large-scale live music festival bringing together leading Latin and international artists. The event includes full-stage performances, VIP fan zones, immersive lighting, food areas and a night focused on reggaeton, pop and flamenco fusion.");
+        expect(events[1].title).toBe("Olivia Rodrigo Concert Experience");
     });
 
     it('should get event by id from real backend', async () => {
@@ -52,8 +52,8 @@ describe('Event API Integration', () => {
 
         const event = await response.json();
         expect(response.ok).toBe(true);
-        expect(event.title).toBe("Spring Boot 4.0 Workshop");
-        expect(event.description).toBe("Intensive workshop on the framework's new features.");
+        expect(event.title).toBe("Global Latin Music Festival");
+        expect(event.description).toBe("A large-scale live music festival bringing together leading Latin and international artists. The event includes full-stage performances, VIP fan zones, immersive lighting, food areas and a night focused on reggaeton, pop and flamenco fusion.");
     });
 
     it('should get events by participant id from real backend', async () => {
@@ -65,7 +65,7 @@ describe('Event API Integration', () => {
         const page = await response.json();
         const events = page.content;
         expect(events.length).toBeGreaterThan(0);
-        expect(events[0].title).toBe("Spring Boot 4.0 Workshop");
+        expect(events[0].title).toBe("Global Latin Music Festival");
         expect(events[0].participants[0].name).toBe("Bad Bunny");
     });
 

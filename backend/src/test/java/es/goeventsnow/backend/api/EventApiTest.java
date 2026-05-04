@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 public class EventApiTest extends BaseApiTest {
 
     private static final String API_EVENTS = "/api/v1/events/";
-    private static final String EVENT_IMAGE_PATH = "src/main/resources/static/images/events/event1.jpg";
+    private static final String EVENT_IMAGE_PATH = "src/main/resources/static/images/events/latinMusicFestival_event.jpg";
 
     @BeforeEach
     public void setUp() {
@@ -30,7 +30,7 @@ public class EventApiTest extends BaseApiTest {
                 .then()
                 .statusCode(200)
                 .log().all()
-                .body("content[0].title", is("Spring Boot 4.0 Workshop"));
+                .body("content[0].title", is("Global Latin Music Festival"));
     }
 
     @Test
@@ -43,9 +43,9 @@ public class EventApiTest extends BaseApiTest {
                 .then()
                 .statusCode(200)
                 .log().all()
-                .body("title", is("Spring Boot 4.0 Workshop"))
-                .body("category", is("Technology"))
-                .body("location", is("Fuenlabrada, Madrid"))
+                .body("title", is("Global Latin Music Festival"))
+                .body("category", is("Music"))
+                .body("location", is("Madrid, WiZink Center"))
                 .body("participants[0].name", is("Bad Bunny"));
     }
 
@@ -82,7 +82,7 @@ public class EventApiTest extends BaseApiTest {
                 .then()
                 .statusCode(200)
                 .log().all()
-                .body("content[0].title", is("Spring Boot 4.0 Workshop"))
+                .body("content[0].title", is("Global Latin Music Festival"))
                 .body("content[0].participants[0].id", is(1));
     }
 
@@ -130,8 +130,8 @@ public class EventApiTest extends BaseApiTest {
                         {
                             "id": 1,
                             "name": "Bad Bunny",
-                            "type": "Music",
-                            "biography": "Great Artist",
+                            "type": "Music Artist",
+                            "biography": "Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.",
                             "participantImage": true
                         }
                     ],
@@ -168,8 +168,8 @@ public class EventApiTest extends BaseApiTest {
                         {
                             "id": 1,
                             "name": "Bad Bunny",
-                            "type": "Music",
-                            "biography": "Great Artist",
+                            "type": "Music Artist",
+                            "biography": "Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.",
                             "participantImage": true
                         }
                     ],
@@ -207,8 +207,8 @@ public class EventApiTest extends BaseApiTest {
                         {
                             "id": 1,
                             "name": "Bad Bunny",
-                            "type": "Music",
-                            "biography": "Great Artist",
+                            "type": "Music Artist",
+                            "biography": "Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.",
                             "participantImage": true
                         }
                     ],
@@ -289,8 +289,8 @@ public class EventApiTest extends BaseApiTest {
                         {
                             "id": 1,
                             "name": "Bad Bunny",
-                            "type": "Music",
-                            "biography": "Great Artist",
+                            "type": "Music Artist",
+                            "biography": "Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.",
                             "participantImage": true
                         }
                     ],
@@ -331,8 +331,8 @@ public class EventApiTest extends BaseApiTest {
                         {
                             "id": 1,
                             "name": "Bad Bunny",
-                            "type": "Music",
-                            "biography": "Great Artist",
+                            "type": "Music Artist",
+                            "biography": "Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.",
                             "participantImage": true
                         }
                     ],
@@ -369,8 +369,8 @@ public class EventApiTest extends BaseApiTest {
                         {
                             "id": 1,
                             "name": "Bad Bunny",
-                            "type": "Music",
-                            "biography": "Great Artist",
+                            "type": "Music Artist",
+                            "biography": "Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.",
                             "participantImage": true
                         }
                     ],
@@ -439,8 +439,8 @@ public class EventApiTest extends BaseApiTest {
                         {
                             "id": 1111,
                             "name": "Bad Bunny",
-                            "type": "Music",
-                            "biography": "Great Artist",
+                            "type": "Music Artist",
+                            "biography": "Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.",
                             "participantImage": true
                         }
                     ],
@@ -478,8 +478,8 @@ public class EventApiTest extends BaseApiTest {
                         {
                             "id": 1,
                             "name": "Bad Bunny",
-                            "type": "Music",
-                            "biography": "Great Artist",
+                            "type": "Music Artist",
+                            "biography": "Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.",
                             "participantImage": true
                         }
                     ],

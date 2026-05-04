@@ -21,6 +21,6 @@ class TicketE2ETest extends E2eTestBase {
         clickId("ticket-section");
 
         waitForId("event-bought-title-1");
-        assertTrue(driver.getPageSource().contains("Spring Boot 4.0 Workshop"));
+        assertTrue(driver.getPageSource().contains("Global Latin Music Festival"));
     }
 }

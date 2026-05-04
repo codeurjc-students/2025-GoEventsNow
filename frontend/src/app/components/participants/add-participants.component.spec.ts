@@ -8,8 +8,8 @@ import { Participant } from '../../model/participant';
 const validParticipant: Participant = {
   id: 1,
   name: 'Bad Bunny',
-  type: 'Music',
-  biography: 'Great Artist',
+  type: 'Music Artist',
+  biography: 'Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.',
   participantImage: false
 };
 

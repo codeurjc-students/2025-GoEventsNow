@@ -10,42 +10,42 @@ import { provideRouter } from '@angular/router';
 const mockEvents: Event[] = [
   {
     id: 1,
-    title: "Spring Boot 4.0 Workshop",
-    description: "Intensive workshop on the framework's new features.",
-    category: "Technology",
-    location: "Fuenlabrada, Madrid",
-    date: "2026-03-15",
-    time: "10:00",
-    basicPrice: 50.0,
-    vipPrice: 120.0,
-    availableBasicTickets: 100,
-    availableVipTickets: 20
+    title: "Global Latin Music Festival",
+    description: "A large-scale live music festival bringing together leading Latin and international artists.",
+    category: "Music",
+    location: "Madrid, WiZink Center",
+    date: "2026-05-10",
+    time: "21:00",
+    basicPrice: 80.0,
+    vipPrice: 250.0,
+    availableBasicTickets: 15000,
+    availableVipTickets: 1000
   },
   {
     id: 2,
-    title: "Art Exhibition",
-    description: "International contemporary art exhibition.",
-    category: "Culture",
-    location: "Barcelona",
-    date: "2026-02-12",
-    time: "17:00",
-    basicPrice: 15.0,
-    vipPrice: 40.0,
-    availableBasicTickets: 200,
-    availableVipTickets: 50
+    title: "Olivia Rodrigo Concert Experience",
+    description: "A concert experience focused on emotional songwriting, acoustic arrangements and powerful live vocals.",
+    category: "Music",
+    location: "Barcelona, Palau Sant Jordi",
+    date: "2026-06-14",
+    time: "20:30",
+    basicPrice: 55.0,
+    vipPrice: 160.0,
+    availableBasicTickets: 9000,
+    availableVipTickets: 600
   },
   {
     id: 3,
-    title: "Basketball Tournament",
-    description: "Regional amateur team competition.",
-    category: "Sports",
-    location: "Getafe, Madrid",
-    date: "2026-08-02",
-    time: "09:30",
-    basicPrice: 10.0,
-    vipPrice: 25.0,
+    title: "Stand-Up Comedy Night: Juan Dávila Live",
+    description: "A live comedy show full of improvisation, audience interaction and unpredictable moments.",
+    category: "Comedy",
+    location: "Fuenlabrada, Madrid",
+    date: "2026-03-15",
+    time: "21:00",
+    basicPrice: 25.0,
+    vipPrice: 60.0,
     availableBasicTickets: 500,
-    availableVipTickets: 50
+    availableVipTickets: 80
   }
 ];
 
@@ -53,20 +53,20 @@ const mockParticipants = [
   {
     id: 1,
     name: "Bad Bunny",
-    type: "Music",
-    biography: "Great Artist",
+    type: "Music Artist",
+    biography: "Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.",
   },
   {
     id: 2,
-    name: "Pablo Picasso",
-    type: "Painter",
-    biography: "Famous Painter",
+    name: "Olivia Rodrigo",
+    type: "Music Artist",
+    biography: "Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.",
   },
   {
     id: 3,
-    name: "Michael Jordan",
-    type: "Basketball Player",
-    biography: "Legendary Basketball Player",
+    name: "Juan Dávila",
+    type: "Comedian",
+    biography: "Spanish stand-up comedian known for his interactive, provocative and improvisational comedy shows.",
   }
 ]
 
@@ -119,8 +119,8 @@ describe('EventListComponent', () => {
     const events = await firstValueFrom(component.events$);
 
     expect(events.length).toBe(3);
-    expect(events[0].title).toBe('Spring Boot 4.0 Workshop');
-    expect(events[0].location).toBe('Fuenlabrada, Madrid');
+    expect(events[0].title).toBe('Global Latin Music Festival');
+    expect(events[0].location).toBe('Madrid, WiZink Center');
   });
 
   it('should have participants$', async () => {
@@ -132,9 +132,9 @@ describe('EventListComponent', () => {
   it('should render event titles in the DOM', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.textContent).toContain('Spring Boot 4.0 Workshop');
-    expect(compiled.textContent).toContain('Art Exhibition');
-    expect(compiled.textContent).toContain('Basketball Tournament');
+    expect(compiled.textContent).toContain('Global Latin Music Festival');
+    expect(compiled.textContent).toContain('Olivia Rodrigo Concert Experience');
+    expect(compiled.textContent).toContain('Stand-Up Comedy Night: Juan Dávila Live');
   });
 
 

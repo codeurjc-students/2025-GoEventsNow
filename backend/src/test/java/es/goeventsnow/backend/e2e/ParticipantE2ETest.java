@@ -2,7 +2,6 @@ package es.goeventsnow.backend.e2e;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
 class ParticipantE2ETest extends E2eTestBase {
@@ -60,11 +59,11 @@ class ParticipantE2ETest extends E2eTestBase {
 
         waitForId("participant-manage-name-1");
         loadMoreParticipants();
-        waitForId("participant-manage-name-12");
-        clickId("delete-participant-12");
+        waitForId("participant-manage-name-4");
+        clickId("delete-participant-4");
 
-        waitForIdToDisappear("participant-manage-name-12");
-        assertFalse(driver.getPageSource().contains("Bill Gates"));
+        waitForIdToDisappear("participant-manage-name-4");
+        assertFalse(driver.getPageSource().contains("Rosalía"));
     }
 
     @Test

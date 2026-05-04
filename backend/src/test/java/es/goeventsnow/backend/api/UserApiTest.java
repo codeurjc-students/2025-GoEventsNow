@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 public class UserApiTest extends BaseApiTest {
 
     private static final String API_USERS = "/api/v1/users/";
-    private static final String USER_IMAGE_PATH = "src/main/resources/static/images/events/event1.jpg";
+        private static final String USER_IMAGE_PATH = "src/main/resources/static/images/participants/badbunny_participant.jpg";
 
     @BeforeEach
     public void setUp() {

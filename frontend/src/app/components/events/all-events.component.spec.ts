@@ -5,16 +5,16 @@ import { EventService } from '../../service/event.service';
 import { provideRouter } from '@angular/router';
 
 const mockEvents10 = [
-    { id: 1, title: "Spring Boot 4.0 Workshop" },
-    { id: 2, title: "Art Exhibition" },
-    { id: 3, title: "Basketball Tournament" },
-    { id: 4, title: "Keynote: Future of AI" },
-    { id: 5, title: "Motomami World Tour" },
-    { id: 6, title: "Avant-Garde Cooking Masterclass" },
-    { id: 7, title: "World Cup Final" },
-    { id: 8, title: "International Science Congress" },
-    { id: 9, title: "Movie Premiere" },
-    { id: 10, title: "Roland Garros Final" }
+    { id: 1, title: "Global Latin Music Festival" },
+    { id: 2, title: "Olivia Rodrigo Concert Experience" },
+    { id: 3, title: "Stand-Up Comedy Night: Juan Dávila Live" },
+    { id: 4, title: "Roland Garros Champions Exhibition" },
+    { id: 5, title: "Future of Space and Artificial Intelligence" },
+    { id: 6, title: "Cinema Masters: Storytelling and Performance" },
+    { id: 7, title: "Elite Sports Legends Tournament" },
+    { id: 8, title: "Top Dessert Masterclass" },
+    { id: 9, title: "Basketball Leadership Camp" },
+    { id: 10, title: "Young Hollywood Fan Convention" }
 ];
 
 const mockEvents9 = mockEvents10.slice(0, 9);
@@ -82,16 +82,16 @@ describe('AllEventsComponent', () => {
     it('should render event titles in the DOM', () => {
         const compiled = fixture.nativeElement as HTMLElement;
 
-        expect(compiled.textContent).toContain('Spring Boot 4.0 Workshop');
-        expect(compiled.textContent).toContain('Art Exhibition');
-        expect(compiled.textContent).toContain('Basketball Tournament');
-        expect(compiled.textContent).toContain('Keynote: Future of AI');
-        expect(compiled.textContent).toContain('Motomami World Tour');
-        expect(compiled.textContent).toContain('Avant-Garde Cooking Masterclass');
-        expect(compiled.textContent).toContain('World Cup Final');
-        expect(compiled.textContent).toContain('International Science Congress');
-        expect(compiled.textContent).toContain('Movie Premiere');
-        expect(compiled.textContent).toContain('Roland Garros Final');
+        expect(compiled.textContent).toContain('Global Latin Music Festival');
+        expect(compiled.textContent).toContain('Olivia Rodrigo Concert Experience');
+        expect(compiled.textContent).toContain('Stand-Up Comedy Night: Juan Dávila Live');
+        expect(compiled.textContent).toContain('Roland Garros Champions Exhibition');
+        expect(compiled.textContent).toContain('Future of Space and Artificial Intelligence');
+        expect(compiled.textContent).toContain('Cinema Masters: Storytelling and Performance');
+        expect(compiled.textContent).toContain('Elite Sports Legends Tournament');
+        expect(compiled.textContent).toContain('Top Dessert Masterclass');
+        expect(compiled.textContent).toContain('Basketball Leadership Camp');
+        expect(compiled.textContent).toContain('Young Hollywood Fan Convention');
     });
 
 

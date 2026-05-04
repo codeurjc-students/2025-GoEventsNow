@@ -109,10 +109,11 @@ public class AuthApiTest extends BaseApiTest {
 
     @Test
     public void testRegister_return201() {
+        String username = "newuser" + System.currentTimeMillis();
         given()
-                .multiPart("username", "newuser")
+                .multiPart("username", username)
                 .multiPart("fullname", "New User")
-                .multiPart("email", "newuser@email.com")
+                .multiPart("email", username + "@email.com")
                 .multiPart("password", "newpass")
                 .multiPart("phone", "666777888")
                 .when()

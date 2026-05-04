@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { defer, of } from 'rxjs';
 
 const mockParticipants = [
-    { id: 1, name: 'Bad Bunny', type: 'Music', biography: 'Great Artist' }
+    { id: 1, name: 'Bad Bunny', type: 'Music Artist', biography: 'Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.' }
 ];
 
 const validEvent = {

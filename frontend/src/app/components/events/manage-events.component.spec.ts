@@ -5,8 +5,8 @@ import { Router, provideRouter } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
 const mockEvents = [
-  { id: 1, title: 'Spring Boot 4.0 Workshop' },
-  { id: 2, title: 'Art Exhibition' }
+  { id: 1, title: 'Global Latin Music Festival' },
+  { id: 2, title: 'Olivia Rodrigo Concert Experience' }
 ];
 
 describe('ManageEventsComponent', () => {
@@ -111,7 +111,7 @@ beforeEach(async () => {
   it('should render event titles in DOM', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.textContent).toContain('Spring Boot 4.0 Workshop');
-    expect(compiled.textContent).toContain('Art Exhibition');
+    expect(compiled.textContent).toContain('Global Latin Music Festival');
+    expect(compiled.textContent).toContain('Olivia Rodrigo Concert Experience');
   });
 });

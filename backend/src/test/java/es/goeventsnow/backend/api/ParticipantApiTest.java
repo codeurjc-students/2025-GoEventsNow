@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 public class ParticipantApiTest extends BaseApiTest {
 
     private static final String API_PARTICIPANTS = "/api/v1/participants/";
-    private static final String PARTICIPANT_IMAGE_PATH = "src/main/resources/static/images/events/event1.jpg";
+    private static final String PARTICIPANT_IMAGE_PATH = "src/main/resources/static/images/participants/badbunny_participant.jpg";
 
     @BeforeEach
     public void setUp() {
@@ -40,8 +40,8 @@ public class ParticipantApiTest extends BaseApiTest {
                 .then()
                 .statusCode(200)
                 .body("name", is("Bad Bunny"))
-                .body("type", is("Music"))
-                .body("biography", is("Great Artist"))
+                .body("type", is("Music Artist"))
+                .body("biography", is("Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours."))
                 .body("participantImage", is(true));
     }
 

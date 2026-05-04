@@ -10,12 +10,12 @@ import { Ticket } from '../../model/ticket';
 
 const mockEvent: Event = {
   id: 1,
-  title: 'Spring Boot 4.0 Workshop',
-  description: 'Intensive workshop',
-  category: 'Technology',
-  location: 'Madrid',
-  date: '2026-03-15',
-  time: '10:00',
+  title: 'Global Latin Music Festival',
+  description: 'A large-scale live music festival bringing together leading Latin and international artists.',
+  category: 'Music',
+  location: 'Madrid, WiZink Center',
+  date: '2026-05-10',
+  time: '21:00',
   basicPrice: 50,
   vipPrice: 120,
   availableBasicTickets: 100,
@@ -77,7 +77,7 @@ describe('TicketSelectionComponent', () => {
     expect(component.priceVip).toBe(120);
     expect(component.basicAvailable).toBe(100);
     expect(component.vipAvailable).toBe(20);
-    expect(event.title).toBe('Spring Boot 4.0 Workshop');
+    expect(event.title).toBe('Global Latin Music Festival');
   });
 
   it('should increase quantity and reload total price', () => {
@@ -162,7 +162,7 @@ describe('TicketSelectionComponent', () => {
   it('should render event title in DOM', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.textContent).toContain('Spring Boot 4.0 Workshop');
+    expect(compiled.textContent).toContain('Global Latin Music Festival');
     expect(compiled.textContent).toContain('Order Summary');
   });
 });

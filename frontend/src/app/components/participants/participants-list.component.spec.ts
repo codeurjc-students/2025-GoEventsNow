@@ -5,9 +5,9 @@ import { ParticipantsListComponent } from './participants-list.component';
 import { ParticipantService } from '../../service/participant.service';
 
 const mockParticipants = [
-  { id: 1, name: 'Bad Bunny', type: 'Music', biography: 'Great Artist' },
-  { id: 2, name: 'Pablo Picasso', type: 'Painter', biography: 'Famous Painter' },
-  { id: 3, name: 'Michael Jordan', type: 'Basketball Player', biography: 'Legendary Player' }
+  { id: 1, name: 'Bad Bunny', type: 'Music Artist', biography: 'Puerto Rican global superstar known for redefining reggaeton and Latin trap.' },
+  { id: 2, name: 'Olivia Rodrigo', type: 'Music Artist', biography: 'Grammy-winning artist recognized for emotional songwriting and chart-topping pop-rock performances.' },
+  { id: 3, name: 'Juan Dávila', type: 'Comedian', biography: 'Spanish stand-up comedian known for his interactive and improvisational comedy shows.' }
 ];
 
 describe('ParticipantsListComponent', () => {
@@ -60,7 +60,7 @@ describe('ParticipantsListComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.textContent).toContain('Bad Bunny');
-    expect(compiled.textContent).toContain('Pablo Picasso');
-    expect(compiled.textContent).toContain('Michael Jordan');
+    expect(compiled.textContent).toContain('Olivia Rodrigo');
+    expect(compiled.textContent).toContain('Juan Dávila');
   });
 });

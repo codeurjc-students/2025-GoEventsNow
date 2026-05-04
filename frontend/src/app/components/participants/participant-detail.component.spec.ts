@@ -8,24 +8,24 @@ import { EventService } from '../../service/event.service';
 const mockParticipant = {
   id: 1,
   name: 'Bad Bunny',
-  type: 'Music',
-  biography: 'Great Artist',
+  type: 'Music Artist',
+  biography: 'Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.',
   participantImage: true
 };
 
 const mockEvents = [
   {
     id: 1,
-    title: 'Motomami World Tour',
-    description: 'Live music event',
+    title: 'Global Latin Music Festival',
+    description: 'A large-scale live music festival bringing together leading Latin and international artists.',
     category: 'Music',
-    location: 'Madrid',
-    date: '2026-06-20',
-    time: '18:00',
-    basicPrice: 30,
-    vipPrice: 80,
-    availableBasicTickets: 150,
-    availableVipTickets: 30
+    location: 'Madrid, WiZink Center',
+    date: '2026-05-10',
+    time: '21:00',
+    basicPrice: 80,
+    vipPrice: 250,
+    availableBasicTickets: 15000,
+    availableVipTickets: 1000
   }
 ];
 
@@ -76,14 +76,14 @@ describe('ParticipantDetailComponent', () => {
     const participant = await firstValueFrom(component.participant$);
 
     expect(participant.name).toBe('Bad Bunny');
-    expect(participant.type).toBe('Music');
+    expect(participant.type).toBe('Music Artist');
   });
 
   it('should render participant and event details in the DOM', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.textContent).toContain('Bad Bunny');
-    expect(compiled.textContent).toContain('Great Artist');
-    expect(compiled.textContent).toContain('Motomami World Tour');
+    expect(compiled.textContent).toContain('Puerto Rican global superstar known for redefining reggaeton and Latin trap');
+    expect(compiled.textContent).toContain('Global Latin Music Festival');
   });
 });

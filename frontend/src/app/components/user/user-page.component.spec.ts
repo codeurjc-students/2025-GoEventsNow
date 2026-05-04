@@ -9,12 +9,12 @@ import { Event } from '../../model/event';
 
 const mockEvent: Event = {
   id: 1,
-  title: 'Spring Boot 4.0 Workshop',
-  description: 'Intensive workshop',
-  category: 'Technology',
-  location: 'Madrid',
-  date: '2026-03-15',
-  time: '10:00',
+  title: 'Global Latin Music Festival',
+  description: 'A large-scale live music festival bringing together leading Latin and international artists.',
+  category: 'Music',
+  location: 'Madrid, WiZink Center',
+  date: '2026-05-10',
+  time: '21:00',
   basicPrice: 50,
   vipPrice: 120,
   availableBasicTickets: 100,

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.goeventsnow.backend.dto.ticket.TicketDTO;
 import es.goeventsnow.backend.service.TicketService;
+import jakarta.validation.Valid;
 
 
 
@@ -50,7 +51,7 @@ public class TicketRestController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<TicketDTO> createTicket(@RequestBody TicketDTO ticketDTO, Principal principal)  throws SQLException {
+    public ResponseEntity<TicketDTO> createTicket(@Valid @RequestBody TicketDTO ticketDTO, Principal principal)  throws SQLException {
 
         if (principal != null) {
 

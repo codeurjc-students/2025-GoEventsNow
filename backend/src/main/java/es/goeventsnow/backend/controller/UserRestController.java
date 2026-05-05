@@ -26,6 +26,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 import es.goeventsnow.backend.dto.user.UserDTO;
 import es.goeventsnow.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -45,7 +46,7 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> replaceUser(@PathVariable long id, @RequestBody UserDTO userDTO,
+    public ResponseEntity<UserDTO> replaceUser(@PathVariable long id, @Valid @RequestBody UserDTO userDTO,
             HttpServletRequest request) throws SQLException {
         validateAuthenticatedUser(id, request);
         return ResponseEntity.ok(userService.replaceUser(id, userDTO));

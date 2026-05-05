@@ -389,7 +389,7 @@ public class EventApiTest extends BaseApiTest {
     }
 
     @Test
-    public void testReplaceEvent_return404() {
+    public void testReplaceEventNoParticipants_return400() {
 
         String updatedEvent = """
                 {
@@ -414,9 +414,9 @@ public class EventApiTest extends BaseApiTest {
                 .contentType("application/json")
                 .body(updatedEvent)
                 .when()
-                .put(API_EVENTS + "999")
+                .put(API_EVENTS + "1")
                 .then()
-                .statusCode(404);
+                .statusCode(400);
     }
 
     @Test

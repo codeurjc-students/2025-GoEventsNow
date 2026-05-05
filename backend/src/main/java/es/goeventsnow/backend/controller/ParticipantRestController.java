@@ -25,6 +25,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.service.ParticipantService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/participants")
@@ -44,7 +45,7 @@ public class ParticipantRestController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<ParticipantDTO> postParticipant(@RequestBody ParticipantDTO participantDTO) {
+    public ResponseEntity<ParticipantDTO> postParticipant(@Valid @RequestBody ParticipantDTO participantDTO) {
         ParticipantDTO savedParticipantDTO = participantService.addParticipant(participantDTO);
 
         URI location = ServletUriComponentsBuilder
@@ -62,7 +63,7 @@ public class ParticipantRestController {
     }
 
     @PutMapping("/{id}")
-    public ParticipantDTO replaceParticipant(@PathVariable long id, @RequestBody ParticipantDTO participantDTO) throws SQLException {
+    public ParticipantDTO replaceParticipant(@PathVariable long id, @Valid @RequestBody ParticipantDTO participantDTO) throws SQLException {
         return participantService.replaceParticipant(id, participantDTO);
     }
 

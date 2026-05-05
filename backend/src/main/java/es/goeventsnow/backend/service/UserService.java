@@ -39,7 +39,8 @@ public class UserService {
     }
 
     public UserDTO findByUsername(String username) {
-        return toDTO(userRepository.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")));
+        return toDTO(userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")));
     }
 
     public boolean userExists(String username) {
@@ -47,13 +48,18 @@ public class UserService {
     }
 
     public UserDTO findById(Long id) {
-        return toDTO(userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")));
+        return toDTO(userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")));
     }
 
     public UserDTO createUser(UserDTO userDTO) throws SQLException {
 
         if (userDTO == null || userDTO.id() != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID must be null for new user creation");
+        }
+
+        if (userExists(userDTO.username())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
         }
 
         User user = toDomain(userDTO);

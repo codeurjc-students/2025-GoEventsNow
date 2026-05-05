@@ -53,6 +53,26 @@ public class UserApiTest extends BaseApiTest {
     }
 
     @Test
+    public void testUserExists_returnTrue() {
+        given()
+                .when()
+                .get(API_USERS + "exists?username=user")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
+
+    @Test
+    public void testUserExists_returnFalse() {
+        given()
+                .when()
+                .get(API_USERS + "exists?username=nonexistentuser")
+                .then()
+                .statusCode(200)
+                .body(is("false"));
+    }
+
+    @Test
     public void testReplaceUser_return200() {
         String cookie = getUserCookie();
         int userId = getCurrentUserId(cookie);

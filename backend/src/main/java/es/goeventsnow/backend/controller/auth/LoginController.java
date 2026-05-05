@@ -9,13 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.validation.annotation.Validated;
 
 import es.goeventsnow.backend.security.jwt.UserLoginService;
 import es.goeventsnow.backend.security.jwt.AuthResponse;
 import es.goeventsnow.backend.security.jwt.LoginRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
 @RestController
+@Validated
 @RequestMapping("/api/v1/auth")
 public class LoginController {
 
@@ -24,7 +28,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(
-            @RequestBody LoginRequest loginRequest,
+            @Valid @RequestBody LoginRequest loginRequest,
             HttpServletResponse response) {
 
         return userService.login(response, loginRequest);
@@ -44,11 +48,11 @@ public class LoginController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(
-            @RequestParam("username") String username,
-            @RequestParam("fullname") String fullname,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            @RequestParam("phone") String phone,
+            @RequestParam("username") @NotBlank String username,
+            @RequestParam("fullname") @NotBlank String fullname,
+            @RequestParam("email") @NotBlank String email,
+            @RequestParam("password") @NotBlank String password,
+            @RequestParam("phone") @NotBlank String phone,
             @RequestParam(value = "profileImageFile", required = false) MultipartFile profileImageFile,
             HttpServletResponse response) {
     

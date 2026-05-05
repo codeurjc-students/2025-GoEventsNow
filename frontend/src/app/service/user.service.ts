@@ -11,8 +11,13 @@ export class UserService {
     constructor(private httpClient: HttpClient) { }
 
 
-    getCurrentUser() {
+    public getCurrentUser() {
         return this.httpClient.get<User>(BASE_URL + 'me', { withCredentials: true });
+    }
+
+    public userExists(username: string): Observable<boolean> {
+        const params = `exists?username=${encodeURIComponent(username)}`;
+        return this.httpClient.get<boolean>(BASE_URL + params);
     }
 
 

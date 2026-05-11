@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { ParticipantService } from "../../service/participant.service";
+import { loadPaginatedItems } from "../../utils/pagination-utils";
 
 
 @Component({
@@ -28,23 +29,13 @@ export class ManageParticipantsComponent implements OnInit {
     }
 
     loadParticipants(): void {
-
-        if (!this.hasMore) {
-            return;
-        }
-
-        this.participantService.findAll(this.page, this.size).subscribe({
-            next: (participants) => {
-                if (participants.length < this.size) {
-                    this.hasMore = false;
-                }
-    
-                this.participants = this.participants.concat(participants);
-                this.page ++;
-                this.hasMore = participants.length === this.size;
-                this.cd.detectChanges();
-            }
-        });
+        loadPaginatedItems(
+            this,
+            this.participants,
+            (page, size) => this.participantService.findAll(page, size),
+            (participants) => this.participants = participants,
+            this.cd
+        );
     }
 
     deleteParticipant(id: number): void {

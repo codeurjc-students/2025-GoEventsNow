@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { EventService } from "../../service/event.service";
 import { RouterLink } from "@angular/router";
+import { loadPaginatedItems } from "../../utils/pagination-utils";
 
 
 @Component({
@@ -26,23 +27,13 @@ export class AllEventsComponent implements OnInit {
     }
 
     loadEvents(): void {
-
-        if (!this.hasMore) {
-            return;
-        }
-
-        this.eventService.findAll(this.page, this.size).subscribe({
-            next: (events) => {
-                if (events.length < this.size) {
-                    this.hasMore = false;
-                }
-    
-                this.events = this.events.concat(events);
-                this.page ++;
-                this.hasMore = events.length === this.size;
-                this.cd.detectChanges();
-            }
-        });
+        loadPaginatedItems(
+            this,
+            this.events,
+            (page, size) => this.eventService.findAll(page, size),
+            (events) => this.events = events,
+            this.cd
+        );
     }
 
 }

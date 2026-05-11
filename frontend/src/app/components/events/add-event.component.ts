@@ -7,6 +7,7 @@ import { Event } from "../../model/event";
 import { Participant } from "../../model/participant";
 import { Router, ActivatedRoute } from "@angular/router";
 import { NgbAlert } from "@ng-bootstrap/ng-bootstrap/alert";
+import { getSelectedFile } from "../../utils/file-utils";
 
 
 @Component({
@@ -96,8 +97,7 @@ export class AddEventComponent {
     }
 
     onFileSelected(event: any): void {
-        const file = event.target.files[0];
-        this.imageFile = file ? file : null;
+        this.imageFile = getSelectedFile(event);
     }
 
     isFormEventValid(): boolean {

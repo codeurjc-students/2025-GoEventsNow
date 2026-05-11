@@ -1,6 +1,7 @@
 package es.goeventsnow.backend.service;
 
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.SQLException;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -16,8 +17,8 @@ import org.springframework.web.server.ResponseStatusException;
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.dto.participant.ParticipantMapper;
 import es.goeventsnow.backend.model.Participant;
-import es.goeventsnow.backend.repository.ParticipantRepository;
 import es.goeventsnow.backend.repository.EventRepository;
+import es.goeventsnow.backend.repository.ParticipantRepository;
 
 @Service
 public class ParticipantService {
@@ -36,8 +37,7 @@ public class ParticipantService {
     }
 
     public ParticipantDTO getParticipantById(Long id) {
-        return toDTO(participantRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found")));
+        return toDTO(getParticipant(id));
     }
 
     public ParticipantDTO addParticipant(ParticipantDTO participantDTO) {
@@ -47,8 +47,7 @@ public class ParticipantService {
     }
 
     public ParticipantDTO deleteParticipant(long id) {
-        Participant participant = participantRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found"));
+        Participant participant = getParticipant(id);
         if (!eventRepository.findByParticipantsId(id, Pageable.unpaged()).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Participant cannot be deleted because it is associated with one or more events");
@@ -59,64 +58,54 @@ public class ParticipantService {
     }
 
     public ParticipantDTO replaceParticipant(long id, ParticipantDTO participantDTO) throws SQLException {
-        if (participantRepository.existsById(id)) {
-            Participant participantSaved = participantRepository.findById(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found"));
-            Participant updatedParticipant = toDomain(participantDTO);
-            updatedParticipant.setId(participantSaved.getId());
-            updatedParticipant.setParticipantImage(participantSaved.getParticipantImage());
-            updatedParticipant.setParticipantImageFile(participantSaved.getParticipantImageFile());
-            participantRepository.save(updatedParticipant);
-            return toDTO(updatedParticipant);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found");
-        }
-
+        Participant participantSaved = getParticipant(id);
+        Participant updatedParticipant = toDomain(participantDTO);
+        updatedParticipant.setId(participantSaved.getId());
+        updatedParticipant.setParticipantImage(participantSaved.getParticipantImage());
+        updatedParticipant.setParticipantImageFile(participantSaved.getParticipantImageFile());
+        participantRepository.save(updatedParticipant);
+        return toDTO(updatedParticipant);
     }
 
     public void createParticipantImage(long id, InputStream inputStream, long size) {
-        Participant participant = participantRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found"));
-        participant.setParticipantImage(true);
-        participant.setParticipantImageFile(BlobProxy.generateProxy(inputStream, size));
-        participantRepository.save(participant);
+        updateParticipantImage(getParticipant(id), inputStream, size);
     }
 
     public Resource getParticipantImage(long id) throws SQLException {
-        Participant participant = participantRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found"));
-
-        if (participant.getParticipantImageFile() == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant image not found");
-        } else {
-            return new InputStreamResource(participant.getParticipantImageFile().getBinaryStream());
-        }
+        Participant participant = getParticipant(id);
+        ensureImageExists(participant.getParticipantImageFile(), "Participant image not found");
+        return new InputStreamResource(participant.getParticipantImageFile().getBinaryStream());
     }
 
     public void replaceParticipantImage(long id, InputStream inputStream, long size) {
-        Participant participant = participantRepository.findById(id)
+        Participant participant = getParticipant(id);
+        ensureImageExists(participant.getParticipantImageFile(), "Participant image not found");
+        updateParticipantImage(participant, inputStream, size);
+    }
+
+    public void deleteParticipantImage(long id) {
+        Participant participant = getParticipant(id);
+        ensureImageExists(participant.getParticipantImageFile(), "Participant image not found");
+        participant.setParticipantImage(false);
+        participant.setParticipantImageFile(null);
+        participantRepository.save(participant);
+    }
+
+    private Participant getParticipant(long id) {
+        return participantRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found"));
+    }
 
-        if (participant.getParticipantImageFile() == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant image not found");
-        }
-
+    private void updateParticipantImage(Participant participant, InputStream inputStream, long size) {
         participant.setParticipantImage(true);
         participant.setParticipantImageFile(BlobProxy.generateProxy(inputStream, size));
         participantRepository.save(participant);
     }
 
-    public void deleteParticipantImage(long id) {
-        Participant participant = participantRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found"));
-
-        if (participant.getParticipantImageFile() == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant image not found");
+    private void ensureImageExists(Blob imageFile, String notFoundMessage) {
+        if (imageFile == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, notFoundMessage);
         }
-
-        participant.setParticipantImage(false);
-        participant.setParticipantImageFile(null);
-        participantRepository.save(participant);
     }
 
     private ParticipantDTO toDTO(Participant participant) {

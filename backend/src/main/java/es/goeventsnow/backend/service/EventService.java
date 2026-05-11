@@ -1,7 +1,11 @@
 package es.goeventsnow.backend.service;
 
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.dto.event.EventMapper;
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.model.Event;
+import es.goeventsnow.backend.model.Participant;
 import es.goeventsnow.backend.repository.EventRepository;
 import es.goeventsnow.backend.repository.ParticipantRepository;
 
@@ -37,8 +42,7 @@ public class EventService {
     }
 
     public EventDTO getEventById(Long id) {
-        return toDTO(eventRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found")));
+        return toDTO(getEvent(id));
     }
 
     public Page<EventDTO> getEventsByParticipantId(Long participantId, Pageable pageable) {
@@ -51,15 +55,7 @@ public class EventService {
 
     public EventDTO addEvent(EventDTO eventDTO) {
         Event eventSaved = toDomain(eventDTO);
-        if (eventDTO.participants() != null) {
-            eventSaved.setParticipants(
-                    eventDTO.participants().stream()
-                            .map(p -> participantRepository.findById(p.id())
-                                    .orElseThrow(() -> new ResponseStatusException(
-                                            HttpStatus.BAD_REQUEST,
-                                            "Participant with " + p.id() + " does not exist")))
-                            .toList());
-        }
+        eventSaved.setParticipants(resolveParticipants(eventDTO.participants()));
         eventSaved.setId(null);
         eventSaved.setTickets(null);
         eventRepository.save(eventSaved);
@@ -67,8 +63,7 @@ public class EventService {
     }
 
     public EventDTO deleteEvent(long id) {
-        Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
+        Event event = getEvent(id);
         if (!event.getTickets().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Event cannot be deleted because it has associated tickets");
@@ -79,82 +74,76 @@ public class EventService {
     }
 
     public EventDTO replaceEvent(long id, EventDTO eventDTO) throws SQLException {
-        if (eventRepository.existsById(id)) {
-            Event eventSaved = eventRepository.findById(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
-            Event updatedEvent = toDomain(eventDTO);
-            if (eventDTO.participants() != null) {
-                eventSaved.setParticipants(
-                        eventDTO.participants().stream()
-                                .map(p -> participantRepository.findById(p.id())
-                                        .orElseThrow(() -> new ResponseStatusException(
-                                                HttpStatus.BAD_REQUEST,
-                                                "Participant with " + p.id() + " does not exist")))
-                                .toList());
-            }
-            eventSaved.setTitle(eventDTO.title());
-            eventSaved.setDescription(eventDTO.description());
-            eventSaved.setCategory(eventDTO.category());
-            eventSaved.setLocation(eventDTO.location());
-            eventSaved.setDate(eventDTO.date());
-            eventSaved.setTime(eventDTO.time());
-            eventSaved.setBasicPrice(eventDTO.basicPrice());
-            eventSaved.setVipPrice(eventDTO.vipPrice());
-            eventSaved.setAvailableBasicTickets(eventDTO.availableBasicTickets());
-            eventSaved.setAvailableVipTickets(eventDTO.availableVipTickets());
-            eventSaved.setParticipants(updatedEvent.getParticipants());
+        Event eventSaved = getEvent(id);
 
-            eventRepository.save(eventSaved);
-            return toDTO(eventSaved);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found");
-        }
+        applyEventFields(eventSaved, eventDTO);
+        eventSaved.setParticipants(resolveParticipants(eventDTO.participants()));
 
+        eventRepository.save(eventSaved);
+        return toDTO(eventSaved);
     }
 
     public void createEventImage(long id, InputStream inputStream, long size) {
-        Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
-        event.setImage(true);
-        event.setImageFile(BlobProxy.generateProxy(inputStream, size));
-        eventRepository.save(event);
+        updateEventImage(getEvent(id), inputStream, size);
     }
 
     public Resource getEventImage(long id) throws SQLException {
-        Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
-
-        if (event.getImageFile() == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event image not found");
-        } else {
-            return new InputStreamResource(event.getImageFile().getBinaryStream());
-        }
+        Event event = getEvent(id);
+        ensureImageExists(event.getImageFile(), "Event image not found");
+        return new InputStreamResource(event.getImageFile().getBinaryStream());
     }
 
     public void replaceEventImage(long id, InputStream inputStream, long size) {
-        Event event = eventRepository.findById(id)
+        Event event = getEvent(id);
+        ensureImageExists(event.getImageFile(), "Event image not found");
+        updateEventImage(event, inputStream, size);
+    }
+
+    public void deleteEventImage(long id) {
+        Event event = getEvent(id);
+        ensureImageExists(event.getImageFile(), "Event image not found");
+        event.setImage(false);
+        event.setImageFile(null);
+        eventRepository.save(event);
+    }
+
+    private Event getEvent(long id) {
+        return eventRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
+    }
 
-        if (event.getImageFile() == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event image not found");
-        }
+    private List<Participant> resolveParticipants(List<ParticipantDTO> participants) {
+        return participants.stream()
+                .map(participant -> participantRepository.findById(participant.id())
+                        .orElseThrow(() -> new ResponseStatusException(
+                                HttpStatus.BAD_REQUEST,
+                                "Participant with " + participant.id() + " does not exist")))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
 
+    private void applyEventFields(Event event, EventDTO eventDTO) {
+        event.setTitle(eventDTO.title());
+        event.setDescription(eventDTO.description());
+        event.setCategory(eventDTO.category());
+        event.setLocation(eventDTO.location());
+        event.setDate(eventDTO.date());
+        event.setTime(eventDTO.time());
+        event.setBasicPrice(eventDTO.basicPrice());
+        event.setVipPrice(eventDTO.vipPrice());
+        event.setAvailableBasicTickets(eventDTO.availableBasicTickets());
+        event.setAvailableVipTickets(eventDTO.availableVipTickets());
+    }
+
+    private void updateEventImage(Event event, InputStream inputStream, long size) {
         event.setImage(true);
         event.setImageFile(BlobProxy.generateProxy(inputStream, size));
         eventRepository.save(event);
     }
 
-    public void deleteEventImage(long id) {
-        Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
-
-        if (event.getImageFile() == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event image not found");
+    private void ensureImageExists(Blob imageFile, String notFoundMessage) {
+        if (imageFile == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, notFoundMessage);
         }
-
-        event.setImage(false);
-        event.setImageFile(null);
-        eventRepository.save(event);
     }
 
     private EventDTO toDTO(Event event) {

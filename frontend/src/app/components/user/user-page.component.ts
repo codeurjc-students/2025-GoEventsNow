@@ -1,6 +1,5 @@
 import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component } from "@angular/core";
-import { Observable } from "rxjs";
 import { User } from "../../model/user";
 import { Ticket } from "../../model/ticket";
 import { Event } from "../../model/event";
@@ -9,6 +8,7 @@ import { FormsModule } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EventService } from "../../service/event.service";
 import { NgbAlert } from "@ng-bootstrap/ng-bootstrap/alert";
+import { getSelectedFile } from "../../utils/file-utils";
 
 @Component({
     standalone: true,
@@ -90,8 +90,7 @@ export class UserPageComponent {
     }
 
     onFileSelected(event: any): void {
-        const file = event.target.files[0];
-        this.profileImage = file ? file : null;
+        this.profileImage = getSelectedFile(event);
     }
 
     loadEventsForTickets(): void {

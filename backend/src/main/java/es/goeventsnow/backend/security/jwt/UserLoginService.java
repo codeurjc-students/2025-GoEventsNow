@@ -47,7 +47,6 @@ public class UserLoginService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-
 	public ResponseEntity<AuthResponse> login(HttpServletResponse response, LoginRequest loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
@@ -115,84 +114,81 @@ public class UserLoginService {
 	}
 
 	public ResponseEntity<AuthResponse> register(HttpServletResponse response, LoginRequest registerRequest) {
-    try {
-        if (registerRequest.getUsername() == null || registerRequest.getPassword() == null) {
-            return ResponseEntity.badRequest()
-                .body(new AuthResponse(AuthResponse.Status.ERROR, "Missing username or password"));
-        }
-
-        if (userService.userExists(registerRequest.getUsername())) {
-            return ResponseEntity.badRequest()
-                .body(new AuthResponse(AuthResponse.Status.ERROR, "User already exists"));
-        }
-
-        NewUserDTO newUserDTO = new NewUserDTO(
-            null,
-            registerRequest.getUsername(),
-            null,
-            null,
-            registerRequest.getPassword(),
-            null
-        );
-
-		UserDTO createdUser = userService.UserCreationReplacement(null, newUserDTO, false, passwordEncoder);
-
-		URI location = ServletUriComponentsBuilder
-			.fromCurrentContextPath()
-			.path("/api/v1/users/{id}")
-			.buildAndExpand(createdUser.id())
-			.toUri();
-
-		return ResponseEntity.created(location)
-			.body(new AuthResponse(AuthResponse.Status.SUCCESS, "User registered successfully"));
-
-    } catch (Exception e) {
-        return ResponseEntity.internalServerError()
-            .body(new AuthResponse(AuthResponse.Status.ERROR, "Error during registration: " + e.getMessage()));
-    }
-}
-
-public ResponseEntity<AuthResponse> register(HttpServletResponse response,
-                                             String username,
-                                             String fullname,
-                                             String email,
-                                             String password,
-                                             String phone,
-                                             MultipartFile profileImageFile) {
-    try {
-		int parsedPhone;
 		try {
-			parsedPhone = Integer.parseInt(phone);
-		} catch (NumberFormatException ex) {
-			return ResponseEntity.badRequest()
-					.body(new AuthResponse(AuthResponse.Status.ERROR, "Phone must be a valid number"));
+			if (registerRequest.getUsername() == null || registerRequest.getPassword() == null) {
+				return ResponseEntity.badRequest()
+						.body(new AuthResponse(AuthResponse.Status.ERROR, "Missing username or password"));
+			}
+
+			if (userService.userExists(registerRequest.getUsername())) {
+				return ResponseEntity.badRequest()
+						.body(new AuthResponse(AuthResponse.Status.ERROR, "User already exists"));
+			}
+
+			NewUserDTO newUserDTO = new NewUserDTO(
+					null,
+					registerRequest.getUsername(),
+					null,
+					null,
+					registerRequest.getPassword(),
+					null);
+
+			UserDTO createdUser = userService.UserCreationReplacement(null, newUserDTO, false, passwordEncoder);
+
+			URI location = ServletUriComponentsBuilder
+					.fromCurrentContextPath()
+					.path("/api/v1/users/{id}")
+					.buildAndExpand(createdUser.id())
+					.toUri();
+
+			return ResponseEntity.created(location)
+					.body(new AuthResponse(AuthResponse.Status.SUCCESS, "User registered successfully"));
+
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError()
+					.body(new AuthResponse(AuthResponse.Status.ERROR, "Error during registration: " + e.getMessage()));
 		}
+	}
 
-        NewUserDTO dto = new NewUserDTO(
-            fullname,
-            username,
-			parsedPhone,
-			email,
-            password,
-            profileImageFile
-        );
+	public ResponseEntity<AuthResponse> register(HttpServletResponse response,
+			String username,
+			String fullname,
+			String email,
+			String password,
+			String phone,
+			MultipartFile profileImageFile) {
+		try {
+			int parsedPhone;
+			try {
+				parsedPhone = Integer.parseInt(phone);
+			} catch (NumberFormatException ex) {
+				return ResponseEntity.badRequest()
+						.body(new AuthResponse(AuthResponse.Status.ERROR, "Phone must be a valid number"));
+			}
 
-		UserDTO createdUser = userService.UserCreationReplacement(null, dto, false, passwordEncoder);
+			NewUserDTO dto = new NewUserDTO(
+					fullname,
+					username,
+					parsedPhone,
+					email,
+					password,
+					profileImageFile);
 
-		URI location = ServletUriComponentsBuilder
-			.fromCurrentContextPath()
-			.path("/api/v1/users/{id}")
-			.buildAndExpand(createdUser.id())
-			.toUri();
+			UserDTO createdUser = userService.UserCreationReplacement(null, dto, false, passwordEncoder);
 
-		return ResponseEntity.created(location)
-			.body(new AuthResponse(AuthResponse.Status.SUCCESS, "User registered"));
+			URI location = ServletUriComponentsBuilder
+					.fromCurrentContextPath()
+					.path("/api/v1/users/{id}")
+					.buildAndExpand(createdUser.id())
+					.toUri();
 
-    } catch (Exception e) {
-		log.error("Error during registration", e);
-        return ResponseEntity.status(500).body(new AuthResponse(AuthResponse.Status.ERROR, "Registration failed"));
-    }
-}
+			return ResponseEntity.created(location)
+					.body(new AuthResponse(AuthResponse.Status.SUCCESS, "User registered"));
 
+		} catch (Exception e) {
+			log.error("Error during registration", e);
+			return ResponseEntity.status(500).body(new AuthResponse(AuthResponse.Status.ERROR, "Registration failed"));
+		}
+	}
 
 }

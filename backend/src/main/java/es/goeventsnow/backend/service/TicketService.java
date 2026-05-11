@@ -32,16 +32,13 @@ public class TicketService {
     private TicketMapper ticketMapper;
 
     public Page<TicketDTO> getTicketsByUsername(String username, Pageable pageable) {
-        userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        getUser(username);
         return ticketRepository.findByUserOwnerUsername(username, pageable).map(this::toDTO);
     }
 
     public TicketDTO getTicketById(Long id, String username) {
-        Ticket ticket = ticketRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ticket not found"));
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        Ticket ticket = getTicket(id);
+        User user = getUser(username);
 
         if (!ticket.getUserOwner().getId().equals(user.getId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Ticket does not belong to the authenticated user");
@@ -50,31 +47,12 @@ public class TicketService {
     }
 
     public TicketDTO addTicket(TicketDTO ticketDTO, String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-        Event event = eventRepository.findById(ticketDTO.eventId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
+        User user = getUser(username);
+        Event event = getEvent(ticketDTO.eventId());
 
         int requestedAmount = ticketDTO.numTickets();
 
-        if (ticketDTO.ticketType().equalsIgnoreCase("VIP")) {
-            if (event.getAvailableVipTickets() < requestedAmount) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                        "Not enough VIP tickets available.");
-            }
-            event.setAvailableVipTickets(event.getAvailableVipTickets() - requestedAmount);
-
-        } else if (ticketDTO.ticketType().equalsIgnoreCase("BASIC")) {
-            if (event.getAvailableBasicTickets() < requestedAmount) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                        "Not enough BASIC tickets available.");
-            }
-            event.setAvailableBasicTickets(event.getAvailableBasicTickets() - requestedAmount);
-
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "Ticket type must be either VIP or BASIC.");
-        }
+        reduceAvailableTickets(event, ticketDTO.ticketType(), requestedAmount);
 
         eventRepository.save(event);
 
@@ -90,6 +68,44 @@ public class TicketService {
 
     private Ticket toDomain(TicketDTO ticketDTO) {
         return ticketMapper.toDomain(ticketDTO);
+    }
+
+    private User getUser(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+    }
+
+    private Event getEvent(Long id) {
+        return eventRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
+    }
+
+    private Ticket getTicket(Long id) {
+        return ticketRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ticket not found"));
+    }
+
+    private void reduceAvailableTickets(Event event, String ticketType, int requestedAmount) {
+        if (ticketType.equalsIgnoreCase("VIP")) {
+            if (event.getAvailableVipTickets() < requestedAmount) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "Not enough VIP tickets available.");
+            }
+            event.setAvailableVipTickets(event.getAvailableVipTickets() - requestedAmount);
+            return;
+        }
+
+        if (ticketType.equalsIgnoreCase("BASIC")) {
+            if (event.getAvailableBasicTickets() < requestedAmount) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "Not enough BASIC tickets available.");
+            }
+            event.setAvailableBasicTickets(event.getAvailableBasicTickets() - requestedAmount);
+            return;
+        }
+
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                "Ticket type must be either VIP or BASIC.");
     }
 
 }

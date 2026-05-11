@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { Participant } from "../../model/participant";
 import { Router, ActivatedRoute } from "@angular/router";
 import { NgbAlert } from "@ng-bootstrap/ng-bootstrap/alert";
+import { getSelectedFile } from "../../utils/file-utils";
 
 
 @Component({
@@ -80,8 +81,7 @@ export class AddParticipantsComponent {
     }
 
     onFileSelected(event: any): void {
-        const file = event.target.files[0];
-        this.imageFile = file ? file : null;
+        this.imageFile = getSelectedFile(event);
     }
 
     isFormParticipantValid(): boolean {

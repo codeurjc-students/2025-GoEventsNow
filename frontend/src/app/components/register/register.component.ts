@@ -5,7 +5,7 @@ import { Router, RouterLink } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgbAlertModule } from "@ng-bootstrap/ng-bootstrap/alert";
 import { UserService } from "../../service/user.service";
-import { Observable } from "rxjs/internal/Observable";
+import { getSelectedFile } from "../../utils/file-utils";
 
 @Component({
     standalone: true,
@@ -91,7 +91,6 @@ export class RegisterComponent {
     }
 
     onFileSelected(event: any): void {
-        const file = event.target.files[0];
-        this.profilePicture = file ? file : null;
+        this.profilePicture = getSelectedFile(event);
     }
 }

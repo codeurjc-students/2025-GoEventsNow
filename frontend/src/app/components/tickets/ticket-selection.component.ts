@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 import { EventService } from "../../service/event.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Event } from "../../model/event";
-import { User } from "../../model/user";
 import { UserService } from "../../service/user.service";
 import { Ticket } from "../../model/ticket";
 import { TicketService } from "../../service/ticket.service";

@@ -1,0 +1,14 @@
+name: CD - Dev to Main
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs:
+    publish-dev:
+        uses: ./.github/workflows/reusable-build-publish.yml
+        with:
+            image_tag: dev
+        secrets: inherit

@@ -1,0 +1,96 @@
+name: Reusable Build and Publish Workflow
+
+on:
+  workflow_call:
+    inputs:
+      image_tag:
+        required: true
+        type: string
+      push_latest:
+        required: false
+        type: boolean
+        default: false
+      compose_tag:
+        required: false
+        type: string
+        default: ''
+      compose_path:
+        required: false
+        type: string
+        default: 'docker/docker-compose.yml'
+      dockerfile:
+        required: false
+        type: string
+        default: 'docker/Dockerfile'
+      build_context:
+        required: false
+        type: string
+        default: '.'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ inputs.build_context }}
+          file: ${{ inputs.dockerfile }}
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_REPO }}:${{ inputs.image_tag }}
+            ${{ inputs.push_latest && format('{0}:latest', secrets.DOCKERHUB_REPO) || '' }}
+
+      - name: Install ORAS
+        uses: oras-project/setup-oras@v1
+
+      - name: Log in to DockerHub with ORAS
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | oras login docker.io \
+            -u "${{ secrets.DOCKERHUB_USERNAME }}" \
+            --password-stdin
+
+      - name: Publish docker-compose.yml as OCI artifact to DockerHub
+        env:
+          COMPOSE_PATH: ${{ inputs.compose_path }}
+          IMAGE_TAG: ${{ inputs.image_tag }}
+          COMPOSE_TAG: ${{ inputs.compose_tag }}
+          DOCKERHUB_REPO: ${{ secrets.DOCKERHUB_REPO }}
+        run: |
+          if [ ! -f "$COMPOSE_PATH" ]; then
+            echo "Compose file not found: $COMPOSE_PATH"
+            exit 1
+          fi
+
+          if [ -z "$COMPOSE_TAG" ]; then
+            COMPOSE_TAG="$IMAGE_TAG"
+          fi
+
+          echo "Pushing docker-compose.yml as OCI artifact to docker.io/$DOCKERHUB_REPO-compose:$COMPOSE_TAG"
+
+          oras push docker.io/$DOCKERHUB_REPO-compose:$COMPOSE_TAG \
+            $COMPOSE_PATH:application/vnd.docker.compose.project.v1+yaml
+
+      - name: Publish docker-compose.yml as latest OCI artifact
+        if: ${{ inputs.push_latest }}
+        env:
+          COMPOSE_PATH: ${{ inputs.compose_path }}
+          DOCKERHUB_REPO: ${{ secrets.DOCKERHUB_REPO }}
+        run: |
+          oras push docker.io/$DOCKERHUB_REPO-compose:latest \
+            $COMPOSE_PATH:application/vnd.docker.compose.project.v1+yaml

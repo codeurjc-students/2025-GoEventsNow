@@ -6,6 +6,9 @@ on:
       ref:
         required: false
         default: ''
+  push:
+    branches:
+      - feature/**
 
 jobs:
   calculate-tag:

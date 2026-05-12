@@ -57,7 +57,7 @@ jobs:
       - name: Run frontend unitary tests
         run: |
           cd frontend
-          npx ng test --include=**/*.component.spec.ts  --watch=false --coverage  
+          npx ng test --include="**/*.component.spec.ts" --watch=false --coverage
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2

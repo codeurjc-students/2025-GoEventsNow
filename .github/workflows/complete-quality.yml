@@ -75,7 +75,7 @@ jobs:
       - name: Run Frontend Unit & Integration tests
         run: |
           cd frontend
-          npx ng test --include=**/*.component.spec.ts --watch=false --coverage 
+          npx ng test --include="**/*.component.spec.ts" --watch=false --coverage
           npm run test:integration
 
       - name: Run Frontend

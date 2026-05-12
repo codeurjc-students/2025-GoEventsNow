@@ -1,9 +1,6 @@
 name: CD - Manual Trigger Dispatch
 
 on:
-  push:
-    branches:
-      - feature/**
   workflow_dispatch:
     inputs:
       ref:

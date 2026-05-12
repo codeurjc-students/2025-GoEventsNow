@@ -41,7 +41,7 @@ import es.goeventsnow.backend.repository.EventRepository;
 import es.goeventsnow.backend.repository.ParticipantRepository;
 import es.goeventsnow.backend.service.EventService;
 
-public class EventTest {
+public class EventServiceTest {
 
     @Mock
     private EventRepository eventRepository;

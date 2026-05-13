@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:integration": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 ng test --include src/app/service/*.service.spec.ts"
+    "test:integration": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 ng test --include=\"src/app/service/*.service.spec.ts\" --watch=false --coverage"
   },
   "prettier": {
     "printWidth": 100,

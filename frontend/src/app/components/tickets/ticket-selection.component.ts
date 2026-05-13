@@ -40,13 +40,16 @@ export class TicketSelectionComponent implements OnInit {
         const id = this.activatedRoute.snapshot.params['id'];
 
         if (id) {
-            this.event$ = this.eventService.findById(id);
             this.eventId = Number(id);
-            this.event$.subscribe(event => {
-                this.priceBasic = event.basicPrice;
-                this.priceVip = event.vipPrice;
-                this.basicAvailable = event.availableBasicTickets;
-                this.vipAvailable = event.availableVipTickets;
+            this.event$ = this.eventService.findById(id);
+            this.event$.subscribe({
+                next: (event) => {
+                    this.priceBasic = event.basicPrice;
+                    this.priceVip = event.vipPrice;
+                    this.basicAvailable = event.availableBasicTickets;
+                    this.vipAvailable = event.availableVipTickets;
+                },
+                error: () => this.router.navigate(['/error/404'])
             });
             this.ticket = {
                 ticketType: '',

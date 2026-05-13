@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { firstValueFrom, of } from 'rxjs';
 import { ParticipantDetailComponent } from './participant-detail.component';
 import { ParticipantService } from '../../service/participant.service';
@@ -47,6 +47,7 @@ describe('ParticipantDetailComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ParticipantDetailComponent],
       providers: [
+        provideRouter([]),
         { provide: ParticipantService, useValue: participantServiceMock },
         { provide: EventService, useValue: eventServiceMock },
         { provide: ActivatedRoute, useValue: { snapshot: { params: { id: 1 } } } }

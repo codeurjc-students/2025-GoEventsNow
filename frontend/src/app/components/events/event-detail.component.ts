@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs/internal/Observable";
+import { Observable } from "rxjs";
 import { EventService } from "../../service/event.service";
 import { CommonModule } from '@angular/common';
 import { Event } from "../../model/event";
-import { ActivatedRoute, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 
 @Component({
     standalone: true,
@@ -14,16 +14,19 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
 
 export class EventDetailComponent implements OnInit {
 
-    event$: Observable<Event> = new Observable<Event>;
+    event$: Observable<Event> = new Observable<Event>();
     participants: any[] = [];
 
-    constructor(private activatedRoute: ActivatedRoute, private eventService: EventService) { }
+    constructor(private activatedRoute: ActivatedRoute, private eventService: EventService, private router: Router) { }
 
     ngOnInit(): void {
         const id = this.activatedRoute.snapshot.params['id'];
         this.event$ = this.eventService.findById(id);
-        this.event$.subscribe(event => {
-            this.participants = this.participants.concat(event.participants);
+        this.event$.subscribe({
+            next: (event) => {
+                this.participants = this.participants.concat(event.participants);
+            },
+            error: () => this.router.navigate(['/error/404'])
         });
     }
 }

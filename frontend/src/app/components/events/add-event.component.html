@@ -1,0 +1,212 @@
+<div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
+    <div class="card border p-4 p-md-5"
+        style="max-width: 900px; width: 100%; border-radius: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+
+        <form (ngSubmit)="send()" #registerForm="ngForm" novalidate class="text-center">
+
+            @if (event.id == null) {
+            <h2 class="h5 fw-bold mb-1 text-dark">Add New Event</h2>
+            <p class="text-muted small mb-4">Fill in the details to create an event</p>
+            <div class="mb-4">
+                <img src="/images/noImage.png" alt="GoEventsNow Logo"
+                    style="height: 150px; max-width: 100%; object-fit: contain;">
+            </div>
+            } @else {
+            <h2 class="h5 fw-bold mb-1 text-dark">Edit Event</h2>
+            <p class="text-muted small mb-4">Update the details of your event</p>
+            @if (event.image) {
+            <div class="mb-4">
+                <img [src]="'/api/v1/events/' + event.id + '/image'" alt="GoEventsNow Logo"
+                    style="height: 150px; max-width: 100%; object-fit: contain;">
+            </div>
+            } @else {
+            <div class="mb-4">
+                <img src="/images/noImage.png" alt="GoEventsNow Logo"
+                    style="height: 150px; max-width: 100%; object-fit: contain;">
+            </div>
+            }
+            }
+
+            <ngb-alert *ngIf="errorMessage" type="danger" [dismissible]="true" (closed)="errorMessage = null"
+                class="mb-4 text-start">
+                {{ errorMessage }}
+            </ngb-alert>
+
+            <div class="row g-3">
+                <div class="col-md-6 text-start mb-3">
+                    <label for="title" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Title</label>
+                    <input type="text" class="form-control bg-light border-0 py-2 rounded-3" id="title" name="title"
+                        [(ngModel)]="event.title" required placeholder="Enter event title">
+                    @if (event.title && event.title.trim().length > 0) {
+                    <div class="form-text text-muted">Good!</div>
+                    } @else {
+                    <div class="form-text text-danger">Title is required.</div>
+                    }
+                </div>
+
+                <div class="col-md-6 text-start mb-3">
+                    <label for="category" class="form-label fw-bold text-dark"
+                        style="font-size: 0.85rem;">Category</label>
+                    <input type="text" class="form-control bg-light border-0 py-2 rounded-3" id="category"
+                        name="category" [(ngModel)]="event.category" required placeholder="Enter event category">
+                    @if (event.category && event.category.trim().length > 0) {
+                    <div class="form-text text-muted">Good!</div>
+                    } @else {
+                    <div class="form-text text-danger">Category is required.</div>
+                    }
+                </div>
+
+                <div class="col-md-6 text-start mb-3">
+                    <label for="location" class="form-label fw-bold text-dark"
+                        style="font-size: 0.85rem;">Location</label>
+                    <input type="text" class="form-control bg-light border-0 py-2 rounded-3" id="location"
+                        name="location" [(ngModel)]="event.location" required placeholder="Enter event location">
+                    @if (event.location && event.location.trim().length > 0) {
+                    <div class="form-text text-muted">Good!</div>
+                    } @else {
+                    <div class="form-text text-danger">Location is required.</div>
+                    }
+                </div>
+
+                <div class="col-md-6 text-start mb-3">
+                    <label for="participantIds" class="form-label fw-bold text-dark"
+                        style="font-size: 0.85rem;">Participants:</label>
+                    <select [(ngModel)]="selectedParticipants" name="participantIds" id="participantIds"
+                        class="form-select bg-light border-0 py-2 rounded-3" multiple required style="height: 42px;">
+                        @for (participant of allParticipants; track participant.id) {
+                        <option [value]="participant.id">
+                            {{ participant.name }}
+                        </option>
+                        }
+                    </select>
+                    @if (selectedParticipants && selectedParticipants.length > 0) {
+                    <div class="form-text text-muted">Good!</div>
+                    } @else {
+                    <div class="form-text text-danger">Please select at least one participant.</div>
+                    }
+                </div>
+
+                <div class="col-md-6 text-start mb-3">
+                    <label for="date" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Date</label>
+                    <input type="date" class="form-control bg-light border-0 py-2 rounded-3" id="date" name="date"
+                        [(ngModel)]="event.date" required>
+                    @if (event.date) {
+                    <div class="form-text text-muted">Good!</div>
+                    } @else {
+                    <div class="form-text text-danger">Date is required.</div>
+                    }
+                </div>
+
+                <div class="col-md-6 text-start mb-3">
+                    <label for="time" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Time</label>
+                    <input type="time" class="form-control bg-light border-0 py-2 rounded-3" id="time" name="time"
+                        [(ngModel)]="event.time" required>
+                    @if (event.time) {
+                    <div class="form-text text-muted">Good!</div>
+                    } @else {
+                    <div class="form-text text-danger">Time is required.</div>
+                    }
+                </div>
+
+                <div class="col-md-6 text-start mb-3">
+                    <label for="basicPrice" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">Basic
+                        Price</label>
+                    <input type="number" class="form-control bg-light border-0 py-2 rounded-3" id="basicPrice"
+                        name="basicPrice" [(ngModel)]="event.basicPrice" required min="0"
+                        placeholder="Enter basic ticket price">
+                    @if (event.basicPrice != null && event.basicPrice >= 0) {
+                    <div class="form-text text-muted">Good!</div>
+                    } @else {
+                    <div class="form-text text-danger">Basic price must be a non-negative number.</div>
+                    }
+                </div>
+
+                <div class="col-md-6 text-start mb-3">
+                    <label for="vipPrice" class="form-label fw-bold text-dark" style="font-size: 0.85rem;">VIP
+                        Price</label>
+                    <input type="number" class="form-control bg-light border-0 py-2 rounded-3" id="vipPrice"
+                        name="vipPrice" [(ngModel)]="event.vipPrice" required min="0"
+                        placeholder="Enter VIP ticket price">
+                    @if (event.vipPrice != null && event.vipPrice >= 0) {
+                    <div class="form-text text-muted">Good!</div>
+                    } @else {
+                    <div class="form-text text-danger">VIP price must be a non-negative number.</div>
+                    }
+                </div>
+
+                <div class="col-md-6 text-start mb-3">
+                    <label for="availableBasicTickets" class="form-label fw-bold text-dark"
+                        style="font-size: 0.85rem;">Available Basic Tickets</label>
+                    <input type="number" class="form-control bg-light border-0 py-2 rounded-3"
+                        id="availableBasicTickets" name="availableBasicTickets"
+                        [(ngModel)]="event.availableBasicTickets" required min="0"
+                        placeholder="Enter number of available basic tickets">
+                    @if (event.availableBasicTickets != null && event.availableBasicTickets >= 0) {
+                    <div class="form-text text-muted">Good!</div>
+                    } @else {
+                    <div class="form-text text-danger">Available basic tickets must be a non-negative number.</div>
+                    }
+                </div>
+
+                <div class="col-md-6 text-start mb-3">
+                    <label for="availableVipTickets" class="form-label fw-bold text-dark"
+                        style="font-size: 0.85rem;">Available VIP Tickets</label>
+                    <input type="number" class="form-control bg-light border-0 py-2 rounded-3" id="availableVipTickets"
+                        name="availableVipTickets" [(ngModel)]="event.availableVipTickets" required min="0"
+                        placeholder="Enter number of available VIP tickets">
+                    @if (event.availableVipTickets != null && event.availableVipTickets >= 0) {
+                    <div class="form-text text-muted">Good!</div>
+                    } @else {
+                    <div class="form-text text-danger">Available VIP tickets must be a non-negative number.</div>
+                    }
+                </div>
+
+                <div class="col-12 text-start mb-3">
+                    <label for="description" class="form-label fw-bold text-dark"
+                        style="font-size: 0.85rem;">Description</label>
+                    <textarea class="form-control bg-light border-0 py-2 rounded-3" id="description" name="description"
+                        rows="3" [(ngModel)]="event.description" required
+                        placeholder="Enter event description"></textarea>
+                    @if (event.description && event.description.trim().length > 0) {
+                    <div class="form-text text-muted">Good!</div>
+                    } @else {
+                    <div class="form-text text-danger">Description is required.</div>
+                    }
+                </div>
+
+                <div class="col-12 text-start mb-4">
+                    <label class="form-label fw-bold text-dark" style="font-size: 0.85rem;" for="image">Event
+                        Image:</label>
+
+                    @if (event.image) {
+                    <div class="form-check mb-2">
+                        <input type="checkbox" name="removeImage" class="form-check-input" [(ngModel)]="removeImage"
+                            id="removeImage">
+                        <label class="form-check-label text-dark" style="font-size: 0.85rem;" for="removeImage">Remove
+                            Image</label>
+                        <label class="form-label d-block mt-2 text-dark" style="font-size: 0.85rem;">Update Image (MAX
+                            1MB):</label>
+                    </div>
+                    } @else {
+                    <div class="mb-2">
+                        <label class="form-label text-dark" style="font-size: 0.85rem;">Upload Image:</label>
+                    </div>
+                    }
+
+                    <input type="file" class="form-control bg-light border-0 py-2 rounded-3" id="image" name="image"
+                        accept=".jpg, .jpeg" (change)="onFileSelected($event)">
+
+                    @if (imageFile && removeImage) {
+                    <div class="form-text text-danger">Cannot upload and remove image at the same time. Please uncheck
+                        "Remove Image" to upload a new one.</div>
+                    }
+                </div>
+
+            </div>
+
+            <div class="d-grid mb-2">
+                <button id="event-submit-btn" type="submit" class="btn btn-primary fw-bold py-2 rounded-3">Send</button>
+            </div>
+        </form>
+    </div>
+</div>

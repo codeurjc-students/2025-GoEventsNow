@@ -1,0 +1,43 @@
+name: CD - Manual Trigger Dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        required: false
+        default: ''
+
+jobs:
+  calculate-tag:
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.tag.outputs.image_tag }}
+
+    steps:
+      - name: Checkout selected ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+
+      - name: Calculate manual build tag
+        id: tag
+        run: |
+          BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+          if [ "$BRANCH" = "HEAD" ]; then
+            BRANCH="${GITHUB_REF_NAME}"
+          fi
+
+          SAFE_BRANCH=$(echo "$BRANCH" | tr '/' '-' | tr '_' '-')
+          DATE=$(date +'%Y%m%d-%H%M')
+          COMMIT=$(git rev-parse --short HEAD)
+
+          echo "image_tag=${SAFE_BRANCH}-${DATE}-${COMMIT}" >> $GITHUB_OUTPUT
+
+  publish-manual:
+    needs: calculate-tag
+    uses: ./.github/workflows/reusable-build-publish.yml
+    with:
+      image_tag: ${{ needs.calculate-tag.outputs.image_tag }}
+      push_latest: false
+    secrets: inherit

@@ -1,0 +1,146 @@
+<div class="container-fluid px-4 py-3">
+
+    <div class="p-5 mb-5 text-center text-white rounded-4 shadow"
+        style="background: linear-gradient(135deg, #4f46e5 0%, #a855f7 100%);">
+        <div class="py-5">
+            <h1 class="display-5 fw-bold mb-3">Discover Amazing Events Near You</h1>
+            <p class="fs-5 fw-light mb-4">Book tickets to concerts, festivals, conferences, and more. Your next
+                unforgettable experience awaits.</p>
+            <button id="btn-all-events" [routerLink]="'events'"
+                class="btn btn-light btn-lg text-primary fw-bold rounded-pill px-4 shadow-sm mt-3">
+                <i class="bi bi-search me-2"></i>Explore Events
+            </button>
+        </div>
+    </div>
+
+    <div class="container px-0">
+        @if (events$ | async; as events) {
+        <div class="d-flex align-items-center mb-4">
+            <i class="bi bi-graph-up-arrow text-primary fs-4 me-2"></i>
+            <h2 class="h5 m-0 fw-bold text-dark">Featured Events</h2>
+        </div>
+
+        <div class="row g-4" id="event-list">
+            @for (event of events; track event.id) {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-1 border-light rounded-4 overflow-hidden">
+
+                    <div class="position-relative" [class.bg-dark]="event.image"
+                        style="height: 200px; background-color: #f8f9fa;">
+
+                        @if (event.image) {
+                        <img [src]="'/api/v1/events/' + event.id + '/image'"
+                            class="w-100 h-100 object-fit-cover opacity-75" alt="Event cover">
+                        } @else {
+                        <img src="/images/noImage.png" class="w-100 h-100 object-fit-contain"
+                            alt="No event cover available">
+                        }
+
+                        <span
+                            class="badge bg-primary position-absolute top-0 end-0 m-3 rounded-pill px-3 py-2">Featured</span>
+
+                    </div>
+
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="mb-3">
+                            <span
+                                class="badge border border-secondary-subtle text-secondary fw-normal rounded-pill px-3 py-2 bg-transparent"
+                                id="event-category-{{event.id}}">
+                                {{event.category}}
+                            </span>
+                        </div>
+
+                        <h3 class="card-title h6 text-dark fw-bold mb-4" id="event-title-{{event.id}}">
+                            {{event.title}}
+                        </h3>
+
+                        <p class="card-text text-secondary mb-2 small d-flex align-items-center"
+                            id="event-date-{{event.id}}">
+                            <i class="bi bi-calendar3 me-2 fs-6"></i> {{event.date}} / {{event.time}}
+                        </p>
+                        <p class="card-text text-secondary mb-4 small d-flex align-items-center"
+                            id="event-location-{{event.id}}">
+                            <i class="bi bi-geo-alt me-2 fs-6"></i> {{event.location}}
+                        </p>
+
+                        <div
+                            class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top border-light">
+                            <span class="text-primary fw-semibold small">From ${{event.basicPrice}} -
+                                ${{event.vipPrice}}</span>
+                            <a id="event-detail-{{event.id}}" [routerLink]="['/event/', event.id]"
+                                class="btn btn-dark btn-sm rounded-pill px-4 fw-bold py-2">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+        } @else {
+        <div class="text-center py-5 rounded-4 bg-light border border-light">
+            <div class="spinner-border text-primary mb-3" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="text-muted fs-5 mb-0">Loading featured events...</p>
+        </div>
+        }
+
+        @if (participants$ | async; as participants) {
+        <div class="d-flex align-items-center mb-4 py-3">
+            <i class="bi bi-graph-up-arrow text-primary fs-4 me-2"></i>
+            <h2 class="h5 m-0 fw-bold text-dark">Featured Participants</h2>
+        </div>
+
+        <div class="row g-4" id="participant-list">
+            @for (participant of participants; track participant.id) {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-1 border-light rounded-4 overflow-hidden">
+
+                    <div class="position-relative" [class.bg-dark]="participant.participantImage"
+                        style="height: 200px; background-color: #f8f9fa;">
+
+                        @if (participant.participantImage) {
+                        <img [src]="'/api/v1/participants/' + participant.id + '/image'"
+                            class="w-100 h-100 object-fit-cover opacity-75" alt="Participant cover">
+                        } @else {
+                        <img src="/images/noImage.png" class="w-100 h-100 object-fit-contain"
+                            alt="No participant cover available">
+                        }
+
+                        <span
+                            class="badge bg-primary position-absolute top-0 end-0 m-3 rounded-pill px-3 py-2">Featured</span>
+
+                    </div>
+
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="mb-3">
+                            <span
+                                class="badge border border-secondary-subtle text-secondary fw-normal rounded-pill px-3 py-2 bg-transparent"
+                                id="participant-type-{{participant.id}}">
+                                {{participant.type}}
+                            </span>
+                        </div>
+
+                        <h3 class="card-title h6 text-dark fw-bold mb-4" id="participant-name-{{participant.id}}">
+                            {{participant.name}}
+                        </h3>
+
+                        <div
+                            class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top border-light">
+                            <a [routerLink]="['/participant/', participant.id]"
+                                class="btn btn-dark btn-sm rounded-pill px-4 fw-bold py-2">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+        } @else {
+        <div class="text-center py-5 rounded-4 bg-light border border-light">
+            <div class="spinner-border text-primary mb-3" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="text-muted fs-5 mb-0">Loading featured participants...</p>
+        </div>
+        }
+    </div>
+</div>

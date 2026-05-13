@@ -1,0 +1,94 @@
+@let participant = (participant$ | async);
+@if (participant) {
+
+<div class="position-relative"
+    [style.background]="participant.participantImage ? 'url(/api/v1/participants/' + participant.id + '/image) center/cover no-repeat' : '#e9ecef'"
+    style="height: 250px;">
+    @if (participant.participantImage) {
+    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+    }
+</div>
+
+<div class="container pb-5" style="margin-top: -80px; position: relative; z-index: 10;">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4 p-md-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <span
+                            class="badge bg-dark text-white rounded-pill px-3 py-2 fw-normal">{{participant.type}}</span>
+                    </div>
+                    <h1 id="participant-detail-name-{{participant.id}}" class="fw-bold text-dark mb-3">{{participant.name}}</h1>
+                    <hr class="border-secondary-subtle mb-4">
+                    <h5 class="fw-bold mb-3 text-dark">About {{participant.name}}</h5>
+                    <p class="text-muted mb-5 lh-lg"> {{participant.biography}} </p>
+
+
+                    <h5 class="fw-bold mb-4 text-dark">Upcoming Events ({{events.length}})</h5>
+
+                    <div class="row g-3 mb-4">
+
+                        @for (event of events; track event.id) {
+                        <div class="col-12 col-md-6">
+                            <div class="card border border-light-subtle rounded-3 h-100 shadow-sm">
+                                <div class="card-body p-3">
+
+                                    <div class="d-flex align-items-center mb-3">
+                                        @if (event.image) {
+                                        <img [src]="'/api/v1/events/' + event.id + '/image'"
+                                            class="rounded-circle me-3 object-fit-cover" width="55" height="55"
+                                            alt="Event cover">
+                                        } @else {
+                                        <img src="/images/noImage.png" class="rounded-circle me-3 object-fit-cover"
+                                            width="55" height="55" alt="Event cover">
+                                        }
+                                        <div>
+                                            <h6 class="mb-0 fw-bold text-dark">{{ event.title }}</h6>
+                                            <p class="text-muted small mb-0">{{ event.category }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="small text-secondary">
+                                        <p class="mb-1"><strong>Location:</strong> {{ event.location }}</p>
+                                        <p class="mb-1"><strong>Date:</strong> {{ event.date }}</p>
+                                        <p class="mb-1"><strong>Time:</strong> {{ event.time }}</p>
+
+                                        <hr class="my-2 text-light-subtle">
+
+                                        <div class="d-flex justify-content-between align-items-center mt-2">
+                                            <span class="text-dark fw-bold">Tickets Available:</span>
+                                            <div>
+                                                <span class="badge bg-primary me-1">VIP: {{ event.availableVipTickets
+                                                    }}</span>
+                                                <span class="badge bg-secondary">Basic: {{ event.availableBasicTickets
+                                                    }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top: 20px;">
+                <div class="card-body p-4 p-md-5">
+                    <div class="d-flex justify-content-between mb-4 small text-muted">
+                        <span>Upcoming Events</span>
+                        <span>{{events.length}}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-4 small text-muted">
+                        <span>Category</span>
+                        <span>{{participant.type}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

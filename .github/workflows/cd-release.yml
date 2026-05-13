@@ -1,0 +1,13 @@
+name: CD - Release
+
+on:
+    release:
+        types: [published]
+
+jobs:
+    publish-release:
+        uses: ./.github/workflows/reusable-build-publish.yml
+        with:
+            image_tag: ${{ github.event.release.tag_name }}
+            push_latest: true
+        secrets: inherit

@@ -16,7 +16,7 @@ services:
       - goeventsnow-net
 
   webapp:
-    image: albertoml1999/goeventsnow-app:0.0.1
+    image: albertoml1999/goeventsnow-app:0.0.2
     container_name: goeventsnow-app
     depends_on:
       database:

@@ -3,12 +3,6 @@ name: CD - Release
 on:
     release:
         types: [published]
-    workflow_dispatch:
-        inputs:
-            release_tag:
-                description: 'Release tag to test'
-                required: true
-                default: '0.0.1'
 
 jobs:
     publish-release:

@@ -33,8 +33,8 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /usr/app/
 
-COPY --from=builder /project/target/*.jar /usr/app/
+COPY --from=builder /project/target/*.jar /usr/app/app.jar
 
 EXPOSE 8443
 
-CMD [ "java", "-jar", "backend-0.0.1-SNAPSHOT.jar" ]
+CMD [ "java", "-jar", "app.jar" ]

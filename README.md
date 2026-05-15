@@ -14,6 +14,13 @@ GoEventsNow aims to provide a complete, modern and user-centered system that sim
 *GoEventsNow: Your Next Event, Now, Simplified.* ✨ 
 
 ---
+## *Version 0.1 - Overview*
+
+> The current version of the project is a minimum viable product (MVP) that includes the basic functionalities of the application, such as user registration, login and logout, event and participant browsing, detailed event and participant pages. Registered users can also purchase tickets and edit their personal information from their personal page, where they can also view the tickets they have purchased. Admin users have additional privileges to manage events and participants, including creating, editing and deleting them. Finally, the application allows registered users to add and delete profile images, while administrators can manage images for events and participants. These images are stored in the database.
+
+>  In addition, this version includes Docker deployment and continuous delivery support. The application is packaged as a single Docker image containing both the Spring Boot backend and the Angular frontend, coordinated with a MySQL database through Docker Compose. The image and the Docker Compose artifact are published in DockerHub, and GitHub Actions workflows automate development builds, manual builds and release publication.
+
+---
 ## 🖥️ *Screen Mockups*
 
 > This section provides some key screens, which define the structure and the application functionalities.
@@ -26,20 +33,34 @@ GoEventsNow aims to provide a complete, modern and user-centered system that sim
 ---
 
 > [!WARNING]
-> At this stage, only the functional and technical objectives of the application have been defined. Although implementation has started, the application is not yet functional.
+> At this stage, the implementation has started and the application is functional. Despite this, the design and the implementation are still in progress, so the final version may differ from the content added in this version.
 > 
 > 📁 *Repository: [GoEventsNow on GitHub](https://github.com/codeurjc-students/2025-GoEventsNow)*
 
 ---
+### 🎥 Demo Video
 
+> In the following video, you can see a demonstration of the current functionalities implemented in the 0.1.0 version of GoEventsNow. The video shows the main features of the application, including event browsing, participant browsing, event and participant details, user registration and login, ticket purchase, user profile management, and administrator functionalities for managing events and participants. The video separates the different user roles, showing the experience of an anonymous user, a registered user and an administrator user.
+
+[Watch the demo of GoEventsNow for version 0.1.0](VIDEO_URL)
+
+---
+
+## *Future Functionalities*
+
+> In future stages, GoEventsNow will expand the user experience by introducing advanced multi-filter search, a full review system, sales statistics charts, an integrated help/FAQ center, and social interaction features such as favorites and participant following. In more advanced stages, it will evolve with personalized recommendations, PDF digital ticketing, automated email services, geolocation maps, real-time notifications via WebSocket, simulated payment processing, and AI-based sentiment analysis to evaluate user satisfaction.
+
+---
 ## 📑 Index
 
 1. 🎯 **[Objectives](docs/objectives.md)**
 2. 🛠️ **[Methodology](docs/methodology.md)**
 3. ⚙️ **[Detailed Functionalities](docs/detailed_functionalities.md)**
-4. 🔍 **[Analysis](docs/analysis.md)**
-5. 📈 **[Tracking](docs/tracking.md)**
-6. 👨‍💻 **[Author](docs/author.md)**
-7. 📘 **[Development Guide](docs/development_guide.md)**
+4. 📊 **[Execution](docs/execution.md)**
+5. 🔍 **[Analysis](docs/analysis.md)**
+6. 📋 **[Functionalities](docs/functionalities.md)**
+7. 📈 **[Tracking](docs/tracking.md)**
+8. 👨‍💻 **[Author](docs/author.md)**
+9. 📘 **[Development Guide](docs/development_guide.md)**
 
 

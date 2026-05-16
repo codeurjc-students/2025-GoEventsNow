@@ -1,192 +1,3560 @@
 {
-	"info": {
-		"_postman_id": "e13e54cf-0cb5-4916-b342-46d7feb80013",
-		"name": "GoEventsNow_Collection",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "49191128",
-		"_collection_link": "https://albertoml1999-4400337.postman.co/workspace/7c33c509-b864-44b6-858d-ddc68f77d47d/collection/49191128-e13e54cf-0cb5-4916-b342-46d7feb80013?action=share&source=collection_link&creator=49191128"
-	},
-	"item": [
-		{
-			"name": "Post Request",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"Cocina Virtual 3.0\",\r\n    \"category\": \"Gastronomía\",\r\n    \"location\": \"Parla, Madrid\",\r\n    \"date\": \"28-10-2028\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseURL}}/api/v1/events/",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"events",
-						""
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Post Request",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Cocina Virtual 3.0\",\r\n    \"category\": \"Gastronomía\",\r\n    \"location\": \"Parla, Madrid\",\r\n    \"date\": \"28-10-2028\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "/api/v1/events/",
-							"path": [
-								"api",
-								"v1",
-								"events",
-								""
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "",
-					"header": [
-						{
-							"key": "Vary",
-							"value": "Origin"
-						},
-						{
-							"key": "Vary",
-							"value": "Access-Control-Request-Method"
-						},
-						{
-							"key": "Vary",
-							"value": "Access-Control-Request-Headers"
-						},
-						{
-							"key": "Location",
-							"value": "http://localhost:8080/api/v1/events/4"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 05 Feb 2026 10:18:17 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"id\": 4,\n    \"title\": \"Cocina Virtual 3.0\",\n    \"category\": \"Gastronomía\",\n    \"location\": \"Parla, Madrid\",\n    \"date\": \"28-10-2028\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Get Request",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/api/v1/events/",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"events",
-						""
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Get Request",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "/api/v1/events/",
-							"path": [
-								"api",
-								"v1",
-								"events",
-								""
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "",
-					"header": [
-						{
-							"key": "Vary",
-							"value": "Origin"
-						},
-						{
-							"key": "Vary",
-							"value": "Access-Control-Request-Method"
-						},
-						{
-							"key": "Vary",
-							"value": "Access-Control-Request-Headers"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 05 Feb 2026 10:20:39 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
-					],
-					"cookie": [],
-					"body": "[\n    {\n        \"id\": 1,\n        \"title\": \"Taller de Spring Boot 4.0\",\n        \"category\": \"Tecnología\",\n        \"location\": \"Fuenlabrada, Madrid\",\n        \"date\": \"15-03-2026\"\n    },\n    {\n        \"id\": 2,\n        \"title\": \"Exposición Arte\",\n        \"category\": \"Cultura\",\n        \"location\": \"Barcelona\",\n        \"date\": \"12-02-2026\"\n    },\n    {\n        \"id\": 3,\n        \"title\": \"Torneo de Baloncesto\",\n        \"category\": \"Deportes\",\n        \"location\": \"Getafe, Madrid\",\n        \"date\": \"02-08-2026\"\n    },\n    {\n        \"id\": 4,\n        \"title\": \"Cocina Virtual 3.0\",\n        \"category\": \"Gastronomía\",\n        \"location\": \"Parla, Madrid\",\n        \"date\": \"28-10-2028\"\n    }\n]"
-				}
-			]
-		}
-	],
-	"variable": [
-		{
-			"key": "baseURL",
-			"value": "",
-			"type": "default"
-		}
-	]
+  "info": {
+    "_postman_id": "e13e54cf-0cb5-4916-b342-46d7feb80013",
+    "name": "GoEventsNow_Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49191128",
+    "_collection_link": "https://go.postman.co/collection/49191128-e13e54cf-0cb5-4916-b342-46d7feb80013?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Login Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"adminpass\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/auth/login",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Login Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"adminpass\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/auth/login",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Set-Cookie",
+              "value": "AuthToken=eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJ0eXBlIjoiQUNDRVNTIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3Nzg4MzIxNjEsImV4cCI6MTc3ODgzMjQ2MX0.HlFeQgku9eOn_LJYlM1LqyJcXDfaC49ZjIejnJp-7Kc; Max-Age=300; Expires=Fri, 15 May 2026 08:07:41 GMT; Path=/; HttpOnly"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "RefreshToken=eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJ0eXBlIjoiUkVGUkVTSCIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzc4ODMyMTYxLCJleHAiOjE3Nzk0MzY5NjF9.VRwBXAekEfm_ZUtV3ppA4ZBvGUTjuS3jNrpHKeP1_vY; Max-Age=604800; Expires=Fri, 22 May 2026 08:02:41 GMT; Path=/; HttpOnly"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:02:41 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"SUCCESS\",\n    \"message\": \"Auth successful. Tokens are created in cookie.\",\n    \"error\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Register Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "username",
+              "value": "newUser",
+              "type": "text",
+              "uuid": "2a2b32c0-d266-4873-ace4-6cf9ca133a21"
+            },
+            {
+              "key": "fullname",
+              "value": "newUser",
+              "type": "text",
+              "uuid": "453edfc8-c7e9-4c6f-8c43-ba2641ec792d"
+            },
+            {
+              "key": "email",
+              "value": "newUser@gmail.com",
+              "type": "text",
+              "uuid": "834cb017-2616-4bbe-b3b7-85ae8fdf6a37"
+            },
+            {
+              "key": "password",
+              "value": "newUser",
+              "type": "text",
+              "uuid": "9147939c-3c9b-48a4-a530-21969fa99b8f"
+            },
+            {
+              "key": "phone",
+              "value": "123456789",
+              "type": "text",
+              "uuid": "27e30a29-c320-4811-b1f3-3495f33d4b02"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/auth/register",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Register Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "username",
+                  "value": "newUser",
+                  "type": "text",
+                  "uuid": "2a2b32c0-d266-4873-ace4-6cf9ca133a21"
+                },
+                {
+                  "key": "fullname",
+                  "value": "newUser",
+                  "type": "text",
+                  "uuid": "453edfc8-c7e9-4c6f-8c43-ba2641ec792d"
+                },
+                {
+                  "key": "email",
+                  "value": "newUser@gmail.com",
+                  "type": "text",
+                  "uuid": "834cb017-2616-4bbe-b3b7-85ae8fdf6a37"
+                },
+                {
+                  "key": "password",
+                  "value": "newUser",
+                  "type": "text",
+                  "uuid": "9147939c-3c9b-48a4-a530-21969fa99b8f"
+                },
+                {
+                  "key": "phone",
+                  "value": "123456789",
+                  "type": "text",
+                  "uuid": "27e30a29-c320-4811-b1f3-3495f33d4b02"
+                }
+              ],
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/auth/register",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Location",
+              "value": "https://localhost:8443/api/v1/users/3"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:06:17 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"SUCCESS\",\n    \"message\": \"User registered\",\n    \"error\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Refresh Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "username",
+              "value": "newUser",
+              "type": "text",
+              "uuid": "2a2b32c0-d266-4873-ace4-6cf9ca133a21"
+            },
+            {
+              "key": "fullname",
+              "value": "newUser",
+              "type": "text",
+              "uuid": "453edfc8-c7e9-4c6f-8c43-ba2641ec792d"
+            },
+            {
+              "key": "email",
+              "value": "newUser@gmail.com",
+              "type": "text",
+              "uuid": "834cb017-2616-4bbe-b3b7-85ae8fdf6a37"
+            },
+            {
+              "key": "password",
+              "value": "newUser",
+              "type": "text",
+              "uuid": "9147939c-3c9b-48a4-a530-21969fa99b8f"
+            },
+            {
+              "key": "phone",
+              "value": "123456789",
+              "type": "text",
+              "uuid": "27e30a29-c320-4811-b1f3-3495f33d4b02"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/auth/refresh",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "refresh"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Refresh Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "username",
+                  "value": "newUser",
+                  "type": "text",
+                  "uuid": "2a2b32c0-d266-4873-ace4-6cf9ca133a21"
+                },
+                {
+                  "key": "fullname",
+                  "value": "newUser",
+                  "type": "text",
+                  "uuid": "453edfc8-c7e9-4c6f-8c43-ba2641ec792d"
+                },
+                {
+                  "key": "email",
+                  "value": "newUser@gmail.com",
+                  "type": "text",
+                  "uuid": "834cb017-2616-4bbe-b3b7-85ae8fdf6a37"
+                },
+                {
+                  "key": "password",
+                  "value": "newUser",
+                  "type": "text",
+                  "uuid": "9147939c-3c9b-48a4-a530-21969fa99b8f"
+                },
+                {
+                  "key": "phone",
+                  "value": "123456789",
+                  "type": "text",
+                  "uuid": "27e30a29-c320-4811-b1f3-3495f33d4b02"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/auth/refresh",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Set-Cookie",
+              "value": "AuthToken=eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJ0eXBlIjoiQUNDRVNTIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE3Nzg4MzI0MTMsImV4cCI6MTc3ODgzMjcxM30.ElH9G0i8OvqrSmMl0SSMBAddrpEK3KGytV86BS81w_E; Max-Age=300; Expires=Fri, 15 May 2026 08:11:53 GMT; Path=/; HttpOnly"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:06:53 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"SUCCESS\",\n    \"message\": \"Auth successful. Tokens are created in cookie.\",\n    \"error\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Logout Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/auth/logout",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "logout"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Logout Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/auth/logout",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Set-Cookie",
+              "value": "AuthToken=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Path=/; HttpOnly"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "RefreshToken=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Path=/; HttpOnly"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:07:16 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"SUCCESS\",\n    \"message\": \"logout successfully\",\n    \"error\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "UserMe Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/users/me",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "me"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "UserMe Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/users/me",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:08:19 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 2,\n    \"fullname\": \"Administrator\",\n    \"username\": \"admin\",\n    \"phone\": 987654321,\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"$2a$10$6WQnknR4sQj7BfE8o4nkpuyCOiqtUko/foxD.KptmCux2AcN53YDG\",\n    \"numTicketsBought\": null,\n    \"favoriteGenre\": \"None\",\n    \"profileImage\": false,\n    \"tickets\": [],\n    \"roles\": [\n        \"USER\",\n        \"ADMIN\"\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "UserExists Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/users/exists?username=admin",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "exists"
+          ],
+          "query": [
+            {
+              "key": "username",
+              "value": "admin"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "UserExists Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/users/exists?username=admin",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "exists"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "admin"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:09:14 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "true"
+        }
+      ]
+    },
+    {
+      "name": "UserImage Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/users/2/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "2",
+            "image"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UserImage Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "imageFile",
+              "type": "file",
+              "uuid": "7f397134-5322-407a-b8af-90abae284424",
+              "src": "postman-cloud:///1f15035b-4202-43d0-bcd4-f21c70e0bf6c"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/users/2/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "2",
+            "image"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "UserImage Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "imageFile",
+                  "type": "file",
+                  "uuid": "7f397134-5322-407a-b8af-90abae284424",
+                  "src": "postman-cloud:///1f15035b-4202-43d0-bcd4-f21c70e0bf6c"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/users/2/image",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "2",
+                "image"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Location",
+              "value": "https://localhost:8443/api/v1/users/2/image"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:13:41 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Edit UserImage Request",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "imageFile",
+              "type": "file",
+              "uuid": "7f397134-5322-407a-b8af-90abae284424",
+              "src": "postman-cloud:///1f150363-611f-4a80-9d70-3906c75d6a98"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/users/2/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "2",
+            "image"
+          ],
+          "query": [
+            {
+              "key": "imageFile",
+              "value": null,
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Edit UserImage Request",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "imageFile",
+                  "type": "file",
+                  "uuid": "7f397134-5322-407a-b8af-90abae284424",
+                  "src": "postman-cloud:///1f150363-611f-4a80-9d70-3906c75d6a98"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/users/2/image",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "2",
+                "image"
+              ],
+              "query": [
+                {
+                  "key": "imageFile",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:15:22 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Delete UserImage Request",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "imageFile",
+              "type": "file",
+              "uuid": "7f397134-5322-407a-b8af-90abae284424",
+              "src": "postman-cloud:///1f150363-611f-4a80-9d70-3906c75d6a98"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/users/2/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "2",
+            "image"
+          ],
+          "query": [
+            {
+              "key": "imageFile",
+              "value": null,
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delete UserImage Request",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "imageFile",
+                  "type": "file",
+                  "uuid": "7f397134-5322-407a-b8af-90abae284424",
+                  "src": "postman-cloud:///1f150363-611f-4a80-9d70-3906c75d6a98"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/users/2/image",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "2",
+                "image"
+              ],
+              "query": [
+                {
+                  "key": "imageFile",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:16:04 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Edit User Request",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": 9007199254740991,\r\n  \"fullname\": \"userUseruser\",\r\n  \"username\": \"newEditUser\",\r\n  \"phone\": 987654321,\r\n  \"email\": \"uuusernew@gmail.com\",\r\n  \"password\": \"string\",\r\n  \"numTicketsBought\": 1073741824,\r\n  \"favoriteGenre\": \"string\",\r\n  \"profileImage\": true,\r\n  \"tickets\": [\r\n    {\r\n      \"id\": 9007199254740991,\r\n      \"ticketType\": \"string\",\r\n      \"price\": 0.1,\r\n      \"numTickets\": 1073741824,\r\n      \"eventId\": 9007199254740991,\r\n      \"userOwnerId\": 9007199254740991\r\n    }\r\n  ],\r\n  \"roles\": [\r\n    \"string\"\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/users/2",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "2"
+          ],
+          "query": [
+            {
+              "key": "imageFile",
+              "value": null,
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Edit User",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": 9007199254740991,\r\n  \"fullname\": \"userUseruser\",\r\n  \"username\": \"newEditUser\",\r\n  \"phone\": 987654321,\r\n  \"email\": \"uuusernew@gmail.com\",\r\n  \"password\": \"string\",\r\n  \"numTicketsBought\": 1073741824,\r\n  \"favoriteGenre\": \"string\",\r\n  \"profileImage\": true,\r\n  \"tickets\": [\r\n    {\r\n      \"id\": 9007199254740991,\r\n      \"ticketType\": \"string\",\r\n      \"price\": 0.1,\r\n      \"numTickets\": 1073741824,\r\n      \"eventId\": 9007199254740991,\r\n      \"userOwnerId\": 9007199254740991\r\n    }\r\n  ],\r\n  \"roles\": [\r\n    \"string\"\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/users/2",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "2"
+              ],
+              "query": [
+                {
+                  "key": "imageFile",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:17:43 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 2,\n    \"fullname\": \"userUseruser\",\n    \"username\": \"admin\",\n    \"phone\": 987654321,\n    \"email\": \"uuusernew@gmail.com\",\n    \"password\": \"$2a$10$6WQnknR4sQj7BfE8o4nkpuyCOiqtUko/foxD.KptmCux2AcN53YDG\",\n    \"numTicketsBought\": null,\n    \"favoriteGenre\": \"None\",\n    \"profileImage\": false,\n    \"tickets\": [],\n    \"roles\": [\n        \"USER\",\n        \"ADMIN\"\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create Ticket Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": 1,\r\n  \"ticketType\": \"BASIC\",\r\n  \"price\": 80.0,\r\n  \"numTickets\": 1,\r\n  \"eventId\": 2,\r\n  \"userOwnerId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/tickets/",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "tickets",
+            ""
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Create Ticket Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": 1,\r\n  \"ticketType\": \"BASIC\",\r\n  \"price\": 80.0,\r\n  \"numTickets\": 1,\r\n  \"eventId\": 2,\r\n  \"userOwnerId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/tickets/",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "tickets",
+                ""
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Location",
+              "value": "https://localhost:8443/api/v1/tickets/1"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:22:52 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"ticketType\": \"BASIC\",\n    \"price\": 80,\n    \"numTickets\": 1,\n    \"eventId\": 2,\n    \"userOwnerId\": 2\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get AllTickets Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/tickets/",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "tickets",
+            ""
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get AllTickets Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/tickets/",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "tickets",
+                ""
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:23:37 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"content\": [\n        {\n            \"id\": 1,\n            \"ticketType\": \"BASIC\",\n            \"price\": 80,\n            \"numTickets\": 1,\n            \"eventId\": 2,\n            \"userOwnerId\": 2\n        }\n    ],\n    \"page\": {\n        \"size\": 20,\n        \"number\": 0,\n        \"totalElements\": 1,\n        \"totalPages\": 1\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Ticket Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/tickets/1",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "tickets",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Ticket Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/tickets/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "tickets",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:24:10 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"ticketType\": \"BASIC\",\n    \"price\": 80,\n    \"numTickets\": 1,\n    \"eventId\": 2,\n    \"userOwnerId\": 2\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Participant Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/participants/1",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "participants",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Participant Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/participants/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "participants",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:25:14 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"name\": \"Bad Bunny\",\n    \"type\": \"Music Artist\",\n    \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\n    \"participantImage\": true\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get AllParticipants Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/participants/",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "participants",
+            ""
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get AllParticipants Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/participants/",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "participants",
+                ""
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:25:45 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"content\": [\n        {\n            \"id\": 1,\n            \"name\": \"Bad Bunny\",\n            \"type\": \"Music Artist\",\n            \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Olivia Rodrigo\",\n            \"type\": \"Music Artist\",\n            \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Juan Dávila\",\n            \"type\": \"Comedian\",\n            \"biography\": \"Spanish stand-up comedian known for his interactive, provocative and improvisational comedy shows. Famous for breaking the fourth wall and engaging directly with the audience in live performances across Spain.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Rosalía\",\n            \"type\": \"Music Artist\",\n            \"biography\": \"Internationally acclaimed Spanish singer blending flamenco, pop and experimental sounds, recognized for highly visual live shows.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Jannik Sinner\",\n            \"type\": \"Professional Tennis Player\",\n            \"biography\": \"Italian tennis player, who has rapidly risen in the ATP rankings with his aggressive playing style and strong performances in major tournaments.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 6,\n            \"name\": \"Carlos Alcaraz\",\n            \"type\": \"Professional Tennis Player\",\n            \"biography\": \"Spanish Grand Slam champion known for his explosive playing style, athleticism and rapid rise in world tennis.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 7,\n            \"name\": \"Neil deGrasse Tyson\",\n            \"type\": \"Scientist\",\n            \"biography\": \"Astrophysicist and science communicator known for making complex scientific topics accessible to global audiences.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 8,\n            \"name\": \"Christopher Nolan\",\n            \"type\": \"Film Director\",\n            \"biography\": \"Acclaimed filmmaker known for ambitious storytelling, large-scale productions and influential contributions to modern cinema.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 9,\n            \"name\": \"Mark Ruffalo\",\n            \"type\": \"Actor\",\n            \"biography\": \"Renowned actor and environmental advocate, speaker at sustainability events and climate-awareness forums.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 10,\n            \"name\": \"Elon Musk\",\n            \"type\": \"Tech Innovator\",\n            \"biography\": \"Entrepreneur and technology leader associated with electric vehicles, space exploration, AI and future mobility.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 11,\n            \"name\": \"Jordi Roca\",\n            \"type\": \"Chef\",\n            \"biography\": \"Spanish-American chef and humanitarian known for innovative cuisine, culinary education and global food-relief initiatives.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 12,\n            \"name\": \"Pau Gasol\",\n            \"type\": \"Basketball Player\",\n            \"biography\": \"Former professional basketball player, NBA champion and ambassador for sports, health and youth development.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 13,\n            \"name\": \"Zendaya\",\n            \"type\": \"Actress\",\n            \"biography\": \"Award-winning actress and fashion icon, recognized for her roles in film and television and presence in international premieres.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 14,\n            \"name\": \"Tom Holland\",\n            \"type\": \"Actor\",\n            \"biography\": \"Popular actor known for blockbuster films and appearances in global entertainment conventions and fan events.\",\n            \"participantImage\": true\n        }\n    ],\n    \"page\": {\n        \"size\": 20,\n        \"number\": 0,\n        \"totalElements\": 14,\n        \"totalPages\": 1\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get ParticipantImage Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/participants/1/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "participants",
+            "1",
+            "image"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Edit Participant Request",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Edited Participant\",\r\n    \"type\": \"Music Artist\",\r\n    \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\r\n    \"participantImage\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/participants/1",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "participants",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Edit Participant Request",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Edited Participant\",\r\n    \"type\": \"Music Artist\",\r\n    \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\r\n    \"participantImage\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/participants/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "participants",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:27:48 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"name\": \"Edited Participant\",\n    \"type\": \"Music Artist\",\n    \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\n    \"participantImage\": true\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Participant Request",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/participants/4",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "participants",
+            "4"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delete Participant Request",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/participants/4",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "participants",
+                "4"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:31:06 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 4,\n    \"name\": \"Rosalía\",\n    \"type\": \"Music Artist\",\n    \"biography\": \"Internationally acclaimed Spanish singer blending flamenco, pop and experimental sounds, recognized for highly visual live shows.\",\n    \"participantImage\": true\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete ParticipantImage Request",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/participants/1/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "participants",
+            "1",
+            "image"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delete ParticipantImage Request",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/participants/1/image",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "participants",
+                "1",
+                "image"
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:31:57 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Create ParticipantImage Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "imageFile",
+              "type": "file",
+              "uuid": "496dd42d-a66e-4ead-b33f-dbf4cf48b030",
+              "src": "postman-cloud:///1f15035b-4202-43d0-bcd4-f21c70e0bf6c"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/participants/1/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "participants",
+            "1",
+            "image"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Create ParticipantImage Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "imageFile",
+                  "type": "file",
+                  "uuid": "496dd42d-a66e-4ead-b33f-dbf4cf48b030",
+                  "src": "postman-cloud:///1f15035b-4202-43d0-bcd4-f21c70e0bf6c"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/participants/1/image",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "participants",
+                "1",
+                "image"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Location",
+              "value": "https://localhost:8443/api/v1/participants/1/image"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:32:47 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Edit ParticipantImage Request",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "imageFile",
+              "type": "file",
+              "uuid": "496dd42d-a66e-4ead-b33f-dbf4cf48b030",
+              "src": "postman-cloud:///1f15035b-4202-43d0-bcd4-f21c70e0bf6c"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/participants/6/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "participants",
+            "6",
+            "image"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Edit ParticipantImage Request",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "imageFile",
+                  "type": "file",
+                  "uuid": "496dd42d-a66e-4ead-b33f-dbf4cf48b030",
+                  "src": "postman-cloud:///1f15035b-4202-43d0-bcd4-f21c70e0bf6c"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/participants/6/image",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "participants",
+                "6",
+                "image"
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:33:25 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Create Participant Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"New Participant\",\r\n    \"type\": \"Music Artist\",\r\n    \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\r\n    \"participantImage\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/participants/",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "participants",
+            ""
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Create Participant Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"New Participant\",\r\n    \"type\": \"Music Artist\",\r\n    \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\r\n    \"participantImage\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/participants/",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "participants",
+                ""
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Location",
+              "value": "https://localhost:8443/api/v1/participants/15"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:34:24 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 15,\n    \"name\": \"New Participant\",\n    \"type\": \"Music Artist\",\n    \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\n    \"participantImage\": false\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Event Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/events/1",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "events",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Event Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/events/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "events",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:36:31 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"title\": \"Global Latin Music Festival\",\n    \"description\": \"A large-scale live music festival bringing together leading Latin and international artists. The event includes full-stage performances, VIP fan zones, immersive lighting, food areas and a night focused on reggaeton, pop and flamenco fusion.\",\n    \"category\": \"Music\",\n    \"location\": \"Madrid, WiZink Center\",\n    \"date\": \"2026-05-10\",\n    \"time\": \"21:00\",\n    \"basicPrice\": 80,\n    \"vipPrice\": 250,\n    \"availableBasicTickets\": 15000,\n    \"availableVipTickets\": 1000,\n    \"image\": true,\n    \"participants\": [\n        {\n            \"id\": 1,\n            \"name\": \"Edited Participant\",\n            \"type\": \"Music Artist\",\n            \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Olivia Rodrigo\",\n            \"type\": \"Music Artist\",\n            \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\n            \"participantImage\": true\n        }\n    ],\n    \"tickets\": []\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get AllEvents Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/events/",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "events",
+            ""
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get AllEvents Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/events/",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "events",
+                ""
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:37:02 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"content\": [\n        {\n            \"id\": 1,\n            \"title\": \"Global Latin Music Festival\",\n            \"description\": \"A large-scale live music festival bringing together leading Latin and international artists. The event includes full-stage performances, VIP fan zones, immersive lighting, food areas and a night focused on reggaeton, pop and flamenco fusion.\",\n            \"category\": \"Music\",\n            \"location\": \"Madrid, WiZink Center\",\n            \"date\": \"2026-05-10\",\n            \"time\": \"21:00\",\n            \"basicPrice\": 80,\n            \"vipPrice\": 250,\n            \"availableBasicTickets\": 15000,\n            \"availableVipTickets\": 1000,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"Edited Participant\",\n                    \"type\": \"Music Artist\",\n                    \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\n                    \"participantImage\": true\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Olivia Rodrigo\",\n                    \"type\": \"Music Artist\",\n                    \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        },\n        {\n            \"id\": 2,\n            \"title\": \"Olivia Rodrigo Concert Experience\",\n            \"description\": \"A concert experience focused on emotional songwriting, acoustic arrangements and powerful live vocals. The event is designed for fans who want a closer connection with the artist and the stories behind the songs.\",\n            \"category\": \"Music\",\n            \"location\": \"Barcelona, Palau Sant Jordi\",\n            \"date\": \"2026-06-14\",\n            \"time\": \"20:30\",\n            \"basicPrice\": 55,\n            \"vipPrice\": 160,\n            \"availableBasicTickets\": 8999,\n            \"availableVipTickets\": 600,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Olivia Rodrigo\",\n                    \"type\": \"Music Artist\",\n                    \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": [\n                {\n                    \"id\": 1,\n                    \"ticketType\": \"BASIC\",\n                    \"price\": 80,\n                    \"numTickets\": 1,\n                    \"eventId\": 2,\n                    \"userOwnerId\": 2\n                }\n            ]\n        },\n        {\n            \"id\": 3,\n            \"title\": \"Stand-Up Comedy Night: Juan Dávila Live\",\n            \"description\": \"A live comedy show full of improvisation, audience interaction and unpredictable moments. Juan Dávila brings his characteristic bold humor to a theatre night where the crowd becomes part of the performance.\",\n            \"category\": \"Comedy\",\n            \"location\": \"Fuenlabrada, Madrid\",\n            \"date\": \"2026-03-15\",\n            \"time\": \"21:00\",\n            \"basicPrice\": 25,\n            \"vipPrice\": 60,\n            \"availableBasicTickets\": 500,\n            \"availableVipTickets\": 80,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 3,\n                    \"name\": \"Juan Dávila\",\n                    \"type\": \"Comedian\",\n                    \"biography\": \"Spanish stand-up comedian known for his interactive, provocative and improvisational comedy shows. Famous for breaking the fourth wall and engaging directly with the audience in live performances across Spain.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        },\n        {\n            \"id\": 4,\n            \"title\": \"Roland Garros Champions Exhibition\",\n            \"description\": \"A premium tennis exhibition featuring elite-level rallies, training demonstrations and a special match format inspired by Grand Slam competition. Fans will enjoy a close look at modern tennis intensity and technique.\",\n            \"category\": \"Sports\",\n            \"location\": \"Paris, Court Philippe-Chatrier\",\n            \"date\": \"2026-06-07\",\n            \"time\": \"15:00\",\n            \"basicPrice\": 180,\n            \"vipPrice\": 600,\n            \"availableBasicTickets\": 14000,\n            \"availableVipTickets\": 1200,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 5,\n                    \"name\": \"Jannik Sinner\",\n                    \"type\": \"Professional Tennis Player\",\n                    \"biography\": \"Italian tennis player, who has rapidly risen in the ATP rankings with his aggressive playing style and strong performances in major tournaments.\",\n                    \"participantImage\": true\n                },\n                {\n                    \"id\": 6,\n                    \"name\": \"Carlos Alcaraz\",\n                    \"type\": \"Professional Tennis Player\",\n                    \"biography\": \"Spanish Grand Slam champion known for his explosive playing style, athleticism and rapid rise in world tennis.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        },\n        {\n            \"id\": 5,\n            \"title\": \"Future of Space and Artificial Intelligence\",\n            \"description\": \"A technology conference exploring the future of space exploration, artificial intelligence, electric mobility and scientific communication. The event includes keynote talks, public Q&A and discussions about innovation and society.\",\n            \"category\": \"Technology\",\n            \"location\": \"San Francisco, USA\",\n            \"date\": \"2026-04-20\",\n            \"time\": \"11:00\",\n            \"basicPrice\": 150,\n            \"vipPrice\": 350,\n            \"availableBasicTickets\": 1200,\n            \"availableVipTickets\": 150,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 7,\n                    \"name\": \"Neil deGrasse Tyson\",\n                    \"type\": \"Scientist\",\n                    \"biography\": \"Astrophysicist and science communicator known for making complex scientific topics accessible to global audiences.\",\n                    \"participantImage\": true\n                },\n                {\n                    \"id\": 10,\n                    \"name\": \"Elon Musk\",\n                    \"type\": \"Tech Innovator\",\n                    \"biography\": \"Entrepreneur and technology leader associated with electric vehicles, space exploration, AI and future mobility.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        },\n        {\n            \"id\": 6,\n            \"title\": \"Cinema Masters: Storytelling and Performance\",\n            \"description\": \"A cinema forum focused on directing, acting and the creative process behind major film productions. The session includes a director talk, actor discussion and audience questions about modern filmmaking.\",\n            \"category\": \"Cinema\",\n            \"location\": \"London, BFI Southbank\",\n            \"date\": \"2026-09-18\",\n            \"time\": \"18:30\",\n            \"basicPrice\": 70,\n            \"vipPrice\": 220,\n            \"availableBasicTickets\": 900,\n            \"availableVipTickets\": 120,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 8,\n                    \"name\": \"Christopher Nolan\",\n                    \"type\": \"Film Director\",\n                    \"biography\": \"Acclaimed filmmaker known for ambitious storytelling, large-scale productions and influential contributions to modern cinema.\",\n                    \"participantImage\": true\n                },\n                {\n                    \"id\": 9,\n                    \"name\": \"Mark Ruffalo\",\n                    \"type\": \"Actor\",\n                    \"biography\": \"Renowned actor and environmental advocate, speaker at sustainability events and climate-awareness forums.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        },\n        {\n            \"id\": 7,\n            \"title\": \"Elite Sports Legends Tournament\",\n            \"description\": \"A high-profile international sports event bringing together elite athletes from tennis and basketball. The event includes exhibition matches, skills challenges, fan interactions and training sessions led by world-class professionals. Attendees will experience top-level competition, behind-the-scenes insights and motivational talks on discipline, performance and success in professional sports.\",\n            \"category\": \"Sports\",\n            \"location\": \"Miami, USA\",\n            \"date\": \"2026-07-20\",\n            \"time\": \"18:00\",\n            \"basicPrice\": 120,\n            \"vipPrice\": 400,\n            \"availableBasicTickets\": 20000,\n            \"availableVipTickets\": 1500,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 5,\n                    \"name\": \"Jannik Sinner\",\n                    \"type\": \"Professional Tennis Player\",\n                    \"biography\": \"Italian tennis player, who has rapidly risen in the ATP rankings with his aggressive playing style and strong performances in major tournaments.\",\n                    \"participantImage\": true\n                },\n                {\n                    \"id\": 6,\n                    \"name\": \"Carlos Alcaraz\",\n                    \"type\": \"Professional Tennis Player\",\n                    \"biography\": \"Spanish Grand Slam champion known for his explosive playing style, athleticism and rapid rise in world tennis.\",\n                    \"participantImage\": true\n                },\n                {\n                    \"id\": 12,\n                    \"name\": \"Pau Gasol\",\n                    \"type\": \"Basketball Player\",\n                    \"biography\": \"Former professional basketball player, NBA champion and ambassador for sports, health and youth development.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        },\n        {\n            \"id\": 8,\n            \"title\": \"Top Dessert Masterclass\",\n            \"description\": \"A culinary masterclass focused on creative desserts, pastry techniques, sensory presentation and innovation in modern gastronomy. Attendees will learn about textures, plating and the creative process of high-level cuisine.\",\n            \"category\": \"Gastronomy\",\n            \"location\": \"Girona, Spain\",\n            \"date\": \"2026-06-18\",\n            \"time\": \"12:00\",\n            \"basicPrice\": 200,\n            \"vipPrice\": 450,\n            \"availableBasicTickets\": 80,\n            \"availableVipTickets\": 15,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 11,\n                    \"name\": \"Jordi Roca\",\n                    \"type\": \"Chef\",\n                    \"biography\": \"Spanish-American chef and humanitarian known for innovative cuisine, culinary education and global food-relief initiatives.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        },\n        {\n            \"id\": 9,\n            \"title\": \"Basketball Leadership Camp\",\n            \"description\": \"A sports and leadership event combining basketball training, personal development and talks about discipline, teamwork and health. Designed for young athletes and fans interested in professional sports culture.\",\n            \"category\": \"Sports\",\n            \"location\": \"Barcelona, Spain\",\n            \"date\": \"2026-08-02\",\n            \"time\": \"09:30\",\n            \"basicPrice\": 35,\n            \"vipPrice\": 90,\n            \"availableBasicTickets\": 600,\n            \"availableVipTickets\": 70,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 12,\n                    \"name\": \"Pau Gasol\",\n                    \"type\": \"Basketball Player\",\n                    \"biography\": \"Former professional basketball player, NBA champion and ambassador for sports, health and youth development.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        },\n        {\n            \"id\": 10,\n            \"title\": \"Young Hollywood Fan Convention\",\n            \"description\": \"Entertainment convention featuring panels, meet-and-greet sessions, fan activities and conversations about blockbuster cinema, acting careers and international productions.\",\n            \"category\": \"Cinema\",\n            \"location\": \"Los Angeles, USA\",\n            \"date\": \"2026-11-05\",\n            \"time\": \"19:00\",\n            \"basicPrice\": 90,\n            \"vipPrice\": 280,\n            \"availableBasicTickets\": 3000,\n            \"availableVipTickets\": 350,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 13,\n                    \"name\": \"Zendaya\",\n                    \"type\": \"Actress\",\n                    \"biography\": \"Award-winning actress and fashion icon, recognized for her roles in film and television and presence in international premieres.\",\n                    \"participantImage\": true\n                },\n                {\n                    \"id\": 14,\n                    \"name\": \"Tom Holland\",\n                    \"type\": \"Actor\",\n                    \"biography\": \"Popular actor known for blockbuster films and appearances in global entertainment conventions and fan events.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        },\n        {\n            \"id\": 11,\n            \"title\": \"Music, Culture and Social Impact Summit\",\n            \"description\": \"A multidisciplinary event connecting music, cinema and social impact. Artists and public figures discuss creativity, fame, activism, identity and the influence of entertainment on younger generations.\",\n            \"category\": \"Culture\",\n            \"location\": \"New York, USA\",\n            \"date\": \"2026-12-13\",\n            \"time\": \"20:30\",\n            \"basicPrice\": 120,\n            \"vipPrice\": 400,\n            \"availableBasicTickets\": 5000,\n            \"availableVipTickets\": 500,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Olivia Rodrigo\",\n                    \"type\": \"Music Artist\",\n                    \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\n                    \"participantImage\": true\n                },\n                {\n                    \"id\": 9,\n                    \"name\": \"Mark Ruffalo\",\n                    \"type\": \"Actor\",\n                    \"biography\": \"Renowned actor and environmental advocate, speaker at sustainability events and climate-awareness forums.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        }\n    ],\n    \"page\": {\n        \"size\": 20,\n        \"number\": 0,\n        \"totalElements\": 11,\n        \"totalPages\": 1\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get EventImage Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/events/1/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "events",
+            "1",
+            "image"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Event Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"New Event\",\r\n    \"description\": \"New Event\",\r\n    \"category\": \"New Event\",\r\n    \"location\": \"Madrid, WiZink Center\",\r\n    \"date\": \"2026-05-10\",\r\n    \"time\": \"21:00\",\r\n    \"basicPrice\": 80,\r\n    \"vipPrice\": 250,\r\n    \"availableBasicTickets\": 15000,\r\n    \"availableVipTickets\": 1000,\r\n    \"image\": false,\r\n    \"participants\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"Edited Participant\",\r\n            \"type\": \"Music Artist\",\r\n            \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\r\n            \"participantImage\": true\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"Olivia Rodrigo\",\r\n            \"type\": \"Music Artist\",\r\n            \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\r\n            \"participantImage\": true\r\n        }\r\n    ],\r\n    \"tickets\": []\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/events/",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "events",
+            ""
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Create Event Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"New Event\",\r\n    \"description\": \"New Event\",\r\n    \"category\": \"New Event\",\r\n    \"location\": \"Madrid, WiZink Center\",\r\n    \"date\": \"2026-05-10\",\r\n    \"time\": \"21:00\",\r\n    \"basicPrice\": 80,\r\n    \"vipPrice\": 250,\r\n    \"availableBasicTickets\": 15000,\r\n    \"availableVipTickets\": 1000,\r\n    \"image\": false,\r\n    \"participants\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"Edited Participant\",\r\n            \"type\": \"Music Artist\",\r\n            \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\r\n            \"participantImage\": true\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"Olivia Rodrigo\",\r\n            \"type\": \"Music Artist\",\r\n            \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\r\n            \"participantImage\": true\r\n        }\r\n    ],\r\n    \"tickets\": []\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/events/",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "events",
+                ""
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Location",
+              "value": "https://localhost:8443/api/v1/events/12"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:38:31 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 12,\n    \"title\": \"New Event\",\n    \"description\": \"New Event\",\n    \"category\": \"New Event\",\n    \"location\": \"Madrid, WiZink Center\",\n    \"date\": \"2026-05-10\",\n    \"time\": \"21:00\",\n    \"basicPrice\": 80,\n    \"vipPrice\": 250,\n    \"availableBasicTickets\": 15000,\n    \"availableVipTickets\": 1000,\n    \"image\": false,\n    \"participants\": [\n        {\n            \"id\": 1,\n            \"name\": \"Edited Participant\",\n            \"type\": \"Music Artist\",\n            \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Olivia Rodrigo\",\n            \"type\": \"Music Artist\",\n            \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\n            \"participantImage\": true\n        }\n    ],\n    \"tickets\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Edit Event Request",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": 1,\r\n  \"title\": \"Edited event\",\r\n  \"description\": \"A large-scale live music festival bringing together leading Latin and international artists. The event includes full-stage performances, VIP fan zones, immersive lighting, food areas and a night focused on reggaeton, pop and flamenco fusion.\",\r\n  \"category\": \"Music\",\r\n  \"location\": \"Madrid, WiZink Center\",\r\n  \"date\": \"2026-05-10\",\r\n  \"time\": \"21:00\",\r\n  \"basicPrice\": 80,\r\n  \"vipPrice\": 250,\r\n  \"availableBasicTickets\": 15000,\r\n  \"availableVipTickets\": 1000,\r\n  \"image\": true,\r\n  \"participants\": [\r\n    {\r\n      \"id\": 1,\r\n      \"name\": \"Edited Participant\",\r\n      \"type\": \"Music Artist\",\r\n      \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\r\n      \"participantImage\": true\r\n    },\r\n    {\r\n      \"id\": 2,\r\n      \"name\": \"Olivia Rodrigo\",\r\n      \"type\": \"Music Artist\",\r\n      \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\r\n      \"participantImage\": true\r\n    }\r\n  ],\r\n  \"tickets\": []\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/events/1",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "events",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Edit Event Request",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": 1,\r\n  \"title\": \"Edited event\",\r\n  \"description\": \"A large-scale live music festival bringing together leading Latin and international artists. The event includes full-stage performances, VIP fan zones, immersive lighting, food areas and a night focused on reggaeton, pop and flamenco fusion.\",\r\n  \"category\": \"Music\",\r\n  \"location\": \"Madrid, WiZink Center\",\r\n  \"date\": \"2026-05-10\",\r\n  \"time\": \"21:00\",\r\n  \"basicPrice\": 80,\r\n  \"vipPrice\": 250,\r\n  \"availableBasicTickets\": 15000,\r\n  \"availableVipTickets\": 1000,\r\n  \"image\": true,\r\n  \"participants\": [\r\n    {\r\n      \"id\": 1,\r\n      \"name\": \"Edited Participant\",\r\n      \"type\": \"Music Artist\",\r\n      \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\r\n      \"participantImage\": true\r\n    },\r\n    {\r\n      \"id\": 2,\r\n      \"name\": \"Olivia Rodrigo\",\r\n      \"type\": \"Music Artist\",\r\n      \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\r\n      \"participantImage\": true\r\n    }\r\n  ],\r\n  \"tickets\": []\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/events/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "events",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:48:29 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"title\": \"Edited event\",\n    \"description\": \"A large-scale live music festival bringing together leading Latin and international artists. The event includes full-stage performances, VIP fan zones, immersive lighting, food areas and a night focused on reggaeton, pop and flamenco fusion.\",\n    \"category\": \"Music\",\n    \"location\": \"Madrid, WiZink Center\",\n    \"date\": \"2026-05-10\",\n    \"time\": \"21:00\",\n    \"basicPrice\": 80,\n    \"vipPrice\": 250,\n    \"availableBasicTickets\": 15000,\n    \"availableVipTickets\": 1000,\n    \"image\": true,\n    \"participants\": [\n        {\n            \"id\": 1,\n            \"name\": \"Bad Bunny\",\n            \"type\": \"Music Artist\",\n            \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Olivia Rodrigo\",\n            \"type\": \"Music Artist\",\n            \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\n            \"participantImage\": true\n        }\n    ],\n    \"tickets\": []\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Event Request",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/events/5",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "events",
+            "5"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delete Event Request",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/events/5",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "events",
+                "5"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:40:51 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 5,\n    \"title\": \"Future of Space and Artificial Intelligence\",\n    \"description\": \"A technology conference exploring the future of space exploration, artificial intelligence, electric mobility and scientific communication. The event includes keynote talks, public Q&A and discussions about innovation and society.\",\n    \"category\": \"Technology\",\n    \"location\": \"San Francisco, USA\",\n    \"date\": \"2026-04-20\",\n    \"time\": \"11:00\",\n    \"basicPrice\": 150,\n    \"vipPrice\": 350,\n    \"availableBasicTickets\": 1200,\n    \"availableVipTickets\": 150,\n    \"image\": true,\n    \"participants\": [\n        {\n            \"id\": 7,\n            \"name\": \"Neil deGrasse Tyson\",\n            \"type\": \"Scientist\",\n            \"biography\": \"Astrophysicist and science communicator known for making complex scientific topics accessible to global audiences.\",\n            \"participantImage\": true\n        },\n        {\n            \"id\": 10,\n            \"name\": \"Elon Musk\",\n            \"type\": \"Tech Innovator\",\n            \"biography\": \"Entrepreneur and technology leader associated with electric vehicles, space exploration, AI and future mobility.\",\n            \"participantImage\": true\n        }\n    ],\n    \"tickets\": []\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create EventImage Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "imageFile",
+              "type": "file",
+              "uuid": "75d8037e-c892-40d3-85db-91919b5a3b4c",
+              "src": "postman-cloud:///1f15035b-4202-43d0-bcd4-f21c70e0bf6c"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/events/6/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "events",
+            "6",
+            "image"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Create EventImage Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "imageFile",
+                  "type": "file",
+                  "uuid": "75d8037e-c892-40d3-85db-91919b5a3b4c",
+                  "src": "postman-cloud:///1f15035b-4202-43d0-bcd4-f21c70e0bf6c"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/events/6/image",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "events",
+                "6",
+                "image"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Location",
+              "value": "https://localhost:8443/api/v1/events/6/image"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:42:42 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Delete EventImage Request",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/events/6/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "events",
+            "6",
+            "image"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delete EventImage Request",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/events/6/image",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "events",
+                "6",
+                "image"
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:43:33 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Edit EventImage Request",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "imageFile",
+              "type": "file",
+              "uuid": "85a8dfcd-c291-4f8b-ace4-25fe0f0227b2",
+              "src": "postman-cloud:///1f15035b-4202-43d0-bcd4-f21c70e0bf6c"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://localhost:8443/api/v1/events/9/image",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "events",
+            "9",
+            "image"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Edit EventImage Request",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "imageFile",
+                  "type": "file",
+                  "uuid": "85a8dfcd-c291-4f8b-ace4-25fe0f0227b2",
+                  "src": "postman-cloud:///1f15035b-4202-43d0-bcd4-f21c70e0bf6c"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://localhost:8443/api/v1/events/9/image",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "events",
+                "9",
+                "image"
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:44:31 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Get EventsByParticipant Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:8443/api/v1/events/?participantId=1",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "api",
+            "v1",
+            "events",
+            ""
+          ],
+          "query": [
+            {
+              "key": "participantId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get EventsByParticipant Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:8443/api/v1/events/?participantId=1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "8443",
+              "path": [
+                "api",
+                "v1",
+                "events",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "participantId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 15 May 2026 08:47:11 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"content\": [\n        {\n            \"id\": 1,\n            \"title\": \"Global Latin Music Festival\",\n            \"description\": \"A large-scale live music festival bringing together leading Latin and international artists. The event includes full-stage performances, VIP fan zones, immersive lighting, food areas and a night focused on reggaeton, pop and flamenco fusion.\",\n            \"category\": \"Music\",\n            \"location\": \"Madrid, WiZink Center\",\n            \"date\": \"2026-05-10\",\n            \"time\": \"21:00\",\n            \"basicPrice\": 80,\n            \"vipPrice\": 250,\n            \"availableBasicTickets\": 15000,\n            \"availableVipTickets\": 1000,\n            \"image\": true,\n            \"participants\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"Edited Participant\",\n                    \"type\": \"Music Artist\",\n                    \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\n                    \"participantImage\": true\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Olivia Rodrigo\",\n                    \"type\": \"Music Artist\",\n                    \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        },\n        {\n            \"id\": 12,\n            \"title\": \"New Event\",\n            \"description\": \"New Event\",\n            \"category\": \"New Event\",\n            \"location\": \"Madrid, WiZink Center\",\n            \"date\": \"2026-05-10\",\n            \"time\": \"21:00\",\n            \"basicPrice\": 80,\n            \"vipPrice\": 250,\n            \"availableBasicTickets\": 15000,\n            \"availableVipTickets\": 1000,\n            \"image\": false,\n            \"participants\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"Edited Participant\",\n                    \"type\": \"Music Artist\",\n                    \"biography\": \"Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.\",\n                    \"participantImage\": true\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Olivia Rodrigo\",\n                    \"type\": \"Music Artist\",\n                    \"biography\": \"Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.\",\n                    \"participantImage\": true\n                }\n            ],\n            \"tickets\": []\n        }\n    ],\n    \"page\": {\n        \"size\": 20,\n        \"number\": 0,\n        \"totalElements\": 2,\n        \"totalPages\": 1\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseURL",
+      "value": "",
+      "type": "default"
+    }
+  ]
 }

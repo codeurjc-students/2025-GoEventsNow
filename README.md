@@ -1,3 +1,5 @@
+
+
 # 🎟️ 2025-GoEventsNow
 
 ![GoEventsNow Logo](https://github.com/user-attachments/assets/1cbd97f1-e514-47d9-894d-658650db2900)
@@ -21,15 +23,17 @@ GoEventsNow aims to provide a complete, modern and user-centered system that sim
 >  In addition, this version includes Docker deployment and continuous delivery support. The application is packaged as a single Docker image containing both the Spring Boot backend and the Angular frontend, coordinated with a MySQL database through Docker Compose. The image and the Docker Compose artifact are published in DockerHub, and GitHub Actions workflows automate development builds, manual builds and release publication.
 
 ---
-## 🖥️ *Screen Mockups*
+## 🖥️ *Screenshots*
 
 > This section provides some key screens, which define the structure and the application functionalities.
 >
-> ![Main Page](https://github.com/user-attachments/assets/2710564e-f00a-428f-b535-9f911e2aba1f)
+> ![Main Page](https://github.com/user-attachments/assets/78ad924a-3ec4-4d8f-970f-4edde75f012f)
 ---
 >
-> ![Search Event](https://github.com/user-attachments/assets/1eee1d72-e94c-4c77-a741-210e669cf4db)
-
+> ![Search Event](https://github.com/user-attachments/assets/22b17a16-4291-4b47-a4dc-c00fa48a531e)
+---
+>
+> ![Manage Participants](https://github.com/user-attachments/assets/00d949a4-da1b-437f-b6df-e8ec470fb628)
 ---
 
 > [!WARNING]
@@ -42,7 +46,7 @@ GoEventsNow aims to provide a complete, modern and user-centered system that sim
 
 > In the following video, you can see a demonstration of the current functionalities implemented in the 0.1.0 version of GoEventsNow. The video shows the main features of the application, including event browsing, participant browsing, event and participant details, user registration and login, ticket purchase, user profile management, and administrator functionalities for managing events and participants. The video separates the different user roles, showing the experience of an anonymous user, a registered user and an administrator user.
 
-[Watch the demo of GoEventsNow for version 0.1.0](VIDEO_URL)
+[Watch the demo of GoEventsNow for version 0.1.0](https://youtu.be/URnujjfUix4)
 
 ---
 

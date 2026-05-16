@@ -122,7 +122,7 @@ The application is deployed locally as several independent processes:
 
 > The domain model of the application is based on the main entities, such as User, Event, Participant and Ticket, and their relationships. The User entity represents the users of the application, the Event entity represents the events available in the platform, the Participant entity represents the participants of the events, and the Ticket entity represents the tickets purchased by users for specific events.
 
-[NEED TO INSERT DOMAIN MODEL DIAGRAM]
+![Domain Model](https://github.com/user-attachments/assets/5f3ee8d5-04ee-476e-b60a-50090f0ad0d5)
 
 ### REST API
 
@@ -216,7 +216,7 @@ The application is deployed locally as several independent processes:
 4. **Model Layer**: It contains the entities that represent the application's domain objects.
 5. **Security Layer**: It manages the security configuration, including JWT authentication and role-based access control.
 
-[NEED TO INSERT BACKEND ARCHITECTURE DIAGRAM]
+![Server Architecture](https://github.com/user-attachments/assets/57393a60-652b-4af7-91ee-d6bf7fe07346)
 
 ### Client Architecture
 
@@ -225,7 +225,7 @@ The application is deployed locally as several independent processes:
 1. **Components**: They are responsible for the presentation of the application and the features related to user interaction. They manage the views and templates, and they call the services to obtain data from the backend and render it in the UI. 
 2. **Services**: They manage the communication with the backend REST API.
 
-[NEED TO INSERT FRONTEND ARCHITECTURE DIAGRAM]
+![Client Architecture](https://github.com/user-attachments/assets/e8c44610-d309-4d87-8c10-27250b492570)
 
 ## Quality Control
 
@@ -300,13 +300,15 @@ The application is deployed locally as several independent processes:
 
 #### Backend Test Execution & Code Coverage Report (JaCoCo)
 
-![Backend Tests](https://github.com/user-attachments/assets/9449c4c2-5d3c-4dcc-a4e7-8bd5c76e0bdb)
+![Backend Tests](https://github.com/user-attachments/assets/684c533a-2711-4ae6-8186-be35dd4072a7)
 
-![Backend Coverage](https://github.com/user-attachments/assets/7aa5c878-ddbf-4c90-9879-b20cc7fb9360)
+![Backend Coverage](https://github.com/user-attachments/assets/c05ccd5d-dd0e-4079-b399-ef44a9455d93)
 
 #### Frontend Test Execution & Code Coverage Report (Vitest)
 
-![Frontend Tests & Coverage](https://github.com/user-attachments/assets/9c0226dc-930e-40c0-833f-e97e56b10db0)
+![Frontend Tests](https://github.com/user-attachments/assets/72953ad3-0451-435a-8a1d-62e527dff354)
+
+![Frontend Coverage](https://github.com/user-attachments/assets/9b42832a-80be-48ff-8f04-60ff25a80330)
 
 ### Static Code Analysis
 
@@ -551,7 +553,7 @@ The release process follows these steps:
 | `v0.0.1` | 10/02/2026 | Stable release | First stable release, which establishes the project architecture and quality standards. It includes Spring Boot backend, Angular frontend and MySQL database structure, together with CI workflows, SonarCloud analysis, automated testing and coverage reporting.|
 | `0.0.1` | 13/05/2026 | Test release | First test release of the MVP version, used to verify that the release CD workflow published the Docker image and Docker Compose OCI artifact correctly.|
 | `0.0.2` | 13/05/2026 | Test release | Second test release of the MVP version, used to verify the release CD workflow after fixing the Dockerfile and the deployment issue caused by the versioned `.jar` file name. |
-| `0.1.0` | 15/05/2026 | Stable release | MVP release with user authentication, event and participant browsing, ticket purchasing, user profile management, administrator event/participant management and image management. It also adds Docker deployment, Docker Compose with MySQL, OCI compose artifacts and GitHub Actions workflows for development, manual and release builds. |
+| `0.1.0` | 16/05/2026 | Stable release | MVP release with user authentication, event and participant browsing, ticket purchasing, user profile management, administrator event/participant management and image management. It also adds Docker deployment, Docker Compose with MySQL, OCI compose artifacts and GitHub Actions workflows for development, manual and release builds. |
 
 You can find the list of releases here:
 [GoEventsNow Releases](https://github.com/codeurjc-students/2025-GoEventsNow/releases)

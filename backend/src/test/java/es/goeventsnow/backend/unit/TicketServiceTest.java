@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -15,14 +22,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import es.goeventsnow.backend.dto.ticket.TicketDTO;
 import es.goeventsnow.backend.dto.ticket.TicketMapper;
@@ -227,5 +226,39 @@ public class TicketServiceTest {
                 () -> ticketService.addTicket(inputTicketDTO, "user"));
 
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
+
+    @Test
+    public void getTicketsSoldByEventTest() {
+        List<Object[]> rows = List.of(
+                new Object[] { "Concert A", 4 },
+                new Object[] { "Concert B", 2 });
+
+        when(ticketRepository.findTicketsSoldByEvent()).thenReturn(rows);
+
+        List<Object[]> result = ticketService.getTicketsSoldByEvent();
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("Concert A", result.get(0)[0]);
+        assertEquals(4, ((Number) result.get(0)[1]).intValue());
+        verify(ticketRepository, times(1)).findTicketsSoldByEvent();
+    }
+
+    @Test
+    public void getTicketsSoldByCategoryTest() {
+        List<Object[]> rows = List.of(
+                new Object[] { "Music", 6 },
+                new Object[] { "Sports", 3 });
+
+        when(ticketRepository.findTicketsSoldByCategory()).thenReturn(rows);
+
+        List<Object[]> result = ticketService.getTicketsSoldByCategory();
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("Music", result.get(0)[0]);
+        assertEquals(6, ((Number) result.get(0)[1]).intValue());
+        verify(ticketRepository, times(1)).findTicketsSoldByCategory();
     }
 }

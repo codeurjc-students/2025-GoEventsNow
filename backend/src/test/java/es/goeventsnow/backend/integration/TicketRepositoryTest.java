@@ -1,10 +1,11 @@
 package es.goeventsnow.backend.integration;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -155,6 +156,44 @@ public class TicketRepositoryTest extends IntegrationTestBase {
                 () -> ticketService.addTicket(newTicket, savedUser.getUsername()));
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+    }
+
+    @Test
+    public void shouldGetTicketsSoldByEventThroughService() {
+        User savedUser = createAndSaveUser("graphic_user", "Graphic User", 123456789, "password", "graphic-user@example.com");
+        Event concert = createAndSaveEvent("Concert Test A", "Description Test", "Testing", "Test A", "2025-10-01", "20:00", 50.0, 150.0, 100, 20);
+        Event expo = createAndSaveEvent("Expo Test B", "Tech expo", "Testing", "Test B", "2025-10-02", "20:00", 40.0, 120.0, 100, 20);
+
+        createAndSaveTicket(concert, savedUser, "BASIC", 50.0, 2);
+        createAndSaveTicket(concert, savedUser, "VIP", 150.0, 3);
+        createAndSaveTicket(expo, savedUser, "BASIC", 40.0, 4);
+
+        List<Object[]> rows = ticketService.getTicketsSoldByEvent();
+
+        assertEquals(2, rows.size());
+        assertEquals("Concert Test A", rows.get(0)[0]);
+        assertEquals(5, ((Number) rows.get(0)[1]).intValue());
+        assertEquals("Expo Test B", rows.get(1)[0]);
+        assertEquals(4, ((Number) rows.get(1)[1]).intValue());
+    }
+
+    @Test
+    public void shouldGetTicketsSoldByCategoryThroughService() {
+        User savedUser = createAndSaveUser("graphic_category_user", "Graphic User", 123456789, "password", "graphic-category@example.com");
+        Event concert = createAndSaveEvent("Concert Test A", "Description Test", "Testing", "Test A", "2025-10-01", "20:00", 50.0, 150.0, 100, 20);
+        Event tournament = createAndSaveEvent("Tournament Test B", "Description Test", "New Testing Category", "Test B", "2025-10-03", "18:00", 60.0, 160.0, 100, 20);
+
+        createAndSaveTicket(concert, savedUser, "VIP", 150.0, 3);
+        createAndSaveTicket(concert, savedUser, "BASIC", 50.0, 2);
+        createAndSaveTicket(tournament, savedUser, "BASIC", 60.0, 4);
+
+        List<Object[]> rows = ticketService.getTicketsSoldByCategory();
+
+        assertEquals(2, rows.size());
+        assertEquals("New Testing Category", rows.get(0)[0]);
+        assertEquals(4, ((Number) rows.get(0)[1]).intValue());
+        assertEquals("Testing", rows.get(1)[0]);
+        assertEquals(5, ((Number) rows.get(1)[1]).intValue());
     }
 
 }

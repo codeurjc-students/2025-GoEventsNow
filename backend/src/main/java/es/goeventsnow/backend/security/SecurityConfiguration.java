@@ -80,6 +80,10 @@ public class SecurityConfiguration {
             .requestMatchers(HttpMethod.GET,"/api/v1/users/me/image").hasAnyRole("USER","ADMIN")
             .requestMatchers(HttpMethod.GET,"/api/v1/users/me").hasAnyRole("USER","ADMIN")
             .requestMatchers(HttpMethod.PUT,"/api/v1/users/**").hasAnyRole("USER","ADMIN")
+            .requestMatchers(HttpMethod.POST,"/api/v1/users/**").hasAnyRole("USER","ADMIN")
+            .requestMatchers(HttpMethod.DELETE,"/api/v1/users/**").hasAnyRole("USER","ADMIN")
+
+            .requestMatchers(HttpMethod.GET,"/api/v1/graphics/**").hasRole("ADMIN")
 
             .requestMatchers(HttpMethod.POST,"/api/v1/tickets/**").hasAnyRole("USER","ADMIN")
             .requestMatchers(HttpMethod.GET,"/api/v1/tickets/**").hasAnyRole("USER","ADMIN")

@@ -1,5 +1,7 @@
 package es.goeventsnow.backend.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -60,6 +62,14 @@ public class TicketService {
                 ticketDTO.numTickets(), event.getId(), user.getId());
         Ticket ticketSaved = toDomain(savedTicketDTO);
         return toDTO(ticketRepository.save(ticketSaved));
+    }
+
+    public List<Object[]> getTicketsSoldByEvent() {
+        return ticketRepository.findTicketsSoldByEvent();
+    }
+
+    public List<Object[]> getTicketsSoldByCategory() {
+        return ticketRepository.findTicketsSoldByCategory();
     }
 
     private TicketDTO toDTO(Ticket ticket) {

@@ -1,0 +1,95 @@
+<section class="graphics-dashboard container py-5">
+  <div class="mb-4">
+    <h1 class="fw-bold mb-2">Ticket Statistics & Charts</h1>
+    <p class="text-secondary mb-0">
+      Statistics and charts based on the total number of tickets sold per event and category.
+    </p>
+  </div>
+
+  <div class="row g-4 mb-4">
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body p-4">
+          <div class="text-muted small mb-1">Total tickets sold</div>
+          <div class="fs-2 fw-bold text-dark" id="totalTicketsSold">{{ totalTicketsSold }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body p-4">
+          <div class="text-muted small mb-1">Events with sales</div>
+          <div class="fs-2 fw-bold text-dark">{{ totalEvents }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body p-4">
+          <div class="text-muted small mb-1">Top event</div>
+          <div class="fw-bold text-dark text-truncate">{{ topEventLabel }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body p-4">
+          <div class="text-muted small mb-1">Top category</div>
+          <div class="fw-bold text-dark text-truncate">{{ topCategoryLabel }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body p-4 p-md-5">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h2 class="h4 fw-bold mb-1">Tickets sold by event</h2>
+              <p class="text-secondary mb-0">Bar chart based on the total number of tickets sold per event.</p>
+            </div>
+          </div>
+
+          <div class="chart-wrap chart-wrap-bar mb-3" style="position: relative; height: 360px; width: 100%;">
+            <canvas #eventsChartCanvas></canvas>
+          </div>
+
+          @if (eventsChart.labels.length === 0) {
+          <div class="text-center text-muted py-3">No sales data available yet.</div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body p-4 p-md-5">
+          <h2 class="h4 fw-bold mb-1">Tickets sold by category</h2>
+          <p class="text-secondary mb-4">Pie chart built from the event sales category distribution.</p>
+
+          <div class="chart-wrap chart-wrap-pie mb-4" style="position: relative; height: 320px; width: 100%;">
+            <canvas #categoriesChartCanvas></canvas>
+          </div>
+
+          @if (categoriesChart.labels.length > 0) {
+          <div class="d-flex flex-column gap-3">
+            @for (item of categoryLegend; track item.label) {
+            <div class="d-flex align-items-center gap-3">
+              <span class="legend-swatch" [style.backgroundColor]="item.color"></span>
+              <div class="flex-grow-1">
+                <div class="fw-semibold">{{ item.label }}</div>
+                <small class="text-secondary">{{ item.value }} tickets</small>
+              </div>
+            </div>
+            }
+          </div>
+          } @else {
+          <div class="text-center text-muted py-3">No category data available yet.</div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

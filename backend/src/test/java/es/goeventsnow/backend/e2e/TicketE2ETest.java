@@ -1,13 +1,40 @@
 package es.goeventsnow.backend.e2e;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
 class TicketE2ETest extends E2eTestBase {
 
     @Test
     void purchaseTicketShowsBoughtEventInProfile() {
+        payTicket();
+        clickId("ticket-section");
+
+        waitForId("event-bought-title-1");
+        assertTrue(driver.getPageSource().contains("Global Latin Music Festival"));
+    }
+
+    @Test
+    void chartTicketShowsBoughtByEvent() {
+        payTicket();
+        navigateToPath("/graphics");
+
+        waitForId("totalTicketsSold");
+        assertTrue(driver.getPageSource().contains("Global Latin Music Festival"));
+    }
+
+    @Test
+    void chartTicketShowsBoughtByCategory() {
+        
+        payTicket();
+        navigateToPath("/graphics");
+
+        waitForId("totalTicketsSold");
+        assertTrue(driver.getPageSource().contains("Music"));
+    }
+
+    private void payTicket() {
+
         loginAsAdmin();
 
         waitForId("event-title-1");
@@ -18,9 +45,6 @@ class TicketE2ETest extends E2eTestBase {
         clickId("pay-btn");
 
         waitForId("user-profile-username");
-        clickId("ticket-section");
-
-        waitForId("event-bought-title-1");
-        assertTrue(driver.getPageSource().contains("Global Latin Music Festival"));
+        
     }
 }

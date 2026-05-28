@@ -16,6 +16,7 @@ import { UserPageComponent } from './components/user/user-page.component';
 import { TicketSelectionComponent } from './components/tickets/ticket-selection.component';
 import { AdminGuard } from './admin.guard';
 import { authGuard } from './auth.guard';
+import { HelpComponent } from './components/help/help.component';
 
 export const appRoutes: Routes = [
 
@@ -34,6 +35,7 @@ export const appRoutes: Routes = [
     { path: 'edit-participant/:id', component: AddParticipantsComponent, canActivate: [AdminGuard] },
     { path: 'user/:id', component: UserPageComponent, canActivate: [authGuard] },
     { path: 'event/:id/tickets', component: TicketSelectionComponent, canActivate: [authGuard]},
+    { path: 'help', component: HelpComponent },
     { path: 'error/:type', component: ErrorComponent },
     { path: '**', redirectTo: 'error/404' }
 

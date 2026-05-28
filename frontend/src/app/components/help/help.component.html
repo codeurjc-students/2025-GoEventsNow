@@ -1,0 +1,271 @@
+<section class="bg-light py-5 min-vh-100">
+    <div class="container">
+        <h1 class="fw-bold mb-4">Help & FAQ</h1>
+
+        <div class="row g-4 mt-1">
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div ngbAccordion>
+                    <div ngbAccordionItem class="border bg-white shadow-sm">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                <div>
+                                    <h3 class="h6 fw-bold mb-1">🎟️ Buying Tickets</h3>
+                                    <p class="mb-0 text-secondary small">
+                                        Learn how to complete a ticket purchase of an event.
+                                    </p>
+                                </div>
+                            </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    To purchase tickets, is required to be logged in. Once you have an account, open an
+                                    event detail page and select the 'Get Tickets' button. If there is no tickets
+                                    available, the button will be disabled. Otherwise, you can choose the desired ticket
+                                    type and quantities,
+                                    and confirm the purchase. After a successful purchase, you can view your tickets in
+                                    your user profile page.
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div ngbAccordion>
+                    <div ngbAccordionItem class="border bg-white shadow-sm">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                <div>
+                                    <h3 class="h6 fw-bold mb-1">👤 My Account</h3>
+                                    <p class="mb-0 text-secondary small">
+                                        Information about login, registration and profile management.
+                                    </p>
+                                </div>
+                            </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    Registered users can edit their profile information, manage their profile
+                                    image and view their purchased tickets from the user page.
+                                    If you are not a registered user, you can create an account by clicking the 'Sign
+                                    Up' button in the header and filling out the registration form. If you already have
+                                    an account, click the 'Log In' button and enter your credentials to access your
+                                    profile and manage your account settings.
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div ngbAccordion>
+                    <div ngbAccordionItem class="border bg-white shadow-sm">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                <div>
+                                    <h3 class="h6 fw-bold mb-1">📅 Events</h3>
+                                    <p class="mb-0 text-secondary small">
+                                        Browse events and explore detailed event information.
+                                    </p>
+                                </div>
+                            </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    Anonymous users can browse events and check their details, but they cannot purchase
+                                    tickets or access certain features without logging in.
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row g-4 mt-1">
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div ngbAccordion>
+                    <div ngbAccordionItem class="border bg-white shadow-sm">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                <div>
+                                    <h3 class="h6 fw-bold mb-1">⚙️ Administrator Panel</h3>
+                                    <p class="mb-0 text-secondary small">
+                                        Information about administrator features and permissions.
+                                    </p>
+                                </div>
+                            </button>
+                        </h2>
+
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    Administrator users can create, edit and delete events and participants.
+                                    They can also upload, update and remove images associated with events and
+                                    participants.
+                                </ng-template>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div ngbAccordion>
+                    <div ngbAccordionItem class="border bg-white shadow-sm">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                <div>
+                                    <h3 class="h6 fw-bold mb-1">🖼️ Image Uploads</h3>
+                                    <p class="mb-0 text-secondary small">
+                                        Learn how profile, event and participant images work.
+                                    </p>
+                                </div>
+                            </button>
+                        </h2>
+
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    Registered users can upload profile images from their account page.
+                                    Administrators can also manage event and participant images.
+                                    Images are securely stored in the database.
+                                </ng-template>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div ngbAccordion>
+                    <div ngbAccordionItem class="border bg-white shadow-sm">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                <div>
+                                    <h3 class="h6 fw-bold mb-1">🔒 Security & Authentication</h3>
+                                    <p class="mb-0 text-secondary small">
+                                        Information about account security and authentication.
+                                    </p>
+                                </div>
+                            </button>
+                        </h2>
+
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    GoEventsNow uses JWT authentication with secure cookies to protect
+                                    user sessions and private operations. Some features require users
+                                    to be authenticated before accessing them.
+                                </ng-template>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row g-4 mt-1">
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div ngbAccordion>
+                    <div ngbAccordionItem class="border bg-white shadow-sm">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                <div>
+                                    <h3 class="h6 fw-bold mb-1">❓ Common Problems</h3>
+                                    <p class="mb-0 text-secondary small">
+                                        Solutions for common issues and troubleshooting.
+                                    </p>
+                                </div>
+                            </button>
+                        </h2>
+
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    If the application does not load correctly, try refreshing the page,
+                                    checking your internet connection or logging in again.
+                                    If the issue persists, contact support.
+                                </ng-template>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div ngbAccordion>
+                    <div ngbAccordionItem class="border bg-white shadow-sm">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                <div>
+                                    <h3 class="h6 fw-bold mb-1">🌐 Browser Compatibility</h3>
+                                    <p class="mb-0 text-secondary small">
+                                        Supported browsers and HTTPS information.
+                                    </p>
+                                </div>
+                            </button>
+                        </h2>
+
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    The application works correctly in modern browsers such as
+                                    Google Chrome, Microsoft Edge and Mozilla Firefox.
+                                    During local execution, browsers may display a warning due to the
+                                    self-signed HTTPS certificate.
+                                </ng-template>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div ngbAccordion>
+                    <div ngbAccordionItem class="border bg-white shadow-sm">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                <div>
+                                    <h3 class="h6 fw-bold mb-1">📞 Contact & Support</h3>
+                                    <p class="mb-0 text-secondary small">
+                                        Need additional help or want to report an issue?
+                                    </p>
+                                </div>
+                            </button>
+                        </h2>
+
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    For additional support, open an issue in the GitHub repository of the project.
+                                </ng-template>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+            <a [routerLink]="''" class="btn btn-outline-dark">Back to Home</a>
+        </div>
+    </div>
+</section>

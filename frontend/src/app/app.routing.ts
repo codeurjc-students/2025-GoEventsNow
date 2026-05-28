@@ -17,6 +17,7 @@ import { TicketSelectionComponent } from './components/tickets/ticket-selection.
 import { AdminGuard } from './admin.guard';
 import { authGuard } from './auth.guard';
 import { HelpComponent } from './components/help/help.component';
+import { GraphicsDashboardComponent } from './components/graphics/graphics-dashboard.component';
 
 export const appRoutes: Routes = [
 
@@ -36,6 +37,7 @@ export const appRoutes: Routes = [
     { path: 'user/:id', component: UserPageComponent, canActivate: [authGuard] },
     { path: 'event/:id/tickets', component: TicketSelectionComponent, canActivate: [authGuard]},
     { path: 'help', component: HelpComponent },
+    { path: 'graphics', component: GraphicsDashboardComponent, canActivate: [AdminGuard] },
     { path: 'error/:type', component: ErrorComponent },
     { path: '**', redirectTo: 'error/404' }
 

@@ -217,8 +217,8 @@ public class EventServiceTest {
                 "00-00-0000", "00:00",
                 10.0, 20.0, 100, 50, false,
                 List.of(new ParticipantDTO(999L, "Unknown", "Type", "Bio",
-                        false)),
-                new ArrayList<>());
+                        false, 0)),
+                new ArrayList<>(),new ArrayList<>());
 
         when(eventMapper.toDomain(any(EventDTO.class))).thenReturn(firstMockEvent);
         when(participantRepository.existsById(999L)).thenReturn(false);
@@ -263,8 +263,8 @@ public class EventServiceTest {
                 "00-00-0000", "00:00",
                 10.0, 20.0, 100, 50, false,
                 List.of(new ParticipantDTO(999L, "Unknown", "Type", "Bio",
-                        false)),
-                new ArrayList<>());
+                        false, 0)),
+                new ArrayList<>(),new ArrayList<>());
 
         when(eventRepository.existsById(1L)).thenReturn(true);
         when(eventRepository.findById(1L)).thenReturn(Optional.of(firstMockEvent));

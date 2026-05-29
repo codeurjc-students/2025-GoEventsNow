@@ -1,21 +1,24 @@
 package es.goeventsnow.backend.integration;
 
+import java.sql.SQLException;
+import java.util.Collection;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.sql.SQLException;
-import java.util.Collection;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.dto.user.UserDTO;
+import es.goeventsnow.backend.model.Participant;
 import es.goeventsnow.backend.model.User;
 import es.goeventsnow.backend.service.UserService;
 import jakarta.transaction.Transactional;
@@ -112,5 +115,30 @@ public class UserRepositoryTest extends IntegrationTestBase {
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
     }
+
+    @Test
+    public void testFollowAndUnfollowParticipant() throws SQLException {
+        User user = createAndSaveUser("follower", "Follower User", 123456789, "password", "follower@example.com");
+        Participant savedParticipant = createAndSaveParticipant("Original Participant", "Music", "Original biography");
+
+        UserDTO followedUser = userService.followParticipant(user.getId(), savedParticipant.getId());
+        assertTrue(followedUser.followedParticipants().stream().anyMatch(participantDTO -> participantDTO.id().equals(savedParticipant.getId())));
+
+        UserDTO unfollowedUser = userService.unfollowParticipant(user.getId(), savedParticipant.getId());
+        assertFalse(unfollowedUser.followedParticipants().stream().anyMatch(participantDTO -> participantDTO.id().equals(savedParticipant.getId())));
+    }
+
+    @Test
+    public void getFollowedParticipants() throws SQLException {
+        User user = createAndSaveUser("follower", "Follower User", 123456789, "password", "follower@example.com");
+        Participant savedParticipant = createAndSaveParticipant("Original Participant", "Music", "Original biography");
+
+        UserDTO followedUser = userService.followParticipant(user.getId(), savedParticipant.getId());
+        assertTrue(followedUser.followedParticipants().stream().anyMatch(participantDTO -> participantDTO.id().equals(savedParticipant.getId())));
+
+        Page<ParticipantDTO> followedParticipants = userService.getFollowedParticipants(user.getId(), Pageable.unpaged());
+        assertTrue(followedParticipants.getContent().stream().anyMatch(participantDTO -> participantDTO.id().equals(savedParticipant.getId())));
+    }
+
 
 }

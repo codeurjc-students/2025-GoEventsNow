@@ -1,11 +1,11 @@
 @if (event$ | async; as event) {
 
 <div class="position-relative"
-     [style.background]="event.image ? 'url(/api/v1/events/' + event.id + '/image) center/cover no-repeat' : '#e9ecef'"
-     style="height: 250px;">
-        @if (event.image) {
-            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
-        }
+    [style.background]="event.image ? 'url(/api/v1/events/' + event.id + '/image) center/cover no-repeat' : '#e9ecef'"
+    style="height: 250px;">
+    @if (event.image) {
+    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+    }
 </div>
 
 <div class="container pb-5" style="margin-top: -80px; position: relative; z-index: 10;">
@@ -16,12 +16,30 @@
                 <div id="event-detail-page" class="card-body p-4 p-md-5">
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <span class="badge bg-dark text-white rounded-pill px-3 py-2 fw-normal">{{ event.category}}</span>
+                        <span class="badge bg-dark text-white rounded-pill px-3 py-2 fw-normal">{{
+                            event.category}}</span>
+                        @if (currentUser) {
+                        <div class="d-flex align-items-center gap-2">
+                            <button type="button" class="btn btn-sm rounded-pill px-3 py-2"
+                                [class.btn-danger]="isFavorite"
+                                [class.btn-outline-danger]="!isFavorite"
+                                [class.fw-semibold]="isFavorite"
+                                (click)="toggleFavorite()" title="Add to favorites">
+                                <i class="bi" [class.bi-heart-fill]="isFavorite" [class.bi-heart]="!isFavorite"></i>
+                                <span class="ms-2">{{ isFavorite ? 'Favorite' : 'Favorite' }}</span>
+                            </button>
+                            @if (isFavorite) {
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-3 py-2">
+                                Added to favorites
+                            </span>
+                            }
+                        </div>
+                        }
                     </div>
 
                     <h1 class="fw-bold text-dark mb-3">{{ event.title }}</h1>
                     <div class="d-flex align-items-center mb-5">
-            
+
                     </div>
 
                     <div class="row g-4 mb-5">
@@ -49,7 +67,8 @@
                             </div>
                             <div>
                                 <p class="text-muted mb-0 small">Availability</p>
-                                <p class="fw-medium text-dark mb-0">{{ event.availableBasicTickets }} Basic / {{ event.availableVipTickets }} VIP</p>
+                                <p class="fw-medium text-dark mb-0">{{ event.availableBasicTickets }} Basic / {{
+                                    event.availableVipTickets }} VIP</p>
                             </div>
                         </div>
                     </div>
@@ -71,9 +90,8 @@
                                         class="rounded-circle me-3 object-fit-cover" width="55" height="55"
                                         alt="Avatar">
                                     } @else {
-                                    <img src="/images/noImage.png"
-                                        class="rounded-circle me-3 object-fit-cover" width="55" height="55"
-                                        alt="Avatar">
+                                    <img src="/images/noImage.png" class="rounded-circle me-3 object-fit-cover"
+                                        width="55" height="55" alt="Avatar">
                                     }
                                     <div>
                                         <h6 class="mb-0 fw-bold text-dark">{{ participant.name }}</h6>
@@ -82,9 +100,13 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
-                }
+                    }
+
+
+                    <hr class="border-secondary-subtle my-5">
+
 
                 </div>
             </div>
@@ -95,11 +117,12 @@
                 <div class="card-body p-4 p-md-5">
                     <p class="text-muted mb-2">Price per ticket (Basic / VIP)</p>
                     <h2 class="text-primary fw-bold mb-4 display-6">${{ event.basicPrice }} - ${{ event.vipPrice }}</h2>
-                     @if (event.availableBasicTickets > 0 || event.availableVipTickets > 0) {
-                    <button id="buy-ticket-link" [routerLink]="'/event/'+ event.id + '/tickets'" class="btn btn-dark w-100 py-3 rounded-3 fw-bold mb-4">Get Tickets</button>
-                     } @else {
+                    @if (event.availableBasicTickets > 0 || event.availableVipTickets > 0) {
+                    <button id="buy-ticket-link" [routerLink]="'/event/'+ event.id + '/tickets'"
+                        class="btn btn-dark w-100 py-3 rounded-3 fw-bold mb-4">Get Tickets</button>
+                    } @else {
                     <button class="btn btn-secondary w-100 py-3 rounded-3 fw-bold mb-4" disabled>Sold Out</button>
-                     }
+                    }
                 </div>
             </div>
         </div>

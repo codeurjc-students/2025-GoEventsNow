@@ -2,6 +2,7 @@ package es.goeventsnow.backend.dto.user;
 
 import java.util.List;
 
+import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.dto.ticket.TicketDTO;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +22,7 @@ public record UserDTO(
     String favoriteGenre,
     Boolean profileImage,
     List<TicketDTO> tickets,
-    List<String> roles,
+    List<String> roles, 
+    List<EventDTO> favoriteEvents,
     List<ParticipantDTO> followedParticipants
 ) {}

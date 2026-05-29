@@ -12,8 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class User {
@@ -34,6 +34,9 @@ public class User {
 
     @OneToMany(mappedBy = "userOwner", fetch = FetchType.LAZY)
     private List<Ticket> tickets;
+
+    @ManyToMany
+    private List<Event> favoriteEvents;
 
     @ManyToMany
     @JoinTable(name = "user_followed_participants", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "participant_id"))
@@ -155,6 +158,14 @@ public class User {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public List<Event> getFavoriteEvents() {
+        return favoriteEvents;
+    }
+
+    public void setFavoriteEvents(List<Event> favoriteEvents) {
+        this.favoriteEvents = favoriteEvents;
     }
 
     public List<Participant> getFollowedParticipants() {

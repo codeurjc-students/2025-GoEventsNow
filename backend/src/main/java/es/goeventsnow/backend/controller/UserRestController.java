@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
+import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.dto.user.UserDTO;
 import es.goeventsnow.backend.service.UserService;
@@ -102,6 +103,22 @@ public class UserRestController {
         return ResponseEntity.ok(userService.userExists(username));
     }
 
+    @PostMapping("/{id}/favorites/{eventId}")
+    public ResponseEntity<UserDTO> addFavoriteEvent(@PathVariable long id, @PathVariable long eventId, HttpServletRequest request) throws SQLException {
+        validateAuthenticatedUser(id, request);
+        UserDTO authenticatedUser = userService.getAuthenticatedUser(request);
+        UserDTO updatedUser = userService.addFavoriteEvent(authenticatedUser.id(), eventId);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping("/{id}/favorites/{eventId}")
+    public ResponseEntity<UserDTO> removeFavoriteEvent(@PathVariable long id, @PathVariable long eventId, HttpServletRequest request) throws SQLException {
+        validateAuthenticatedUser(id, request);
+        UserDTO authenticatedUser = userService.getAuthenticatedUser(request);
+        UserDTO updatedUser = userService.removeFavoriteEvent(authenticatedUser.id(), eventId);
+        return ResponseEntity.ok(updatedUser);
+    }
+
     @PostMapping("/{id}/following/{participantId}")
     public ResponseEntity<UserDTO> followParticipant(@PathVariable long id, @PathVariable long participantId, HttpServletRequest request) throws SQLException {
         validateAuthenticatedUser(id, request);
@@ -123,6 +140,13 @@ public class UserRestController {
         validateAuthenticatedUser(id, request);
         Page<ParticipantDTO> followedParticipants = userService.getFollowedParticipants(id, pageable);
         return ResponseEntity.ok(followedParticipants);
+    }
+
+    @GetMapping("/{id}/favorites")
+    public ResponseEntity<Page<EventDTO>> getFavoriteEvents(@PathVariable long id, Pageable pageable, HttpServletRequest request) throws SQLException {
+        validateAuthenticatedUser(id, request);
+        Page<EventDTO> favoriteEvents = userService.getFavoriteEvents(id, pageable);
+        return ResponseEntity.ok(favoriteEvents);
     }
 
     private void validateAuthenticatedUser(Long id, HttpServletRequest request) {

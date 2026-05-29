@@ -3,6 +3,7 @@ export interface Participant {
     name:string,
     type:string,
     biography:string,
-    participantImage?:boolean
+    participantImage?:boolean,
+    numFollowers?: number
 
 }

@@ -87,18 +87,19 @@ public abstract class IntegrationTestBase {
     protected UserDTO createUserDTO(Long id, String fullname, String username, Integer phone, String email,
             String password) {
         return new UserDTO(id, fullname, username, phone, email, password, 0, "None", false, null,
-                List.of("USER"));
+            List.of("USER"), new ArrayList<>());
     }
 
     protected EventDTO createEventDTO(Long id, String title, String description, String category, String location,
             String date, String time, Double basicPrice, Double vipPrice, Integer availableBasicTickets,
             Integer availableVipTickets, List<ParticipantDTO> participants) {
         return new EventDTO(id, title, description, category, location, date, time, basicPrice, vipPrice,
-                availableBasicTickets, availableVipTickets, false, participants, null);
+            availableBasicTickets, availableVipTickets, false, participants, null);
     }
 
     protected ParticipantDTO toParticipantDTO(Participant participant) {
         return new ParticipantDTO(participant.getId(), participant.getName(), participant.getType(),
-                participant.getBiography(), participant.getParticipantImage());
+                participant.getBiography(), participant.getParticipantImage(), participant.getNumFollowers());
     }
+
 }

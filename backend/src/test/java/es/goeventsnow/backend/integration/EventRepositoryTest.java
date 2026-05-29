@@ -76,7 +76,7 @@ public class EventRepositoryTest extends IntegrationTestBase {
 
     @Test
     public void shouldRejectEventCreationWithMissingParticipantThroughService() {
-        ParticipantDTO missingParticipant = new ParticipantDTO(999L, "Missing", "Music", "Missing participant", false);
+        ParticipantDTO missingParticipant = new ParticipantDTO(999L, "Missing", "Music", "Missing participant", false,0);
         EventDTO eventToAdd = createEventDTO(null, "Invalid Event", "Description", "Music", "Madrid",
                 "2025-07-15", "12:00", 50.0, 150.0, 100, 20, List.of(missingParticipant));
 

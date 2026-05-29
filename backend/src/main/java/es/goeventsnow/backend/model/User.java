@@ -9,7 +9,10 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -31,6 +34,10 @@ public class User {
 
     @OneToMany(mappedBy = "userOwner", fetch = FetchType.LAZY)
     private List<Ticket> tickets;
+
+    @ManyToMany
+    @JoinTable(name = "user_followed_participants", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "participant_id"))
+    private List<Participant> followedParticipants;
     
     @Lob
     private Blob profileImageFile;
@@ -148,6 +155,14 @@ public class User {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public List<Participant> getFollowedParticipants() {
+        return followedParticipants;
+    }
+
+    public void setFollowedParticipants(List<Participant> followedParticipants) {
+        this.followedParticipants = followedParticipants;
     }
 
 }

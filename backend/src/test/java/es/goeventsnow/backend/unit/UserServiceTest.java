@@ -1,33 +1,40 @@
 package es.goeventsnow.backend.unit;
 
+import java.security.Principal;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.security.Principal;
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.goeventsnow.backend.dto.user.UserDTO;
 import es.goeventsnow.backend.dto.user.UserMapper;
+import es.goeventsnow.backend.model.Participant;
+import es.goeventsnow.backend.dto.participant.ParticipantDTO;
+import es.goeventsnow.backend.dto.participant.ParticipantMapper;
+import es.goeventsnow.backend.repository.ParticipantRepository;
 import es.goeventsnow.backend.model.User;
 import es.goeventsnow.backend.repository.UserRepository;
 import es.goeventsnow.backend.service.UserService;
@@ -47,6 +54,12 @@ public class UserServiceTest {
     @Mock
     private Principal principal;
 
+    @Mock
+    private ParticipantRepository participantRepository;
+
+    @Mock
+    private ParticipantMapper participantMapper;
+
     @InjectMocks
     private UserService userService;
 
@@ -55,6 +68,8 @@ public class UserServiceTest {
     private UserDTO firstMockUserDTO;
     private UserDTO secondMockUserDTO;
     private List<User> userList;
+    private Participant mockParticipant;
+    private ParticipantDTO mockParticipantDTO;
 
     @BeforeEach
     public void setUp() {
@@ -69,11 +84,17 @@ public class UserServiceTest {
         secondMockUser.setId(2L);
 
         firstMockUserDTO = new UserDTO(1L, "Mock User 1", "firstMockUser", 123456789,
-                "mockUser1@example.com", "firstPassword", 0, "None", false, null, List.of("USER"));
+                "mockUser1@example.com", "firstPassword", 0, "None", false, null, List.of("USER"),  new ArrayList<>());
         secondMockUserDTO = new UserDTO(2L, "Mock User 2", "secondMockUser", 987654321,
-                "mockUser2@example.com", "secondPassword", 0, "None", false, null, List.of("USER"));
+                "mockUser2@example.com", "secondPassword", 0, "None", false, null, List.of("USER"), new ArrayList<>());
 
         userList = List.of(firstMockUser, secondMockUser);
+
+        mockParticipant = new Participant("Mock Participant", "Music", "Bio");
+        mockParticipant.setId(10L);
+        mockParticipant.setNumFollowers(0);
+
+        mockParticipantDTO = new ParticipantDTO(10L, "Mock Participant", "Music", "Bio", false, 0);
     }
 
     @Test
@@ -164,10 +185,10 @@ public class UserServiceTest {
     @Test
     public void createUserTest() throws SQLException {
         UserDTO newUserDTO = new UserDTO(null, "New User", "newUser", 111222333, "new@example.com",
-                "encodedPassword", 0, "None", false, null, List.of("USER"));
+                "encodedPassword", 0, "None", false, null, List.of("USER"), null);
         User newUser = new User("newUser", "New User", 111222333, "new@example.com", "encodedPassword", "USER");
         UserDTO savedUserDTO = new UserDTO(3L, "New User", "newUser", 111222333, "new@example.com",
-                "encodedPassword", 0, "None", false, null, List.of("USER"));
+                "encodedPassword", 0, "None", false, null, List.of("USER"), null);
 
         when(userMapper.toDomain(newUserDTO)).thenReturn(newUser);
         when(userMapper.toDTO(newUser)).thenReturn(savedUserDTO);
@@ -193,9 +214,9 @@ public class UserServiceTest {
     @Test
     public void replaceUserTest() throws SQLException {
         UserDTO updateUserDTO = new UserDTO(1L, "Updated Name", "ignoredUsername", 111222333,
-                "updated@example.com", "ignoredPassword", 0, "None", false, null, List.of("USER"));
+                "updated@example.com", "ignoredPassword", 0, "None", false, null, List.of("USER") , null);
         UserDTO updatedUserDTO = new UserDTO(1L, "Updated Name", "firstMockUser", 111222333,
-                "updated@example.com", "firstPassword", 0, "None", false, null, List.of("USER"));
+                "updated@example.com", "firstPassword", 0, "None", false, null, List.of("USER"),null);
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(firstMockUser));
         when(userMapper.toDTO(firstMockUser)).thenReturn(updatedUserDTO);
@@ -247,4 +268,86 @@ public class UserServiceTest {
         assertEquals(HttpStatus.UNAUTHORIZED, exception.getStatusCode());
         verify(userRepository, never()).findByUsername(any(String.class));
     }
+
+    @Test
+    public void followParticipantTest() throws SQLException {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(firstMockUser));
+        when(participantRepository.findById(10L)).thenReturn(Optional.of(mockParticipant));
+
+        when(userRepository.save(any(User.class))).thenReturn(firstMockUser);
+        when(participantRepository.save(any(Participant.class))).thenReturn(mockParticipant);
+
+        UserDTO followedUserDTO = new UserDTO(1L, "Mock User 1", "firstMockUser", 123456789,
+            "mockUser1@example.com", "firstPassword", 0, "None", false, null, List.of("USER"), List.of(mockParticipantDTO));
+
+        when(userMapper.toDTO(firstMockUser)).thenReturn(followedUserDTO);
+
+        UserDTO userFollowed = userService.followParticipant(1L, 10L);
+
+        assertTrue(userFollowed.followedParticipants().stream().anyMatch(p -> p.id().equals(10L)));
+        verify(userRepository, times(1)).findById(1L);
+        verify(participantRepository, times(1)).findById(10L);
+        verify(userRepository, times(1)).save(any(User.class));
+        verify(participantRepository, times(1)).save(any(Participant.class));
+    }
+
+    @Test
+    public void unfollowParticipantTest() throws SQLException {
+  
+        firstMockUser.setFollowedParticipants(new ArrayList<>(List.of(mockParticipant)));
+        when(userRepository.findById(1L)).thenReturn(Optional.of(firstMockUser));
+        when(participantRepository.findById(10L)).thenReturn(Optional.of(mockParticipant));
+
+        UserDTO unfollowedUserDTO = new UserDTO(1L, "Mock User 1", "firstMockUser", 123456789,
+            "mockUser1@example.com", "firstPassword", 0, "None", false, null, List.of("USER"), new ArrayList<>());
+
+        when(userRepository.save(any(User.class))).thenReturn(firstMockUser);
+        when(participantRepository.save(any(Participant.class))).thenReturn(mockParticipant);
+        when(userMapper.toDTO(firstMockUser)).thenReturn(unfollowedUserDTO);
+
+        UserDTO userUnfollowed = userService.unfollowParticipant(1L, 10L);
+
+        assertFalse(userUnfollowed.followedParticipants().stream().anyMatch(p -> p.id().equals(10L)));
+        verify(userRepository, times(1)).findById(1L);
+        verify(participantRepository, times(1)).findById(10L);
+        verify(userRepository, times(1)).save(any(User.class));
+        verify(participantRepository, times(1)).save(any(Participant.class));
+    }
+
+    @Test
+    public void getFollowedParticipantsTest() throws SQLException {
+  
+        firstMockUser.setFollowedParticipants(new ArrayList<>(List.of(mockParticipant)));
+        when(userRepository.findById(1L)).thenReturn(Optional.of(firstMockUser));
+
+        Page<Participant> participantsFollowed = new PageImpl<>(List.of(mockParticipant));
+        when(participantRepository.findByIdIn(List.of(10L), Pageable.unpaged())).thenReturn(participantsFollowed);
+
+        when(participantMapper.toDTO(mockParticipant)).thenReturn(mockParticipantDTO);
+
+        Page<ParticipantDTO> result = userService.getFollowedParticipants(1L, Pageable.unpaged());
+
+        assertTrue(result.getContent().stream().anyMatch(p -> p.id().equals(10L)));
+        verify(userRepository, times(1)).findById(1L);
+        verify(participantRepository, times(1)).findByIdIn(List.of(10L), Pageable.unpaged());
+        verify(participantMapper, times(1)).toDTO(mockParticipant);
+    }
+
+    @Test
+    public void followParticipantAlreadyFollowedThrowsBadRequestTest() throws SQLException {
+        firstMockUser.setFollowedParticipants(new ArrayList<>(List.of(mockParticipant)));
+
+        when(userRepository.findById(1L)).thenReturn(Optional.of(firstMockUser));
+        when(participantRepository.findById(10L)).thenReturn(Optional.of(mockParticipant));
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> userService.followParticipant(1L, 10L));
+
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+        verify(userRepository, times(1)).findById(1L);
+        verify(participantRepository, times(1)).findById(10L);
+        verify(userRepository, never()).save(any(User.class));
+        verify(participantRepository, never()).save(any(Participant.class));
+    }
+
 }

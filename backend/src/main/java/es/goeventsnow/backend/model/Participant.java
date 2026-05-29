@@ -23,13 +23,13 @@ public class Participant {
     private String type;
     private String biography;
     private boolean participantImage;
+    private Integer numFollowers;
 
     @Lob
     @JsonIgnore
     private Blob participantImageFile;
 
     @ManyToMany (mappedBy = "participants")
-
     private List<Event> events;
 
     public Participant() {}
@@ -38,6 +38,7 @@ public class Participant {
         this.name = name;
         this.type = type;
         this.biography = biography;
+        this.numFollowers = 0;
     }
 
     public Long getId() {
@@ -86,6 +87,14 @@ public class Participant {
 
     public void setParticipantImageFile(Blob participantImageFile) {
         this.participantImageFile = participantImageFile;
+    }
+
+    public Integer getNumFollowers() {
+        return numFollowers;
+    }
+
+    public void setNumFollowers(Integer numFollowers) {
+        this.numFollowers = numFollowers;
     }
 
     public List<Event> getEvents() {

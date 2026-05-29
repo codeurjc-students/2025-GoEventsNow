@@ -40,7 +40,7 @@ public class ParticipantRepositoryTest extends IntegrationTestBase {
 
     @Test
     public void shouldAddParticipantThroughService() {
-        ParticipantDTO participantToAdd = new ParticipantDTO(null, "Participant Three", "Art", "Biography of Participant Three", false);
+        ParticipantDTO participantToAdd = new ParticipantDTO(null, "Participant Three", "Art", "Biography of Participant Three", false,0);
 
         ParticipantDTO savedParticipantDTO = participantService.addParticipant(participantToAdd);
         Participant participantInRepository = participantRepository.findById(savedParticipantDTO.id()).orElseThrow();
@@ -49,7 +49,7 @@ public class ParticipantRepositoryTest extends IntegrationTestBase {
         assertEquals(participantToAdd.name(), participantInRepository.getName());
         assertEquals(participantToAdd.type(), participantInRepository.getType());
         assertEquals(participantToAdd.biography(), participantInRepository.getBiography());
-        assertFalse(participantInRepository.getParticipantImage());
+        assertEquals(participantToAdd.numFollowers(), participantInRepository.getNumFollowers());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ParticipantRepositoryTest extends IntegrationTestBase {
     public void shouldReplaceParticipantThroughService() throws SQLException {
         Participant savedParticipant = createAndSaveParticipant("Original Participant", "Music", "Original biography");
         ParticipantDTO updatedParticipant = new ParticipantDTO(savedParticipant.getId(), "Updated Participant",
-                "Technology", "Updated biography", false);
+                "Technology", "Updated biography", false,0);
 
         ParticipantDTO replacedParticipant = participantService.replaceParticipant(savedParticipant.getId(), updatedParticipant);
         Participant participantInRepository = participantRepository.findById(replacedParticipant.id()).orElseThrow();
@@ -85,12 +85,12 @@ public class ParticipantRepositoryTest extends IntegrationTestBase {
         assertEquals("Updated Participant", participantInRepository.getName());
         assertEquals("Technology", participantInRepository.getType());
         assertEquals("Updated biography", participantInRepository.getBiography());
-        assertFalse(participantInRepository.getParticipantImage());
+        assertEquals(0, participantInRepository.getNumFollowers());
     }
 
     @Test
     public void shouldThrowNotFoundWhenReplacingMissingParticipantThroughService() {
-        ParticipantDTO updatedParticipant = new ParticipantDTO(null, "Missing Participant", "Music", "Missing biography", false);
+        ParticipantDTO updatedParticipant = new ParticipantDTO(null, "Missing Participant", "Music", "Missing biography", false,0);
 
         ResponseStatusException exception = assertThrows(ResponseStatusException.class,
                 () -> participantService.replaceParticipant(999L, updatedParticipant));

@@ -19,7 +19,7 @@ export class AddParticipantsComponent {
 
     newParticipant: boolean = true;
     participant: Participant = {
-        name: '', type: '', biography: '', participantImage: false
+        name: '', type: '', biography: '', participantImage: false, numFollowers: 0
     };
     removeImage: boolean = false;
     errorMessage: string | null = null;

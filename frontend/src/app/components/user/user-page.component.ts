@@ -9,12 +9,14 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { EventService } from "../../service/event.service";
 import { NgbAlert } from "@ng-bootstrap/ng-bootstrap/alert";
 import { getSelectedFile } from "../../utils/file-utils";
+import { NgbRating } from "@ng-bootstrap/ng-bootstrap";
+import { Participant } from "../../model/participant";
 
 @Component({
     standalone: true,
     selector: 'app-user-page',
     templateUrl: './user-page.component.html',
-    imports: [CommonModule, FormsModule, NgbAlert]
+    imports: [CommonModule, FormsModule, NgbAlert, NgbRating]
 })
 
 export class UserPageComponent {
@@ -28,29 +30,30 @@ export class UserPageComponent {
     removeImage: boolean = false;
     tickets: Ticket[] = [];
     errorMessage: string | null = null;
+    followedParticipants: Participant[] = [];
 
-    constructor(private router: Router, private eventService:EventService ,private userService: UserService, private cd: ChangeDetectorRef, private activatedRoute: ActivatedRoute) {
+    constructor(private router: Router, private eventService: EventService, private userService: UserService, private cd: ChangeDetectorRef, private activatedRoute: ActivatedRoute) {
 
         this.userId = this.activatedRoute.snapshot.paramMap.get('id');
 
         if (this.userId) {
-        this.userService.getCurrentUser().subscribe({
-            next: (user: User) => {
-                
-                if (user.id !== Number(this.userId)) {
-                    this.router.navigate(['/error/unauthorized']);
-                    return;
-                }
+            this.userService.getCurrentUser().subscribe({
+                next: (user: User) => {
 
-                this.user = user;
-                this.tickets = this.user.tickets || [];
-                this.loadEventsForTickets();
-                
-            }
-        });
+                    if (user.id !== Number(this.userId)) {
+                        this.router.navigate(['/error/unauthorized']);
+                        return;
+                    }
+
+                    this.user = user;
+                    this.tickets = this.user.tickets || [];
+                    this.followedParticipants = user.followedParticipants || [];
+                    this.loadEventsForTickets();
+                    
+                }
+            });
         }
     }
-
 
     send(): void {
 
@@ -68,7 +71,7 @@ export class UserPageComponent {
                         next: () => { this.router.navigate(['']); },
                         error: (error) => console.error('Failed to delete image:', error)
                     });
-                }else if (this.profileImage) {
+                } else if (this.profileImage) {
                     this.uploadImage(user);
                 }
                 this.router.navigate(['']);
@@ -107,6 +110,26 @@ export class UserPageComponent {
 
     }
 
+    unfollowParticipant(id: number | undefined): void {
+
+        if (!this.user.id) return;
+        if (!id) return;
+
+        const participantId = Number(id);
+        const userId = Number(this.user.id);
+
+        this.userService.unfollowParticipant(userId, participantId).subscribe({
+            next: () => {
+                this.followedParticipants = this.followedParticipants.filter(p => p.id !== participantId);
+                this.cd.detectChanges();
+            },
+            error: (err) => {
+                console.error(`Failed to unfollow participant with id ${participantId}:`, err);
+            }
+        });
+
+    }
+
     isFormUserValid(): boolean {
         const hasValidPhone =
             this.user.phone !== null &&
@@ -114,10 +137,10 @@ export class UserPageComponent {
             /^\d{9}$/.test(this.user.phone.toString());
 
         return this.user.fullname.trim().length > 0 &&
-               this.user.email.trim().length > 0 &&
-               this.user.email.includes('@') &&
-               this.user.email.includes('.') &&
-                !(this.profileImage !== null && this.removeImage === true) &&
-               hasValidPhone;
+            this.user.email.trim().length > 0 &&
+            this.user.email.includes('@') &&
+            this.user.email.includes('.') &&
+            !(this.profileImage !== null && this.removeImage === true) &&
+            hasValidPhone;
     }
 }

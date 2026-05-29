@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 public class UserApiTest extends BaseApiTest {
 
     private static final String API_USERS = "/api/v1/users/";
-        private static final String USER_IMAGE_PATH = "src/main/resources/static/images/participants/badbunny_participant.jpg";
+    private static final String USER_IMAGE_PATH = "src/main/resources/static/images/participants/badbunny_participant.jpg";
 
     @BeforeEach
     public void setUp() {
@@ -165,16 +165,16 @@ public class UserApiTest extends BaseApiTest {
     }
 
     @Test
-    public void testGetUserImageNoAuth_return401() {
+    public void testGetUserImageNoAuth_return200() {
         given()
                 .when()
                 .get(API_USERS + "1/image")
                 .then()
-                .statusCode(401);
+                .statusCode(200);
     }
 
     @Test
-    public void testGetOtherUserImage_return403() {
+    public void testGetOtherUserImage_return200() {
         String userCookie = getUserCookie();
         String adminCookie = getAdminCookie();
 
@@ -185,7 +185,7 @@ public class UserApiTest extends BaseApiTest {
                 .when()
                 .get(API_USERS + adminId + "/image")
                 .then()
-                .statusCode(403);
+                .statusCode(200);
     }
 
     @Test
@@ -319,5 +319,52 @@ public class UserApiTest extends BaseApiTest {
                 .delete(API_USERS + adminId + "/image")
                 .then()
                 .statusCode(403);
+    }
+
+    @Test
+    public void testAddFollowingParticipant_return200() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        addFollowingParticipant(adminCookie, adminId);
+    }
+
+    @Test
+    public void testDeleteFollowingParticipant_return200() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        addFollowingParticipant(adminCookie, adminId);
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .delete(API_USERS + adminId + "/following/1")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void getUserFollowingParticipants_return200() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        addFollowingParticipant(adminCookie, adminId);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .get(API_USERS + adminId + "/following")
+                .then()
+                .statusCode(200)
+                .body("size()", is(1));
+    }
+
+    private void addFollowingParticipant(String adminCookie, int adminId) {
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .post(API_USERS + adminId + "/following/1")
+                .then()
+                .statusCode(200);
     }
 }

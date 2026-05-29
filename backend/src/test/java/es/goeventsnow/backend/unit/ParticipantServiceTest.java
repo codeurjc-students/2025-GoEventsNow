@@ -69,8 +69,8 @@ public class ParticipantServiceTest {
         secondMockParticipant = new Participant("Mock Participant 2", "Speaker", "Biography 2");
         secondMockParticipant.setId(2L);
 
-        firstMockParticipantDTO = new ParticipantDTO(1L, "Mock Participant 1", "Singer", "Biography 1", false);
-        secondMockParticipantDTO = new ParticipantDTO(2L, "Mock Participant 2", "Speaker", "Biography 2", false);
+        firstMockParticipantDTO = new ParticipantDTO(1L, "Mock Participant 1", "Singer", "Biography 1", false, 0);
+        secondMockParticipantDTO = new ParticipantDTO(2L, "Mock Participant 2", "Speaker", "Biography 2", false, 0);
     }
 
     @Test
@@ -118,11 +118,11 @@ public class ParticipantServiceTest {
 
     @Test
     public void addParticipantTest() {
-        ParticipantDTO newParticipantDTO = new ParticipantDTO(99L, "New Participant", "DJ", "New bio", false);
+        ParticipantDTO newParticipantDTO = new ParticipantDTO(99L, "New Participant", "DJ", "New bio", false,0);
         Participant newParticipant = new Participant("New Participant", "DJ", "New bio");
         Participant savedParticipant = new Participant("New Participant", "DJ", "New bio");
         savedParticipant.setId(3L);
-        ParticipantDTO savedParticipantDTO = new ParticipantDTO(3L, "New Participant", "DJ", "New bio", false);
+        ParticipantDTO savedParticipantDTO = new ParticipantDTO(3L, "New Participant", "DJ", "New bio", false,0);
 
         when(participantMapper.toDomain(newParticipantDTO)).thenReturn(newParticipant);
         when(participantRepository.save(newParticipant)).thenReturn(savedParticipant);
@@ -182,10 +182,10 @@ public class ParticipantServiceTest {
     @Test
     public void replaceParticipantTest() throws SQLException {
         ParticipantDTO updateParticipantDTO = new ParticipantDTO(10L, "Updated Participant", "Actor",
-                "Updated bio", false);
+                "Updated bio", false,0);
         Participant updatedParticipant = new Participant("Updated Participant", "Actor", "Updated bio");
         ParticipantDTO updatedParticipantDTO = new ParticipantDTO(1L, "Updated Participant", "Actor",
-                "Updated bio", false);
+                "Updated bio", false,0);
 
         when(participantRepository.existsById(1L)).thenReturn(true);
         when(participantRepository.findById(1L)).thenReturn(Optional.of(firstMockParticipant));

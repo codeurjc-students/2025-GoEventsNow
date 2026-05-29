@@ -10,5 +10,6 @@ String name,
 String type,
 @NotBlank
 String biography,
-Boolean participantImage
+Boolean participantImage,
+Integer numFollowers
 ) { }

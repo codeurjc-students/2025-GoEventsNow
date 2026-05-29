@@ -7,22 +7,29 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import es.goeventsnow.backend.dto.participant.ParticipantDTO;
+import es.goeventsnow.backend.dto.participant.ParticipantMapper;
 import es.goeventsnow.backend.dto.ticket.TicketDTO;
 import es.goeventsnow.backend.dto.user.NewUserDTO;
 import es.goeventsnow.backend.dto.user.UserDTO;
 import es.goeventsnow.backend.dto.user.UserMapper;
+import es.goeventsnow.backend.model.Participant;
 import es.goeventsnow.backend.model.User;
+import es.goeventsnow.backend.repository.ParticipantRepository;
 import es.goeventsnow.backend.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -33,7 +40,13 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private ParticipantRepository participantRepository;
+
+    @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ParticipantMapper participantMapper;
 
     public Collection<UserDTO> getAllUsers() {
         return toDTOs(userRepository.findAll());
@@ -132,6 +145,43 @@ public class UserService {
         }
     }
 
+    public UserDTO followParticipant(long userId, long participantId) throws SQLException {
+        User user = getUser(userId);
+        Participant participant = getParticipant(participantId);
+        if (user.getFollowedParticipants() == null) {
+            user.setFollowedParticipants(new ArrayList<>());
+        }
+        if (user.getFollowedParticipants().contains(participant)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Participant is already being followed");
+        }
+        user.getFollowedParticipants().add(participant);
+        updateParticipantFollowers(participant, 1);
+        return toDTO(userRepository.save(user));
+    }
+
+    public UserDTO unfollowParticipant(long userId, long participantId) throws SQLException {
+        User user = getUser(userId);
+        Participant participant = getParticipant(participantId);
+        if (!user.getFollowedParticipants().contains(participant)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Participant is not being followed");
+        }
+        user.getFollowedParticipants().remove(participant);
+        updateParticipantFollowers(participant, -1);
+        return toDTO(userRepository.save(user));
+    }
+
+    public Page<ParticipantDTO> getFollowedParticipants(long userId, Pageable pageable) throws SQLException {
+        User user = getUser(userId);
+        List<Participant> followedParticipants = user.getFollowedParticipants();
+
+        if (followedParticipants == null || followedParticipants.isEmpty()) {
+            return Page.empty(pageable);
+        }
+
+        List<Long> ids = followedParticipants.stream().map(Participant::getId).toList();
+        return participantRepository.findByIdIn(ids, pageable).map(participantMapper::toDTO);
+    }
+
     private UserDTO toDTO(User user) {
         return userMapper.toDTO(user);
     }
@@ -141,9 +191,19 @@ public class UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
+    private Participant getParticipant (long id) {
+        return participantRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found"));
+    }
+
     private User getUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+    }
+
+    private void updateParticipantFollowers(Participant participant, int delta) {
+        participant.setNumFollowers(participant.getNumFollowers() + delta);
+        participantRepository.save(participant);
     }
 
     private UserDTO buildReplacementUserDTO(Long userId, NewUserDTO newUserDTO, Boolean removeImage,
@@ -153,6 +213,7 @@ public class UserService {
         String password = encodedPassword(newUserDTO, passwordEncoder);
         Integer numTicketsBought = 0;
         List<TicketDTO> tickets = null;
+        List<ParticipantDTO> followedParticipants = null;
         String favoriteGenre = "None";
         List<String> roles = List.of("USER");
 
@@ -166,11 +227,12 @@ public class UserService {
             password = oldUser.password();
             favoriteGenre = oldUser.favoriteGenre();
             tickets = oldUser.tickets();
+            followedParticipants = oldUser.followedParticipants();
             roles = oldUser.roles();
         }
 
         return new UserDTO(userId, newUserDTO.fullname(), userName, newUserDTO.phone(),
-                newUserDTO.email(), password, numTicketsBought, favoriteGenre, image, tickets, roles);
+                newUserDTO.email(), password, numTicketsBought, favoriteGenre, image, tickets, roles, followedParticipants);
     }
 
     private String encodedPassword(NewUserDTO newUserDTO, PasswordEncoder passwordEncoder) {

@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
+import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.dto.user.UserDTO;
 import es.goeventsnow.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,6 +48,16 @@ public class UserRestController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable long id) {
+        UserDTO userDTO = userService.findById(id);
+        if (userDTO != null) {
+            return ResponseEntity.ok(userDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> replaceUser(@PathVariable long id, @Valid @RequestBody UserDTO userDTO,
             HttpServletRequest request) throws SQLException {
@@ -53,9 +66,8 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}/image")
-    public ResponseEntity<Object> getProfilePhoto(@PathVariable long id, HttpServletRequest request)
+    public ResponseEntity<Object> getProfilePhoto(@PathVariable long id)
             throws IOException, SQLException {
-        validateAuthenticatedUser(id, request);
         Resource profilePhoto = userService.getProfilePhoto(id);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(profilePhoto);
     }
@@ -88,6 +100,29 @@ public class UserRestController {
     @GetMapping("/exists")
     public ResponseEntity<Boolean> exists(@RequestParam String username) {
         return ResponseEntity.ok(userService.userExists(username));
+    }
+
+    @PostMapping("/{id}/following/{participantId}")
+    public ResponseEntity<UserDTO> followParticipant(@PathVariable long id, @PathVariable long participantId, HttpServletRequest request) throws SQLException {
+        validateAuthenticatedUser(id, request);
+        UserDTO authenticatedUser = userService.getAuthenticatedUser(request);
+        UserDTO updatedUser = userService.followParticipant(authenticatedUser.id(), participantId);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping("/{id}/following/{participantId}")
+    public ResponseEntity<UserDTO> unfollowParticipant(@PathVariable long id, @PathVariable long participantId, HttpServletRequest request) throws SQLException {
+        validateAuthenticatedUser(id, request);
+        UserDTO authenticatedUser = userService.getAuthenticatedUser(request);
+        UserDTO updatedUser = userService.unfollowParticipant(authenticatedUser.id(), participantId);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @GetMapping("/{id}/following")
+    public ResponseEntity<Page<ParticipantDTO>> getFollowedParticipants(@PathVariable long id, Pageable pageable, HttpServletRequest request) throws SQLException {
+        validateAuthenticatedUser(id, request);
+        Page<ParticipantDTO> followedParticipants = userService.getFollowedParticipants(id, pageable);
+        return ResponseEntity.ok(followedParticipants);
     }
 
     private void validateAuthenticatedUser(Long id, HttpServletRequest request) {

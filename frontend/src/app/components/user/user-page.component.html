@@ -42,16 +42,23 @@
                         <div class="d-flex justify-content-between align-items-center bg-light p-1 rounded-pill shadow-sm mb-4"
                             style="max-width: 800px; margin: 0 auto;">
 
-                            <button id="personal-section" (click)="section = 'personal'" [class.bg-white]="section === 'personal'"
-                                [class.shadow-sm]="section === 'personal'"
+                            <button id="personal-section" (click)="section = 'personal'"
+                                [class.bg-white]="section === 'personal'" [class.shadow-sm]="section === 'personal'"
                                 class="btn border-0 rounded-pill px-4 py-2 fw-bold flex-grow-1 transition-all">
                                 Personal Info
                             </button>
 
-                            <button id="ticket-section" (click)="section = 'tickets'" [class.bg-white]="section === 'tickets'"
-                                [class.shadow-sm]="section === 'tickets'"
+                            <button id="ticket-section" (click)="section = 'tickets'"
+                                [class.bg-white]="section === 'tickets'" [class.shadow-sm]="section === 'tickets'"
                                 class="btn border-0 rounded-pill px-4 py-2 fw-bold flex-grow-1 transition-all">
                                 My Tickets ({{ user.tickets?.length || 0 }})
+                            </button>
+
+                            <button id="followedParticipants-section" (click)="section = 'followedParticipants'"
+                                [class.bg-white]="section === 'followedParticipants'"
+                                [class.shadow-sm]="section === 'followedParticipants'"
+                                class="btn border-0 rounded-pill px-4 py-2 fw-bold flex-grow-1 transition-all">
+                                My Followed Participants ({{ followedParticipants.length }})
                             </button>
                         </div>
 
@@ -98,7 +105,8 @@
                                             <input type="tel" class="form-control" id="phone" name="phone"
                                                 [(ngModel)]="user.phone" required ng-minlength=9 ng-maxlength=9
                                                 placeholder="Enter your phone number">
-                                            @if (user.phone && user.phone.toString().length === 9 && /^\d+$/.test(user.phone.toString())) {
+                                            @if (user.phone && user.phone.toString().length === 9 &&
+                                            /^\d+$/.test(user.phone.toString())) {
                                             <div class="form-text text-muted">Good!</div>
                                             }
                                             @else {
@@ -131,7 +139,7 @@
                                             <div class="form-text text-danger">Cannot upload and remove image at the
                                                 same time. Please uncheck "Remove Image" to upload a new one.</div>
                                             }
-                                            
+
                                         </div>
 
                                         <div class="d-grid">
@@ -165,7 +173,8 @@
 
                                             <div class="d-flex justify-content-between align-items-start mb-1">
                                                 <div>
-                                                    <h5 id="event-bought-title-{{event.id}}" class="card-title fw-bold d-inline-block me-2">{{event.title}}
+                                                    <h5 id="event-bought-title-{{event.id}}"
+                                                        class="card-title fw-bold d-inline-block me-2">{{event.title}}
                                                     </h5>
                                                     <div class="mt-1">
                                                         <span
@@ -209,6 +218,66 @@
 
                             </div>
                             }
+                            }
+                            }
+                            }
+                            @case ('followedParticipants') {
+                            @if (followedParticipants.length === 0) {
+                            <h1> No followed participants found</h1>
+                            }@else {
+
+                            @for (participant of followedParticipants; track participant.id) {
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="card shadow-sm border-0 rounded-4 overflow-hidden mb-3 p-2"
+                                    style="max-width: 1000px;">
+                                    <div class="row g-0 align-items-center">
+
+                                        <div class="col-md-2 col-lg-2 col-2">
+                                            <img [src]="participant.participantImage ? ('/api/v1/participants/' + participant.id + '/image') : '/images/noImage.png'"
+                                                class="img-fluid rounded-3 object-fit-cover"
+                                                style="height: 160px; width: 100%;" alt="Participant">
+                                        </div>
+
+                                        <div class="col-md-10 col-lg-10 col-10">
+                                            <div class="card-body py-2 px-4">
+
+                                                <div class="d-flex justify-content-between align-items-start mb-1">
+                                                    <div>
+                                                        <h5 id="participant-title-{{participant.id}}"
+                                                            class="card-title fw-bold d-inline-block me-2">
+                                                            {{ participant.name }}
+                                                        </h5>
+                                                        <div class="d-flex flex-wrap align-items-center gap-2 mt-1">
+                                                            <span class="badge rounded-pill px-3 py-2 fw-semibold text-bg-primary-subtle text-primary border border-primary-subtle">
+                                                                <i class="bi bi-people-fill me-1"></i>
+                                                                {{ participant.numFollowers }} followers
+                                                            </span>
+                                                            <span class="badge border text-dark fw-normal rounded-pill px-3 bg-light">
+                                                                {{ participant.type }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex gap-2">
+                                                        <button id="unfollow-{{participant.id}}"
+                                                            (click)="unfollowParticipant(participant.id)"
+                                                            class="btn btn-outline-danger btn-sm border-light-subtle shadow-sm rounded-3"
+                                                            title="Unfollow">
+                                                            <i class="bi bi-x-circle"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <p class="card-text text-secondary small mb-3">
+                                                    {{ participant.biography }}
+                                                </p>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                             }
                             }
                             }

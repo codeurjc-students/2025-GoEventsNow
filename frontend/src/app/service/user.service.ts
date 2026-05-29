@@ -2,6 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { User } from "../model/user";
 import { Observable } from "rxjs/internal/Observable";
+import { map } from "rxjs/internal/operators/map";
+import { Participant } from "../model/participant";
 
 const BASE_URL = '/api/v1/users/';
 
@@ -15,11 +17,14 @@ export class UserService {
         return this.httpClient.get<User>(BASE_URL + 'me', { withCredentials: true });
     }
 
+    public findById(id: number): Observable<User> {
+        return this.httpClient.get<User>(BASE_URL + id);
+    }
+
     public userExists(username: string): Observable<boolean> {
         const params = `exists?username=${encodeURIComponent(username)}`;
         return this.httpClient.get<boolean>(BASE_URL + params);
     }
-
 
     public replaceUser(user: User): Observable<User> {
         const id = Number(user.id);
@@ -45,5 +50,19 @@ export class UserService {
         return this.httpClient.delete<any>(BASE_URL + id + '/image');
     }
 
+    public followParticipant(userId: number, participantId: number): Observable<User> {
+        return this.httpClient.post<User>(BASE_URL + `${userId}/following/${participantId}`, null);
+    }
+
+    public unfollowParticipant(userId: number, participantId: number): Observable<User> {
+        return this.httpClient.delete<User>(BASE_URL + `${userId}/following/${participantId}`);
+    }
+
+    public getFollowedParticipants(userId: number, page: number, size: number): Observable<Participant[]> {
+        const url = `${BASE_URL}${userId}/following?page=${page}&size=${size}`;
+        return this.httpClient.get<any>(url).pipe(
+            map(response => response.content)
+        );
+    }
 
 }

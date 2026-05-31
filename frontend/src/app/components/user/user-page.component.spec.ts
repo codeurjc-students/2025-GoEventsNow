@@ -6,6 +6,9 @@ import { UserService } from '../../service/user.service';
 import { EventService } from '../../service/event.service';
 import { User } from '../../model/user';
 import { Event } from '../../model/event';
+import { Review } from '../../model/review';
+import { Participant } from '../../model/participant';
+import { ReviewService } from '../../service/review.service';
 
 const mockEvent: Event = {
   id: 1,
@@ -44,11 +47,28 @@ const mockUser: User = {
   ]
 };
 
+const mockReview: Review = {
+  id: 1,
+  description: 'Great event',
+  rating: 4.5,
+  eventAssociatedId: 1,
+  userOwnerId: 1
+};
+
+const mockParticipant: Participant = {
+  id: 1,
+  name: 'Bad Bunny',
+  type: 'Music Artist',
+  biography: 'Puerto Rican global superstar known for redefining reggaeton and Latin trap',
+  participantImage: true
+};
+
 describe('UserPageComponent', () => {
   let component: UserPageComponent;
   let fixture: ComponentFixture<UserPageComponent>;
   let userServiceMock: any;
   let eventServiceMock: any;
+  let reviewServiceMock: any;
   let routerMock: any;
   let currentUser$: Subject<User>;
 
@@ -59,7 +79,9 @@ describe('UserPageComponent', () => {
       getCurrentUser: vi.fn().mockReturnValue(currentUser$.asObservable()),
       replaceUser: vi.fn().mockReturnValue(of(mockUser)),
       createOrReplaceUserImage: vi.fn().mockReturnValue(of(mockUser)),
-      deleteUserImage: vi.fn().mockReturnValue(of({}))
+      deleteUserImage: vi.fn().mockReturnValue(of({})),
+      removeFavoriteEvent: vi.fn().mockReturnValue(of({})),
+      unfollowParticipant: vi.fn().mockReturnValue(of({}))
     };
 
     eventServiceMock = {
@@ -70,11 +92,18 @@ describe('UserPageComponent', () => {
       navigate: vi.fn()
     };
 
+    reviewServiceMock = {
+      getAllReviewsForUsername: vi.fn().mockReturnValue(of([mockReview])),
+      deleteById: vi.fn().mockReturnValue(of(mockReview)),
+      createOrReplaceReview: vi.fn().mockReturnValue(of({...mockReview, description: 'Updated review' }))
+     };
+
     await TestBed.configureTestingModule({
       imports: [UserPageComponent],
       providers: [
         { provide: UserService, useValue: userServiceMock },
         { provide: EventService, useValue: eventServiceMock },
+        { provide: ReviewService, useValue: reviewServiceMock },
         { provide: Router, useValue: routerMock },
         {
           provide: ActivatedRoute,
@@ -181,4 +210,68 @@ describe('UserPageComponent', () => {
     expect(compiled.textContent).toContain('Test User');
     expect(compiled.textContent).toContain('test@email.com');
   });
+
+  it('should load reviews for user', () => {
+    expect(reviewServiceMock.getAllReviewsForUsername).toHaveBeenCalledWith('testuser');
+    expect(component.reviews).toEqual([mockReview]);
+  });
+
+  it('should load event info for reviews', () => {
+    expect(component.reviewsMap.get(1)).toEqual(mockEvent);
+  });
+
+   it('should calculate rounded rating', () => {
+    expect(component.getRoundedRating(mockReview)).toBe(5);
+  });
+
+  it('should return star type', () => {
+    expect(component.getStarType(mockReview, 1)).toBe('full');
+    expect(component.getStarType(mockReview, 5)).toBe('half');
+  });
+
+  it('should return star class', () => {
+    expect(component.getStarClass(mockReview, 1)).toBe('bi-star-fill text-warning');
+    expect(component.getStarClass(mockReview, 5)).toBe('bi-star-half text-warning');
+  });
+
+  it('should delete review', () => {
+    component.reviews = [mockReview];
+
+    component.deleteReview(mockReview);
+
+    expect(reviewServiceMock.deleteById).toHaveBeenCalledWith(1);
+    expect(component.reviews).toEqual([]);
+  });
+
+  it('should update review', () => {
+    component.reviews = [mockReview];
+    component.activeReview = { ...mockReview, description: 'Updated review' };
+
+    component.saveReviewUpdate();
+
+    expect(reviewServiceMock.createOrReplaceReview).toHaveBeenCalledWith(component.activeReview);
+    expect(component.reviews[0].description).toBe('Updated review');
+  });
+
+  it('should remove favorite event', () => {
+    component.user = mockUser;
+    component.favoriteEvents = [mockEvent];
+
+    component.removeFavorite(1);
+
+    expect(userServiceMock.removeFavoriteEvent).toHaveBeenCalledWith(1, 1);
+    expect(component.favoriteEvents).toEqual([]);
+  });
+
+  it('should unfollow participant', () => {
+    component.user = mockUser;
+    component.followedParticipants = [mockParticipant];
+
+    component.unfollowParticipant(1);
+
+    expect(userServiceMock.unfollowParticipant).toHaveBeenCalledWith(1, 1);
+    expect(component.followedParticipants).toEqual([]);
+  });
+
+
 });

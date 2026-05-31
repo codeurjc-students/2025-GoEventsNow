@@ -1,0 +1,34 @@
+
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 3rem; 
+  color: #e4e5e9; 
+  cursor: default;
+}
+
+.star.filled {
+  color: #ffc107;
+}
+
+.star .half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: #ffc107; 
+  top: 0;
+  left: 0;
+}
+
+.custom-range {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.custom-range::-webkit-slider-thumb {
+  background: #ffc107; 
+}
+
+.custom-range::-webkit-slider-thumb:active {
+  background: #e0a800; 
+}

@@ -1,6 +1,7 @@
 package es.goeventsnow.backend.model;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.ElementCollection;
@@ -12,8 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -50,6 +51,10 @@ public class User {
 
     public User() {
         this.numTicketsBought = 0;
+        this.tickets = new ArrayList<>();
+        this.favoriteEvents = new ArrayList<>();
+        this.followedParticipants = new ArrayList<>();
+        this.roles = new ArrayList<>();
     }
 
     public User(String username, String fullname, Integer phone, String email, String encodedPassword, String... roles) {
@@ -61,6 +66,9 @@ public class User {
         this.encodedPassword = encodedPassword;
         this.profileImage = false;
         this.favoriteGenre = "None";
+        this.tickets = new ArrayList<>();
+        this.favoriteEvents = new ArrayList<>();
+        this.followedParticipants = new ArrayList<>();
         this.roles = List.of(roles);
     }
 

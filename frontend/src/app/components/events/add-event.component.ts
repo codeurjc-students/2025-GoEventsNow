@@ -22,7 +22,7 @@ export class AddEventComponent {
     newEvent: boolean = true;
     event: Event = {
         title: '', description:'', category: '', location: '', date: '', time: '', basicPrice: 0, vipPrice: 0, availableBasicTickets: 0, availableVipTickets: 0,
-        image: false, participants: [], tickets: []
+        image: false, participants: [], tickets: [], reviews: []
     };
     allParticipants: Participant[] = [];
     selectedParticipants: number[] = [];

@@ -36,6 +36,9 @@ public class User {
     @OneToMany(mappedBy = "userOwner", fetch = FetchType.LAZY)
     private List<Ticket> tickets;
 
+    @OneToMany(mappedBy = "userOwner", fetch = FetchType.LAZY)
+    private List<Review> reviews;
+
     @ManyToMany
     private List<Event> favoriteEvents;
 
@@ -52,6 +55,7 @@ public class User {
     public User() {
         this.numTicketsBought = 0;
         this.tickets = new ArrayList<>();
+        this.reviews = new ArrayList<>();
         this.favoriteEvents = new ArrayList<>();
         this.followedParticipants = new ArrayList<>();
         this.roles = new ArrayList<>();
@@ -67,6 +71,7 @@ public class User {
         this.profileImage = false;
         this.favoriteGenre = "None";
         this.tickets = new ArrayList<>();
+        this.reviews = new ArrayList<>();
         this.favoriteEvents = new ArrayList<>();
         this.followedParticipants = new ArrayList<>();
         this.roles = List.of(roles);
@@ -166,6 +171,14 @@ public class User {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public List<Event> getFavoriteEvents() {

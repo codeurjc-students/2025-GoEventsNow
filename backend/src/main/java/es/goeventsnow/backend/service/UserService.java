@@ -7,7 +7,6 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-import java.util.ArrayList;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,7 @@ import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.dto.event.EventMapper;
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.dto.participant.ParticipantMapper;
+import es.goeventsnow.backend.dto.review.ReviewDTO;
 import es.goeventsnow.backend.dto.ticket.TicketDTO;
 import es.goeventsnow.backend.dto.user.NewUserDTO;
 import es.goeventsnow.backend.dto.user.UserDTO;
@@ -190,9 +190,6 @@ public class UserService {
     public UserDTO followParticipant(long userId, long participantId) throws SQLException {
         User user = getUser(userId);
         Participant participant = getParticipant(participantId);
-        if (user.getFollowedParticipants() == null) {
-            user.setFollowedParticipants(new ArrayList<>());
-        }
         if (user.getFollowedParticipants().contains(participant)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Participant is already being followed");
         }
@@ -260,6 +257,7 @@ public class UserService {
         String password = encodedPassword(newUserDTO, passwordEncoder);
         Integer numTicketsBought = 0;
         List<TicketDTO> tickets = null;
+        List<ReviewDTO> reviews = null;
         List<EventDTO> favoriteEvents = null;
         List<ParticipantDTO> followedParticipants = null;
         String favoriteGenre = "None";
@@ -275,13 +273,14 @@ public class UserService {
             password = oldUser.password();
             favoriteGenre = oldUser.favoriteGenre();
             tickets = oldUser.tickets();
+            reviews = oldUser.reviews();
             favoriteEvents = oldUser.favoriteEvents();
             followedParticipants = oldUser.followedParticipants();
             roles = oldUser.roles();
         }
 
         return new UserDTO(userId, newUserDTO.fullname(), userName, newUserDTO.phone(),
-                newUserDTO.email(), password, numTicketsBought, favoriteGenre, image, tickets, roles,
+                newUserDTO.email(), password, numTicketsBought, favoriteGenre, image, tickets, roles, reviews,
                 favoriteEvents, followedParticipants);
     }
 

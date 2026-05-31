@@ -1,4 +1,5 @@
 import { Participant } from "./participant";
+import { Review } from "./review";
 import { Ticket } from "./ticket";
 
 export interface Event {
@@ -16,6 +17,7 @@ export interface Event {
     availableVipTickets:number,
     image?:boolean,
     participants?: Participant[],
-    tickets?: Ticket[]
+    tickets?: Ticket[],
+    reviews?: Review[]
     
 }

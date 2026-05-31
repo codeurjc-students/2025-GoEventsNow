@@ -1,3 +1,5 @@
+
+import { Review } from "./review"
 import { Ticket } from "./ticket"
 import { Event } from "./event"
 import { Participant } from "./participant"
@@ -14,6 +16,7 @@ export interface User {
     favoriteGenre:string,
     profileImage?:boolean,
     tickets?: Ticket[],
+    reviews?: Review[],
     roles?: string[],
     favoriteEvents?: Event[],
     followedParticipants?: Participant[]

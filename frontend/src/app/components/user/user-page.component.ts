@@ -9,14 +9,13 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { EventService } from "../../service/event.service";
 import { NgbAlert } from "@ng-bootstrap/ng-bootstrap/alert";
 import { getSelectedFile } from "../../utils/file-utils";
-import { NgbRating } from "@ng-bootstrap/ng-bootstrap";
 import { Participant } from "../../model/participant";
 
 @Component({
     standalone: true,
     selector: 'app-user-page',
     templateUrl: './user-page.component.html',
-    imports: [CommonModule, FormsModule, NgbAlert, NgbRating]
+    imports: [CommonModule, FormsModule, NgbAlert]
 })
 
 export class UserPageComponent {
@@ -30,6 +29,7 @@ export class UserPageComponent {
     removeImage: boolean = false;
     tickets: Ticket[] = [];
     errorMessage: string | null = null;
+    favoriteEvents: Event[] = [];
     followedParticipants: Participant[] = [];
 
     constructor(private router: Router, private eventService: EventService, private userService: UserService, private cd: ChangeDetectorRef, private activatedRoute: ActivatedRoute) {
@@ -47,9 +47,9 @@ export class UserPageComponent {
 
                     this.user = user;
                     this.tickets = this.user.tickets || [];
+                    this.favoriteEvents = this.user.favoriteEvents || [];
                     this.followedParticipants = user.followedParticipants || [];
-                    this.loadEventsForTickets();
-                    
+                    this.loadEventsForTickets();                    
                 }
             });
         }
@@ -107,6 +107,26 @@ export class UserPageComponent {
         });
 
         this.cd.detectChanges();
+
+    }
+
+    removeFavorite(id: number | undefined): void {
+
+        if (!this.user.id) return;
+        if (!id) return;
+
+        const eventId = Number(id);
+        const userId = Number(this.user.id);
+
+        this.userService.removeFavoriteEvent(userId, eventId).subscribe({
+            next: () => {
+                this.favoriteEvents = this.favoriteEvents.filter(e => e.id !== eventId);
+                this.cd.detectChanges();
+            },
+            error: (err) => {
+                console.error(`Failed to remove event with id ${eventId} from favorites:`, err);
+            }
+        });
 
     }
 

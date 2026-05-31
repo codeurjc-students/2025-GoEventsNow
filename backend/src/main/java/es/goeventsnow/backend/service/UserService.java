@@ -21,14 +21,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import es.goeventsnow.backend.dto.event.EventDTO;
+import es.goeventsnow.backend.dto.event.EventMapper;
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.dto.participant.ParticipantMapper;
 import es.goeventsnow.backend.dto.ticket.TicketDTO;
 import es.goeventsnow.backend.dto.user.NewUserDTO;
 import es.goeventsnow.backend.dto.user.UserDTO;
 import es.goeventsnow.backend.dto.user.UserMapper;
+import es.goeventsnow.backend.model.Event;
 import es.goeventsnow.backend.model.Participant;
 import es.goeventsnow.backend.model.User;
+import es.goeventsnow.backend.repository.EventRepository;
 import es.goeventsnow.backend.repository.ParticipantRepository;
 import es.goeventsnow.backend.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,10 +44,16 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
     private ParticipantRepository participantRepository;
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private EventMapper eventMapper;
 
     @Autowired
     private ParticipantMapper participantMapper;
@@ -145,6 +155,38 @@ public class UserService {
         }
     }
 
+    public UserDTO addFavoriteEvent(long userId, long eventId) throws SQLException {
+        User user = getUser(userId);
+        Event event = getEvent(eventId);
+        if (user.getFavoriteEvents().contains(event)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event is already in favorites");
+        }
+        user.getFavoriteEvents().add(event);
+        return toDTO(userRepository.save(user));
+    }
+
+    public UserDTO removeFavoriteEvent(long userId, long eventId) throws SQLException {
+        User user = getUser(userId);
+        Event event = getEvent(eventId);
+        if (!user.getFavoriteEvents().contains(event)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event is not in favorites");
+        }
+        user.getFavoriteEvents().remove(event);
+        return toDTO(userRepository.save(user));
+    }
+
+    public Page<EventDTO> getFavoriteEvents(long userId, Pageable pageable) throws SQLException {
+        User user = getUser(userId);
+        List<Event> favoriteEvents = user.getFavoriteEvents();
+
+        if (favoriteEvents == null || favoriteEvents.isEmpty()) {
+            return Page.empty(pageable);
+        }
+
+        List<Long> ids = favoriteEvents.stream().map(Event::getId).toList();
+        return eventRepository.findByIdIn(ids, pageable).map(eventMapper::toDTO);
+    }
+
     public UserDTO followParticipant(long userId, long participantId) throws SQLException {
         User user = getUser(userId);
         Participant participant = getParticipant(participantId);
@@ -191,6 +233,11 @@ public class UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
+    private Event getEvent(long id) {
+        return eventRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
+    }
+
     private Participant getParticipant (long id) {
         return participantRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found"));
@@ -213,6 +260,7 @@ public class UserService {
         String password = encodedPassword(newUserDTO, passwordEncoder);
         Integer numTicketsBought = 0;
         List<TicketDTO> tickets = null;
+        List<EventDTO> favoriteEvents = null;
         List<ParticipantDTO> followedParticipants = null;
         String favoriteGenre = "None";
         List<String> roles = List.of("USER");
@@ -227,12 +275,14 @@ public class UserService {
             password = oldUser.password();
             favoriteGenre = oldUser.favoriteGenre();
             tickets = oldUser.tickets();
+            favoriteEvents = oldUser.favoriteEvents();
             followedParticipants = oldUser.followedParticipants();
             roles = oldUser.roles();
         }
 
         return new UserDTO(userId, newUserDTO.fullname(), userName, newUserDTO.phone(),
-                newUserDTO.email(), password, numTicketsBought, favoriteGenre, image, tickets, roles, followedParticipants);
+                newUserDTO.email(), password, numTicketsBought, favoriteGenre, image, tickets, roles,
+                favoriteEvents, followedParticipants);
     }
 
     private String encodedPassword(NewUserDTO newUserDTO, PasswordEncoder passwordEncoder) {

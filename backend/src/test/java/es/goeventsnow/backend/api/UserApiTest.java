@@ -322,11 +322,33 @@ public class UserApiTest extends BaseApiTest {
     }
 
     @Test
+    public void testAddFavoriteEvent_return200() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        addFavoriteEvent(adminCookie, adminId);
+    }
+
+    @Test
     public void testAddFollowingParticipant_return200() {
         String adminCookie = getAdminCookie();
         int adminId = getCurrentUserId(adminCookie);
 
         addFollowingParticipant(adminCookie, adminId);
+    }
+
+    @Test
+    public void testDeleteFavoriteEvent_return200() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        addFavoriteEvent(adminCookie, adminId);
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .delete(API_USERS + adminId + "/favorites/1")
+                .then()
+                .statusCode(200);
     }
 
     @Test
@@ -341,6 +363,22 @@ public class UserApiTest extends BaseApiTest {
                 .delete(API_USERS + adminId + "/following/1")
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    public void getUserFavoritesEvents_return200() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        addFavoriteEvent(adminCookie, adminId);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .get(API_USERS + adminId + "/favorites")
+                .then()
+                .statusCode(200)
+                .body("size()", is(1));
     }
 
     @Test
@@ -364,6 +402,15 @@ public class UserApiTest extends BaseApiTest {
                 .header("Cookie", adminCookie)
                 .when()
                 .post(API_USERS + adminId + "/following/1")
+                .then()
+                .statusCode(200);
+    }
+
+    private void addFavoriteEvent(String adminCookie, int adminId) {
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .post(API_USERS + adminId + "/favorites/1")
                 .then()
                 .statusCode(200);
     }

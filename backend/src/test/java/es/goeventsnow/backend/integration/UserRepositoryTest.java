@@ -16,8 +16,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.dto.user.UserDTO;
+import es.goeventsnow.backend.model.Event;
 import es.goeventsnow.backend.model.Participant;
 import es.goeventsnow.backend.model.User;
 import es.goeventsnow.backend.service.UserService;
@@ -138,6 +140,46 @@ public class UserRepositoryTest extends IntegrationTestBase {
 
         Page<ParticipantDTO> followedParticipants = userService.getFollowedParticipants(user.getId(), Pageable.unpaged());
         assertTrue(followedParticipants.getContent().stream().anyMatch(participantDTO -> participantDTO.id().equals(savedParticipant.getId())));
+    }
+
+    @Test
+    public void addFavoriteEvent() throws SQLException {
+        User user = createAndSaveUser("favorite_user", "Favorite User", 123456789, "password", "favorite@example.com");
+        Event savedEvent = createAndSaveEvent("Favorite Event", "Favorite description", "Music", "Madrid",
+                "2025-10-01", "20:00", 50.0, 150.0, 100, 20);
+
+        UserDTO updatedUser = userService.addFavoriteEvent(user.getId(), savedEvent.getId());
+        User userInRepository = userRepository.findById(user.getId()).orElseThrow();
+
+        assertTrue(updatedUser.favoriteEvents().stream().anyMatch(eventDTO -> eventDTO.id().equals(savedEvent.getId())));
+        assertTrue(userInRepository.getFavoriteEvents().stream().anyMatch(event -> event.getId().equals(savedEvent.getId())));
+    }
+
+    @Test
+    public void removeFavoriteEvent() throws SQLException {
+        User user = createAndSaveUser("favorite_user_remove", "Favorite User", 123456789, "password", "favorite-remove@example.com");
+        Event savedEvent = createAndSaveEvent("Favorite Event Remove", "Favorite description", "Music", "Madrid",
+                "2025-10-01", "20:00", 50.0, 150.0, 100, 20);
+
+        userService.addFavoriteEvent(user.getId(), savedEvent.getId());
+        UserDTO updatedUser = userService.removeFavoriteEvent(user.getId(), savedEvent.getId());
+        User userInRepository = userRepository.findById(user.getId()).orElseThrow();
+
+        assertFalse(updatedUser.favoriteEvents().stream().anyMatch(eventDTO -> eventDTO.id().equals(savedEvent.getId())));
+        assertFalse(userInRepository.getFavoriteEvents().stream().anyMatch(event -> event.getId().equals(savedEvent.getId())));
+    }
+
+    @Test
+    public void getFavoriteEvents() throws SQLException {
+        User user = createAndSaveUser("favorite_user_get", "Favorite User", 123456789, "password", "favorite-get@example.com");
+        Event savedEvent = createAndSaveEvent("Favorite Event Get", "Favorite description", "Music", "Madrid",
+                "2025-10-01", "20:00", 50.0, 150.0, 100, 20);
+
+        userService.addFavoriteEvent(user.getId(), savedEvent.getId());
+
+        Page<EventDTO> favoriteEvents = userService.getFavoriteEvents(user.getId(), Pageable.unpaged());
+
+        assertTrue(favoriteEvents.getContent().stream().anyMatch(eventDTO -> eventDTO.id().equals(savedEvent.getId())));
     }
 
 

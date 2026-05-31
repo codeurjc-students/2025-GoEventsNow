@@ -87,7 +87,7 @@ public abstract class IntegrationTestBase {
     protected UserDTO createUserDTO(Long id, String fullname, String username, Integer phone, String email,
             String password) {
         return new UserDTO(id, fullname, username, phone, email, password, 0, "None", false, null,
-            List.of("USER"), new ArrayList<>());
+            List.of("USER"), new ArrayList<>(), new ArrayList<>());
     }
 
     protected EventDTO createEventDTO(Long id, String title, String description, String category, String location,

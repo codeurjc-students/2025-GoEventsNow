@@ -5,6 +5,7 @@ import { Observable } from "rxjs/internal/Observable";
 import { map } from "rxjs/internal/operators/map";
 import { Participant } from "../model/participant";
 
+
 const BASE_URL = '/api/v1/users/';
 
 @Injectable({ providedIn: 'root' })
@@ -48,6 +49,21 @@ export class UserService {
     public deleteUserImage(user: User): Observable<User> {
         const id = Number(user.id);
         return this.httpClient.delete<any>(BASE_URL + id + '/image');
+    }
+
+    public addFavoriteEvent(userId: number, eventId: number): Observable<User> {
+        return this.httpClient.post<User>(BASE_URL + `${userId}/favorites/${eventId}`, null);
+    }
+
+    public removeFavoriteEvent(userId: number, eventId: number): Observable<User> {
+        return this.httpClient.delete<User>(BASE_URL + `${userId}/favorites/${eventId}`);
+    }
+
+    public getFavoriteEvents(userId: number, page: number, size: number): Observable<Event[]> {
+        const url = `${BASE_URL}${userId}/favorites?page=${page}&size=${size}`;
+        return this.httpClient.get<any>(url).pipe(
+            map(response => response.content)
+        );
     }
 
     public followParticipant(userId: number, participantId: number): Observable<User> {

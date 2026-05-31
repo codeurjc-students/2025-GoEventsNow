@@ -77,4 +77,102 @@ describe('User API Integration', () => {
         expect(exists).toBe(true);
     });
 
+    it ('should add, get and remove favorite event in real backend', async () => {
+        const cookie = await getAdminCookie();
+        const currentUser = await getCurrentUser(cookie);
+
+        const response = await fetch(API_URL + `${currentUser.id}/favorites/1`, {
+            method: 'POST',
+            headers: {
+                Cookie: cookie
+            }
+        });
+
+        expect(response.ok).toBe(true);
+
+        const favoritesResponse = await fetch(API_URL + `${currentUser.id}/favorites?page=0&size=10`, {
+            headers: {
+                Cookie: cookie
+            }
+        });
+
+        expect(favoritesResponse.ok).toBe(true);
+        const page = await favoritesResponse.json();
+        const favorites = page.content;
+
+        expect(favorites.length).toBeGreaterThan(0);
+        expect(favorites.some((e: any) => e.id === 1)).toBe(true);
+
+        const deleteResponse = await fetch(API_URL + `${currentUser.id}/favorites/1`, {
+            method: 'DELETE',
+            headers: {
+                Cookie: cookie
+            }
+        });
+
+        expect(deleteResponse.ok).toBe(true);
+
+        const favoritesResponseAfterDelete = await fetch(API_URL + `${currentUser.id}/favorites?page=0&size=10`, {
+            headers: {
+                Cookie: cookie
+            }
+        });
+
+        expect(favoritesResponseAfterDelete.ok).toBe(true);
+        const pageAfterDelete = await favoritesResponseAfterDelete.json();
+        const favoritesAfterDelete = pageAfterDelete.content;
+
+        expect(favoritesAfterDelete.length).toBeLessThan(favorites.length);
+        expect(favoritesAfterDelete.some((e: any) => e.id === 1)).toBe(false);
+    });
+
+     it ('should follow, get and unfollow participants in real backend', async () => {
+        const cookie = await getAdminCookie();
+        const currentUser = await getCurrentUser(cookie);
+
+        const response = await fetch(API_URL + `${currentUser.id}/following/1`, {
+            method: 'POST',
+            headers: {
+                Cookie: cookie
+            }
+        });
+
+        expect(response.ok).toBe(true);
+
+        const followingResponse = await fetch(API_URL + `${currentUser.id}/following?page=0&size=10`, {
+            headers: {
+                Cookie: cookie
+            }
+        });
+
+        expect(followingResponse.ok).toBe(true);
+        const page = await followingResponse.json();
+        const following = page.content;
+
+        expect(following.length).toBeGreaterThan(0);
+        expect(following.some((e: any) => e.id === 1)).toBe(true);
+
+        const deleteResponse = await fetch(API_URL + `${currentUser.id}/following/1`, {
+            method: 'DELETE',
+            headers: {
+                Cookie: cookie
+            }
+        });
+
+        expect(deleteResponse.ok).toBe(true);
+
+        const followingResponseAfterDelete = await fetch(API_URL + `${currentUser.id}/following?page=0&size=10`, {
+            headers: {
+                Cookie: cookie
+            }
+        });
+
+        expect(followingResponseAfterDelete.ok).toBe(true);
+        const pageAfterDelete = await followingResponseAfterDelete.json();
+        const followingAfterDelete = pageAfterDelete.content;
+
+        expect(followingAfterDelete.length).toBeLessThan(following.length);
+        expect(followingAfterDelete.some((e: any) => e.id === 1)).toBe(false);
+    });
+
 });

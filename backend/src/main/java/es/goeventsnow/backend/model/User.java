@@ -1,6 +1,7 @@
 package es.goeventsnow.backend.model;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.ElementCollection;
@@ -36,6 +37,9 @@ public class User {
     private List<Ticket> tickets;
 
     @ManyToMany
+    private List<Event> favoriteEvents;
+
+    @ManyToMany
     @JoinTable(name = "user_followed_participants", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "participant_id"))
     private List<Participant> followedParticipants;
     
@@ -47,6 +51,10 @@ public class User {
 
     public User() {
         this.numTicketsBought = 0;
+        this.tickets = new ArrayList<>();
+        this.favoriteEvents = new ArrayList<>();
+        this.followedParticipants = new ArrayList<>();
+        this.roles = new ArrayList<>();
     }
 
     public User(String username, String fullname, Integer phone, String email, String encodedPassword, String... roles) {
@@ -58,6 +66,9 @@ public class User {
         this.encodedPassword = encodedPassword;
         this.profileImage = false;
         this.favoriteGenre = "None";
+        this.tickets = new ArrayList<>();
+        this.favoriteEvents = new ArrayList<>();
+        this.followedParticipants = new ArrayList<>();
         this.roles = List.of(roles);
     }
 
@@ -155,6 +166,14 @@ public class User {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public List<Event> getFavoriteEvents() {
+        return favoriteEvents;
+    }
+
+    public void setFavoriteEvents(List<Event> favoriteEvents) {
+        this.favoriteEvents = favoriteEvents;
     }
 
     public List<Participant> getFollowedParticipants() {

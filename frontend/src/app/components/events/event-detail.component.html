@@ -20,7 +20,7 @@
                             event.category}}</span>
                         @if (currentUser) {
                         <div class="d-flex align-items-center gap-2">
-                            <button type="button" class="btn btn-sm rounded-pill px-3 py-2"
+                            <button id="btn-favorite" type="button" class="btn btn-sm rounded-pill px-3 py-2"
                                 [class.btn-danger]="isFavorite"
                                 [class.btn-outline-danger]="!isFavorite"
                                 [class.fw-semibold]="isFavorite"
@@ -107,10 +107,118 @@
 
                     <hr class="border-secondary-subtle my-5">
 
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="fw-bold text-dark mb-0">Reviews ({{ reviews.length }})</h5>
+                        @if (currentUser != null) {
+                        <button id="btn-open-review-modal" class="btn btn-outline-primary rounded-pill px-4 fw-medium"
+                            (click)="openReviewModal(content, event.id)">
+                            <i class="bi bi-pencil-square me-2"></i> Write a review
+                        </button>
+                        }
+                    </div>
+
+                    @if (reviews.length > 0) {
+                    <div class="d-flex flex-column gap-3" id="reviews-section">
+                        @for (review of reviews; track review.id) {
+                        @if (reviewsMap.get(review.userOwnerId); as user) {
+                        <div class="card border-0 shadow-sm rounded-3 overflow-hidden transition-all"
+                            style="border-left: 4px solid #ffc107;">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-3">
+                                    <img [src]="user.profileImage ? ('/api/v1/users/' + user.id + '/image') : '/images/noImage.png'"
+                                        class="rounded-circle object-fit-cover flex-shrink-0 shadow-sm"
+                                        style="width: 60px; height: 60px; border: 2px solid #f0f0f0;" alt="Avatar">
+
+                                    <div class="flex-grow-1 w-100">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <div>
+                                                <h6 class="fw-bold mb-1">{{ user.username }}</h6>
+                                                <small class="text-muted">{{ review.createdAt | date:'mediumDate'
+                                                    }}</small>
+                                            </div>
+                                            <div class="text-warning d-flex align-items-center gap-1">
+                                                <ngb-rating [rate]="review.rating" [max]="5"
+                                                    [readonly]="true"></ngb-rating>
+                                                <span
+                                                    class="badge bg-warning text-dark fw-bold ms-2 px-2 py-1 rounded-pill"
+                                                    style="font-size: 0.8rem;">
+                                                    {{ review.rating | number:'1.1-1' }}
+                                                </span>
+                                            </div>
+        
+                                        </div>
+                                        <p class="text-muted mb-0 lh-base">{{ review.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }}
+                    </div>
+                    } @else {
+                    <div class="text-center text-muted py-5 bg-light rounded-4 border border-light-subtle">
+                        <i class="bi bi-chat-square-text fs-1 mb-2 d-block text-secondary opacity-50"></i>
+                        <p class="mb-0 fw-medium">No reviews yet.</p>
+                        <small>Be the first to rate this event!</small>
+                    </div>
+                    }
 
                 </div>
             </div>
         </div>
+
+        <ng-template #content let-modal>
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-primary" id="modal-basic-title">
+                    Review {{ event.title }}
+                </h5>
+                <button type="button" class="btn-close shadow-none" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="mb-4 text-center">
+                        <label class="form-label fw-semibold text-secondary mb-1">Your
+                            Rating</label>
+
+                        <div class="d-flex flex-column align-items-center">
+                            <ngb-rating [(rate)]="activeReview.rating" [max]="5" [readonly]="true">
+                                <ng-template let-fill="fill" let-index="index">
+                                    <span class="star" [class.filled]="fill === 100">
+                                        <span class="half" [style.width.%]="fill">★</span>☆
+                                    </span>
+                                </ng-template>
+                            </ngb-rating>
+
+                            <span class="badge bg-warning text-dark fs-6 mt-2 mb-3 px-3 py-2 rounded-pill shadow-sm">
+                                {{ activeReview.rating | number:'1.1-1' }} / 5.0
+                            </span>
+                        </div>
+
+                        <input type="range" id="rating" class="form-range custom-range px-4" min="0" max="5" step="0.5"
+                            [(ngModel)]="activeReview.rating" name="rating">
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <textarea class="form-control border-secondary-subtle focus-ring" id="description"
+                            style="height: 120px; resize: none;" [(ngModel)]="activeReview.description"
+                            name="description" placeholder="Write your review..."></textarea>
+                        <label for="description" class="text-muted">What did you
+                            think?</label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer border-0 pt-0 justify-content-between px-4 pb-4">
+                <button type="button" class="btn btn-light rounded-pill px-4" (click)="modal.dismiss('Cancel')">
+                    Cancel
+                </button>
+                <button id="btn-send-review" type="button" class="btn btn-primary rounded-pill px-5 shadow-sm"
+                    (click)="modal.close('Save click')">
+                    Save Review
+                </button>
+            </div>
+        </ng-template>
 
         <div class="col-lg-4">
             <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top: 20px;">

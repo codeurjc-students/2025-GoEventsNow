@@ -2,9 +2,9 @@ package es.goeventsnow.backend.unit;
 
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,15 +31,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.dto.event.EventMapper;
-import es.goeventsnow.backend.model.Event;
-import es.goeventsnow.backend.repository.EventRepository;
-import es.goeventsnow.backend.dto.user.UserDTO;
-import es.goeventsnow.backend.dto.user.UserMapper;
-import es.goeventsnow.backend.model.Participant;
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.dto.participant.ParticipantMapper;
-import es.goeventsnow.backend.repository.ParticipantRepository;
+import es.goeventsnow.backend.dto.user.UserDTO;
+import es.goeventsnow.backend.dto.user.UserMapper;
+import es.goeventsnow.backend.model.Event;
+import es.goeventsnow.backend.model.Participant;
 import es.goeventsnow.backend.model.User;
+import es.goeventsnow.backend.repository.EventRepository;
+import es.goeventsnow.backend.repository.ParticipantRepository;
 import es.goeventsnow.backend.repository.UserRepository;
 import es.goeventsnow.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -96,9 +96,9 @@ public class UserServiceTest {
         secondMockUser.setId(2L);
 
         firstMockUserDTO = new UserDTO(1L, "Mock User 1", "firstMockUser", 123456789,
-                "mockUser1@example.com", "firstPassword", 0, "None", false, null, List.of("USER"), null, null);
+                "mockUser1@example.com", "firstPassword", 0, "None", false, null, List.of("USER"), null, null, null);
         secondMockUserDTO = new UserDTO(2L, "Mock User 2", "secondMockUser", 987654321,
-                "mockUser2@example.com", "secondPassword", 0, "None", false, null, List.of("USER"), null, null);
+                "mockUser2@example.com", "secondPassword", 0, "None", false, null, List.of("USER"), null, null, null);
 
         userList = List.of(firstMockUser, secondMockUser);
 
@@ -115,7 +115,7 @@ public class UserServiceTest {
         mockEvent.setId(20L);
 
         mockEventDTO = new EventDTO(20L, "Mock Event", "Mock Description", "Music", "Madrid", "2026-01-01",
-            "20:00", 50.0, 100.0, 100, 20, false, new ArrayList<>(), null);
+            "20:00", 50.0, 100.0, 100, 20, false, new ArrayList<>(), null,null);
     }
 
     @Test
@@ -206,10 +206,10 @@ public class UserServiceTest {
     @Test
     public void createUserTest() throws SQLException {
         UserDTO newUserDTO = new UserDTO(null, "New User", "newUser", 111222333, "new@example.com",
-                "encodedPassword", 0, "None", false, null, List.of("USER"), null, null);
+                "encodedPassword", 0, "None", false, null, List.of("USER"), null, null,null);
         User newUser = new User("newUser", "New User", 111222333, "new@example.com", "encodedPassword", "USER");
         UserDTO savedUserDTO = new UserDTO(3L, "New User", "newUser", 111222333, "new@example.com",
-                "encodedPassword", 0, "None", false, null, List.of("USER"), null, null);
+                "encodedPassword", 0, "None", false, null, List.of("USER"), null, null,null);
 
         when(userMapper.toDomain(newUserDTO)).thenReturn(newUser);
         when(userMapper.toDTO(newUser)).thenReturn(savedUserDTO);
@@ -235,9 +235,9 @@ public class UserServiceTest {
     @Test
     public void replaceUserTest() throws SQLException {
         UserDTO updateUserDTO = new UserDTO(1L, "Updated Name", "ignoredUsername", 111222333,
-                "updated@example.com", "ignoredPassword", 0, "None", false, null, List.of("USER"), null, null);
+                "updated@example.com", "ignoredPassword", 0, "None", false, null, List.of("USER"), null, null, null);
         UserDTO updatedUserDTO = new UserDTO(1L, "Updated Name", "firstMockUser", 111222333,
-                "updated@example.com", "firstPassword", 0, "None", false, null, List.of("USER"), null, null);
+                "updated@example.com", "firstPassword", 0, "None", false, null, List.of("USER"), null, null,null);
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(firstMockUser));
         when(userMapper.toDTO(firstMockUser)).thenReturn(updatedUserDTO);
@@ -299,7 +299,7 @@ public class UserServiceTest {
         when(participantRepository.save(any(Participant.class))).thenReturn(mockParticipant);
 
         UserDTO followedUserDTO = new UserDTO(1L, "Mock User 1", "firstMockUser", 123456789,
-                "mockUser1@example.com", "firstPassword", 0, "None", false, null, List.of("USER"), new ArrayList<>(),
+                "mockUser1@example.com", "firstPassword", 0, "None", false, null, List.of("USER"), new ArrayList<>(),new ArrayList<>(),
                 (List.of(mockParticipantDTO)));
 
         when(userMapper.toDTO(firstMockUser)).thenReturn(followedUserDTO);
@@ -321,7 +321,7 @@ public class UserServiceTest {
         when(participantRepository.findById(10L)).thenReturn(Optional.of(mockParticipant));
 
         UserDTO unfollowedUserDTO = new UserDTO(1L, "Mock User 1", "firstMockUser", 123456789,
-                "mockUser1@example.com", "firstPassword", 0, "None", false, null, List.of("USER"), new ArrayList<>(),
+                "mockUser1@example.com", "firstPassword", 0, "None", false, null, List.of("USER"), new ArrayList<>(),new ArrayList<>(),
                 new ArrayList<>());
 
         when(userRepository.save(any(User.class))).thenReturn(firstMockUser);
@@ -381,7 +381,7 @@ public class UserServiceTest {
         when(eventRepository.findById(20L)).thenReturn(Optional.of(mockEvent));
         when(userMapper.toDTO(firstMockUser)).thenReturn(new UserDTO(1L, "Mock User 1", "firstMockUser",
                 123456789, "mockUser1@example.com", "firstPassword", 0, "None", false, null,
-                List.of("USER"), List.of(mockEventDTO), new ArrayList<>()));
+                List.of("USER"), new ArrayList<>(), List.of(mockEventDTO), new ArrayList<>()));
         when(userRepository.save(any(User.class))).thenReturn(firstMockUser);
 
         UserDTO userWithFavoriteEvent = userService.addFavoriteEvent(1L, 20L);
@@ -400,7 +400,7 @@ public class UserServiceTest {
         when(eventRepository.findById(20L)).thenReturn(Optional.of(mockEvent));
         when(userMapper.toDTO(firstMockUser)).thenReturn(new UserDTO(1L, "Mock User 1", "firstMockUser",
                 123456789, "mockUser1@example.com", "firstPassword", 0, "None", false, null,
-                List.of("USER"), new ArrayList<>(), new ArrayList<>()));
+                List.of("USER"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
         when(userRepository.save(any(User.class))).thenReturn(firstMockUser);
 
         UserDTO userWithoutFavoriteEvent = userService.removeFavoriteEvent(1L, 20L);

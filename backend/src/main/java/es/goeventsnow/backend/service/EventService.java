@@ -58,6 +58,7 @@ public class EventService {
         eventSaved.setParticipants(resolveParticipants(eventDTO.participants()));
         eventSaved.setId(null);
         eventSaved.setTickets(null);
+        eventSaved.setReviews(null);
         eventRepository.save(eventSaved);
         return toDTO(eventSaved);
     }

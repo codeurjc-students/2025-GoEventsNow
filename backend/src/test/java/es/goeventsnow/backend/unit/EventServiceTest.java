@@ -70,9 +70,9 @@ public class EventServiceTest {
                 100, 50, null);
 
         firstMockEventDTO = new EventDTO(1L, "MockExample1", "Description 1", "Test", "None", "00-00-0000", "00:00",
-                10.0, 20.0, 100, 50, false, new ArrayList<>(), new ArrayList<>());
+                10.0, 20.0, 100, 50, false, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         secondMockEventDTO = new EventDTO(2L, "MockExample2", "Description 2", "Test", "None", "00-00-0000", "00:00",
-                10.0, 20.0, 100, 50, false, new ArrayList<>(), new ArrayList<>());
+                10.0, 20.0, 100, 50, false, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
         eventList.add(firstMockEvent);
         eventList.add(secondMockEvent);
@@ -218,7 +218,7 @@ public class EventServiceTest {
                 10.0, 20.0, 100, 50, false,
                 List.of(new ParticipantDTO(999L, "Unknown", "Type", "Bio",
                         false, 0)),
-                new ArrayList<>());
+                new ArrayList<>(),new ArrayList<>());
 
         when(eventMapper.toDomain(any(EventDTO.class))).thenReturn(firstMockEvent);
         when(participantRepository.existsById(999L)).thenReturn(false);
@@ -264,7 +264,7 @@ public class EventServiceTest {
                 10.0, 20.0, 100, 50, false,
                 List.of(new ParticipantDTO(999L, "Unknown", "Type", "Bio",
                         false, 0)),
-                new ArrayList<>());
+                new ArrayList<>(),new ArrayList<>());
 
         when(eventRepository.existsById(1L)).thenReturn(true);
         when(eventRepository.findById(1L)).thenReturn(Optional.of(firstMockEvent));

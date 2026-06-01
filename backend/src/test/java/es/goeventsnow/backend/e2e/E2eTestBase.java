@@ -160,4 +160,14 @@ abstract class E2eTestBase {
         clickId("participant-submit-btn");
         waitForId("event-list");
     }
+
+    protected void fillReviewForm(String description, String rating) {
+        type("description", description);
+        type("rating", rating);
+    }   
+
+    protected void submitReviewForm() {
+        clickId("btn-send-review");
+        waitForId("reviews-section");
+    }
 }

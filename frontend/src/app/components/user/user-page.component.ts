@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectorRef, Component } from "@angular/core";
+import { ChangeDetectorRef, Component, inject, TemplateRef } from "@angular/core";
 import { User } from "../../model/user";
 import { Ticket } from "../../model/ticket";
 import { Event } from "../../model/event";
@@ -9,13 +9,18 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { EventService } from "../../service/event.service";
 import { NgbAlert } from "@ng-bootstrap/ng-bootstrap/alert";
 import { getSelectedFile } from "../../utils/file-utils";
+import { ReviewService } from "../../service/review.service";
+import { Review } from "../../model/review";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap/modal";
+import { NgbRating } from "@ng-bootstrap/ng-bootstrap";
 import { Participant } from "../../model/participant";
 
 @Component({
     standalone: true,
     selector: 'app-user-page',
     templateUrl: './user-page.component.html',
-    imports: [CommonModule, FormsModule, NgbAlert]
+    styleUrl: './user-page.component.css',
+    imports: [CommonModule, FormsModule, NgbAlert, NgbRating]
 })
 
 export class UserPageComponent {
@@ -23,16 +28,21 @@ export class UserPageComponent {
     section: string = 'personal';
     profileImage: File | null = null;
     eventsMap: Map<number, Event> = new Map();
+    reviewsMap: Map<number, Event> = new Map();
     user: User = {} as User;
     userId: string | null = '';
     userPhone: string = '';
     removeImage: boolean = false;
     tickets: Ticket[] = [];
+    reviews: Review[] = [];
     errorMessage: string | null = null;
+    editingReviewId: number | null = null;
+    modalService = inject(NgbModal);
+    activeReview: Review = {} as Review;
     favoriteEvents: Event[] = [];
     followedParticipants: Participant[] = [];
 
-    constructor(private router: Router, private eventService: EventService, private userService: UserService, private cd: ChangeDetectorRef, private activatedRoute: ActivatedRoute) {
+    constructor(private router: Router, private eventService: EventService, private userService: UserService, private reviewService: ReviewService, private cd: ChangeDetectorRef, private activatedRoute: ActivatedRoute) {
 
         this.userId = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -47,12 +57,34 @@ export class UserPageComponent {
 
                     this.user = user;
                     this.tickets = this.user.tickets || [];
+                    this.reviews = this.user.reviews || [];
                     this.favoriteEvents = this.user.favoriteEvents || [];
                     this.followedParticipants = user.followedParticipants || [];
-                    this.loadEventsForTickets();                    
+                    this.loadEventsForTickets();
+                    this.loadReviewsForUser();
+                    
                 }
             });
         }
+    }
+
+    getRoundedRating(review: Review): number {
+        if (!review || review.rating === undefined || review.rating === null) return 0;
+        return Math.round(review.rating);
+    }
+
+    getStarType(review: Review, index: number): 'full' | 'half' | 'empty' {
+        const r = review?.rating || 0;
+        if (r >= index) return 'full';
+        if (r >= index - 0.5) return 'half';
+        return 'empty';
+    }
+
+    getStarClass(review: Review, index: number): string {
+        const type = this.getStarType(review, index);
+        if (type === 'full') return 'bi-star-fill text-warning';
+        if (type === 'half') return 'bi-star-half text-warning';
+        return 'bi-star text-muted';
     }
 
     send(): void {
@@ -108,6 +140,75 @@ export class UserPageComponent {
 
         this.cd.detectChanges();
 
+    }
+
+    loadReviewsForUser(): void {
+
+        this.reviewService.getAllReviewsForUsername(this.user.username).subscribe({
+            next: (reviews) => {
+                this.reviews = Array.isArray(reviews) ? reviews : [];
+                this.reviews.forEach(review => {
+                    this.eventService.findById(review.eventAssociatedId).subscribe({
+                        next: (event) => {
+                            this.reviewsMap.set(review.eventAssociatedId, event);
+                        }
+                    });
+                });
+            },
+            error: (err) => {
+                console.error('Failed to load reviews:', err);
+                this.reviews = [];
+            }
+        });
+
+        this.cd.detectChanges();
+
+    }
+
+    deleteReview(review: Review): void {
+
+        const deletedId = Number(review.id);
+
+        this.reviewService.deleteById(deletedId).subscribe({
+            next: () => {
+                this.reviews = this.reviews.filter(r => r.id !== deletedId);
+                this.cd.detectChanges();
+            },
+            error: () => {
+                console.error(`Failed to delete review with id ${deletedId}. Please try again later.`);
+            }
+        });
+    }
+
+    openEditModal(content: TemplateRef<any>, review: Review) {
+        this.activeReview = review;
+        if (!review?.id) return;
+
+        this.activeReview = { ...review };
+
+        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', centered: true }).result.then(
+            (result) => {
+                if (result === 'Save click') {
+                    this.saveReviewUpdate();
+                }
+            }
+        );
+    }
+
+    saveReviewUpdate() {
+
+        this.reviewService.createOrReplaceReview(this.activeReview).subscribe({
+            next: (updatedReview: Review) => {
+                const index = this.reviews.findIndex(r => r.id === updatedReview.id);
+                if (index !== -1) {
+                    this.reviews[index] = updatedReview;
+                    this.cd.detectChanges();
+                }
+            },
+            error: (err) => {
+                console.error('Failed to update review:', err);
+            }
+        });
     }
 
     removeFavorite(id: number | undefined): void {

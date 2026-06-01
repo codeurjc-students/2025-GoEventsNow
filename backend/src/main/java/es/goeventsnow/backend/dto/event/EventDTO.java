@@ -2,6 +2,7 @@ package es.goeventsnow.backend.dto.event;
 
 import java.util.List;
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
+import es.goeventsnow.backend.dto.review.ReviewDTO;
 import es.goeventsnow.backend.dto.ticket.TicketDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,5 +34,6 @@ public record EventDTO (
     @NotNull
     @Size(min=1, message="At least one participant is required")
     List<ParticipantDTO> participants,
-    List<TicketDTO> tickets
+    List<TicketDTO> tickets,
+    List<ReviewDTO> reviews
 ) {}

@@ -46,6 +46,9 @@ public class Event {
     @OneToMany(mappedBy = "event")
     private List<Ticket> tickets;
 
+    @OneToMany(mappedBy = "eventAssociated")
+    private List<Review> reviews;
+
     public Event() {
     }
 
@@ -184,6 +187,14 @@ public class Event {
 
     public void setAvailableVipTickets(int availableVipTickets) {
         this.availableVipTickets = availableVipTickets;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
 }

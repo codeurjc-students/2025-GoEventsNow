@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
+import es.goeventsnow.backend.dto.review.ReviewDTO;
 import es.goeventsnow.backend.dto.user.UserDTO;
 import es.goeventsnow.backend.model.Event;
 import es.goeventsnow.backend.model.Participant;
+import es.goeventsnow.backend.model.Review;
 import es.goeventsnow.backend.model.Ticket;
 import es.goeventsnow.backend.model.User;
 import es.goeventsnow.backend.repository.EventRepository;
 import es.goeventsnow.backend.repository.ParticipantRepository;
+import es.goeventsnow.backend.repository.ReviewRepository;
 import es.goeventsnow.backend.repository.TicketRepository;
 import es.goeventsnow.backend.repository.UserRepository;
 
@@ -30,6 +33,9 @@ public abstract class IntegrationTestBase {
 
     @Autowired
     protected UserRepository userRepository;
+
+    @Autowired
+    protected ReviewRepository reviewRepository;
 
     protected User createAndSaveUser(String username, String fullname, Integer phone, String password, String email) {
         User user = new User(username, fullname, phone, email, password, "USER");
@@ -87,19 +93,28 @@ public abstract class IntegrationTestBase {
     protected UserDTO createUserDTO(Long id, String fullname, String username, Integer phone, String email,
             String password) {
         return new UserDTO(id, fullname, username, phone, email, password, 0, "None", false, null,
-            List.of("USER"), new ArrayList<>(), new ArrayList<>());
+            List.of("USER"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
     protected EventDTO createEventDTO(Long id, String title, String description, String category, String location,
             String date, String time, Double basicPrice, Double vipPrice, Integer availableBasicTickets,
             Integer availableVipTickets, List<ParticipantDTO> participants) {
         return new EventDTO(id, title, description, category, location, date, time, basicPrice, vipPrice,
-            availableBasicTickets, availableVipTickets, false, participants, null);
+            availableBasicTickets, availableVipTickets, false, participants, null, null);
     }
 
     protected ParticipantDTO toParticipantDTO(Participant participant) {
         return new ParticipantDTO(participant.getId(), participant.getName(), participant.getType(),
                 participant.getBiography(), participant.getParticipantImage(), participant.getNumFollowers());
+    }
+
+    protected ReviewDTO createReviewDTO(Long id, String description, Double rating, Long eventId, Long userId) {
+        return new ReviewDTO(id, description, rating, eventId, userId, null);
+    }
+
+    protected Review createAndSaveReview(String description, Double rating, User user, Event event) {
+        Review review = new Review(description, rating, user, event);
+        return reviewRepository.save(review);
     }
 
 }

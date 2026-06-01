@@ -7,9 +7,7 @@ function buildReview(eventAssociatedId: number, rating: number, description: str
     return {
         description,
         rating,
-        eventAssociatedId,
-        userOwnerId: 2,
-        createdAt: Date.now()
+        eventAssociatedId
     }
 }
 

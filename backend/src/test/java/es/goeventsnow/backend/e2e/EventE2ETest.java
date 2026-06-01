@@ -73,4 +73,45 @@ class EventE2ETest extends E2eTestBase {
         waitForId("event-detail-page");
         assertTrue(driver.getPageSource().contains("New Title Edited"));
     }
+
+    @Test
+    void filterEventsNameShowsInfo() {
+        navigateToPath("/events");
+
+        waitForId("event-title-list-1");
+        type("search-name-event", "Comedy");
+        clickId("apply-filters-bar");
+
+        waitForId("event-title-list-3");
+
+        assertTrue(driver.getPageSource().contains("Stand-Up Comedy Night: Juan Dávila Live"));
+        assertFalse(driver.getPageSource().contains("Global Latin Music Festival"));
+    }
+
+    @Test
+    void filterEventsCategoryShowsInfo() {
+        navigateToPath("/events");
+
+        waitForId("event-title-list-1");
+        type("search-category-event", "Comedy");
+        clickId("apply-filters-bar");
+
+        waitForId("event-title-list-3");
+        assertTrue(driver.getPageSource().contains("Stand-Up Comedy Night: Juan Dávila Live"));
+        assertFalse(driver.getPageSource().contains("Global Latin Music Festival"));
+    }
+
+    @Test
+    void filterEventsSortShowsInfo() {
+        navigateToPath("/events");
+
+        waitForId("event-title-list-1");
+        waitForSelectOption("sort-select","Recent");
+        clickCss("#sort-select option[value='recent']");
+
+        waitForId("event-title-list-11");
+        assertTrue(driver.getPageSource().contains("Music, Culture and Social Impact Summit"));
+        assertFalse(driver.getPageSource().contains("Global Latin Music Festival"));
+    }
+
 }

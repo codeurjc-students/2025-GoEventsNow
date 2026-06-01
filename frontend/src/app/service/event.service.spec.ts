@@ -31,7 +31,7 @@ function buildEvent(title: string) {
 
 describe('Event API Integration', () => {
 
-    it('should get events from real backend', async () => {
+    it('should fetch events from real backend', async () => {
         const response = await fetch(API_URL + '?page=0&size=5', {
         });
 
@@ -56,7 +56,7 @@ describe('Event API Integration', () => {
         expect(event.description).toBe("A large-scale live music festival bringing together leading Latin and international artists. The event includes full-stage performances, VIP fan zones, immersive lighting, food areas and a night focused on reggaeton, pop and flamenco fusion.");
     });
 
-    it('should get events by participant id from real backend', async () => {
+    it('should fetch events by participant id from real backend', async () => {
         const response = await fetch(API_URL + '?participantId=1&page=0&size=5', {
         });
 
@@ -67,6 +67,32 @@ describe('Event API Integration', () => {
         expect(events.length).toBeGreaterThan(0);
         expect(events[0].title).toBe("Global Latin Music Festival");
         expect(events[0].participants[0].name).toBe("Bad Bunny");
+    });
+
+    it('should fetch events with category filter from real backend', async () => {
+        const response = await fetch(API_URL + '?category=Music&page=0&size=5', {
+        });
+
+        expect(response.ok).toBe(true);
+
+        const page = await response.json();
+        const events = page.content;
+
+        expect(events.length).toBeGreaterThan(0);
+        expect(events[0].category).toBe('Music');
+    });
+
+    it('should fetch events with min and max price filter from real backend', async () => {
+        const response = await fetch(API_URL + '?minPrice=40&maxPrice=100&page=0&size=5', {
+        });
+
+        expect(response.ok).toBe(true);
+
+        const page = await response.json();
+        const events = page.content;
+
+        expect(events.length).toBeGreaterThan(0);
+        expect(events[0].category).toBe('Music');
     });
 
     it('should create event in real backend', async () => {

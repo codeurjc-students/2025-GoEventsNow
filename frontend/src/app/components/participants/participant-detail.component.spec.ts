@@ -4,6 +4,7 @@ import { firstValueFrom, of } from 'rxjs';
 import { ParticipantDetailComponent } from './participant-detail.component';
 import { ParticipantService } from '../../service/participant.service';
 import { EventService } from '../../service/event.service';
+import { UserService } from '../../service/user.service';
 
 const mockParticipant = {
   id: 1,
@@ -29,11 +30,24 @@ const mockEvents = [
   }
 ];
 
+const mockUser = {
+  id: 1,
+  fullname: 'Test User',
+  username: 'testuser',
+  phone: 123456789,
+  email: 'test@email.com',
+  password: '',
+  numTicketsBought: 0,
+  favoriteGenre: 'None',
+  followedParticipants: []
+};
+
 describe('ParticipantDetailComponent', () => {
   let component: ParticipantDetailComponent;
   let fixture: ComponentFixture<ParticipantDetailComponent>;
   let participantServiceMock: any;
   let eventServiceMock: any;
+  let userServiceMock: any;
 
   beforeEach(async () => {
     participantServiceMock = {
@@ -44,12 +58,19 @@ describe('ParticipantDetailComponent', () => {
       getEventsByParticipantId: vi.fn().mockReturnValue(of(mockEvents))
     };
 
+    userServiceMock = {
+      getCurrentUser: vi.fn().mockReturnValue(of(mockUser)),
+      followParticipant: vi.fn().mockReturnValue(of({})),
+      unfollowParticipant: vi.fn().mockReturnValue(of({}))
+    };
+
     await TestBed.configureTestingModule({
       imports: [ParticipantDetailComponent],
       providers: [
         provideRouter([]),
         { provide: ParticipantService, useValue: participantServiceMock },
         { provide: EventService, useValue: eventServiceMock },
+        { provide: UserService, useValue: userServiceMock },
         { provide: ActivatedRoute, useValue: { snapshot: { params: { id: 1 } } } }
       ]
     }).compileComponents();
@@ -86,5 +107,42 @@ describe('ParticipantDetailComponent', () => {
     expect(compiled.textContent).toContain('Bad Bunny');
     expect(compiled.textContent).toContain('Puerto Rican global superstar known for redefining reggaeton and Latin trap');
     expect(compiled.textContent).toContain('Global Latin Music Festival');
+  });
+
+
+  it('should follow participant', () => {
+    component.currentUser = mockUser;
+    component.currentParticipantId = 1;
+    component.isFollowing = false;
+    component.displayFollowerCount = 10;
+
+    component.toggleFollow();
+
+    expect(userServiceMock.followParticipant).toHaveBeenCalledWith(1, 1);
+    expect(component.isFollowing).toBe(true);
+    expect(component.displayFollowerCount).toBe(11);
+  });
+
+  it('should unfollow participant', () => {
+    component.currentUser = mockUser;
+    component.currentParticipantId = 1;
+    component.isFollowing = true;
+    component.displayFollowerCount = 10;
+
+    component.toggleFollow();
+
+    expect(userServiceMock.unfollowParticipant).toHaveBeenCalledWith(1, 1);
+    expect(component.isFollowing).toBe(false);
+    expect(component.displayFollowerCount).toBe(9);
+  });
+
+  it('should not follow or unfollow if user is not logged in', () => {
+    component.currentUser = null;
+    component.currentParticipantId = 1;
+
+    component.toggleFollow();
+
+    expect(userServiceMock.followParticipant).not.toHaveBeenCalled();
+    expect(userServiceMock.unfollowParticipant).not.toHaveBeenCalled();
   });
 });

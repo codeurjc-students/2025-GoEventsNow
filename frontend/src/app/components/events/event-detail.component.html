@@ -110,7 +110,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h5 class="fw-bold text-dark mb-0">Reviews ({{ reviews.length }})</h5>
                         @if (currentUser != null) {
-                        <button class="btn btn-outline-primary rounded-pill px-4 fw-medium"
+                        <button id="btn-open-review-modal" class="btn btn-outline-primary rounded-pill px-4 fw-medium"
                             (click)="openReviewModal(content, event.id)">
                             <i class="bi bi-pencil-square me-2"></i> Write a review
                         </button>
@@ -118,7 +118,7 @@
                     </div>
 
                     @if (reviews.length > 0) {
-                    <div class="d-flex flex-column gap-3">
+                    <div class="d-flex flex-column gap-3" id="reviews-section">
                         @for (review of reviews; track review.id) {
                         @if (reviewsMap.get(review.userOwnerId); as user) {
                         <div class="card border-0 shadow-sm rounded-3 overflow-hidden transition-all"
@@ -195,15 +195,15 @@
                             </span>
                         </div>
 
-                        <input type="range" class="form-range custom-range px-4" min="0" max="5" step="0.5"
+                        <input type="range" id="rating" class="form-range custom-range px-4" min="0" max="5" step="0.5"
                             [(ngModel)]="activeReview.rating" name="rating">
                     </div>
 
                     <div class="form-floating mb-2">
-                        <textarea class="form-control border-secondary-subtle focus-ring" id="floatingTextarea"
+                        <textarea class="form-control border-secondary-subtle focus-ring" id="description"
                             style="height: 120px; resize: none;" [(ngModel)]="activeReview.description"
                             name="description" placeholder="Write your review..."></textarea>
-                        <label for="floatingTextarea" class="text-muted">What did you
+                        <label for="description" class="text-muted">What did you
                             think?</label>
                     </div>
                 </form>
@@ -213,7 +213,7 @@
                 <button type="button" class="btn btn-light rounded-pill px-4" (click)="modal.dismiss('Cancel')">
                     Cancel
                 </button>
-                <button type="button" class="btn btn-primary rounded-pill px-5 shadow-sm"
+                <button id="btn-send-review" type="button" class="btn btn-primary rounded-pill px-5 shadow-sm"
                     (click)="modal.close('Save click')">
                     Save Review
                 </button>

@@ -50,6 +50,36 @@ public class EventRepositoryTest extends IntegrationTestBase {
     }
 
     @Test
+    public void shouldReturnAllSavedEventsByCategoryThroughService() {
+        Event firstEvent = createAndSaveEvent("Database Testing Event 1", "Description 1", "Testing 1", "USA",
+                "2025-10-05", "10:00", 20.0, 50.0, 100, 20, null);
+
+        Page<EventDTO> events = eventService.getEvents(null, null, "Testing 1", null, null, PageRequest.of(0, 20));
+
+        assertTrue(events.getContent().stream().anyMatch(event -> event.title().equals(firstEvent.getTitle())));
+    }
+
+    @Test
+    public void shouldReturnAllSavedEventsByTitleThroughService() {
+        Event firstEvent = createAndSaveEvent("Database Testing Event 1", "Description 1", "Testing 1", "USA",
+                "2025-10-05", "10:00", 20.0, 50.0, 100, 20, null);
+
+        Page<EventDTO> events = eventService.getEvents(null, "Database Testing Event 1", null, null, null, PageRequest.of(0, 20));
+
+        assertTrue(events.getContent().stream().anyMatch(event -> event.title().equals(firstEvent.getTitle())));
+    }
+
+    @Test
+    public void shouldReturnAllSavedEventsByPriceThroughService() {
+        Event firstEvent = createAndSaveEvent("Database Testing Event 1", "Description 1", "Testing 1", "USA",
+                "2025-10-05", "10:00", 20.0, 50.0, 100, 20, null);
+
+        Page<EventDTO> events = eventService.getEvents(null, null, "Testing 1", 10.0, 22.0, PageRequest.of(0, 20));
+
+        assertTrue(events.getContent().stream().anyMatch(event -> event.title().equals(firstEvent.getTitle())));
+    }
+
+    @Test
     public void shouldAddEventThroughService() {
         Participant participant = createAndSaveParticipant("Summer Artist", "Music", "Festival artist");
         EventDTO eventToAdd = createEventDTO(null, "Summer Music Festival 2025", "Amazing music festival", "Music",

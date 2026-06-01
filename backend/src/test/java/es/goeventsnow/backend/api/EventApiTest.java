@@ -34,6 +34,71 @@ public class EventApiTest extends BaseApiTest {
     }
 
     @Test
+    public void testGetAllEventsByTitle_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?title=Global Latin Music Festival")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Global Latin Music Festival"));
+    }
+
+    @Test
+    public void testGetAllEventsByCategory_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?category=Music")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Global Latin Music Festival"));
+    }
+
+    @Test
+    public void testGetAllEventsByPriceRange_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?minPrice=40&maxPrice=100")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Global Latin Music Festival"));
+    }
+
+    @Test
+    public void testGetAllEventsSortByPriceAsc_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?sortBy=price&sortDir=asc")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Stand-Up Comedy Night: Juan Dávila Live"));
+    }
+
+    @Test
+    public void testGetAllEventsSortByRecentDesc_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?sortBy=recent&sortDir=desc")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Music, Culture and Social Impact Summit"));
+    }
+
+    @Test
     public void testGetEventById_return200() {
 
         given()

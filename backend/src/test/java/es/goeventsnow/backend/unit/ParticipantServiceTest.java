@@ -93,6 +93,40 @@ public class ParticipantServiceTest {
     }
 
     @Test
+    public void getAllParticipantsByNameTest() {
+        Pageable pageable = PageRequest.of(0, 20);
+        Page<Participant> participantPage = new PageImpl<>(
+                List.of(firstMockParticipant), pageable, 1);
+
+        when(participantRepository.findParticipantsByFilters("Mock Participant 1", null, pageable)).thenReturn(participantPage);
+        when(participantMapper.toDTO(firstMockParticipant)).thenReturn(firstMockParticipantDTO);
+
+        Page<ParticipantDTO> result = participantService.getParticipants("Mock Participant 1", null, pageable);
+
+        assertEquals(1, result.getNumberOfElements());
+        assertEquals("Mock Participant 1", result.getContent().get(0).name());
+        verify(participantRepository, times(1)).findParticipantsByFilters("Mock Participant 1", null, pageable);
+        verify(participantMapper, times(1)).toDTO(any(Participant.class));
+    }
+
+    @Test
+    public void getAllParticipantsByTypeTest() {
+        Pageable pageable = PageRequest.of(0, 20);
+        Page<Participant> participantPage = new PageImpl<>(
+                List.of(firstMockParticipant), pageable, 1);
+
+        when(participantRepository.findParticipantsByFilters(null, List.of("Singer"), pageable)).thenReturn(participantPage);
+        when(participantMapper.toDTO(firstMockParticipant)).thenReturn(firstMockParticipantDTO);
+
+        Page<ParticipantDTO> result = participantService.getParticipants(null, List.of("Singer"), pageable);
+
+        assertEquals(1, result.getNumberOfElements());
+        assertEquals("Mock Participant 1", result.getContent().get(0).name());
+        verify(participantRepository, times(1)).findParticipantsByFilters(null, List.of("Singer"), pageable);
+        verify(participantMapper, times(1)).toDTO(any(Participant.class));
+    }
+
+    @Test
     public void getParticipantByIdTest() {
         when(participantRepository.findById(1L)).thenReturn(Optional.of(firstMockParticipant));
         when(participantMapper.toDTO(firstMockParticipant)).thenReturn(firstMockParticipantDTO);

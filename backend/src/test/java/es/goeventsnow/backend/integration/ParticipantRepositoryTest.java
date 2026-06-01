@@ -1,6 +1,7 @@
 package es.goeventsnow.backend.integration;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -35,6 +36,24 @@ public class ParticipantRepositoryTest extends IntegrationTestBase {
 
         assertTrue(participants.getContent().stream().anyMatch(p -> p.name().equals(firstParticipant.getName())));
         assertTrue(participants.getContent().stream().anyMatch(p -> p.name().equals(secondParticipant.getName())));
+    }
+
+    @Test
+    public void shouldReturnAllSavedParticipantsByTypeThroughService() {
+        Participant firstParticipant = createAndSaveParticipant("Participant One", "Music", "Biography of Participant One");
+
+        Page<ParticipantDTO> participants = participantService.getParticipants(null, List.of("Music"), PageRequest.of(0, 20));
+
+        assertTrue(participants.getContent().stream().anyMatch(p -> p.name().equals(firstParticipant.getName())));
+    }
+
+    @Test
+    public void shouldReturnAllSavedParticipantsByNameThroughService() {
+        Participant firstParticipant = createAndSaveParticipant("Participant One", "Music", "Biography of Participant One");
+
+        Page<ParticipantDTO> participants = participantService.getParticipants("Participant One", null, PageRequest.of(0, 20));
+
+        assertTrue(participants.getContent().stream().anyMatch(p -> p.name().equals(firstParticipant.getName())));
     }
 
     @Test

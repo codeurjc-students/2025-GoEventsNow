@@ -99,6 +99,57 @@ public class EventServiceTest {
     }
 
     @Test
+    public void getAllEventsFilterByTitleTest() {
+
+        Pageable pageable = PageRequest.of(0, 20);
+        Page<Event> eventPage = new PageImpl<>(List.of(firstMockEvent), pageable, 1);
+
+        when(eventMapper.toDTO(firstMockEvent)).thenReturn(firstMockEventDTO);
+        when(eventRepository.findEventsByFilters(null, "MockExample1", null, null, null, pageable)).thenReturn(eventPage);
+
+        Page<EventDTO> eventListFromService = eventService.getEvents(null, "MockExample1", null, null, null, pageable);
+
+        assertEquals(1, eventListFromService.getNumberOfElements());
+        assertEquals(firstMockEventDTO.title(), eventListFromService.getContent().get(0).title());
+
+        verify(eventRepository, times(1)).findEventsByFilters(null, "MockExample1", null, null, null, pageable);
+    }
+
+    @Test
+    public void getAllEventsFilterByCategoryTest() {
+
+        Pageable pageable = PageRequest.of(0, 20);
+        Page<Event> eventPage = new PageImpl<>(List.of(firstMockEvent), pageable, 1);
+
+        when(eventMapper.toDTO(firstMockEvent)).thenReturn(firstMockEventDTO);
+        when(eventRepository.findEventsByFilters(null, null, "Test", null, null, pageable)).thenReturn(eventPage);
+
+        Page<EventDTO> eventListFromService = eventService.getEvents(null, null, "Test", null, null, pageable);
+
+        assertEquals(1, eventListFromService.getNumberOfElements());
+        assertEquals(firstMockEventDTO.title(), eventListFromService.getContent().get(0).title());
+
+        verify(eventRepository, times(1)).findEventsByFilters(null, null, "Test", null, null, pageable);
+    }
+
+    @Test
+    public void getAllEventsFilterByPriceTest() {
+
+        Pageable pageable = PageRequest.of(0, 20);
+        Page<Event> eventPage = new PageImpl<>(List.of(firstMockEvent), pageable, 1);
+
+        when(eventMapper.toDTO(firstMockEvent)).thenReturn(firstMockEventDTO);
+        when(eventRepository.findEventsByFilters(null, null, null, 10.0, 22.0, pageable)).thenReturn(eventPage);
+
+        Page<EventDTO> eventListFromService = eventService.getEvents(null, null, null, 10.0, 22.0, pageable);
+
+        assertEquals(1, eventListFromService.getNumberOfElements());
+        assertEquals(firstMockEventDTO.title(), eventListFromService.getContent().get(0).title());
+
+        verify(eventRepository, times(1)).findEventsByFilters(null, null, null, 10.0, 22.0, pageable);
+    }
+
+    @Test
     public void getEventByIdTest() {
 
         when(eventRepository.findById(1L)).thenReturn(Optional.of(firstMockEvent));
@@ -130,7 +181,7 @@ public class EventServiceTest {
         Page<Event> eventPage = new PageImpl<>(List.of(firstMockEvent, secondMockEvent), pageable, 2);
 
         when(participantRepository.existsById(1L)).thenReturn(true);
-        when(eventRepository.findByParticipantsId(1L, pageable)).thenReturn(eventPage);
+        when(eventRepository.findEventsByFilters(1L, null, null, null, null, pageable)).thenReturn(eventPage);
         when(eventMapper.toDTO(firstMockEvent)).thenReturn(firstMockEventDTO);
         when(eventMapper.toDTO(secondMockEvent)).thenReturn(secondMockEventDTO);
 
@@ -141,7 +192,7 @@ public class EventServiceTest {
         assertEquals(secondMockEventDTO.title(), eventParticipantListFromService.getContent().get(1).title());
 
         verify(participantRepository, times(1)).existsById(1L);
-        verify(eventRepository, times(1)).findByParticipantsId(1L, pageable);
+        verify(eventRepository, times(1)).findEventsByFilters(1L, null, null, null, null, pageable);
     }
 
     @Test
@@ -157,7 +208,8 @@ public class EventServiceTest {
 
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
 
-        verify(eventRepository, times(0)).findByParticipantsId(any(Long.class), any(Pageable.class));
+        verify(eventRepository, times(0)).findEventsByFilters(any(Long.class), any(String.class), any(String.class),
+                any(Double.class), any(Double.class), any(Pageable.class));
     }
 
     @Test
@@ -218,7 +270,7 @@ public class EventServiceTest {
                 10.0, 20.0, 100, 50, false,
                 List.of(new ParticipantDTO(999L, "Unknown", "Type", "Bio",
                         false, 0)),
-                new ArrayList<>(),new ArrayList<>());
+                new ArrayList<>(), new ArrayList<>());
 
         when(eventMapper.toDomain(any(EventDTO.class))).thenReturn(firstMockEvent);
         when(participantRepository.existsById(999L)).thenReturn(false);
@@ -264,7 +316,7 @@ public class EventServiceTest {
                 10.0, 20.0, 100, 50, false,
                 List.of(new ParticipantDTO(999L, "Unknown", "Type", "Bio",
                         false, 0)),
-                new ArrayList<>(),new ArrayList<>());
+                new ArrayList<>(), new ArrayList<>());
 
         when(eventRepository.existsById(1L)).thenReturn(true);
         when(eventRepository.findById(1L)).thenReturn(Optional.of(firstMockEvent));

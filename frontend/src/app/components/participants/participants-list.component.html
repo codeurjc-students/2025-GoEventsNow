@@ -1,54 +1,83 @@
 <div class="container-fluid px-4 py-4">
-    <div class="row">
+    <div class="row g-4">
 
-        <aside class="col-12 col-md-4 col-lg-2 mb-4">
-            <div class="sticky-top" style="top: 20px;">
-                <h5 class="fw-bold mb-3"><i class="bi bi-filter"></i> Filters</h5>
-                <div class="d-flex flex-column gap-2">
-                    <p class="mb-1 fw-semibold small text-secondary">Category</p>
-
-                    <input type="checkbox" class="btn-check" id="btn-all" autocomplete="off">
-                    <label class="btn btn-outline-primary w-100 text-start border-0 py-2 rounded-3"
-                        for="btn-all">All</label>
-
-                    <input type="checkbox" class="btn-check" id="btn-music" autocomplete="off">
-                    <label class="btn btn-outline-primary w-100 text-start border-0 py-2 rounded-3"
-                        for="btn-music">Music</label>
-
-                    <input type="checkbox" class="btn-check" id="btn-tech" autocomplete="off">
-                    <label class="btn btn-outline-primary w-100 text-start border-0 py-2 rounded-3"
-                        for="btn-tech">Technology</label>
-
+        <aside class="col-12 col-md-4 col-lg-3">
+            <div class="sticky-top p-3 p-lg-4 bg-white border rounded-4 shadow-sm" style="top: 20px;">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-funnel me-2"></i>Filters</h5>
+                    <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="clearFilters()">
+                        Clear all
+                    </button>
                 </div>
-                <button class="btn btn-outline-dark btn-sm w-100 mt-4 rounded-pill">Clear All Filters</button>
+
+                <div class="d-flex flex-column gap-3">
+                    <div>
+                        <p class="mb-1 fw-semibold small text-secondary text-uppercase">Category</p>
+                        <input id="category-participant-filter" type="text" class="form-control form-control-sm rounded-pill" [value]="categoryFilter"
+                            (change)="onCategoryChange($any($event.target).value)"
+                            placeholder="Music, Tech, Sports...">
+                    </div>
+
+                    <div>
+                        <p class="mb-1 fw-semibold small text-secondary text-uppercase">Order by</p>
+                        <div class="input-group input-group-sm">
+                            <select id="sort-select" #sortSelect class="form-select rounded-start-pill"
+                                (change)="changeSort(sortSelect.value)">
+                                <option value="">Default</option>
+                                <option value="recent">Recent</option>
+                                <option value="numFollowers">Followers</option>
+                                <option value="type">Type</option>
+                            </select>
+                            <button class="btn btn-outline-secondary rounded-end-pill px-3" (click)="toggleSortDir()"
+                                aria-label="Toggle sort direction">
+                                <i class="bi" [class.bi-arrow-up]="sortDir === 'asc'"
+                                    [class.bi-arrow-down]="sortDir === 'desc'"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </aside>
 
-        <main class="col-12 col-md-8 col-lg-10">
+        <main class="col-12 col-md-8 col-lg-9">
 
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="input-group input-group-lg shadow-sm rounded-pill overflow-hidden bg-white border">
-                        <span class="input-group-text bg-white border-0 ps-4">
-                            <i class="bi bi-search text-secondary"></i>
-                        </span>
-                        <input type="text" class="form-control border-0 py-3"
-                            placeholder="Search participants by name, location, or description...">
+            <div class="bg-white border rounded-4 shadow-sm p-3 p-lg-4 mb-4">
+                <div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center">
+                    <div class="flex-grow-1">
+    
+                        <div class="input-group input-group-lg overflow-hidden rounded-pill border">
+                            <span class="input-group-text bg-white border-0 ps-4">
+                                <i class="bi bi-search text-secondary"></i>
+                            </span>
+
+                            <input #searchInput id="participant-search" type="text" class="form-control border-0 py-3"
+                                placeholder="Search participants by name..." [value]="searchTerm"
+                                (keyup.enter)="onSearch($any($event.target).value)">
+
+                            <button id="apply-filter-bar" class="btn btn-dark px-4 fw-semibold"
+                                (click)="onSearch(searchInput.value)">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-lg-end">
+                        <p class="mb-1 small text-secondary text-uppercase fw-semibold">Results</p>
+                        <h5 class="mb-0 fw-bold">{{ participants.length || 0 }} participants</h5>
                     </div>
                 </div>
             </div>
 
             <div class="row g-4" id="participant-list">
-                <h5 class="fw-bold mb-3">{{participants.length}} Participants Found</h5>
-                @for (participant of participants; track participant.id) {
-
+                @for (participant of (participants || []); track participant?.id) {
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card h-100 shadow-sm border-1 border-light rounded-4 overflow-hidden">
 
-                        <div class="position-relative" [class.bg-dark]="participant.participantImage"
+                        <div class="position-relative" [class.bg-dark]="participant?.participantImage"
                             style="height: 200px; background-color: #f8f9fa;">
+
                             @if (participant.participantImage) {
-                            <img [src]="'/api/v1/participants/' + participant.id + '/image'"
+                            <img [src]="'/api/v1/participants/' + participant?.id + '/image'"
                                 class="w-100 h-100 object-fit-cover opacity-75" alt="Participant cover">
                             } @else {
                             <img src="/images/noImage.png" class="w-100 h-100 object-fit-contain"
@@ -57,18 +86,29 @@
                         </div>
 
                         <div class="card-body p-4 d-flex flex-column">
-                            <div class="mb-2">
+                            <div class="mb-2 d-flex justify-content-between align-items-center">
                                 <span
                                     class="badge border border-secondary-subtle text-secondary fw-normal rounded-pill px-3 py-1 bg-transparent">
-                                    {{participant.type}}
+                                    {{ participant?.type || '' }}
+                                </span>
+
+                                <span class="text-muted small d-flex align-items-center" aria-label="followers-count">
+                                    <i class="bi bi-people me-1"></i>
+                                    <span class="fw-semibold">{{ participant?.numFollowers || 0 }}</span>
                                 </span>
                             </div>
 
-                            <h3 id="participant-name-list-{{participant.id}}" class="card-title h6 text-dark fw-bold mb-3">{{participant.name}}</h3>
+                            <h3 id="participant-name-list-{{ participant?.id }}"
+                                class="card-title h6 text-dark fw-bold mb-3">
+                                {{ participant?.name || '' }}
+                            </h3>
 
                             <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <a id="participant-detail-{{participant.id}}" [routerLink]="['/participant/', participant.id]"
-                                    class="btn btn-dark btn-sm rounded-pill px-4 fw-bold py-2">View Details</a>
+                                <a id="participant-detail-{{ participant?.id }}"
+                                    [routerLink]="['/participant/', participant?.id]"
+                                    class="btn btn-dark btn-sm rounded-pill px-4 fw-bold py-2">
+                                    View Details
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -77,10 +117,11 @@
             </div>
 
             <div class="text-center mt-5" *ngIf="hasMore">
-                <button (click)="loadParticipants()" class="btn btn-outline-dark rounded-pill px-5">Load More
-                    Participants</button>
+                <button (click)="loadParticipants()" class="btn btn-outline-dark rounded-pill px-5">
+                    Load More Participants
+                </button>
             </div>
-        </main>
 
+        </main>
     </div>
 </div>

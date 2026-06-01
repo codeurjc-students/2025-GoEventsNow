@@ -1,14 +1,51 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { Participant } from "../model/participant";
 
 const BASE_URL = '/api/v1/participants/';
 
+export interface ParticipantFilters {
+    page?: number;
+    size?: number;
+    name?: string;
+    types?: string[];
+    sortBy?: string;
+    sortDir?: 'asc' | 'desc';
+}
+
 @Injectable({ providedIn: 'root' })
 export class ParticipantService {
 
     constructor(private httpClient: HttpClient) { }
+
+    public fetchParticipants(options: ParticipantFilters = {}): Observable<Participant[]> {
+        let params = new HttpParams()
+            .set('page', options.page ?? 0)
+            .set('size', options.size ?? 10);
+
+        if (options.name) {
+            params = params.set('name', options.name);
+        }
+
+        if (options.types && options.types.length > 0) {
+            options.types.forEach(type => {
+                params = params.append('types', type);
+            });
+        }
+
+        if (options.sortBy) {
+            params = params.set('sortBy', options.sortBy);
+        }
+
+        if (options.sortDir) {
+            params = params.set('sortDir', options.sortDir);
+        }
+
+        return this.httpClient.get<any>(BASE_URL, { params }).pipe(
+            map(response => response.content)
+        );
+    }
 
     public findAll(page = 0, size = 1): Observable<Participant[]> {
         const url = `${BASE_URL}?page=${page}&size=${size}`;
@@ -53,5 +90,4 @@ export class ParticipantService {
         const id = Number(participant.id);
         return this.httpClient.delete<any>(BASE_URL + id + '/image');
     }
-    
 }

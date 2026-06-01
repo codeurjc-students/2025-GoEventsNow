@@ -3,11 +3,14 @@ package es.goeventsnow.backend.controller;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,13 +33,21 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/v1/participants")
 public class ParticipantRestController {
-    
+
     @Autowired
     private ParticipantService participantService;
 
     @GetMapping("/")
-    public Page<ParticipantDTO> getParticipants(Pageable pageable) {
-        return participantService.getAllParticipants(pageable);
+    public Page<ParticipantDTO> getParticipants(@RequestParam(required = false) String name,
+            @RequestParam(required = false) List<String> types,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String sortDir,
+            Pageable pageable) {
+                
+        Sort sort = buildParticipantSort(sortBy, sortDir);
+        Pageable effectivePageable = buildPageable(pageable, sort);
+
+        return participantService.getParticipants(name, types, effectivePageable);
     }
 
     @GetMapping("/{id}")
@@ -63,28 +74,31 @@ public class ParticipantRestController {
     }
 
     @PutMapping("/{id}")
-    public ParticipantDTO replaceParticipant(@PathVariable long id, @Valid @RequestBody ParticipantDTO participantDTO) throws SQLException {
+    public ParticipantDTO replaceParticipant(@PathVariable long id, @Valid @RequestBody ParticipantDTO participantDTO)
+            throws SQLException {
         return participantService.replaceParticipant(id, participantDTO);
     }
 
     @PostMapping("/{id}/image")
-    public ResponseEntity<Object> createParticipantImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+    public ResponseEntity<Object> createParticipantImage(@PathVariable long id, @RequestParam MultipartFile imageFile)
+            throws IOException {
 
         URI location = fromCurrentRequest().build().toUri();
         participantService.createParticipantImage(id, imageFile.getInputStream(), imageFile.getSize());
         return ResponseEntity.created(location).build();
-   
+
     }
 
     @GetMapping("/{id}/image")
     public ResponseEntity<Object> getParticipantImage(@PathVariable long id) throws IOException, SQLException {
 
         Resource participantImage = participantService.getParticipantImage(id);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE,"image/jpeg").body(participantImage);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").body(participantImage);
     }
 
     @PutMapping("/{id}/image")
-    public ResponseEntity<Object> replaceParticipantImage(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException {
+    public ResponseEntity<Object> replaceParticipantImage(@PathVariable long id, @RequestParam MultipartFile imageFile)
+            throws IOException {
 
         participantService.replaceParticipantImage(id, imageFile.getInputStream(), imageFile.getSize());
         return ResponseEntity.noContent().build();
@@ -95,5 +109,34 @@ public class ParticipantRestController {
 
         participantService.deleteParticipantImage(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private Sort buildParticipantSort(String sortBy, String sortDir) {
+        if (sortBy == null) {
+            return Sort.unsorted();
+        }
+
+        String dir = sortDir != null ? sortDir.toLowerCase() : null;
+
+        return switch (sortBy) {
+            case "recent" -> Sort.by(
+                    "asc".equals(dir) ? Sort.Direction.ASC : Sort.Direction.DESC,
+                    "id");
+            case "numFollowers" -> Sort.by(
+                    "asc".equals(dir) ? Sort.Direction.ASC : Sort.Direction.DESC,
+                    "numFollowers");
+            case "type" -> Sort.by(
+                    "desc".equals(dir) ? Sort.Direction.DESC : Sort.Direction.ASC,
+                    "type");
+            default -> Sort.unsorted();
+        };
+    }
+
+    private Pageable buildPageable(Pageable pageable, Sort sort) {
+        if (sort.isUnsorted()) {
+            return pageable;
+        }
+
+        return PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
     }
 }

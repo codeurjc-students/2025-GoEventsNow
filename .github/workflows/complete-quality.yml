@@ -1,5 +1,8 @@
 name: CI - Complete
 on:
+  push:
+    branches:
+      - 'feature/**'
   pull_request:
     branches:
       - main
@@ -48,9 +51,9 @@ jobs:
       - name: Compile Server & Run Backend Unit, Integration & API System Test 
         run: |
           cd backend
-          mvn clean test -Dtest="EventServiceTest,ParticipantServiceTest,TicketServiceTest,UserServiceTest"
-          mvn clean test -Dtest="EventRepositoryTest,ParticipantRepositoryTest,TicketRepositoryTest,UserRepositoryTest"
-          mvn clean test -Dtest="AuthApiTest,EventApiTest,ParticipantApiTest,TicketApiTest,UserApiTest"   
+          mvn clean test -Dtest="EventServiceTest,ParticipantServiceTest,TicketServiceTest,UserServiceTest,ReviewServiceTest"
+          mvn clean test -Dtest="EventRepositoryTest,ParticipantRepositoryTest,TicketRepositoryTest,UserRepositoryTest,ReviewRepositoryTest"
+          mvn clean test -Dtest="AuthApiTest,EventApiTest,ParticipantApiTest,TicketApiTest,UserApiTest,GraphicApiTest,ReviewApiTest"   
 
       - name: Build Frontend
         run: |
@@ -84,7 +87,7 @@ jobs:
       - name: Run Frontend System Tests
         run: |
           cd backend
-          mvn test -Dtest="EventE2ETest,ParticipantE2ETest,TicketE2ETest,UserE2ETest"
+          mvn test -Dtest="EventE2ETest,ParticipantE2ETest,TicketE2ETest,UserE2ETest,ReviewE2ETest"
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2

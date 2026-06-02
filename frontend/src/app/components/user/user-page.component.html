@@ -241,7 +241,7 @@
 
                             @for (review of reviews; track review.id) {
                             @if (reviewsMap.get(review.eventAssociatedId); as event) {
-                            <div class="card shadow-sm border-0 rounded-4 overflow-hidden mb-3 p-2"
+                            <div id="review-{{review.id}}" class="card shadow-sm border-0 rounded-4 overflow-hidden mb-3 p-2"
                                 style="max-width: 1000px;">
                                 <div class="row g-0 align-items-center">
 
@@ -264,12 +264,12 @@
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
                                                     <div class="d-flex gap-2 mb-1">
-                                                        <button id="btn-open-update-review-modal" class="btn btn-sm btn-outline-secondary"
+                                                        <button id="btn-open-update-review-modal-{{review.id}}" class="btn btn-sm btn-outline-secondary"
                                                             (click)="openEditModal(content, review)"
                                                             title="Edit review">
                                                             <i class="bi bi-pencil-fill"></i>
                                                         </button>
-                                                        <button id="btn-delete-review" class="btn btn-sm btn-outline-danger"
+                                                        <button id="btn-delete-review-{{review.id}}" class="btn btn-sm btn-outline-danger"
                                                             (click)="deleteReview(review)" title="Delete review">
                                                             <i class="bi bi-trash-fill"></i>
                                                         </button>

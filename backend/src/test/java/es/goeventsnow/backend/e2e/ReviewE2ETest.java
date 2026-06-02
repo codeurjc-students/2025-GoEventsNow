@@ -3,13 +3,16 @@ package es.goeventsnow.backend.e2e;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ReviewE2ETest extends E2eTestBase {
 
     @Test
     void writeReviewShowsModal() {
         createReview(1, "Great event", "2.5");
-        waitForId("reviews-section");
+        waitForPageText("Great event");
         assertTrue(driver.getPageSource().contains("Great event"));
 
     }
@@ -26,7 +29,7 @@ public class ReviewE2ETest extends E2eTestBase {
         waitForId("user-profile-username");
         clickId("review-section");
         waitForId("event-bought-title-1");
-        clickId("btn-open-update-review-modal");
+        clickReviewActionByDescription("Great event", "btn-open-update-review-modal-");
         type("review-description", "Updated review");
         clickId("btn-save-review");
         waitForIdToDisappear("review-description");
@@ -45,8 +48,9 @@ public class ReviewE2ETest extends E2eTestBase {
         waitForId("user-profile-username");
         clickId("review-section");
         waitForId("event-bought-title-3");
-        clickId("btn-delete-review");
-        waitForIdToDisappear("event-bought-title-3");
+        String reviewId = reviewIdByDescription("Bad event");
+        clickId("btn-delete-review-" + reviewId);
+        waitForIdToDisappear("review-" + reviewId);
         assertFalse(driver.getPageSource().contains("Bad event"));
     }
 
@@ -59,5 +63,18 @@ public class ReviewE2ETest extends E2eTestBase {
 
         fillReviewForm(description, rating);
         submitReviewForm();
+        waitForPageText(description);
+    }
+
+    private void clickReviewActionByDescription(String description, String buttonIdPrefix) {
+        String reviewId = reviewIdByDescription(description);
+        clickId(buttonIdPrefix + reviewId);
+    }
+
+    private String reviewIdByDescription(String description) {
+        WebElement review = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//*[starts-with(@id,'review-')][.//*[contains(normalize-space(.), '" + description + "')]]")));
+
+        return review.getDomAttribute("id").replace("review-", "");
     }
 }

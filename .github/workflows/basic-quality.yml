@@ -34,7 +34,7 @@ jobs:
       - name: Run & Build Backend Unit Test
         run: |
           cd backend
-          mvn clean test -Dtest="EventServiceTest,ReviewServiceTest,ParticipantServiceTest,TicketServiceTest,UserServiceTest"
+          mvn clean test -Dtest="EventServiceTest,ParticipantServiceTest,TicketServiceTest,UserServiceTest,ReviewServiceTest"
 
       - name: Set up Node.js 20
         uses: actions/setup-node@v4

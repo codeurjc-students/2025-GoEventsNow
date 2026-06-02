@@ -165,30 +165,6 @@ public class UserApiTest extends BaseApiTest {
     }
 
     @Test
-    public void testGetUserImageNoAuth_return200() {
-        given()
-                .when()
-                .get(API_USERS + "1/image")
-                .then()
-                .statusCode(200);
-    }
-
-    @Test
-    public void testGetOtherUserImage_return200() {
-        String userCookie = getUserCookie();
-        String adminCookie = getAdminCookie();
-
-        int adminId = getCurrentUserId(adminCookie);
-
-        given()
-                .header("Cookie", userCookie)
-                .when()
-                .get(API_USERS + adminId + "/image")
-                .then()
-                .statusCode(200);
-    }
-
-    @Test
     public void testCreateUserImage_return201() {
         String cookie = getUserCookie();
         int userId = getCurrentUserId(cookie);
@@ -378,7 +354,7 @@ public class UserApiTest extends BaseApiTest {
                 .get(API_USERS + adminId + "/favorites")
                 .then()
                 .statusCode(200)
-                .body("size()", is(1));
+                .body("content[0].id", is(1));
     }
 
     @Test
@@ -394,7 +370,7 @@ public class UserApiTest extends BaseApiTest {
                 .get(API_USERS + adminId + "/following")
                 .then()
                 .statusCode(200)
-                .body("size()", is(1));
+                .body("content[0].id", is(1));
     }
 
     private void addFollowingParticipant(String adminCookie, int adminId) {

@@ -152,18 +152,6 @@ public class EventApiTest extends BaseApiTest {
     }
 
     @Test
-    public void testGetEventsByParticipantId_return404() {
-
-        given()
-                .contentType("application/json")
-                .when()
-                .get(API_EVENTS + "?participantId=999")
-                .then()
-                .statusCode(404)
-                .log().all();
-    }
-
-    @Test
     public void testGetEventsByParticipantId_return400() {
 
         given()

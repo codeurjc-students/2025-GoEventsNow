@@ -32,6 +32,40 @@ public class ParticipantApiTest extends BaseApiTest {
     }
 
     @Test
+    public void testGetAllParticipantsFilterByName_return200() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_PARTICIPANTS + "?name=Bad Bunny")
+                .then()
+                .statusCode(200)
+                .body("content[0].name", is("Bad Bunny"));
+    }
+
+    @Test
+    public void testGetAllParticipantsFilterByType_return200() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_PARTICIPANTS + "?type=Music Artist")
+                .then()
+                .statusCode(200)
+                .body("content[0].name", is("Bad Bunny"));
+    }
+
+    @Test
+    public void testGetAllParticipantsSortByType_return200() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_PARTICIPANTS + "?sortBy=type&sortDir=asc")
+                .then()
+                .statusCode(200)
+                .body("content[0].name", is("Mark Ruffalo"));
+    }
+
+
+    @Test
     public void testGetParticipantById_return200() {
         given()
                 .contentType("application/json")

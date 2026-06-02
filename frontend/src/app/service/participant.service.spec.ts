@@ -14,7 +14,7 @@ function buildParticipant(name: string) {
 
 describe('Participant API Integration', () => {
 
-    it('should get participants from real backend', async () => {
+    it('should fetch participants from real backend', async () => {
         const response = await fetch(API_URL + '?page=0&size=5', {
         });
 
@@ -25,6 +25,46 @@ describe('Participant API Integration', () => {
 
         expect(participants.length).toBe(5);
         expect(participants[0].name).toBe("Bad Bunny");
+    });
+
+    it('should fetch participants with type filter from real backend', async () => {
+        const response = await fetch(API_URL + '?types=Actor&page=0&size=5', {
+        });
+
+        expect(response.ok).toBe(true);
+
+        const page = await response.json();
+        const participants = page.content;
+
+        expect(participants.length).toBeGreaterThan(0);
+        expect(participants[0].type).toBe('Actor');
+    });
+
+    it('should fetch participants with name filter from real backend', async () => {
+        const response = await fetch(API_URL + '?name=Bad&page=0&size=5', {
+        });
+
+        expect(response.ok).toBe(true);
+
+        const page = await response.json();
+        const participants = page.content;
+
+        expect(participants.length).toBeGreaterThan(0);
+        expect(participants[0].name).toBe('Bad Bunny');
+    });
+
+    it('should fetch participant order by recent desc from real backend', async () => {
+        const response = await fetch(API_URL + '?sortBy=recent&sortDir=desc&page=0&size=5', {
+
+        });
+
+        expect(response.ok).toBe(true);
+
+        const page = await response.json();
+        const participants = page.content;
+
+        expect(participants.length).toBeGreaterThan(0);
+        expect(participants[0].name).toBeTruthy();
     });
 
     it('should get participant by id from real backend', async () => {

@@ -80,10 +80,10 @@ describe('EventListComponent', () => {
   beforeEach(async () => {
 
     eventServiceMock = {
-      findAll: vi.fn().mockReturnValue(of(mockEvents))
+      fetchEvents: vi.fn().mockReturnValue(of(mockEvents))
     };
     participantServiceMock = {
-      findAll: vi.fn().mockReturnValue(of(mockParticipants))
+      fetchParticipants: vi.fn().mockReturnValue(of(mockParticipants))
     };
     await TestBed.configureTestingModule({
       imports: [EventListComponent],
@@ -106,13 +106,13 @@ describe('EventListComponent', () => {
   });
 
   it('should initialize events$ in ngOnInit', () => {
-    expect(eventServiceMock.findAll).toHaveBeenCalledWith(0, 3);
-    expect(eventServiceMock.findAll).toHaveBeenCalledTimes(1);
+    expect(eventServiceMock.fetchEvents).toHaveBeenCalledWith({ page: 0, size: 3 });
+    expect(eventServiceMock.fetchEvents).toHaveBeenCalledTimes(1);
   });
 
   it('should initialize participants$ in ngOnInit', () => {
-    expect(participantServiceMock.findAll).toHaveBeenCalledWith(0, 3);
-    expect(participantServiceMock.findAll).toHaveBeenCalledTimes(1);
+    expect(participantServiceMock.fetchParticipants).toHaveBeenCalledWith({ page: 0, size: 3 });
+    expect(participantServiceMock.fetchParticipants).toHaveBeenCalledTimes(1);
   });
 
   it('should have event$', async () => {

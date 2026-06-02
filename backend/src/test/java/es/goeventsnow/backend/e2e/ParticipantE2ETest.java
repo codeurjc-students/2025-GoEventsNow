@@ -80,4 +80,44 @@ class ParticipantE2ETest extends E2eTestBase {
         waitForId("participant-detail-name-2");
         assertTrue(driver.getPageSource().contains("Edited Participant"));
     }
+
+    @Test
+    void filterParticipantsNameShowsInfo() {
+        navigateToPath("/participants");
+
+        waitForId("participant-name-list-1");
+        type("participant-search", "Mark");
+        clickId("apply-filter-bar");
+
+        waitForId("participant-name-list-9");
+
+        assertTrue(driver.getPageSource().contains("Mark Ruffalo"));
+        assertFalse(driver.getPageSource().contains("Bad Bunny"));
+    }
+
+    @Test
+    void filterParticipantsCategoryShowsInfo() {
+        navigateToPath("/participants");
+
+        waitForId("participant-name-list-1");
+        type("category-participant-filter", "Actor");
+        clickId("apply-filter-bar");
+
+        waitForId("participant-name-list-9");
+        assertTrue(driver.getPageSource().contains("Mark Ruffalo"));
+        assertFalse(driver.getPageSource().contains("Bad Bunny"));
+    }
+
+    @Test
+    void filterParticipantsSortShowsInfo() {
+        navigateToPath("/participants");
+
+        waitForId("participant-name-list-1");
+        waitForSelectOption("sort-select","Recent");
+        clickCss("#sort-select option[value='recent']");
+
+        waitForId("participant-name-list-14");
+        assertTrue(driver.getPageSource().contains("Tom Holland"));
+        assertFalse(driver.getPageSource().contains("Bad Bunny"));
+    }
 }

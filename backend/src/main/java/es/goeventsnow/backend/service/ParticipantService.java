@@ -3,6 +3,7 @@ package es.goeventsnow.backend.service;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,15 @@ public class ParticipantService {
         participant.setParticipantImage(false);
         participant.setParticipantImageFile(null);
         participantRepository.save(participant);
+    }
+
+    public Page<ParticipantDTO> getParticipants(String name, List<String> types, Pageable pageable) {
+        String normalizedName = name != null && !name.trim().isEmpty() ? name.trim() : null;
+        List<String> normalizedTypes = types != null && !types.isEmpty() ? types : null;
+
+        return participantRepository
+                .findParticipantsByFilters(normalizedName, normalizedTypes, pageable)
+                .map(this::toDTO);
     }
 
     private Participant getParticipant(long id) {

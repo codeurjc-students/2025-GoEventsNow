@@ -1,12 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { API_BASE_URL } from './api-test-base';
+import { API_BASE_URL, getAdminCookie } from './api-test-base';
 
 const API_URL = API_BASE_URL + '/graphics/';
 
 describe('Graphic API Integration', () => {
 
   it('should get tickets sold by event from real backend', async () => {
-    const response = await fetch(API_URL + 'bargraph');
+    const adminCookie = await getAdminCookie();
+
+    const response = await fetch(API_URL + 'bargraph', {
+      headers: {
+        Cookie: adminCookie
+      }
+    });
 
     expect(response.ok).toBe(true);
 
@@ -25,7 +31,13 @@ describe('Graphic API Integration', () => {
   });
 
   it('should get tickets sold by category from real backend', async () => {
-    const response = await fetch(API_URL + 'piechart');
+    const adminCookie = await getAdminCookie();
+
+    const response = await fetch(API_URL + 'piechart', {
+      headers: {
+        Cookie: adminCookie
+      }
+    });
 
     expect(response.ok).toBe(true);
 

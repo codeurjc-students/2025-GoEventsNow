@@ -57,7 +57,7 @@ describe('EventListComponent', () => {
   beforeEach(async () => {
 
     eventServiceMock = {
-      findAll: vi.fn().mockReturnValue(of(mockEvents))
+      fetchEvents: vi.fn().mockReturnValue(of(mockEvents))
     };
     await TestBed.configureTestingModule({
       imports: [EventListComponent],
@@ -79,7 +79,7 @@ describe('EventListComponent', () => {
   });
 
   it('should initialize events$ in ngOnInit ', () => {
-    expect(eventServiceMock.findAll).toHaveBeenCalledTimes(1);
+    expect(eventServiceMock.fetchEvents).toHaveBeenCalledTimes(1);
   });
 
   it('should have events$ ', () => {

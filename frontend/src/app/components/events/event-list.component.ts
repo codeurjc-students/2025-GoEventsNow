@@ -27,8 +27,8 @@ export class EventListComponent implements OnInit {
     constructor (private eventService:EventService, private participantService:ParticipantService){}
 
     ngOnInit():void{
-        this.events$ = this.eventService.findAll(this.page,this.size);
-        this.participants$ = this.participantService.findAll(this.page,this.size);
+        this.events$ = this.eventService.fetchEvents({ page: this.page, size: this.size });
+        this.participants$ = this.participantService.fetchParticipants({ page: this.page, size: this.size });
     }
 
 }

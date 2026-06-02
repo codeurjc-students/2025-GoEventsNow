@@ -1,62 +1,92 @@
 <div class="container-fluid px-4 py-4">
-    <div class="row">
+    <div class="row g-4">
 
-        <aside class="col-12 col-md-4 col-lg-2 mb-4">
-            <div class="sticky-top" style="top: 20px;">
-                <h5 class="fw-bold mb-3"><i class="bi bi-filter"></i> Filters</h5>
-                <div class="d-flex flex-column gap-2">
-                    <p class="mb-1 fw-semibold small text-secondary">Category</p>
-
-                    <input type="checkbox" class="btn-check" id="btn-all" autocomplete="off">
-                    <label class="btn btn-outline-primary w-100 text-start border-0 py-2 rounded-3"
-                        for="btn-all">All</label>
-
-                    <input type="checkbox" class="btn-check" id="btn-music" autocomplete="off">
-                    <label class="btn btn-outline-primary w-100 text-start border-0 py-2 rounded-3"
-                        for="btn-music">Music</label>
-
-                    <input type="checkbox" class="btn-check" id="btn-tech" autocomplete="off">
-                    <label class="btn btn-outline-primary w-100 text-start border-0 py-2 rounded-3"
-                        for="btn-tech">Technology</label>
-
+        <aside class="col-12 col-md-4 col-lg-3">
+            <div class="sticky-top p-3 p-lg-4 bg-white border rounded-4 shadow-sm" style="top: 20px;">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-funnel me-2"></i>Filters</h5>
+                    <button class="btn btn-link btn-sm text-decoration-none p-0" (click)="clearFilters()">
+                        Clear all
+                    </button>
                 </div>
 
-                <div class="mt-4">
-                    <p class="mb-2 fw-semibold small text-secondary">Price Range</p>
-                    <div class="d-flex gap-2">
-                        <input type="number" class="form-control form-control-sm" placeholder="0">
-                        <span class="align-self-center">-</span>
-                        <input type="number" class="form-control form-control-sm" placeholder="500">
+                <div class="d-flex flex-column gap-3">
+                    <div>
+                        <p class="mb-1 fw-semibold small text-secondary text-uppercase">Category</p>
+                        <input id="search-category-event" type="text" class="form-control form-control-sm rounded-pill" [value]="categoryFilter"
+                            (change)="onCategoryChange($any($event.target).value)" placeholder="Music, Tech, Sports...">
+                    </div>
+
+                    <div>
+                        <p class="mb-1 fw-semibold small text-secondary text-uppercase">Price Range</p>
+                        <div class="d-flex gap-2">
+                            <input type="number" class="form-control form-control-sm rounded-pill" [value]="minPriceFilter"
+                                (change)="onPriceChange('min', $any($event.target).value)" placeholder="0">
+                            <input type="number" class="form-control form-control-sm rounded-pill" [value]="maxPriceFilter"
+                                (change)="onPriceChange('max', $any($event.target).value)" placeholder="500">
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="mb-1 fw-semibold small text-secondary text-uppercase">Order by</p>
+                        <div class="input-group input-group-sm">
+                            <select id="sort-select" #sortSelect class="form-select rounded-start-pill"
+                                (change)="changeSort(sortSelect.value)">
+                                <option value="">Default</option>
+                                <option value="recent">Recent</option>
+                                <option value="price">Price</option>
+                                <option value="title">Title</option>
+                                <option value="category">Category</option>
+                            </select>
+                            <button id="toggle-sort-dir" class="btn btn-outline-secondary rounded-end-pill px-3" (click)="toggleSortDir()"
+                                aria-label="Toggle sort direction">
+                                <i class="bi" [class.bi-arrow-up]="sortDir === 'asc'"
+                                    [class.bi-arrow-down]="sortDir === 'desc'"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-                <button class="btn btn-outline-dark btn-sm w-100 mt-4 rounded-pill">Clear All Filters</button>
             </div>
         </aside>
 
-        <main class="col-12 col-md-8 col-lg-10">
+        <main class="col-12 col-md-8 col-lg-9">
 
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="input-group input-group-lg shadow-sm rounded-pill overflow-hidden bg-white border">
-                        <span class="input-group-text bg-white border-0 ps-4">
-                            <i class="bi bi-search text-secondary"></i>
-                        </span>
-                        <input type="text" class="form-control border-0 py-3"
-                            placeholder="Search events by name, location, or description...">
+            <div class="bg-white border rounded-4 shadow-sm p-3 p-lg-4 mb-4">
+                <div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center">
+                    <div class="flex-grow-1">
+
+                        <div class="input-group input-group-lg overflow-hidden rounded-pill border">
+                            <span class="input-group-text bg-white border-0 ps-4">
+                                <i class="bi bi-search text-secondary"></i>
+                            </span>
+
+                            <input #searchInput id="search-name-event" type="text" class="form-control border-0 py-3" [value]="titleFilter"
+                                (keyup.enter)="onSearch($any($event.target).value)"
+                                placeholder="Search events by title...">
+
+                            <button id="apply-filters-bar" class="btn btn-dark px-4 fw-semibold" (click)="onSearch(searchInput.value)">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-lg-end">
+                        <p class="mb-1 small text-secondary text-uppercase fw-semibold">Results</p>
+                        <h5 class="mb-0 fw-bold">{{ events.length || 0 }} events</h5>
                     </div>
                 </div>
             </div>
 
             <div class="row g-4" id="event-list">
-                <h5 class="fw-bold mb-3">{{events.length}} Events Found</h5>
-                @for (event of events; track event.id) {
+                <h5 class="fw-bold mb-3">{{ events.length }} Events Found</h5>
 
+                @for (event of events; track event.id) {
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card h-100 shadow-sm border-1 border-light rounded-4 overflow-hidden">
 
                         <div class="position-relative" [class.bg-dark]="event.image"
                             style="height: 200px; background-color: #f8f9fa;">
+
                             <img [src]="event.image ? ('/api/v1/events/' + event.id + '/image') : '/images/noImage.png'"
                                 class="w-100 h-100"
                                 [ngClass]="event.image ? 'object-fit-cover opacity-75' : 'object-fit-contain'"
@@ -67,35 +97,60 @@
                             <div class="mb-2">
                                 <span
                                     class="badge border border-secondary-subtle text-secondary fw-normal rounded-pill px-3 py-1 bg-transparent">
-                                    {{event.category}}
+                                    {{ event.category }}
                                 </span>
                             </div>
 
-                            <h3 id="event-title-list-{{event.id}}" class="card-title h6 text-dark fw-bold mb-3">{{event.title}}</h3>
+                            <h3 id="event-title-list-{{ event.id }}" class="card-title h6 text-dark fw-bold mb-3">
+                                {{ event.title }}
+                            </h3>
 
                             <p class="text-secondary mb-1 small d-flex align-items-center">
-                                <i class="bi bi-calendar3 me-2"></i> {{event.date}} / {{event.time}}
+                                <i class="bi bi-calendar3 me-2"></i>
+                                {{ event.date }} / {{ event.time }}
                             </p>
+
                             <p class="text-secondary mb-4 small d-flex align-items-center">
-                                <i class="bi bi-geo-alt me-2"></i> {{event.location}}
+                                <i class="bi bi-geo-alt me-2"></i>
+                                {{ event.location }}
                             </p>
 
                             <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <span class="text-primary fw-bold">From ${{event.basicPrice}} -
-                                    ${{event.vipPrice}}</span>
-                                <a [routerLink]="['/event/', event.id]"
-                                    class="btn btn-dark btn-sm rounded-pill px-4 fw-bold py-2">View Details</a>
+                                <span class="text-primary fw-bold">
+                                    From ${{ event.basicPrice }} - ${{ event.vipPrice }}
+                                </span>
+
+                                <div class="d-flex gap-2">
+                                    @if (currentUser) {
+                                    <button type="button" class="btn btn-sm rounded-pill px-3 py-2"
+                                        [class.btn-danger]="isFavorite(event.id)"
+                                        [class.btn-outline-danger]="!isFavorite(event.id)"
+                                        (click)="toggleFavorite(event.id)" title="Add to favorites">
+                                        <i class="bi" [class.bi-heart-fill]="isFavorite(event.id)"
+                                            [class.bi-heart]="!isFavorite(event.id)">
+                                        </i>
+                                    </button>
+                                    }
+
+                                    <a [routerLink]="['/event/', event.id]"
+                                        class="btn btn-dark btn-sm rounded-pill px-4 fw-bold py-2">
+                                        View Details
+                                    </a>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 }
             </div>
 
             <div id="load-more-events" class="text-center mt-5" *ngIf="hasMore">
-                <button (click)="loadEvents()" class="btn btn-outline-dark rounded-pill px-5">Load More Events</button>
+                <button (click)="loadEvents()" class="btn btn-outline-dark rounded-pill px-5">
+                    Load More Events
+                </button>
             </div>
-        </main>
 
+        </main>
     </div>
 </div>

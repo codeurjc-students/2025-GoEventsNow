@@ -50,7 +50,21 @@ public class EventService {
         if (!participantRepository.existsById(participantId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found");
         }
-        return eventRepository.findByParticipantsId(participantId, pageable).map(this::toDTO);
+
+        return eventRepository
+                .findEventsByFilters(participantId, null, null, null, null, pageable)
+                .map(this::toDTO);
+    }
+
+    public Page<EventDTO> getEvents(Long participantId, String title, String category, Double minPrice,
+            Double maxPrice, Pageable pageable) {
+
+        String normalizedTitle = title != null && !title.trim().isEmpty() ? title.trim() : null;
+        String normalizedCategory = category != null && !category.trim().isEmpty() ? category.trim() : null;
+
+        return eventRepository
+                .findEventsByFilters(participantId, normalizedTitle, normalizedCategory, minPrice, maxPrice, pageable)
+                .map(this::toDTO);
     }
 
     public EventDTO addEvent(EventDTO eventDTO) {

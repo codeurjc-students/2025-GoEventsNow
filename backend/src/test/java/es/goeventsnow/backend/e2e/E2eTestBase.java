@@ -64,6 +64,10 @@ abstract class E2eTestBase {
         wait.until(driver -> driver.getPageSource().contains(text));
     }
 
+    protected void waitForPageTextToDisappear(String text) {
+        wait.until(driver -> !driver.getPageSource().contains(text));
+    }
+
     protected void waitForSelectOption(String id, String visibleText) {
         wait.until(driver -> new Select(waitForId(id)).getOptions().stream()
                 .anyMatch(option -> visibleText.equals(option.getDomProperty("textContent").trim())));

@@ -82,7 +82,8 @@ class EventE2ETest extends E2eTestBase {
         type("search-name-event", "Comedy");
         clickId("apply-filters-bar");
 
-        waitForId("event-title-list-3");
+        waitForPageTextToDisappear("Global Latin Music Festival");
+        waitForPageText("Stand-Up Comedy Night: Juan Dávila Live");
 
         assertTrue(driver.getPageSource().contains("Stand-Up Comedy Night: Juan Dávila Live"));
         assertFalse(driver.getPageSource().contains("Global Latin Music Festival"));
@@ -93,10 +94,11 @@ class EventE2ETest extends E2eTestBase {
         navigateToPath("/events");
 
         waitForId("event-title-list-1");
-        type("search-category-event", "Comedy");
+        setInputValue("search-category-event", "Comedy");
         clickId("apply-filters-bar");
 
-        waitForId("event-title-list-3");
+        waitForPageTextToDisappear("Global Latin Music Festival");
+        waitForPageText("Stand-Up Comedy Night: Juan Dávila Live");
         assertTrue(driver.getPageSource().contains("Stand-Up Comedy Night: Juan Dávila Live"));
         assertFalse(driver.getPageSource().contains("Global Latin Music Festival"));
     }

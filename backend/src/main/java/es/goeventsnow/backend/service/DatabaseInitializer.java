@@ -21,6 +21,18 @@ import jakarta.annotation.PostConstruct;
 @Service
 public class DatabaseInitializer {
 
+        private static final String MUSIC_ARTIST = "Music Artist";
+        private static final String COMEDIAN = "Comedian";
+        private static final String TENNIS_PLAYER = "Professional Tennis Player";
+        private static final String SCIENTIST = "Scientist";
+        private static final String FILM_DIRECTOR = "Film Director";
+        private static final String ACTOR = "Actor";
+        private static final String TECH_INNOVATOR = "Tech Innovator";
+        private static final String CHEF = "Chef";
+        private static final String BASKETBALL_PLAYER = "Basketball Player";
+        private static final String ACTRESS = "Actress";
+
+
         @Autowired
         private EventRepository eventRepository;
 
@@ -36,47 +48,47 @@ public class DatabaseInitializer {
         @PostConstruct
         public void init() throws IOException {
 
-                Participant badBunny = new Participant("Bad Bunny", "Music Artist",
+                Participant badBunny = new Participant("Bad Bunny", MUSIC_ARTIST,
                                 "Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.");
 
-                Participant oliviaRodrigo = new Participant("Olivia Rodrigo", "Music Artist",
+                Participant oliviaRodrigo = new Participant("Olivia Rodrigo", MUSIC_ARTIST,
                                 "Grammy-winning artist recognized for emotional songwriting, powerful vocals and chart-topping pop-rock performances.");
-                Participant juanDavila = new Participant("Juan Dávila", "Comedian",
+                Participant juanDavila = new Participant("Juan Dávila", COMEDIAN,
                                 "Spanish stand-up comedian known for his interactive, provocative and improvisational comedy shows. Famous for breaking the fourth wall and engaging directly with the audience in live performances across Spain.");
 
-                Participant rosalia = new Participant("Rosalía", "Music Artist",
+                Participant rosalia = new Participant("Rosalía", MUSIC_ARTIST,
                                 "Internationally acclaimed Spanish singer blending flamenco, pop and experimental sounds, recognized for highly visual live shows.");
 
-                Participant jannikSinner = new Participant("Jannik Sinner", "Professional Tennis Player",
+                Participant jannikSinner = new Participant("Jannik Sinner", TENNIS_PLAYER,
                                 "Italian tennis player, who has rapidly risen in the ATP rankings with his aggressive playing style and strong performances in major tournaments.");
 
-                Participant carlosAlcaraz = new Participant("Carlos Alcaraz", "Professional Tennis Player",
+                Participant carlosAlcaraz = new Participant("Carlos Alcaraz", TENNIS_PLAYER,
                                 "Spanish Grand Slam champion known for his explosive playing style, athleticism and rapid rise in world tennis.");
 
-                Participant neilDegrasseTyson = new Participant("Neil deGrasse Tyson", "Scientist",
+                Participant neilDegrasseTyson = new Participant("Neil deGrasse Tyson", SCIENTIST,
                                 "Astrophysicist and science communicator known for making complex scientific topics accessible to global audiences.");
 
-                Participant christopherNolan = new Participant("Christopher Nolan", "Film Director",
+                Participant christopherNolan = new Participant("Christopher Nolan", FILM_DIRECTOR,
                                 "Acclaimed filmmaker known for ambitious storytelling, large-scale productions and influential contributions to modern cinema.");
 
-                Participant markRuffalo = new Participant("Mark Ruffalo", "Actor",
+                Participant markRuffalo = new Participant("Mark Ruffalo", ACTOR,
                                 "Renowned actor and environmental advocate, speaker at sustainability events and climate-awareness forums.");
 
-                Participant elonMusk = new Participant("Elon Musk", "Tech Innovator",
+                Participant elonMusk = new Participant("Elon Musk", TECH_INNOVATOR,
                                 "Entrepreneur and technology leader associated with electric vehicles, space exploration, AI and future mobility.");
-                Participant jordiRoca = new Participant("Jordi Roca", "Chef",
+                Participant jordiRoca = new Participant("Jordi Roca", CHEF,
                                 "Spanish-American chef and humanitarian known for innovative cuisine, culinary education and global food-relief initiatives.");
 
-                Participant pauGasol = new Participant("Pau Gasol", "Basketball Player",
+                Participant pauGasol = new Participant("Pau Gasol", BASKETBALL_PLAYER,
                                 "Former professional basketball player, NBA champion and ambassador for sports, health and youth development.");
                 Participant zendaya = new Participant(
                                 "Zendaya",
-                                "Actress",
+                                ACTRESS,
                                 "Award-winning actress and fashion icon, recognized for her roles in film and television and presence in international premieres.");
 
                 Participant tomHolland = new Participant(
                                 "Tom Holland",
-                                "Actor",
+                                ACTOR,
                                 "Popular actor known for blockbuster films and appearances in global entertainment conventions and fan events.");
 
                 Event globalLatinMusicFestival = new Event("Global Latin Music Festival",

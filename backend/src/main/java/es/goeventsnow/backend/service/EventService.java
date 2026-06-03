@@ -28,6 +28,8 @@ import es.goeventsnow.backend.repository.ParticipantRepository;
 @Service
 public class EventService {
 
+    private static final String NOT_FOUND_IMAGE = "Event image not found";
+
     @Autowired
     private EventRepository eventRepository;
 
@@ -104,19 +106,19 @@ public class EventService {
 
     public Resource getEventImage(long id) throws SQLException {
         Event event = getEvent(id);
-        ensureImageExists(event.getImageFile(), "Event image not found");
+        ensureImageExists(event.getImageFile(), NOT_FOUND_IMAGE);
         return new InputStreamResource(event.getImageFile().getBinaryStream());
     }
 
     public void replaceEventImage(long id, InputStream inputStream, long size) {
         Event event = getEvent(id);
-        ensureImageExists(event.getImageFile(), "Event image not found");
+        ensureImageExists(event.getImageFile(), NOT_FOUND_IMAGE);
         updateEventImage(event, inputStream, size);
     }
 
     public void deleteEventImage(long id) {
         Event event = getEvent(id);
-        ensureImageExists(event.getImageFile(), "Event image not found");
+        ensureImageExists(event.getImageFile(), NOT_FOUND_IMAGE);
         event.setImage(false);
         event.setImageFile(null);
         eventRepository.save(event);

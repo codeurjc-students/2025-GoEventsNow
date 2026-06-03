@@ -1,6 +1,9 @@
 name: CI - Complete
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feature/**
   pull_request:
     branches:
       - main
@@ -68,12 +71,19 @@ jobs:
           echo "Waiting backend to be in port 8443..."
           timeout 120s sh -c 'until nc -z localhost 8443; do sleep 5; done'
 
-      - name: Run Frontend Unit & Integration tests
+      - name: Run frontend unitary and integration tests
         run: |
           cd frontend
+
           npx ng test --include="**/*.component.spec.ts" --watch=false --coverage
-          cp coverage/frontend/lcov.info coverage/frontend/lcov-components.info
+          mkdir -p coverage-reports
+          cp coverage/frontend/lcov.info coverage-reports/lcov-components.info
+
           npm run test:integration
+          cp coverage/frontend/lcov.info coverage-reports/lcov-services.info
+
+          echo "Coverage reports:"
+          find . -name "*.info"
 
       - name: Run Frontend
         run: |
@@ -91,13 +101,6 @@ jobs:
         run: |
           cd backend
           mvn jacoco:report
-
-      - name: Check coverage files
-        run: |
-          echo "Backend coverage:"
-          ls -l backend/target/site/jacoco/jacoco.xml || true
-          echo "Frontend coverage:"
-          find frontend -name "lcov.info" || true
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v6

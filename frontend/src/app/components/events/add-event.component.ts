@@ -21,7 +21,7 @@ export class AddEventComponent {
 
     newEvent: boolean = true;
     event: Event = {
-        title: '', description:'', category: '', location: '', date: '', time: '', basicPrice: 0, vipPrice: 0, availableBasicTickets: 0, availableVipTickets: 0,
+        title: '', description: '', category: '', location: '', date: '', time: '', basicPrice: 0, vipPrice: 0, availableBasicTickets: 0, availableVipTickets: 0,
         image: false, participants: [], tickets: [], reviews: []
     };
     allParticipants: Participant[] = [];
@@ -30,8 +30,8 @@ export class AddEventComponent {
     imageFile: File | null = null;
     errorMessage: string | null = null;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private eventService: EventService, private participantService: ParticipantService, private cd: ChangeDetectorRef) {
-        
+    constructor(private readonly activatedRoute: ActivatedRoute, private readonly router: Router, private readonly eventService: EventService, private readonly participantService: ParticipantService, private readonly cd: ChangeDetectorRef) {
+
         const eventId = this.activatedRoute.snapshot.params['id'];
 
         this.participantService.findAll(0, 100).subscribe({
@@ -56,7 +56,6 @@ export class AddEventComponent {
 
     send(): void {
 
-        
         if (!this.isFormEventValid()) {
             this.errorMessage = 'Please fill out all fields correctly.';
             return;
@@ -73,11 +72,11 @@ export class AddEventComponent {
                         next: () => { this.router.navigate(['']); },
                         error: (error) => console.error('Failed to delete image:', error)
                     });
-                }else if (this.imageFile) {
+                } else if (this.imageFile) {
                     this.uploadImage(event);
-                }else {
+                } else {
                     this.router.navigate(['']);
-                };
+                }
             },
             error: (error) => console.error('Failed to create event:', error)
         });
@@ -101,20 +100,20 @@ export class AddEventComponent {
     }
 
     isFormEventValid(): boolean {
-    return !!(
-        this.event.title && this.event.title.trim().length > 0 && 
-        this.event.description && this.event.description.trim().length > 0 &&
-        this.event.category && this.event.category.trim().length > 0 &&
-        this.event.location && this.event.location.trim().length > 0 &&
-        this.event.date && this.event.date.trim().length > 0 &&
-        this.event.time && this.event.time.trim().length > 0 &&
-        !(this.imageFile !== null && this.removeImage === true) &&
-        this.event.basicPrice != null && this.event.basicPrice >= 0 &&
-        this.event.vipPrice != null && this.event.vipPrice >= 0 &&
-        this.event.availableBasicTickets != null && this.event.availableBasicTickets >= 0 &&
-        this.event.availableVipTickets != null && this.event.availableVipTickets >= 0 &&
-        this.selectedParticipants && this.selectedParticipants.length > 0
-    );
-}
+        return !!(
+            this.event.title && this.event.title.trim().length > 0 &&
+            this.event.description && this.event.description.trim().length > 0 &&
+            this.event.category && this.event.category.trim().length > 0 &&
+            this.event.location && this.event.location.trim().length > 0 &&
+            this.event.date && this.event.date.trim().length > 0 &&
+            this.event.time && this.event.time.trim().length > 0 &&
+            !(this.imageFile !== null && this.removeImage === true) &&
+            this.event.basicPrice != null && this.event.basicPrice >= 0 &&
+            this.event.vipPrice != null && this.event.vipPrice >= 0 &&
+            this.event.availableBasicTickets != null && this.event.availableBasicTickets >= 0 &&
+            this.event.availableVipTickets != null && this.event.availableVipTickets >= 0 &&
+            this.selectedParticipants && this.selectedParticipants.length > 0
+        );
+    }
 
 }

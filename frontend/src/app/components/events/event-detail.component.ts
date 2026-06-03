@@ -32,7 +32,7 @@ export class EventDetailComponent implements OnInit {
     modalService = inject(NgbModal);
     currentEventId: number | null = null;
 
-    constructor(private activatedRoute: ActivatedRoute,private userService: UserService, private eventService: EventService, private router: Router, private reviewService: ReviewService, private changeDetectorRef: ChangeDetectorRef) { }
+    constructor(private readonly activatedRoute: ActivatedRoute, private readonly userService: UserService, private readonly eventService: EventService, private readonly router: Router, private readonly reviewService: ReviewService, private readonly changeDetectorRef: ChangeDetectorRef) { }
 
     ngOnInit(): void {
         const id = this.activatedRoute.snapshot.params['id'];
@@ -73,7 +73,7 @@ export class EventDetailComponent implements OnInit {
 
     openReviewModal(content: TemplateRef<any>, eventId?: number, review?: Review) {
 
-        if (!review || !review.id) {
+        if (!review?.id) {
             this.activeReview = {
                 description: '',
                 rating: 0,
@@ -97,7 +97,7 @@ export class EventDetailComponent implements OnInit {
 
         this.reviewService.createOrReplaceReview(this.activeReview).subscribe({
             next: (updatedReview: Review) => {
-                if (this.activeReview && this.activeReview.id) {
+                if (this.activeReview?.id) {
                     const index = this.reviews.findIndex(r => r.id === updatedReview.id);
                     if (index !== -1) {
                         this.reviews[index] = updatedReview;
@@ -115,7 +115,7 @@ export class EventDetailComponent implements OnInit {
     }
 
     toggleFavorite(): void {
-        if (!this.currentUser || !this.currentUser.id || this.currentEventId === null) {
+        if (!this.currentUser?.id || this.currentEventId === null) {
             return;
         }
 

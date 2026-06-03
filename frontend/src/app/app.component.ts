@@ -14,8 +14,8 @@ import { UserService } from './service/user.service';
 export class AppComponent implements OnInit {
 
   constructor(
-    private authService: AuthService,
-    private userService: UserService 
+    private readonly authService: AuthService,
+    private readonly userService: UserService 
   ) { }
 
   ngOnInit(): void {

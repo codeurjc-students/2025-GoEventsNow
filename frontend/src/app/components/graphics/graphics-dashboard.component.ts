@@ -24,7 +24,7 @@ export class GraphicsDashboardComponent implements AfterViewInit, OnDestroy {
   private pendingEventsChart = false;
   private pendingCategoriesChart = false;
 
-  constructor(private graphicService: GraphicService, private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private readonly graphicService: GraphicService, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this.graphicService.getTicketsSoldByEvent().subscribe({

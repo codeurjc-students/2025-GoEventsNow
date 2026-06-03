@@ -19,7 +19,7 @@ export class ManageEventsComponent implements OnInit {
     events: any[] = [];
     hasMore: boolean = true;
 
-    constructor (private router:Router,private eventService: EventService, private cd: ChangeDetectorRef) {}
+    constructor (private readonly router:Router,private readonly eventService: EventService, private readonly cd: ChangeDetectorRef) {}
 
 
     ngOnInit(): void {

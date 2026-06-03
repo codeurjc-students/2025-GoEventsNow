@@ -13,7 +13,7 @@ const BASE_URL = '/api/v1/graphics';
 @Injectable({ providedIn: 'root' })
 export class GraphicService {
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private  readonly httpClient: HttpClient) {}
 
   getTicketsSoldByEvent(): Observable<GraphicResponse> {
     return this.httpClient.get<GraphicResponse>(`${BASE_URL}/bargraph`);

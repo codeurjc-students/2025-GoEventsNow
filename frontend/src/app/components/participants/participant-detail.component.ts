@@ -24,7 +24,7 @@ export class ParticipantDetailComponent implements OnInit {
     displayFollowerCount = 0;
     currentParticipantId: number | null = null;
 
-    constructor( private activatedRoute: ActivatedRoute, private participantService: ParticipantService, private eventService:EventService,private cd: ChangeDetectorRef, private router: Router, private userService: UserService) { }
+    constructor(private  readonly activatedRoute: ActivatedRoute, private  readonly participantService: ParticipantService, private  readonly eventService:EventService,private  readonly cd: ChangeDetectorRef, private  readonly router: Router, private  readonly userService: UserService) { }
 
     ngOnInit(): void {
         const id = this.activatedRoute.snapshot.params['id'];
@@ -62,7 +62,7 @@ export class ParticipantDetailComponent implements OnInit {
 
     toggleFollow(): void {
         
-        if (!this.currentUser || !this.currentUser.id || !this.currentParticipantId) return;
+        if (!this.currentUser?.id || !this.currentParticipantId) return;
 
         const userId = Number(this.currentUser.id);
         const participantId = Number(this.currentParticipantId);

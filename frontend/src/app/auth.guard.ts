@@ -9,7 +9,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable({providedIn: 'root'})
 export class authGuard implements CanActivate {
 
-    constructor(private authService: AuthService,private userService: UserService,private router: Router) {}
+    constructor(private readonly authService: AuthService, private readonly userService: UserService, private readonly router: Router) {}
 
     canActivate(): Observable<boolean> {
         return this.userService.getCurrentUser().pipe(

@@ -25,7 +25,7 @@ export class AddParticipantsComponent {
     errorMessage: string | null = null;
     imageFile: File | null = null;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router,private participantService: ParticipantService, private cd: ChangeDetectorRef) {
+    constructor(private  readonly activatedRoute: ActivatedRoute, private readonly router: Router,private readonly participantService: ParticipantService, private readonly cd: ChangeDetectorRef) {
         
         const participantId = this.activatedRoute.snapshot.params['id'];
 

@@ -26,7 +26,7 @@ export class ParticipantsListComponent implements OnInit {
     sortBy: string | null = null;
     sortDir: "asc" | "desc" = "desc";
 
-    constructor(private participantService: ParticipantService, private cd: ChangeDetectorRef) { }
+    constructor(private  readonly participantService: ParticipantService, private readonly cd: ChangeDetectorRef) { }
 
     ngOnInit(): void {
         this.loadParticipants();

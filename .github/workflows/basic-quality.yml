@@ -7,10 +7,10 @@ on:
       - 'fix/**'
 
 jobs:
-
   quality:
     name: Server + Client + Sonar - CI Workflow
     runs-on: ubuntu-latest
+
     services:
       mysql:
         image: mysql:8
@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -31,10 +33,14 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Install wait tools
+        run: sudo apt-get update && sudo apt-get install -y netcat-openbsd
+
       - name: Run & Build Backend Unit Test
         run: |
           cd backend
           mvn clean test -Dtest="EventServiceTest,ParticipantServiceTest,TicketServiceTest,UserServiceTest,ReviewServiceTest"
+          mvn jacoco:report
 
       - name: Set up Node.js 20
         uses: actions/setup-node@v4
@@ -44,24 +50,48 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install Dependencies
-        run: | 
+        run: |
           cd frontend
           npm install
 
       - name: Build project
         run: |
           cd frontend
-          npx ng build --configuration=production 
+          npx ng build --configuration=production
 
-      - name: Run frontend unitary tests
+      - name: Run Backend
+        env:
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/goeventsnow_db?useSSL=false&serverTimezone=UTC
+          SPRING_DATASOURCE_PASSWORD: password
+        run: |
+          cd backend
+          mvn spring-boot:run &
+          echo "Waiting backend to be in port 8443..."
+          timeout 120s sh -c 'until nc -z localhost 8443; do sleep 5; done'
+
+      - name: Run frontend unitary and integration tests
         run: |
           cd frontend
+
           npx ng test --include="**/*.component.spec.ts" --watch=false --coverage
+          mkdir -p coverage-reports
+          cp coverage/frontend/lcov.info coverage-reports/lcov-components.info
+
+          npm run test:integration
+          cp coverage/frontend/lcov.info coverage-reports/lcov-services.info
+
+          echo "Coverage reports:"
+          find . -name "*.info"
 
       - name: Check coverage files
         run: |
-          echo "Searching lcov.info..."
-          find . -name "lcov.info" || true
+          echo "Backend coverage:"
+          ls -l backend/target/site/jacoco/jacoco.xml || true
+
+          echo "Frontend coverage reports:"
+          ls -l frontend/coverage-reports || true
+          find frontend -name "*.info" || true
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v6

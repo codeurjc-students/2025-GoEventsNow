@@ -58,7 +58,12 @@ jobs:
           cd frontend
           npx ng test --include="**/*.component.spec.ts" --watch=false --coverage
 
+      - name: Check coverage files
+        run: |
+          echo "Searching lcov.info..."
+          find . -name "lcov.info" || true
+
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

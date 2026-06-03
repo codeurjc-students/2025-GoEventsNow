@@ -67,8 +67,8 @@ jobs:
         run: |
           cd backend
           mvn spring-boot:run &
-          echo "Waiting backend to be in port 8443..."
-          timeout 120s sh -c 'until nc -z localhost 8443; do sleep 5; done'
+          echo "Waiting backend to be ready..."
+          timeout 180s sh -c 'until curl -k https://localhost:8443/api/v1/events/; do sleep 5; done'
 
       - name: Run frontend unitary and integration tests
         run: |

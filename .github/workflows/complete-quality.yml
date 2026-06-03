@@ -1,6 +1,9 @@
 name: CI - Complete
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feature/**
   pull_request:
     branches:
       - main
@@ -72,6 +75,7 @@ jobs:
         run: |
           cd frontend
           npx ng test --include="**/*.component.spec.ts" --watch=false --coverage
+          cp coverage/frontend/lcov.info coverage/frontend/lcov-components.info
           npm run test:integration
 
       - name: Run Frontend

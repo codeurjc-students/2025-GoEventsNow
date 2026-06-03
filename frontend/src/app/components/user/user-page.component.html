@@ -23,11 +23,11 @@
                     </div>
 
                     <div style="padding-top: 15px; text-align: center;">
-                        <label class="form-label fw-bold">Fullname</label>
+                        <p class="form-label fw-bold">Fullname</p>
                         <p>{{user.fullname }}</p>
-                        <label class="form-label fw-bold">Email</label>
+                        <p class="form-label fw-bold">Email</p>
                         <p>{{user.email }}</p>
-                        <label class="form-label fw-bold">Phone</label>
+                        <p class="form-label fw-bold">Phone</p>
                         <p>{{user.phone }}</p>
                     </div>
                 </div>
@@ -137,11 +137,11 @@
                                                     [(ngModel)]="removeImage" id="removeImage">
                                                 <label class="form-check-label d-block" for="removeImage">Remove
                                                     Image</label>
-                                                <label class="form-label d-block mt-2">Update Image (MAX 1MB):</label>
+                                                <p class="form-label d-block mt-2">Update Image (MAX 1MB):</p>
                                             </div>
                                             } @else {
                                             <div>
-                                                <label class="form-label">Upload Image</label>
+                                                <p class="form-label">Upload Image</p>
                                             </div>
                                             }
                                             <input #file type="file" class="form-control" id="profilePicture"
@@ -303,8 +303,8 @@
                                         <div class="modal-body">
                                             <form>
                                                 <div class="mb-4 text-center">
-                                                    <label class="form-label fw-semibold text-secondary mb-1">Your
-                                                        Rating</label>
+                                                    <p class="form-label fw-semibold text-secondary mb-1">Your
+                                                        Rating</p>
 
                                                     <div class="d-flex flex-column align-items-center">
                                                         <ngb-rating [(rate)]="activeReview.rating" [max]="5"

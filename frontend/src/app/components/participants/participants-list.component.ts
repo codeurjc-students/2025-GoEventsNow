@@ -70,7 +70,8 @@ export class ParticipantsListComponent implements OnInit {
 
     loadTypes(): void {
         this.participantService.fetchParticipants({ page: 0, size: 1000 }).subscribe(participants => {
-            this.types = [...new Set(participants.map(p => p.type).filter(Boolean))].sort();
+            this.types = [...new Set(participants.map(p => p.type).filter(Boolean) as string[])]
+                .sort((a, b) => a.localeCompare(b));
             this.cd.detectChanges();
         });
     }

@@ -74,10 +74,12 @@ jobs:
         run: |
           cd frontend
 
-          npx ng test --include="**/*.component.spec.ts" --watch=false --coverage
+          rm -rf coverage
+          npm run test:components
           mkdir -p coverage-reports
           cp coverage/frontend/lcov.info coverage-reports/lcov-components.info
 
+          rm -rf coverage
           npm run test:integration
           cp coverage/frontend/lcov.info coverage-reports/lcov-services.info
 

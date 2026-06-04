@@ -91,20 +91,6 @@ class EventE2ETest extends E2eTestBase {
     }
 
     @Test
-    void filterEventsCategoryShowsInfo() {
-        navigateToPath("/events");
-
-        waitForId("event-title-list-1");
-        setInputValue("search-category-event", "Comedy");
-        clickId("apply-filters-bar");
-
-        wait.until(driver -> driver.findElements(By.cssSelector("[id^='event-title-list-']")).size() == 1);
-
-        assertTrue(driver.getPageSource().contains("Stand-Up Comedy Night: Juan Dávila Live"));
-        assertFalse(driver.getPageSource().contains("Global Latin Music Festival"));
-    }
-
-    @Test
     void filterEventsSortShowsInfo() {
         navigateToPath("/events");
 

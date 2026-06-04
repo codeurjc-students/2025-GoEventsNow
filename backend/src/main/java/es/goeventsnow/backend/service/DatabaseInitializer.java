@@ -31,6 +31,13 @@ public class DatabaseInitializer {
         private static final String CHEF = "Chef";
         private static final String BASKETBALL_PLAYER = "Basketball Player";
         private static final String ACTRESS = "Actress";
+        private static final String SPORTS = "Sports";
+        private static final String CULTURE = "Culture";
+        private static final String CINEMA = "Cinema";
+        private static final String GASTRONOMY = "Gastronomy";
+        private static final String MUSIC = "Music";
+        private static final String COMEDY = "Comedy";
+        private static final String TECHNOLOGY = "Technology";
 
 
         @Autowired
@@ -93,67 +100,67 @@ public class DatabaseInitializer {
 
                 Event globalLatinMusicFestival = new Event("Global Latin Music Festival",
                                 "A large-scale live music festival bringing together leading Latin and international artists. The event includes full-stage performances, VIP fan zones, immersive lighting, food areas and a night focused on reggaeton, pop and flamenco fusion.",
-                                "Music", "Madrid, WiZink Center", "2026-05-10", "21:00",
+                                MUSIC, "Madrid, WiZink Center", "2026-05-10", "21:00",
                                 80.0, 250.0, 15000, 1000,
                                 List.of(badBunny, oliviaRodrigo));
 
                 Event oliviaRodrigoConcertExperience = new Event("Olivia Rodrigo Concert Experience",
                                 "A concert experience focused on emotional songwriting, acoustic arrangements and powerful live vocals. The event is designed for fans who want a closer connection with the artist and the stories behind the songs.",
-                                "Music", "Barcelona, Palau Sant Jordi", "2026-06-14", "20:30",
+                                MUSIC, "Barcelona, Palau Sant Jordi", "2026-06-14", "20:30",
                                 55.0, 160.0, 9000, 600,
                                 List.of(oliviaRodrigo));
 
                 Event juanDavilaComedyNight = new Event("Stand-Up Comedy Night: Juan Dávila Live",
                                 "A live comedy show full of improvisation, audience interaction and unpredictable moments. Juan Dávila brings his characteristic bold humor to a theatre night where the crowd becomes part of the performance.",
-                                "Comedy", "Fuenlabrada, Madrid", "2026-03-15", "21:00",
+                                COMEDY, "Fuenlabrada, Madrid", "2026-03-15", "21:00",
                                 25.0, 60.0, 500, 80,
                                 List.of(juanDavila));
 
                 Event rolandGarrosChampionsExhibition = new Event("Roland Garros Champions Exhibition",
                                 "A premium tennis exhibition featuring elite-level rallies, training demonstrations and a special match format inspired by Grand Slam competition. Fans will enjoy a close look at modern tennis intensity and technique.",
-                                "Sports", "Paris, Court Philippe-Chatrier", "2026-06-07", "15:00",
+                                SPORTS, "Paris, Court Philippe-Chatrier", "2026-06-07", "15:00",
                                 180.0, 600.0, 14000, 1200,
                                 List.of(jannikSinner, carlosAlcaraz));
 
                 Event futureSpaceAiConference = new Event("Future of Space and Artificial Intelligence",
                                 "A technology conference exploring the future of space exploration, artificial intelligence, electric mobility and scientific communication. The event includes keynote talks, public Q&A and discussions about innovation and society.",
-                                "Technology", "San Francisco, USA", "2026-04-20", "11:00",
+                                TECHNOLOGY, "San Francisco, USA", "2026-04-20", "11:00",
                                 150.0, 350.0, 1200, 150,
                                 List.of(neilDegrasseTyson, elonMusk));
 
                 Event cinemaMastersForum = new Event("Cinema Masters: Storytelling and Performance",
                                 "A cinema forum focused on directing, acting and the creative process behind major film productions. The session includes a director talk, actor discussion and audience questions about modern filmmaking.",
-                                "Cinema", "London, BFI Southbank", "2026-09-18", "18:30",
+                                CINEMA, "London, BFI Southbank", "2026-09-18", "18:30",
                                 70.0, 220.0, 900, 120,
                                 List.of(christopherNolan, markRuffalo));
 
                 Event eliteSportsLegendsTournament = new Event("Elite Sports Legends Tournament",
                                 "A high-profile international sports event bringing together elite athletes from tennis and basketball. The event includes exhibition matches, skills challenges, fan interactions and training sessions led by world-class professionals. Attendees will experience top-level competition, behind-the-scenes insights and motivational talks on discipline, performance and success in professional sports.",
-                                "Sports", "Miami, USA", "2026-07-20", "18:00",
+                                SPORTS, "Miami, USA", "2026-07-20", "18:00",
                                 120.0, 400.0, 20000, 1500,
                                 List.of(jannikSinner, carlosAlcaraz, pauGasol));
 
                 Event topDessertMasterclass = new Event("Top Dessert Masterclass",
                                 "A culinary masterclass focused on creative desserts, pastry techniques, sensory presentation and innovation in modern gastronomy. Attendees will learn about textures, plating and the creative process of high-level cuisine.",
-                                "Gastronomy", "Girona, Spain", "2026-06-18", "12:00",
+                                GASTRONOMY, "Girona, Spain", "2026-06-18", "12:00",
                                 200.0, 450.0, 80, 15,
                                 List.of(jordiRoca));
 
                 Event basketballLeadershipCamp = new Event("Basketball Leadership Camp",
                                 "A sports and leadership event combining basketball training, personal development and talks about discipline, teamwork and health. Designed for young athletes and fans interested in professional sports culture.",
-                                "Sports", "Barcelona, Spain", "2026-08-02", "09:30",
+                                SPORTS, "Barcelona, Spain", "2026-08-02", "09:30",
                                 35.0, 90.0, 600, 70,
                                 List.of(pauGasol));
 
                 Event youngHollywoodFanConvention = new Event("Young Hollywood Fan Convention",
                                 "Entertainment convention featuring panels, meet-and-greet sessions, fan activities and conversations about blockbuster cinema, acting careers and international productions.",
-                                "Cinema", "Los Angeles, USA", "2026-11-05", "19:00",
+                                CINEMA, "Los Angeles, USA", "2026-11-05", "19:00",
                                 90.0, 280.0, 3000, 350,
                                 List.of(zendaya, tomHolland));
 
                 Event musicCultureSocialImpactSummit = new Event("Music, Culture and Social Impact Summit",
                                 "A multidisciplinary event connecting music, cinema and social impact. Artists and public figures discuss creativity, fame, activism, identity and the influence of entertainment on younger generations.",
-                                "Culture", "New York, USA", "2026-12-13", "20:30",
+                                CULTURE, "New York, USA", "2026-12-13", "20:30",
                                 120.0, 400.0, 5000, 500,
                                 List.of(oliviaRodrigo, markRuffalo));
 

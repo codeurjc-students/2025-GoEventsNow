@@ -365,7 +365,14 @@ public class UserApiTest extends BaseApiTest {
         given()
                 .header("Cookie", adminCookie)
                 .when()
-                .post(API_USERS + adminId + "/favorites/1")
+                .post(API_USERS + adminId + "/favorites/6")
+                .then()
+                .statusCode(200);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .post(API_USERS + adminId + "/favorites/6")
                 .then()
                 .statusCode(400);
     }
@@ -386,9 +393,16 @@ public class UserApiTest extends BaseApiTest {
         given()
                 .header("Cookie", adminCookie)
                 .when()
-                .post(API_USERS + adminId + "/following/1")
+                .post(API_USERS + adminId + "/following/6")
                 .then()
                 .statusCode(200);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .post(API_USERS + adminId + "/following/6")
+                .then()
+                .statusCode(400);
     }
 
     @Test

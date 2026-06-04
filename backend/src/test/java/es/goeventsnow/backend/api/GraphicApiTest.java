@@ -1,7 +1,6 @@
 package es.goeventsnow.backend.api;
 
 import static org.hamcrest.Matchers.hasKey;
-import static org.mockito.ArgumentMatchers.isA;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

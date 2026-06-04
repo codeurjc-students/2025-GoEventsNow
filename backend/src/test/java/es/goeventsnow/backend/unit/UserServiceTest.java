@@ -19,6 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,12 +28,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.goeventsnow.backend.dto.event.EventDTO;
 import es.goeventsnow.backend.dto.event.EventMapper;
 import es.goeventsnow.backend.dto.participant.ParticipantDTO;
 import es.goeventsnow.backend.dto.participant.ParticipantMapper;
+import es.goeventsnow.backend.dto.ticket.TicketDTO;
+import es.goeventsnow.backend.dto.user.NewUserDTO;
 import es.goeventsnow.backend.dto.user.UserDTO;
 import es.goeventsnow.backend.dto.user.UserMapper;
 import es.goeventsnow.backend.model.Event;
@@ -263,6 +267,38 @@ public class UserServiceTest {
         assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
         verify(userRepository, never()).save(any(User.class));
         verify(userMapper, never()).toDTO(any(User.class));
+    }
+
+    @Test
+    public void userCreationReplacementWithExistingUserPreservesOldUserDataTest() throws Exception {
+        PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
+        NewUserDTO updateUserDTO = new NewUserDTO("Updated Name", "ignoredUsername", 111222333,
+                "updated@example.com", "newPassword", null);
+        List<TicketDTO> tickets = List.of(
+                new TicketDTO(1L, "BASIC", 50.0, 2, 20L, 1L),
+                new TicketDTO(2L, "VIP", 100.0, 3, 20L, 1L));
+        UserDTO oldUserDTO = new UserDTO(1L, "Mock User 1", "firstMockUser", 123456789,
+                "mockUser1@example.com", "firstPassword", 0, "Music", true, tickets, List.of("USER"),
+                new ArrayList<>(), List.of(mockEventDTO), List.of(mockParticipantDTO));
+        UserDTO savedUserDTO = new UserDTO(1L, "Updated Name", "firstMockUser", 111222333,
+                "updated@example.com", "firstPassword", 5, "Music", true, tickets, List.of("USER"),
+                new ArrayList<>(), List.of(mockEventDTO), List.of(mockParticipantDTO));
+
+        when(passwordEncoder.encode("newPassword")).thenReturn("encodedNewPassword");
+        when(userRepository.findById(1L)).thenReturn(Optional.of(firstMockUser));
+        when(userMapper.toDTO(firstMockUser)).thenReturn(oldUserDTO, savedUserDTO);
+
+        UserDTO result = userService.UserCreationReplacement(1L, updateUserDTO, false, passwordEncoder);
+
+        assertEquals("Updated Name", result.fullname());
+        assertEquals("firstMockUser", result.username());
+        assertEquals("firstPassword", result.password());
+        assertEquals(5, result.numTicketsBought());
+        assertTrue(result.profileImage());
+        assertEquals(tickets, result.tickets());
+        verify(userRepository, times(2)).findById(1L);
+        verify(userRepository, times(1)).save(firstMockUser);
+        verify(passwordEncoder, times(1)).encode("newPassword");
     }
 
     @Test

@@ -58,7 +58,7 @@ export class EventDetailComponent implements OnInit {
         });
         this.reviewService.getAllReviewsForEvent(id).subscribe({
             next: (reviews) => {
-                this.reviews = Array.isArray(reviews) ? reviews : [];
+                this.reviews = Array.isArray(reviews) ? (reviews as Review[]) : [];
                 this.reviews.forEach(review => {
                     this.userService.findById(review.userOwnerId).subscribe({
                         next: (user) => {
@@ -100,7 +100,9 @@ export class EventDetailComponent implements OnInit {
                 if (this.activeReview?.id) {
                     const index = this.reviews.findIndex(r => r.id === updatedReview.id);
                     if (index !== -1) {
-                        this.reviews[index] = updatedReview;
+                        const updatedReviews = [...this.reviews];
+                        updatedReviews[index] = updatedReview;
+                        this.reviews = updatedReviews;
                     }
                 } else {
                     this.reviews = [updatedReview, ...this.reviews];

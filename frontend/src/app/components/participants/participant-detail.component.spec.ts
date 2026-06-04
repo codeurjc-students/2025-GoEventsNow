@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, provideRouter } from '@angular/router';
-import { firstValueFrom, of } from 'rxjs';
+import { firstValueFrom, of, throwError } from 'rxjs';
 import { ParticipantDetailComponent } from './participant-detail.component';
 import { ParticipantService } from '../../service/participant.service';
 import { EventService } from '../../service/event.service';
@@ -145,4 +145,53 @@ describe('ParticipantDetailComponent', () => {
     expect(userServiceMock.followParticipant).not.toHaveBeenCalled();
     expect(userServiceMock.unfollowParticipant).not.toHaveBeenCalled();
   });
+
+  it('should handle current user is null load error', () => {
+    userServiceMock.getCurrentUser.mockImplementationOnce(() => throwError(() => new Error('error')));
+
+    const errorFixture = TestBed.createComponent(ParticipantDetailComponent);
+    const errorComponent = errorFixture.componentInstance;
+    errorFixture.detectChanges();
+
+    expect(errorComponent.currentUser).toBeNull();
+    expect(errorComponent.isFollowing).toBe(false);
+  });
+
+  it('should handle participant loading error', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
+    participantServiceMock.findById.mockImplementationOnce(() => of(mockParticipant));
+    eventServiceMock.getEventsByParticipantId.mockImplementationOnce(() => throwError(() => new Error('error')));
+
+    component.ngOnInit();
+
+    expect(consoleErrorSpy).toHaveBeenCalled();
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('should handle follow participant error', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
+    component.currentUser = mockUser;
+    component.currentParticipantId = 1;
+    component.isFollowing = false;
+    userServiceMock.followParticipant.mockImplementationOnce(() => throwError(() => new Error('error')));
+
+    component.toggleFollow();
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to follow participant', expect.any(Error));
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('should handle unfollow participant error', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
+    component.currentUser = mockUser;
+    component.currentParticipantId = 1;
+    component.isFollowing = true;
+    userServiceMock.unfollowParticipant.mockImplementationOnce(() => throwError(() => new Error('error')));
+
+    component.toggleFollow();
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to unfollow participant', expect.any(Error));
+    consoleErrorSpy.mockRestore();
+  });
+
 });

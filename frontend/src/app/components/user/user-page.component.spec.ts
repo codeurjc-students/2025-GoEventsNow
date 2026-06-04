@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
-import { of, Subject } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
 import { UserPageComponent } from './user-page.component';
 import { UserService } from '../../service/user.service';
 import { EventService } from '../../service/event.service';
@@ -191,6 +191,45 @@ describe('UserPageComponent', () => {
     expect(routerMock.navigate).toHaveBeenCalledWith(['']);
   });
 
+  it('should log an error when updating user fails', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    userServiceMock.replaceUser.mockReturnValueOnce(throwError(() => new Error('Update failed')));
+    component.user = { ...mockUser };
+
+    component.send();
+
+    expect(consoleErrorSpy).toHaveBeenCalled();
+
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('should log an error when deleting user image fails', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    userServiceMock.deleteUserImage.mockReturnValueOnce(throwError(() => new Error('Delete failed')));
+    component.user = { ...mockUser };
+    component.removeImage = true;
+
+    component.send();
+
+    expect(consoleErrorSpy).toHaveBeenCalled();
+
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('should log an error when uploading user image fails', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const file = new File(['fake-image'], 'profile.jpg', { type: 'image/jpeg' });
+    userServiceMock.createOrReplaceUserImage.mockReturnValueOnce(throwError(() => new Error('Upload failed')));
+    component.user = { ...mockUser };
+    component.profileImage = file;
+
+    component.send();
+
+    expect(consoleErrorSpy).toHaveBeenCalled();
+
+    consoleErrorSpy.mockRestore();
+  });
+
   it('should set profileImage on file selected', () => {
     const file = new File(['fake-image'], 'profile.jpg', { type: 'image/jpeg' });
 
@@ -220,6 +259,20 @@ describe('UserPageComponent', () => {
     expect(component.reviewsMap.get(1)).toEqual(mockEvent);
   });
 
+  it('should clear reviews and log an error when reviews fail to load', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    reviewServiceMock.getAllReviewsForUsername.mockReturnValueOnce(throwError(() => new Error('Reviews failed')));
+    component.user = { ...mockUser };
+    component.reviews = [mockReview];
+
+    component.loadReviewsForUser();
+
+    expect(component.reviews).toEqual([]);
+    expect(consoleErrorSpy).toHaveBeenCalled();
+
+    consoleErrorSpy.mockRestore();
+  });
+
    it('should calculate rounded rating', () => {
     expect(component.getRoundedRating(mockReview)).toBe(5);
   });
@@ -243,6 +296,51 @@ describe('UserPageComponent', () => {
     expect(component.reviews).toEqual([]);
   });
 
+  it('should log an error when deleting review fails', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    reviewServiceMock.deleteById.mockReturnValueOnce(throwError(() => new Error('Delete review failed')));
+    component.reviews = [mockReview];
+
+    component.deleteReview(mockReview);
+
+    expect(component.reviews).toEqual([mockReview]);
+    expect(consoleErrorSpy).toHaveBeenCalled();
+
+    consoleErrorSpy.mockRestore();
+  });
+
+  it('should open edit modal and save review on save click', async () => {
+    component.reviews = [mockReview];
+    const saveSpy = vi.spyOn(component, 'saveReviewUpdate');
+    const modalResult = Promise.resolve('Save click');
+    const modalOpenSpy = vi.spyOn(component.modalService, 'open').mockReturnValue({
+      result: modalResult
+    } as any);
+
+    component.openEditModal({} as any, mockReview);
+
+    expect(component.activeReview).toEqual(mockReview);
+    expect(component.activeReview).not.toBe(mockReview);
+    expect(modalOpenSpy).toHaveBeenCalledWith(
+      {},
+      { ariaLabelledBy: 'modal-basic-title', centered: true }
+    );
+
+    await modalResult;
+
+    expect(saveSpy).toHaveBeenCalled();
+  });
+
+  it('should not open edit modal when review has no id', () => {
+    const reviewWithoutId = { ...mockReview, id: undefined } as Review;
+    const modalOpenSpy = vi.spyOn(component.modalService, 'open');
+
+    component.openEditModal({} as any, reviewWithoutId);
+
+    expect(component.activeReview).toBe(reviewWithoutId);
+    expect(modalOpenSpy).not.toHaveBeenCalled();
+  });
+
   it('should update review', () => {
     component.reviews = [mockReview];
     component.activeReview = { ...mockReview, description: 'Updated review' };
@@ -251,6 +349,18 @@ describe('UserPageComponent', () => {
 
     expect(reviewServiceMock.createOrReplaceReview).toHaveBeenCalledWith(component.activeReview);
     expect(component.reviews[0].description).toBe('Updated review');
+  });
+
+  it('should log an error when updating review fails', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    reviewServiceMock.createOrReplaceReview.mockReturnValueOnce(throwError(() => new Error('Update review failed')));
+    component.activeReview = { ...mockReview };
+
+    component.saveReviewUpdate();
+
+    expect(consoleErrorSpy).toHaveBeenCalled();
+
+    consoleErrorSpy.mockRestore();
   });
 
   it('should remove favorite event', () => {
@@ -263,6 +373,20 @@ describe('UserPageComponent', () => {
     expect(component.favoriteEvents).toEqual([]);
   });
 
+  it('should log an error when removing favorite event fails', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    userServiceMock.removeFavoriteEvent.mockReturnValueOnce(throwError(() => new Error('Remove favorite failed')));
+    component.user = mockUser;
+    component.favoriteEvents = [mockEvent];
+
+    component.removeFavorite(1);
+
+    expect(component.favoriteEvents).toEqual([mockEvent]);
+    expect(consoleErrorSpy).toHaveBeenCalled();
+
+    consoleErrorSpy.mockRestore();
+  });
+
   it('should unfollow participant', () => {
     component.user = mockUser;
     component.followedParticipants = [mockParticipant];
@@ -271,6 +395,20 @@ describe('UserPageComponent', () => {
 
     expect(userServiceMock.unfollowParticipant).toHaveBeenCalledWith(1, 1);
     expect(component.followedParticipants).toEqual([]);
+  });
+
+  it('should log an error when unfollow participant fails', () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    userServiceMock.unfollowParticipant.mockReturnValueOnce(throwError(() => new Error('Unfollow failed')));
+    component.user = mockUser;
+    component.followedParticipants = [mockParticipant];
+
+    component.unfollowParticipant(1);
+
+    expect(component.followedParticipants).toEqual([mockParticipant]);
+    expect(consoleErrorSpy).toHaveBeenCalled();
+
+    consoleErrorSpy.mockRestore();
   });
 
 

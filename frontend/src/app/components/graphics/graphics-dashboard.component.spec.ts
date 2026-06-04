@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { GraphicsDashboardComponent } from './graphics-dashboard.component';
 import { GraphicService } from '../../service/graphic.service';
 
@@ -74,6 +74,18 @@ describe('GraphicsDashboardComponent', () => {
     ]);
   });
 
+  it('should build category legend with default color if backgroundColor is missing', () => {
+    component.categoriesChart = {
+      labels: ['Music'],
+      data: [],
+      backgroundColor: []
+    };
+
+    expect(component.categoryLegend).toEqual([
+      { label: 'Music', value: 0, color: '#6c757d' }
+    ]);
+  });
+
   it('should render dashboard texts in the DOM', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
@@ -81,4 +93,66 @@ describe('GraphicsDashboardComponent', () => {
     expect(compiled.textContent).toContain('Tickets sold by event');
     expect(compiled.textContent).toContain('Tickets sold by category');
   });
+
+  it('should handle service errors during initialization', () => {
+    graphicServiceMock.getTicketsSoldByEvent.mockReturnValue(throwError(() => new Error('Error')));
+    graphicServiceMock.getTicketsSoldByCategory.mockReturnValue(throwError(() => new Error('Error')));
+
+    const errorFixture = TestBed.createComponent(GraphicsDashboardComponent);
+    const errorComponent = errorFixture.componentInstance;
+    errorFixture.detectChanges();
+
+    expect(errorComponent.loading).toBe(false);
+    expect(errorComponent.eventsChart.labels.length).toBe(0);
+    expect(errorComponent.categoriesChart.labels.length).toBe(0);
+  });
+
+  it('should get bar max value', () => {
+    expect(component.barMax).toBe(2);
+  });
+
+  it('should generate accurate conic gradient percentages when categoriesChart has data', () => {
+    component.categoriesChart = {
+      labels: ['Music', 'Tech'],
+      data: [10, 10],
+      backgroundColor: ['#FF5733', '#33FF57']
+    };
+
+    const gradient = component.pieGradient;
+
+    expect(gradient).toContain('conic-gradient');
+    expect(gradient).toContain('#FF5733 0deg 180deg');
+    expect(gradient).toContain('#33FF57 180deg 360deg');
+  });
+
+  it('should return early in renderEventsChart if labels or canvas are missing', () => {
+    (component as any).eventsChartInstance = undefined;
+    component.eventsChart = { labels: [], data: [], backgroundColor: [] };
+    component.eventsChartCanvas = { nativeElement: document.createElement('canvas') };
+
+    (component as any).renderEventsChart();
+    expect((component as any).eventsChartInstance).toBeUndefined();
+
+    component.eventsChart = { labels: ['Event'], data: [10], backgroundColor: ['#000'] };
+    component.eventsChartCanvas = undefined;
+
+    (component as any).renderEventsChart();
+    expect((component as any).eventsChartInstance).toBeUndefined();
+  });
+
+  it('should return early in renderCategoriesChart if labels or canvas are missing', () => {
+    (component as any).categoriesChartInstance = undefined;
+    component.categoriesChart = { labels: [], data: [], backgroundColor: [] };
+    component.categoriesChartCanvas = { nativeElement: document.createElement('canvas') };
+
+    (component as any).renderCategoriesChart();
+    expect((component as any).categoriesChartInstance).toBeUndefined();
+
+    component.categoriesChart = { labels: ['Category'], data: [5], backgroundColor: ['#000'] };
+    component.categoriesChartCanvas = undefined;
+
+    (component as any).renderCategoriesChart();
+    expect((component as any).categoriesChartInstance).toBeUndefined();
+  });
+
 });

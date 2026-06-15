@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { of } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
 import { ParticipantsListComponent } from './participants-list.component';
 import { ParticipantService } from '../../service/participant.service';
 
@@ -173,6 +173,39 @@ describe('ParticipantsListComponent', () => {
     component.loadParticipants();
 
     expect(participantServiceMock.fetchParticipants).not.toHaveBeenCalled();
+  });
+
+  it('should set loading to false on error if currentToken matches requestToken', () => {
+    component.loading = false;
+    (component as any).hasMore = true;
+    (component as any).requestToken = 1;
+
+    participantServiceMock.fetchParticipants.mockImplementationOnce(() => throwError(() => new Error('Fetch failed')));
+
+    component.loadParticipants();
+
+    expect(component.loading).toBe(false);
+  });
+
+  it('should discard participants in next if currentToken does not match requestToken', () => {
+    component.participants = [];
+    component.page = 0;
+    component.loading = false;
+    (component as any).hasMore = true;
+    (component as any).requestToken = 1;
+
+    const mockParticipants = [{ id: 1, name: 'Ignored Participant' }] as any[];
+    const participantsResponse$ = new Subject<any[]>();
+    participantServiceMock.fetchParticipants.mockReturnValueOnce(participantsResponse$.asObservable());
+
+    component.loadParticipants();
+    (component as any).requestToken = 2;
+
+    participantsResponse$.next(mockParticipants);
+    participantsResponse$.complete();
+
+    expect(component.participants.length).toBe(0);
+    expect(component.page).toBe(0);
   });
 
 });

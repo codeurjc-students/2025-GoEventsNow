@@ -218,4 +218,18 @@ public class ReviewApiTest extends BaseApiTest {
                 .then()
                 .statusCode(400);
     }
+
+    @Test
+    public void deleteOtherUserReview_return403() {
+        String userCookie = getUserCookie();
+        int reviewId = createReviewAndGetId(userCookie, 1L, "Review to delete", 3.0);
+
+        given()
+                .header("Cookie", getAdminCookie())
+                .contentType("application/json")
+                .when()
+                .delete(API_REVIEWS + reviewId)
+                .then()
+                .statusCode(403);
+    }
 }

@@ -17,7 +17,7 @@ export interface ParticipantFilters {
 @Injectable({ providedIn: 'root' })
 export class ParticipantService {
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private readonly httpClient: HttpClient) { }
 
     public fetchParticipants(options: ParticipantFilters = {}): Observable<Participant[]> {
         let params = new HttpParams()

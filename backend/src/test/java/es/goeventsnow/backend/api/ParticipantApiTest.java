@@ -54,7 +54,7 @@ public class ParticipantApiTest extends BaseApiTest {
     }
 
     @Test
-    public void testGetAllParticipantsSortByType_return200() {
+    public void testGetAllParticipantsSortByTypeAsc_return200() {
         given()
                 .contentType("application/json")
                 .when()
@@ -64,6 +64,71 @@ public class ParticipantApiTest extends BaseApiTest {
                 .body("content[0].name", is("Mark Ruffalo"));
     }
 
+    @Test
+    public void testGetAllParticipantsSortByTypeDesc_return200() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_PARTICIPANTS + "?sortBy=type&sortDir=desc")
+                .then()
+                .statusCode(200)
+                .body("content[0].name", is("Elon Musk"));
+    }
+
+    @Test
+    public void testGetAllParticipantsSortByRecentAsc_return200() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_PARTICIPANTS + "?sortBy=recent&sortDir=asc")
+                .then()
+                .statusCode(200)
+                .body("content[0].name", is("Bad Bunny"));
+    }
+
+    @Test
+    public void testGetAllParticipantsSortByRecentDesc_return200() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_PARTICIPANTS + "?sortBy=recent&sortDir=desc")
+                .then()
+                .statusCode(200)
+                .body("content[0].name", is("Tom Holland"));
+    }
+
+    @Test
+    public void testGetAllParticipantsSortByNumFollowersAsc_return200() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_PARTICIPANTS + "?sortBy=numFollowers&sortDir=asc")
+                .then()
+                .statusCode(200)
+                .body("content[0].name", is("Bad Bunny"));
+    }
+
+    @Test
+    public void testGetAllParticipantsSortByNumFollowersDesc_return200() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_PARTICIPANTS + "?sortBy=numFollowers&sortDir=desc")
+                .then()
+                .statusCode(200)
+                .body("content[0].name", is("Bad Bunny"));
+    }
+
+    @Test
+    public void testGetAllParticipantsSortByDefault_return200() {
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_PARTICIPANTS + "?sortBy=default")
+                .then()
+                .statusCode(200)
+                .body("content[0].name", is("Bad Bunny"));
+    }
 
     @Test
     public void testGetParticipantById_return200() {

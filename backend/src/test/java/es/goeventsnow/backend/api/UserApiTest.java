@@ -3,6 +3,7 @@ package es.goeventsnow.backend.api;
 import java.io.File;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +41,21 @@ public class UserApiTest extends BaseApiTest {
                 .then()
                 .statusCode(200)
                 .body("id", notNullValue())
+                .body("username", is("user"));
+    }
+
+    @Test
+    public void testGetUserById_return200() {
+        String cookie = getUserCookie();
+        int userId = getCurrentUserId(cookie);
+
+        given()
+                .header("Cookie", cookie)
+                .when()
+                .get(API_USERS + userId)
+                .then()
+                .statusCode(200)
+                .body("id", is(userId))
                 .body("username", is("user"));
     }
 
@@ -162,30 +178,6 @@ public class UserApiTest extends BaseApiTest {
                 .then()
                 .statusCode(200)
                 .header("Content-Type", containsString("image/jpeg"));
-    }
-
-    @Test
-    public void testGetUserImageNoAuth_return200() {
-        given()
-                .when()
-                .get(API_USERS + "1/image")
-                .then()
-                .statusCode(200);
-    }
-
-    @Test
-    public void testGetOtherUserImage_return200() {
-        String userCookie = getUserCookie();
-        String adminCookie = getAdminCookie();
-
-        int adminId = getCurrentUserId(adminCookie);
-
-        given()
-                .header("Cookie", userCookie)
-                .when()
-                .get(API_USERS + adminId + "/image")
-                .then()
-                .statusCode(200);
     }
 
     @Test
@@ -322,6 +314,42 @@ public class UserApiTest extends BaseApiTest {
     }
 
     @Test
+    public void getUserFollowingParticipantsEmpty_return200() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .get(API_USERS + adminId + "/following")
+                .then()
+                .statusCode(200)
+                .body("content", hasSize(0))
+                .body("page.size", is(20))
+                .body("page.number", is(0))
+                .body("page.totalElements", is(0))
+                .body("page.totalPages", is(0));
+    }
+
+    @Test
+    public void getUserFavoritesEventsEmpty_return200() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .get(API_USERS + adminId + "/favorites")
+                .then()
+                .statusCode(200)
+                .body("content", hasSize(0))
+                .body("page.size", is(20))
+                .body("page.number", is(0))
+                .body("page.totalElements", is(0))
+                .body("page.totalPages", is(0));
+    }
+
+    @Test
     public void testAddFavoriteEvent_return200() {
         String adminCookie = getAdminCookie();
         int adminId = getCurrentUserId(adminCookie);
@@ -330,11 +358,51 @@ public class UserApiTest extends BaseApiTest {
     }
 
     @Test
+    public void testAddFavoriteEventAlreadyAdded_return400() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .post(API_USERS + adminId + "/favorites/6")
+                .then()
+                .statusCode(200);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .post(API_USERS + adminId + "/favorites/6")
+                .then()
+                .statusCode(400);
+    }
+
+    @Test
     public void testAddFollowingParticipant_return200() {
         String adminCookie = getAdminCookie();
         int adminId = getCurrentUserId(adminCookie);
 
         addFollowingParticipant(adminCookie, adminId);
+    }
+
+    @Test
+    public void testAddFollowingParticipantAlreadyAdded_return400() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .post(API_USERS + adminId + "/following/6")
+                .then()
+                .statusCode(200);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .post(API_USERS + adminId + "/following/6")
+                .then()
+                .statusCode(400);
     }
 
     @Test
@@ -352,6 +420,19 @@ public class UserApiTest extends BaseApiTest {
     }
 
     @Test
+    public void testDeleteFavoriteEventNotContained_return400() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .delete(API_USERS + adminId + "/favorites/1")
+                .then()
+                .statusCode(400);
+    }
+
+    @Test
     public void testDeleteFollowingParticipant_return200() {
         String adminCookie = getAdminCookie();
         int adminId = getCurrentUserId(adminCookie);
@@ -363,6 +444,19 @@ public class UserApiTest extends BaseApiTest {
                 .delete(API_USERS + adminId + "/following/1")
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    public void testDeleteFollowingParticipantNotContained_return400() {
+        String adminCookie = getAdminCookie();
+        int adminId = getCurrentUserId(adminCookie);
+
+        given()
+                .header("Cookie", adminCookie)
+                .when()
+                .delete(API_USERS + adminId + "/following/1")
+                .then()
+                .statusCode(400);
     }
 
     @Test
@@ -378,7 +472,7 @@ public class UserApiTest extends BaseApiTest {
                 .get(API_USERS + adminId + "/favorites")
                 .then()
                 .statusCode(200)
-                .body("size()", is(1));
+                .body("content[0].id", is(1));
     }
 
     @Test
@@ -394,7 +488,7 @@ public class UserApiTest extends BaseApiTest {
                 .get(API_USERS + adminId + "/following")
                 .then()
                 .statusCode(200)
-                .body("size()", is(1));
+                .body("content[0].id", is(1));
     }
 
     private void addFollowingParticipant(String adminCookie, int adminId) {

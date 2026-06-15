@@ -40,6 +40,8 @@ import jakarta.servlet.http.HttpServletRequest;
 @Service
 public class UserService {
 
+    private static final String NOT_FOUND_IMAGE = "User profile image not found";
+
     @Autowired
     private UserRepository userRepository;
 
@@ -128,19 +130,19 @@ public class UserService {
 
     public Resource getProfilePhoto(long id) throws SQLException {
         User user = getUser(id);
-        ensureImageExists(user.getProfileImageFile(), "User profile image not found");
+        ensureImageExists(user.getProfileImageFile(), NOT_FOUND_IMAGE);
         return new InputStreamResource(user.getProfileImageFile().getBinaryStream());
     }
 
     public void replaceProfilePhoto(long id, InputStream inputStream, long size) {
         User user = getUser(id);
-        ensureImageExists(user.getProfileImageFile(), "User profile image not found");
+        ensureImageExists(user.getProfileImageFile(), NOT_FOUND_IMAGE);
         updateProfilePhoto(user, inputStream, size);
     }
 
     public void deleteProfilePhoto(long id) {
         User user = getUser(id);
-        ensureImageExists(user.getProfileImageFile(), "User profile image not found");
+        ensureImageExists(user.getProfileImageFile(), NOT_FOUND_IMAGE);
         user.setProfileImage(false);
         user.setProfileImageFile(null);
         userRepository.save(user);
@@ -251,7 +253,7 @@ public class UserService {
     }
 
     private UserDTO buildReplacementUserDTO(Long userId, NewUserDTO newUserDTO, Boolean removeImage,
-            PasswordEncoder passwordEncoder) throws SQLException {
+            PasswordEncoder passwordEncoder) {
         boolean image = false;
         String userName = newUserDTO.username();
         String password = encodedPassword(newUserDTO, passwordEncoder);
@@ -265,7 +267,7 @@ public class UserService {
 
         if (userId != null) {
             UserDTO oldUser = findById(userId);
-            image = Boolean.TRUE.equals(removeImage) ? false : Boolean.TRUE.equals(oldUser.profileImage());
+            image = !Boolean.TRUE.equals(removeImage) && Boolean.TRUE.equals(oldUser.profileImage());
             userName = oldUser.username();
             numTicketsBought = oldUser.tickets() != null
                     ? oldUser.tickets().stream().mapToInt(TicketDTO::numTickets).sum()

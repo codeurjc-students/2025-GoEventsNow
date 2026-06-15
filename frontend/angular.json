@@ -73,7 +73,12 @@
             }
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "runner": "vitest",
+            "coverage": true,
+            "coverageReporters": ["text", "json", "html", "lcov"]
+          }
         }
       }
     }

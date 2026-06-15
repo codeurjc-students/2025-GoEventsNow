@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { AllEventsComponent } from './all-events.component';
 import { EventService } from '../../service/event.service';
 import { provideRouter } from '@angular/router';
@@ -28,17 +28,15 @@ const mockUser = {
     numTicketsBought: 0,
     favoriteGenre: 'None',
     favoriteEvents: [{ id: 1 }]
-};
-
+} as any;
 
 const mockEvents9 = mockEvents10.slice(0, 9);
-
 
 describe('AllEventsComponent', () => {
 
     let component: AllEventsComponent;
     let fixture: ComponentFixture<AllEventsComponent>;
-    let eventServiceMock: Partial<EventService>;
+    let eventServiceMock: any;
     let userServiceMock: any;
 
     beforeEach(async () => {
@@ -206,6 +204,74 @@ describe('AllEventsComponent', () => {
         expect(compiled.textContent).toContain('Top Dessert Masterclass');
         expect(compiled.textContent).toContain('Basketball Leadership Camp');
         expect(compiled.textContent).toContain('Young Hollywood Fan Convention');
+    });
+
+    it('should handle current user is null load error', () => {
+        component.currentUser = mockUser;
+        userServiceMock.getCurrentUser.mockImplementation(() => throwError(() => new Error('error')));
+
+        component.loadCurrentUser();
+
+        expect(component.currentUser).toBeNull();
+    });
+
+    it('should discard events in next if currentToken does not match requestToken', () => {
+        component.events = [];
+        component.page = 0;
+        component.loading = true;
+
+        (component as any).requestToken = 'original-token';
+
+        const mockEvents = [{ id: 1, title: 'Ignored Event' }] as any[];
+        eventServiceMock.fetchEvents.mockReturnValueOnce(of(mockEvents));
+
+        const originalLoadEvents = component.loadEvents.bind(component);
+        vi.spyOn(component, 'loadEvents').mockImplementation(() => {
+            originalLoadEvents();
+            (component as any).requestToken = 'updated-token';
+        });
+
+        component.loadEvents();
+
+        expect(component.events.length).toBe(0);
+        expect(component.page).toBe(0);
+    });
+
+    it('should change category and trigger search', () => {
+
+        const reloadEventsSpy = vi.spyOn(component as any, 'reloadEvents').mockImplementation(() => { });
+        component.onCategoryChange('Music');
+
+        expect(component.categoryFilter).toBe('Music');
+        expect(reloadEventsSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should change min price filter and trigger search', () => {
+        const reloadEventsSpy = vi.spyOn(component as any, 'reloadEvents').mockImplementation(() => { });
+        component.onPriceChange('min', '20');
+
+        expect(component.minPriceFilter).toBe('20');
+        expect(reloadEventsSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should change max price filter and trigger search', () => {
+        const reloadEventsSpy = vi.spyOn(component as any, 'reloadEvents').mockImplementation(() => { });
+        component.onPriceChange('max', '100');
+
+        expect(component.maxPriceFilter).toBe('100');
+        expect(reloadEventsSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should handle error when toggleFavorite fails', () => {
+        component.currentUser = mockUser;
+        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
+        userServiceMock.addFavoriteEvent.mockImplementationOnce(() => throwError(() => new Error('API Error')));
+        vi.spyOn(component, 'isFavorite').mockReturnValue(false);
+
+        component.toggleFavorite(2);
+
+        expect(consoleErrorSpy).toHaveBeenCalled();
+        consoleErrorSpy.mockRestore();
     });
 
 

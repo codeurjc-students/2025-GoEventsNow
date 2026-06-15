@@ -42,7 +42,7 @@ export class UserPageComponent {
     favoriteEvents: Event[] = [];
     followedParticipants: Participant[] = [];
 
-    constructor(private router: Router, private eventService: EventService, private userService: UserService, private reviewService: ReviewService, private cd: ChangeDetectorRef, private activatedRoute: ActivatedRoute) {
+    constructor(private readonly router: Router, private readonly eventService: EventService, private readonly userService: UserService, private readonly reviewService: ReviewService, private readonly cd: ChangeDetectorRef, private readonly activatedRoute: ActivatedRoute) {
 
         this.userId = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -69,7 +69,7 @@ export class UserPageComponent {
     }
 
     getRoundedRating(review: Review): number {
-        if (!review || review.rating === undefined || review.rating === null) return 0;
+        if (review?.rating == null) return 0;
         return Math.round(review.rating);
     }
 

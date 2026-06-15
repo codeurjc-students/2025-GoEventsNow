@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
     user: User | null = null;
     admin: boolean = false;
 
-    constructor(private authService: AuthService, private router: Router, private changeDetectorRef: ChangeDetectorRef) { }
+    constructor(private readonly authService: AuthService, private readonly router: Router, private readonly changeDetectorRef: ChangeDetectorRef) { }
 
     ngOnInit(): void {
         this.authService.getLoginStatus().subscribe(status => {

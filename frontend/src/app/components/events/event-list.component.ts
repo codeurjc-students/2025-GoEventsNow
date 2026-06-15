@@ -24,7 +24,7 @@ export class EventListComponent implements OnInit {
     page: number = 0;
     size: number = 3;
 
-    constructor (private eventService:EventService, private participantService:ParticipantService){}
+    constructor (private readonly eventService:EventService, private readonly participantService:ParticipantService){}
 
     ngOnInit():void{
         this.events$ = this.eventService.fetchEvents({ page: this.page, size: this.size });

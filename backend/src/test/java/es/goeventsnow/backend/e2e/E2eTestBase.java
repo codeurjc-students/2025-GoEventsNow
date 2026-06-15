@@ -60,6 +60,14 @@ abstract class E2eTestBase {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(id)));
     }
 
+    protected void waitForPageText(String text) {
+        wait.until(driver -> driver.getPageSource().contains(text));
+    }
+
+    protected void waitForPageTextToDisappear(String text) {
+        wait.until(driver -> !driver.getPageSource().contains(text));
+    }
+
     protected void waitForSelectOption(String id, String visibleText) {
         wait.until(driver -> new Select(waitForId(id)).getOptions().stream()
                 .anyMatch(option -> visibleText.equals(option.getDomProperty("textContent").trim())));
@@ -96,6 +104,16 @@ abstract class E2eTestBase {
         WebElement input = waitForId(id);
         input.clear();
         input.sendKeys(value);
+    }
+
+    protected void setInputValue(String id, String value) {
+        WebElement input = waitForId(id);
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].value = arguments[1];" +
+                        "arguments[0].dispatchEvent(new Event('input', { bubbles: true }));" +
+                        "arguments[0].dispatchEvent(new Event('change', { bubbles: true }));",
+                input,
+                value);
     }
 
     protected void selectByVisibleText(String id, String visibleText) {
@@ -163,7 +181,7 @@ abstract class E2eTestBase {
 
     protected void fillReviewForm(String description, String rating) {
         type("description", description);
-        type("rating", rating);
+        setInputValue("rating", rating);
     }   
 
     protected void submitReviewForm() {

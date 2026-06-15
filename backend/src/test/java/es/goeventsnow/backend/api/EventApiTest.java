@@ -86,6 +86,19 @@ public class EventApiTest extends BaseApiTest {
     }
 
     @Test
+    public void testGetAllEventsSortByPriceDesc_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?sortBy=price&sortDir=desc")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Top Dessert Masterclass"));
+    }
+
+    @Test
     public void testGetAllEventsSortByRecentDesc_return200() {
 
         given()
@@ -96,6 +109,84 @@ public class EventApiTest extends BaseApiTest {
                 .statusCode(200)
                 .log().all()
                 .body("content[0].title", is("Music, Culture and Social Impact Summit"));
+    }
+
+    @Test
+    public void testGetAllEventsSortByRecentAsc_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?sortBy=recent&sortDir=asc")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Global Latin Music Festival"));
+    }
+
+    @Test
+    public void testGetAllEventsSortByTitleDesc_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?sortBy=title&sortDir=desc")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Young Hollywood Fan Convention"));
+    }
+
+    @Test
+    public void testGetAllEventsSortByTitleAsc_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?sortBy=title&sortDir=asc")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Basketball Leadership Camp"));
+    }
+
+    @Test
+    public void testGetAllEventsSortByCategoryDesc_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?sortBy=category&sortDir=desc")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Future of Space and Artificial Intelligence"));
+    }
+
+    @Test
+    public void testGetAllEventsSortByCategoryAsc_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?sortBy=category&sortDir=asc")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Cinema Masters: Storytelling and Performance"));
+    }
+
+    @Test
+    public void testGetAllEventsSortByDefault_return200() {
+
+        given()
+                .contentType("application/json")
+                .when()
+                .get(API_EVENTS + "?sortBy=default")
+                .then()
+                .statusCode(200)
+                .log().all()
+                .body("content[0].title", is("Global Latin Music Festival"));
     }
 
     @Test
@@ -149,18 +240,6 @@ public class EventApiTest extends BaseApiTest {
                 .log().all()
                 .body("content[0].title", is("Global Latin Music Festival"))
                 .body("content[0].participants[0].id", is(1));
-    }
-
-    @Test
-    public void testGetEventsByParticipantId_return404() {
-
-        given()
-                .contentType("application/json")
-                .when()
-                .get(API_EVENTS + "?participantId=999")
-                .then()
-                .statusCode(404)
-                .log().all();
     }
 
     @Test

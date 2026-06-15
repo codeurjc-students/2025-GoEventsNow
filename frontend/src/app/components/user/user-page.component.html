@@ -23,11 +23,11 @@
                     </div>
 
                     <div style="padding-top: 15px; text-align: center;">
-                        <label class="form-label fw-bold">Fullname</label>
+                        <p class="form-label fw-bold">Fullname</p>
                         <p>{{user.fullname }}</p>
-                        <label class="form-label fw-bold">Email</label>
+                        <p class="form-label fw-bold">Email</p>
                         <p>{{user.email }}</p>
-                        <label class="form-label fw-bold">Phone</label>
+                        <p class="form-label fw-bold">Phone</p>
                         <p>{{user.phone }}</p>
                     </div>
                 </div>
@@ -137,11 +137,11 @@
                                                     [(ngModel)]="removeImage" id="removeImage">
                                                 <label class="form-check-label d-block" for="removeImage">Remove
                                                     Image</label>
-                                                <label class="form-label d-block mt-2">Update Image (MAX 1MB):</label>
+                                                <p class="form-label d-block mt-2">Update Image (MAX 1MB):</p>
                                             </div>
                                             } @else {
                                             <div>
-                                                <label class="form-label">Upload Image</label>
+                                                <p class="form-label">Upload Image</p>
                                             </div>
                                             }
                                             <input #file type="file" class="form-control" id="profilePicture"
@@ -241,7 +241,7 @@
 
                             @for (review of reviews; track review.id) {
                             @if (reviewsMap.get(review.eventAssociatedId); as event) {
-                            <div class="card shadow-sm border-0 rounded-4 overflow-hidden mb-3 p-2"
+                            <div id="review-{{review.id}}" class="card shadow-sm border-0 rounded-4 overflow-hidden mb-3 p-2"
                                 style="max-width: 1000px;">
                                 <div class="row g-0 align-items-center">
 
@@ -264,12 +264,12 @@
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
                                                     <div class="d-flex gap-2 mb-1">
-                                                        <button id="btn-open-update-review-modal" class="btn btn-sm btn-outline-secondary"
+                                                        <button id="btn-open-update-review-modal-{{review.id}}" class="btn btn-sm btn-outline-secondary"
                                                             (click)="openEditModal(content, review)"
                                                             title="Edit review">
                                                             <i class="bi bi-pencil-fill"></i>
                                                         </button>
-                                                        <button id="btn-delete-review" class="btn btn-sm btn-outline-danger"
+                                                        <button id="btn-delete-review-{{review.id}}" class="btn btn-sm btn-outline-danger"
                                                             (click)="deleteReview(review)" title="Delete review">
                                                             <i class="bi bi-trash-fill"></i>
                                                         </button>
@@ -303,8 +303,8 @@
                                         <div class="modal-body">
                                             <form>
                                                 <div class="mb-4 text-center">
-                                                    <label class="form-label fw-semibold text-secondary mb-1">Your
-                                                        Rating</label>
+                                                    <p class="form-label fw-semibold text-secondary mb-1">Your
+                                                        Rating</p>
 
                                                     <div class="d-flex flex-column align-items-center">
                                                         <ngb-rating [(rate)]="activeReview.rating" [max]="5"
@@ -332,7 +332,7 @@
                                                         id="review-description" style="height: 120px; resize: none;"
                                                         [(ngModel)]="activeReview.description" name="description"
                                                         placeholder="Write your review..."></textarea>
-                                                    <label for="floatingTextarea" class="text-muted">What did you
+                                                    <label for="review-description" class="text-muted">What did you
                                                         think?</label>
                                                 </div>
                                             </form>

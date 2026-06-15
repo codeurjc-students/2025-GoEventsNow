@@ -20,6 +20,7 @@ class TicketE2ETest extends E2eTestBase {
         navigateToPath("/graphics");
 
         waitForId("totalTicketsSold");
+        waitForPageText("Global Latin Music Festival");
         assertTrue(driver.getPageSource().contains("Global Latin Music Festival"));
     }
 
@@ -30,6 +31,7 @@ class TicketE2ETest extends E2eTestBase {
         navigateToPath("/graphics");
 
         waitForId("totalTicketsSold");
+        waitForPageText("Music");
         assertTrue(driver.getPageSource().contains("Music"));
     }
 

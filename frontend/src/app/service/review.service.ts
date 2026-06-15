@@ -9,7 +9,7 @@ const BASE_URL = '/api/v1/reviews/';
 @Injectable({ providedIn: 'root' })
 export class ReviewService {
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private readonly httpClient: HttpClient) { }
 
     public getAllReviewsForEvent(eventId: number): Observable<Review[]> {
         const id = Number(eventId);

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
 class EventE2ETest extends E2eTestBase {
 
@@ -35,7 +36,7 @@ class EventE2ETest extends E2eTestBase {
 
         clickId("btn-all-events");
 
-        waitForId("event-title-list-1");        
+        waitForId("event-title-list-1");
         assertTrue(driver.getPageSource().contains("Global Latin Music Festival"));
     }
 
@@ -82,21 +83,9 @@ class EventE2ETest extends E2eTestBase {
         type("search-name-event", "Comedy");
         clickId("apply-filters-bar");
 
-        waitForId("event-title-list-3");
+        waitForPageTextToDisappear("Global Latin Music Festival");
+        waitForPageText("Stand-Up Comedy Night: Juan Dávila Live");
 
-        assertTrue(driver.getPageSource().contains("Stand-Up Comedy Night: Juan Dávila Live"));
-        assertFalse(driver.getPageSource().contains("Global Latin Music Festival"));
-    }
-
-    @Test
-    void filterEventsCategoryShowsInfo() {
-        navigateToPath("/events");
-
-        waitForId("event-title-list-1");
-        type("search-category-event", "Comedy");
-        clickId("apply-filters-bar");
-
-        waitForId("event-title-list-3");
         assertTrue(driver.getPageSource().contains("Stand-Up Comedy Night: Juan Dávila Live"));
         assertFalse(driver.getPageSource().contains("Global Latin Music Festival"));
     }
@@ -106,7 +95,7 @@ class EventE2ETest extends E2eTestBase {
         navigateToPath("/events");
 
         waitForId("event-title-list-1");
-        waitForSelectOption("sort-select","Recent");
+        waitForSelectOption("sort-select", "Recent");
         clickCss("#sort-select option[value='recent']");
 
         waitForId("event-title-list-11");

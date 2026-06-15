@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:components": "ng test --include=\"**/*.component.spec.ts\" --watch=false --coverage --coverage-exclude=\"src/app/service/**\"",
     "test:integration": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 ng test --include=\"src/app/service/*.service.spec.ts\" --watch=false --coverage"
   },
   "prettier": {

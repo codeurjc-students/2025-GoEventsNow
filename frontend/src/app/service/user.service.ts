@@ -11,7 +11,7 @@ const BASE_URL = '/api/v1/users/';
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private readonly httpClient: HttpClient) { }
 
 
     public getCurrentUser() {

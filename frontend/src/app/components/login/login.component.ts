@@ -15,7 +15,7 @@ export class LoginComponent {
     username: string = '';
     password: string = '';
 
-    constructor(private authService: AuthService, private userService: UserService, private router: Router) {
+    constructor(private readonly authService: AuthService, private readonly userService: UserService, private readonly router: Router) {
      }
 
     login(): void {

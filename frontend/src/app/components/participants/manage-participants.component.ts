@@ -21,7 +21,7 @@ export class ManageParticipantsComponent implements OnInit {
     alertMessage: boolean = false;
     alertMessageText: string = '';
 
-    constructor (private participantService: ParticipantService, private cd: ChangeDetectorRef) {}
+    constructor (private  readonly participantService: ParticipantService, private readonly cd: ChangeDetectorRef) {}
 
 
     ngOnInit(): void {

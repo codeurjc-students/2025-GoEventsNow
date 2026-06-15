@@ -24,6 +24,8 @@ import es.goeventsnow.backend.repository.ParticipantRepository;
 @Service
 public class ParticipantService {
 
+    private static final String NOT_FOUND_IMAGE = "Participant image not found";
+
     @Autowired
     private ParticipantRepository participantRepository;
 
@@ -74,19 +76,19 @@ public class ParticipantService {
 
     public Resource getParticipantImage(long id) throws SQLException {
         Participant participant = getParticipant(id);
-        ensureImageExists(participant.getParticipantImageFile(), "Participant image not found");
+        ensureImageExists(participant.getParticipantImageFile(), NOT_FOUND_IMAGE);
         return new InputStreamResource(participant.getParticipantImageFile().getBinaryStream());
     }
 
     public void replaceParticipantImage(long id, InputStream inputStream, long size) {
         Participant participant = getParticipant(id);
-        ensureImageExists(participant.getParticipantImageFile(), "Participant image not found");
+        ensureImageExists(participant.getParticipantImageFile(), NOT_FOUND_IMAGE);
         updateParticipantImage(participant, inputStream, size);
     }
 
     public void deleteParticipantImage(long id) {
         Participant participant = getParticipant(id);
-        ensureImageExists(participant.getParticipantImageFile(), "Participant image not found");
+        ensureImageExists(participant.getParticipantImageFile(), NOT_FOUND_IMAGE);
         participant.setParticipantImage(false);
         participant.setParticipantImageFile(null);
         participantRepository.save(participant);

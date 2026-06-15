@@ -8,11 +8,11 @@ import { User } from '../model/user';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    private baseUrl: string = '/api/v1/auth/';
-    private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private currentUser: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+    private readonly baseUrl: string = '/api/v1/auth/';
+    private readonly loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private readonly currentUser: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private readonly httpClient: HttpClient) { }
 
     public login (credentials: { username: string, password: string }): Observable<any> {
         return this.httpClient.post(this.baseUrl + 'login', credentials, { withCredentials: true }).pipe(

@@ -51,29 +51,50 @@
                 <hr class="border-secondary-subtle">
                 <div class="row g-3 justify-content-center mb-4">
 
-                    <div class="col-12 text-center mb-3">
-                        <label class="fw-bold small shadow-none d-block mb-3">Select Ticket Type</label>
+                    <div class="col-12 text-center mb-4">
+                        <fieldset class="border-0 p-0">
+                            <legend class="fw-bold mb-3">
+                                Select Ticket Type
+                            </legend>
 
-                        <div class="btn-group" role="group" aria-label="Ticket Type Selection">
-                            @if (event.availableBasicTickets > 0) {
-                            <input type="radio" class="btn-check" name="ticketType" id="typeBasic"
-                                [(ngModel)]="this.selectedTicketType" value="BASIC" (change)="reloadPriceTotal()">
-                            <label class="btn btn-outline-primary px-4 py-2 fw-bold" for="typeBasic">
-                                Basic <br> <span class="fw-normal small">{{ event.basicPrice }}€</span>
-                            </label>
-                            }
-                            @if (event.availableVipTickets > 0) {
-                            <input type="radio" class="btn-check" name="ticketType" id="typeVip"
-                                [(ngModel)]="this.selectedTicketType" value="VIP" (change)="reloadPriceTotal()">
-                            <label class="btn btn-outline-primary px-4 py-2 fw-bold" for="typeVip">
-                                VIP <br> <span class="fw-normal small">{{ event.vipPrice }}€</span>
-                            </label>
-                            }
-                        </div>
+                            <div class="d-flex justify-content-center gap-3 flex-wrap">
+
+                                @if (event.availableBasicTickets > 0) {
+                                <div>
+                                    <input type="radio" class="btn-check" name="ticketType" id="typeBasic"
+                                        [(ngModel)]="selectedTicketType" value="BASIC" (change)="reloadPriceTotal()">
+
+                                    <label class="btn btn-outline-primary rounded-4 px-5 py-3 shadow-sm fw-bold"
+                                        for="typeBasic">
+                                        Basic
+                                        <span class="d-block fw-normal small mt-1">
+                                            {{ event.basicPrice }}€
+                                        </span>
+                                    </label>
+                                </div>
+                                }
+
+                                @if (event.availableVipTickets > 0) {
+                                <div>
+                                    <input type="radio" class="btn-check" name="ticketType" id="typeVip"
+                                        [(ngModel)]="selectedTicketType" value="VIP" (change)="reloadPriceTotal()">
+
+                                    <label class="btn btn-outline-primary rounded-4 px-5 py-3 shadow-sm fw-bold"
+                                        for="typeVip">
+                                        VIP
+                                        <span class="d-block fw-normal small mt-1">
+                                            {{ event.vipPrice }}€
+                                        </span>
+                                    </label>
+                                </div>
+                                }
+
+                            </div>
+                        </fieldset>
                     </div>
 
                     <div class="col-12 d-flex flex-column align-items-center gap-2">
-                        <label class="fw-bold small shadow-none">Number of Tickets</label>
+                        <p class="fw-bold small shadow-none">Number of Tickets</p>
 
                         <div class="d-flex align-items-center gap-3">
                             <button id="decrease-ticket-btn" type="button" (click)="decrease()"
@@ -117,7 +138,7 @@
                         <span>VIP Ticket ({{quantity}}x)</span>
                         <span class="text-dark fs-5">${{this.priceTotal.toFixed(2)}}</span>
                     </div>
-                }
+                    }
                     <hr class="border-secondary-subtle">
 
                     <div class="d-flex justify-content-between align-items-center fw-bold text-dark mt-4">

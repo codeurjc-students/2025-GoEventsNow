@@ -24,7 +24,7 @@ export class RegisterComponent {
     profilePicture: File | null = null;
     errorMessage: string | null = null;
 
-    constructor(private authService: AuthService, private userService: UserService, private router: Router, private changeDetectorRef: ChangeDetectorRef) { }
+    constructor(private  readonly authService: AuthService, private  readonly userService: UserService, private  readonly router: Router, private  readonly changeDetectorRef: ChangeDetectorRef) { }
 
 
     register(): void {

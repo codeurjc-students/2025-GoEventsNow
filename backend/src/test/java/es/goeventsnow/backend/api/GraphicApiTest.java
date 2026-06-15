@@ -1,5 +1,7 @@
 package es.goeventsnow.backend.api;
 
+import static org.hamcrest.Matchers.hasKey;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +23,10 @@ public class GraphicApiTest extends BaseApiTest {
                 .when()
                 .get(API_GRAPHIC + "bargraph")
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .body("$", hasKey("labels"))
+                .body("$", hasKey("data"))
+                .body("$", hasKey("backgroundColor"));
     }
 
     @Test
@@ -31,7 +36,10 @@ public class GraphicApiTest extends BaseApiTest {
                 .when()
                 .get(API_GRAPHIC + "piechart")
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .body("$", hasKey("labels"))
+                .body("$", hasKey("data"))
+                .body("$", hasKey("backgroundColor"));
     }
 
     @Test

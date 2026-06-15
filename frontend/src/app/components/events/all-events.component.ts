@@ -34,9 +34,9 @@ export class AllEventsComponent implements OnInit {
     sortDir: "asc" | "desc" = "desc";
 
     constructor(
-        private eventService: EventService,
-        private userService: UserService,
-        private cd: ChangeDetectorRef
+        private readonly eventService: EventService,
+        private readonly userService: UserService,
+        private readonly cd: ChangeDetectorRef
     ) { }
 
     ngOnInit(): void {

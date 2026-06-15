@@ -33,7 +33,7 @@ export class TicketSelectionComponent implements OnInit {
     priceTotal: number = 0;
     errorMessage: string | null = null;
 
-    constructor(private ticketService: TicketService, private eventService: EventService, private activatedRoute: ActivatedRoute, private userService: UserService, private router: Router) {
+    constructor(private readonly ticketService: TicketService, private readonly eventService: EventService, private readonly activatedRoute: ActivatedRoute, private readonly userService: UserService, private readonly router: Router) {
     }
 
     ngOnInit(): void {

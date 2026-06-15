@@ -26,7 +26,7 @@ export class ParticipantsListComponent implements OnInit {
     sortBy: string | null = null;
     sortDir: "asc" | "desc" = "desc";
 
-    constructor(private participantService: ParticipantService, private cd: ChangeDetectorRef) { }
+    constructor(private  readonly participantService: ParticipantService, private readonly cd: ChangeDetectorRef) { }
 
     ngOnInit(): void {
         this.loadParticipants();
@@ -70,7 +70,8 @@ export class ParticipantsListComponent implements OnInit {
 
     loadTypes(): void {
         this.participantService.fetchParticipants({ page: 0, size: 1000 }).subscribe(participants => {
-            this.types = [...new Set(participants.map(p => p.type).filter(Boolean))].sort();
+            this.types = [...new Set(participants.map(p => p.type).filter(Boolean) as string[])]
+                .sort((a, b) => a.localeCompare(b));
             this.cd.detectChanges();
         });
     }

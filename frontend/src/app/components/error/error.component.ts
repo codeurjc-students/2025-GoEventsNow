@@ -13,7 +13,7 @@ export class ErrorComponent implements OnInit {
   
   errorType = 'general';
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private readonly route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {

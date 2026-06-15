@@ -3,7 +3,7 @@ import { AddEventComponent } from './add-event.component';
 import { EventService } from '../../service/event.service';
 import { ParticipantService } from '../../service/participant.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { defer, of } from 'rxjs';
+import { defer, of, throwError } from 'rxjs';
 
 const mockParticipants = [
     { id: 1, name: 'Bad Bunny', type: 'Music Artist', biography: 'Puerto Rican global superstar known for redefining reggaeton and Latin trap, headlining major international festivals and sold-out world tours.' }
@@ -24,14 +24,14 @@ const validEvent = {
     image: false,
     participants: [],
     tickets: []
-};
+} as any;
 
 describe('AddEventComponent', () => {
 
     let component: AddEventComponent;
     let fixture: ComponentFixture<AddEventComponent>;
-    let eventServiceMock: Partial<EventService>;
-    let participantServiceMock: Partial<ParticipantService>;
+    let eventServiceMock: any;
+    let participantServiceMock: any;
     let routerMock: any;
 
     beforeEach(async () => {
@@ -168,5 +168,81 @@ describe('AddEventComponent', () => {
         });
 
         expect(component.imageFile).toBe(file);
+    });
+
+    it('should handle create or replace event error', () => {
+        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
+        vi.spyOn(component, 'isFormEventValid').mockReturnValue(true);
+        (eventServiceMock.createOrReplaceEvent as any).mockImplementationOnce(() => throwError(() => new Error('error')));
+
+        component.send();
+
+        expect(consoleErrorSpy).toHaveBeenCalled();
+        consoleErrorSpy.mockRestore();
+    });
+
+    it('should handle create or replace event image error', () => {
+        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
+        vi.spyOn(component, 'isFormEventValid').mockReturnValue(true);
+        component.removeImage = true;
+
+        (eventServiceMock.createOrReplaceEvent as any).mockImplementationOnce(() => of(validEvent));
+        (eventServiceMock.deleteEventImage as any).mockImplementationOnce(() => throwError(() => new Error('error')));
+
+        component.send();
+
+        expect(consoleErrorSpy).toHaveBeenCalled();
+        consoleErrorSpy.mockRestore();
+    });
+
+    it('should handle upload event image error', () => {
+        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
+        vi.spyOn(component, 'isFormEventValid').mockReturnValue(true);
+        component.imageFile = new File(['fake-image'], 'test.png', { type: 'image/png' });
+
+        (eventServiceMock.createOrReplaceEvent as any).mockImplementationOnce(() => of(validEvent));
+        (eventServiceMock.createOrReplaceEventImage as any).mockImplementationOnce(() => throwError(() => new Error('error')));
+
+        component.send();
+
+        expect(consoleErrorSpy).toHaveBeenCalled();
+        consoleErrorSpy.mockRestore();
+    });
+
+    it('should load event data and set newEvent to false when eventId is present', () => {
+        const mockActivatedRoute = {
+            snapshot: { params: { id: '42' } }
+        } as any;
+
+        const mockReturnedEvent = {
+            id: 42,
+            title: 'Manual Edit Event',
+            participants: [{ id: 10 }, { id: 20 }]
+        } as any;
+
+        (eventServiceMock.findById as any).mockImplementationOnce(() => of(mockReturnedEvent));
+
+        const manualComponent = new AddEventComponent(
+            mockActivatedRoute,
+            routerMock,
+            eventServiceMock,
+            participantServiceMock,
+            { detectChanges: vi.fn() } as any
+        );
+
+        expect(manualComponent.newEvent).toBe(false);
+        expect(eventServiceMock.findById).toHaveBeenCalledWith('42');
+        expect(manualComponent.event.title).toBe('Manual Edit Event');
+        expect(manualComponent.selectedParticipants).toEqual([10, 20]);
+    });
+
+
+    it('should render event form correctly', () => {
+        fixture.detectChanges();
+
+        const compiled = fixture.nativeElement as HTMLElement;
+        const formElement = compiled.querySelector('form');
+        
+        expect(formElement).toBeTruthy();
     });
 });

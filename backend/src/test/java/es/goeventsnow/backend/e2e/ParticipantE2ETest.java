@@ -89,7 +89,8 @@ class ParticipantE2ETest extends E2eTestBase {
         type("participant-search", "Mark");
         clickId("apply-filter-bar");
 
-        waitForId("participant-name-list-9");
+        waitForPageTextToDisappear("Bad Bunny");
+        waitForPageText("Mark Ruffalo");
 
         assertTrue(driver.getPageSource().contains("Mark Ruffalo"));
         assertFalse(driver.getPageSource().contains("Bad Bunny"));
@@ -100,10 +101,11 @@ class ParticipantE2ETest extends E2eTestBase {
         navigateToPath("/participants");
 
         waitForId("participant-name-list-1");
-        type("category-participant-filter", "Actor");
+        setInputValue("category-participant-filter", "Actor");
         clickId("apply-filter-bar");
 
-        waitForId("participant-name-list-9");
+        waitForPageTextToDisappear("Bad Bunny");
+        waitForPageText("Mark Ruffalo");
         assertTrue(driver.getPageSource().contains("Mark Ruffalo"));
         assertFalse(driver.getPageSource().contains("Bad Bunny"));
     }

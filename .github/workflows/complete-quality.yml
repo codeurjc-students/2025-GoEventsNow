@@ -48,9 +48,8 @@ jobs:
       - name: Compile Server & Run Backend Unit, Integration & API System Test 
         run: |
           cd backend
-          mvn clean test -Dtest="EventServiceTest,ParticipantServiceTest,TicketServiceTest,UserServiceTest"
-          mvn clean test -Dtest="EventRepositoryTest,ParticipantRepositoryTest,TicketRepositoryTest,UserRepositoryTest"
-          mvn clean test -Dtest="AuthApiTest,EventApiTest,ParticipantApiTest,TicketApiTest,UserApiTest"   
+          mvn clean test -Dtest="EventServiceTest,ParticipantServiceTest,TicketServiceTest,UserServiceTest,ReviewServiceTest,EventRepositoryTest,ParticipantRepositoryTest,TicketRepositoryTest,UserRepositoryTest,ReviewRepositoryTest,AuthApiTest,EventApiTest,ParticipantApiTest,TicketApiTest,UserApiTest,GraphicApiTest,ReviewApiTest"
+          mvn jacoco:report
 
       - name: Build Frontend
         run: |
@@ -65,14 +64,24 @@ jobs:
         run: |
           cd backend
           mvn spring-boot:run &
-          echo "Waiting backend to be in port 8443..."
-          timeout 120s sh -c 'until nc -z localhost 8443; do sleep 5; done'
+          echo "Waiting backend to be ready..."
+          timeout 180s sh -c 'until curl -k https://localhost:8443/api/v1/events/; do sleep 5; done'
 
-      - name: Run Frontend Unit & Integration tests
+      - name: Run frontend unitary and integration tests
         run: |
           cd frontend
-          npx ng test --include="**/*.component.spec.ts" --watch=false --coverage
+
+          rm -rf coverage
+          npm run test:components
+          mkdir -p coverage-reports
+          cp coverage/frontend/lcov.info coverage-reports/lcov-components.info
+
+          rm -rf coverage
           npm run test:integration
+          cp coverage/frontend/lcov.info coverage-reports/lcov-services.info
+
+          echo "Coverage reports:"
+          find . -name "*.info"
 
       - name: Run Frontend
         run: |
@@ -84,7 +93,12 @@ jobs:
       - name: Run Frontend System Tests
         run: |
           cd backend
-          mvn test -Dtest="EventE2ETest,ParticipantE2ETest,TicketE2ETest,UserE2ETest"
+          mvn test -Dtest="EventE2ETest,ParticipantE2ETest,TicketE2ETest,UserE2ETest,ReviewE2ETest"
+
+      - name: Generate Backend Coverage Report
+        run: |
+          cd backend
+          mvn jacoco:report
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2

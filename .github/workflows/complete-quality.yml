@@ -1,8 +1,5 @@
 name: CI - Complete
 on:
-  push:
-    branches:
-      - feature/**
   pull_request:
     branches:
       - main
